@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Creepster&family=Poppins:wght@200;300;400;500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+/* For WebKit (Chrome, Safari) */
+div::-webkit-scrollbar {
+  width: 6px;
+  /* Width of the entire scrollbar */
+}
+
+div::-webkit-scrollbar-track {
+  background: rgb(var(--background-start-rgb));
+  /* Color of the tracking area */
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* Color of the scrollbar handle */
+  border-radius: 3px;
+  /* Roundness of the scrollbar handle */
+  border: 2px solid rgb(var(--background-start-rgb));
+  /* Border around the scrollbar handle */
+}
+
+div::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  /* Color of the scrollbar handle on hover */
+}
+
+div::-webkit-scrollbar-corner {
+  background: rgb(var(--background-start-rgb));
+  /* Color of the bottom corner */
+}
+
+
+p,
+span,
+h1,
+h2 {
+  font-family: "Poppins", sans-serif !important;
+}
