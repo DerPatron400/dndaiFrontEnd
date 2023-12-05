@@ -11,7 +11,7 @@ const DropDown = ({ data, className, animName = "", value, onChange }) => {
   return (
     <div
       className={twMerge(
-        "mb-4 h-[100vh] flex items-center justify-center ",
+        "mb-4 h-[100vh] flex items-center justify-center bg-black",
         className
       )}
     >
@@ -26,11 +26,20 @@ const DropDown = ({ data, className, animName = "", value, onChange }) => {
           className="bg-transparent border-[1px] cursor-pointer border-green-500 my-4 p-3  text-white rounded-md md:w-[40vw] w-[70vw] focus:outline-none focus:ring focus:border-green-500 dropdown-custom"
           style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
         >
-          <option value="" disabled selected>
+          <option
+            value=""
+            disabled
+            selected
+            className="disabled:bg-black disabled:text-white"
+          >
             {data.placeholder}
           </option>
           {data.options.map((option) => (
-            <option className="cursor-pointer" key={option} value={option}>
+            <option
+              className="cursor-pointer bg-black"
+              key={option}
+              value={option}
+            >
               {option}
             </option>
           ))}
