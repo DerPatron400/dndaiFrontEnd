@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaHome } from "react-icons/fa";
 
 export default function Login() {
   const router = useRouter();
@@ -8,12 +8,11 @@ export default function Login() {
     router.push("/register");
   };
 
-
-  const BACKEND_LOGIN_URL = 'https://dndai.app/login'
-  const submitForm = async(e) => {
+  const BACKEND_LOGIN_URL = "https://dndai.app/login";
+  const submitForm = async (e) => {
     e.preventDefault();
 
-    console.log(e)
+    console.log(e);
 
     let formData = e.target;
 
@@ -26,28 +25,31 @@ export default function Login() {
     try {
       // Send the form data to your backend
       const response = await fetch(BACKEND_LOGIN_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({username, password}),
+        body: JSON.stringify({ username, password }),
       });
 
       // Handle the response from the backend
       if (response.ok) {
         const data = await response.json();
-        console.log('Login successful:', data);
+        console.log("Login successful:", data);
         router.push("/");
       } else {
-        console.error('Login failed:', response.status);
+        console.error("Login failed:", response.status);
         // Handle errors, such as displaying a message to the user
       }
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.error("An error occurred:", error);
       // Handle network errors, such as displaying a message to the user
     }
-  }
+  };
 
+  const handleHomeClick = () => {
+    router.push("/");
+  };
 
   return (
     <div className="flex h-screen w-screen relative">
@@ -67,11 +69,7 @@ export default function Login() {
               Log in to your account to continue
             </p>
           </div>
-          <form
-            id="loginForm"
-            className="space-y-6"
-            onSubmit={submitForm}
-          >
+          <form id="loginForm" className="space-y-6" onSubmit={submitForm}>
             <div className="mb-4">
               <label
                 htmlFor="username"
@@ -106,20 +104,26 @@ export default function Login() {
             </div>
             <button
               type="submit"
-              className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none"
+              className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300"
             >
               Login
             </button>
             <p className="text-sm mt-4">
               No account yet?{" "}
               <span
-                className="text-white hover:text-green-300 cursor-pointer"
+                className="text-white hover:text-green-300 cursor-pointer transition-colors duration-300"
                 onClick={handleSignupClick}
               >
                 Sign Up
               </span>
             </p>
           </form>
+          <button
+            onClick={handleHomeClick}
+            className="absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300"
+          >
+            <FaHome size={24} />
+          </button>
         </div>
       </div>
     </div>

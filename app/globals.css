@@ -20,9 +20,7 @@
 body {
   font-family: "Poppins", sans-serif !important;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: black;
 }
 
 /* For WebKit (Chrome, Safari) */
@@ -54,7 +52,6 @@ div::-webkit-scrollbar-corner {
   background: rgb(var(--background-start-rgb));
   /* Color of the bottom corner */
 }
-
 
 p,
 span,

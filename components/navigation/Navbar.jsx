@@ -44,6 +44,18 @@ const Navbar = () => {
             <img src="/Logo/white.png" alt="Logo" className="h-16 w-16" />
           </Link>
           <div className="flex items-center space-x-4 pr-2">
+            <div
+              onClick={() => {
+                setPlaying(!playing);
+              }}
+              className="rounded-full bg-white p-2 cursor-pointer"
+            >
+              {!playing ? (
+                <VolumeX size={20} color="black" />
+              ) : (
+                <Volume2 size={20} />
+              )}
+            </div>
             <Link
               href="/login"
               className="cursor-pointer text-md text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out"

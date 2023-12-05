@@ -9,7 +9,7 @@ export function BackgroundScene() {
 
   return (
     <div className="bg-black z-[1]">
-      <div className="fixed top-0 left-0 bg-black w-screen h-screen z-[3] ">
+      <div className="fixed top-0 left-0 bg-black w-screen h-screen ">
         <Canvas className="z-10">
           <Environment preset="apartment" />
           <Model setLoaded={setLoaded} />

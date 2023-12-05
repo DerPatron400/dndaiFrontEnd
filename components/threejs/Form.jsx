@@ -290,7 +290,7 @@ export default function Form() {
             <button
               type="button"
               onClick={handleClick}
-              className="bg-green-500 z-[4] text-white py-2 px-4 border-none cursor-pointer rounded-md"
+              className="bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-white py-2 px-4 border-none cursor-pointer rounded-md"
             >
               Random Character
             </button>
@@ -366,7 +366,7 @@ export default function Form() {
               onClick={handleSubmit}
               type="button"
               style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
-              className="bg-green-500 z-[4] text-xl text-white py-6 px-12 border-none cursor-pointer rounded-md anim-9"
+              className="bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-xl text-white py-6 px-12 border-none cursor-pointer rounded-md anim-9"
             >
               Start Game
             </button>

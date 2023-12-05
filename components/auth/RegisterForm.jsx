@@ -1,11 +1,16 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import { FaHome } from "react-icons/fa";
 
 export default function Register() {
   const router = useRouter();
 
   const handleSigninClick = () => {
     router.push("/signup");
+  };
+
+  const handleHomeClick = () => {
+    router.push("/");
   };
 
   return (
@@ -79,20 +84,26 @@ export default function Register() {
             </div>
             <button
               type="submit"
-              className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none"
+              className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300"
             >
               Signup
             </button>
             <p className="text-sm mt-4">
               If you already have an account, please{" "}
               <span
-                className="text-white hover:text-green-300 cursor-pointer"
+                className="text-white hover:text-green-300 cursor-pointer transition-colors duration-300"
                 onClick={handleSigninClick}
               >
                 Sign in
               </span>
             </p>
           </form>
+          <button
+            onClick={handleHomeClick}
+            className="absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300"
+          >
+            <FaHome size={24} />
+          </button>
         </div>
       </div>
     </div>
