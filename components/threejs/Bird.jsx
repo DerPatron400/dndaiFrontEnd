@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useGLTF, Sparkles, PositionalAudio } from "@react-three/drei";
+import { useGLTF, Sparkles } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import * as THREE from "three";
@@ -192,7 +192,7 @@ export function Model(props) {
     <>
       {addLight && (
         <MovingLight
-          color="#FFFFFF"
+          color='#FFFFFF'
           position={[0, 0, 3]}
           modelPosition={group?.current?.position}
         />
@@ -208,7 +208,6 @@ export function Model(props) {
         ]}
         scale={window.innerWidth < 768 ? 0.5 : 1}
       >
-        <PositionalAudio url="/Audio/ambient.mp3" autoplay distance={10} />
         <primitive object={scene} dispose={null} position={[0, 0, 0]} />
       </group>
     </>
