@@ -6,7 +6,7 @@ import { BackgroundScene } from "../BackgroundScene";
 export default function Scene() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="bg-black z-[1] relative">
+    <div className="z-[1] relative">
       <BackgroundScene setLoaded={setLoaded} />
       <div className="relative h-full w-screen model-trigger overflow-hidden ">
         {loaded && <Form />}
