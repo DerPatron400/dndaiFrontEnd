@@ -21,6 +21,7 @@ body {
   font-family: "Poppins", sans-serif !important;
   color: rgb(var(--foreground-rgb));
   background: black;
+  width: 100vw;
 }
 
 /* For WebKit (Chrome, Safari) */
@@ -58,4 +59,9 @@ span,
 h1,
 h2 {
   font-family: "Poppins", sans-serif !important;
+}
+
+.neon-text {
+  color: #00ff00; /* Neon green color */
+  text-shadow: 0 0 1px #00ff00, 0 0 2px #00ff00, 0 0 2px #00ff00;
 }

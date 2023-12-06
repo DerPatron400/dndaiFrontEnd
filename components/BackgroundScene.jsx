@@ -1,20 +1,20 @@
-import React, { Suspense, useState } from "react";
+// BackgroundScene.js
+
+import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import Navbar from "./navigation/Navbar";
 import { Model } from "./threejs/Bird";
+import Loader from "./threejs/Loader";
 
-export function BackgroundScene() {
-  const [loaded, setLoaded] = useState(false);
-
+export function BackgroundScene({ setLoaded }) {
   return (
-    <div className="bg-black z-[1]">
-      <div className="fixed top-0 left-0 bg-black w-screen h-screen ">
-        <Canvas className="z-10">
+    <div className="fixed top-0 left-0 bg-black w-screen h-screen z-[3]">
+      <Canvas className="z-10">
+        <Suspense fallback={<Loader />}>
           <Environment preset="apartment" />
           <Model setLoaded={setLoaded} />
-        </Canvas>
-      </div>
+        </Suspense>
+      </Canvas>
     </div>
   );
 }

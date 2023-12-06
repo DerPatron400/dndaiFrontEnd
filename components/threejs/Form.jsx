@@ -260,7 +260,6 @@ export default function Form() {
         ".anim-9",
         {
           opacity: 0,
-          x: 200,
         },
         {
           opacity: 1,
@@ -281,10 +280,10 @@ export default function Form() {
   }, []);
 
   return (
-    <div className="form  z-[-1] w-screen h-full bg-transparent ">
+    <div className="form z-[-1] w-screen h-full bg-transparent ">
       <form className="flex flex-col w-full items-center h-full ">
         <div className="mb-4 h-screen md:w-2/4 md:me-auto flex flex-col items-center md:ps-10 ps-[25%] justify-center ">
-          <div className="flex flex-col items-start j z-[4] w-[20rem] md:w-full">
+          <div className="flex flex-col items-start j z-[5] w-[20rem] md:w-full">
             <label className="text-white font-bold text-xl">
               Main Protagonist
             </label>
@@ -369,7 +368,7 @@ export default function Form() {
           onChange={(value) => handleChange("charisma", value)}
         />
 
-        <div className="h-[150vh]  z-[4] flex items-end ">
+        <div className="h-[150vh] z-[4] flex items-end">
           <div className="h-screen flex items-center " ref={formRef}>
             <button
               onClick={handleSubmit}

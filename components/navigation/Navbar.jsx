@@ -20,25 +20,13 @@ function useAudio(url) {
   useEffect(() => {
     audio.current = new Audio(url);
   }, []);
-  // useEffect(() => {
-  //   if (!audio.current) return;
-  //   if(playing)
-  //   const currentAudio = audio.current;
-  //   currentAudio.addEventListener("ended", () => setPlaying(false));
-  //   currentAudio.volume = 0.3;
-  //   currentAudio.pause();
-
-  //   return () => {
-  //     currentAudio.removeEventListener("ended", () => setPlaying(false));
-  //   };
-  // }, [audio]);
 
   return [playing, setPlaying];
 }
 
 const Navbar = () => {
   const [playing, setPlaying] = useAudio("/Audio/ambient.mp3");
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className="flex py-8 p-4 z-10 absolute top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between">

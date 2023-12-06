@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BackgroundScene } from "@/components/BackgroundScene";
 import { useRouter } from "next/navigation";
 import { MdClose } from "react-icons/md";
@@ -59,6 +59,7 @@ const InstructionsModal = ({ onClose }) => (
 );
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
   const router = useRouter();
   const [showInstructions, setShowInstructions] = useState(false);
 
@@ -71,15 +72,19 @@ export default function Home() {
   };
 
   return (
-    <div className="relative h-screen">
-      <BackgroundScene />
+    <div className="relative h-screen bg-black z-[1]">
+      <BackgroundScene setLoaded={setLoaded} />
 
-      <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-        <div className="w-full p-4 sm:p-8 mx-auto flex flex-col justify-center items-center">
-          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-center text-white">
-            Welcome to <span className="text-green-500">DnDAI</span> Adventures!
+      <div className="relative top-0 left-0 w-[100vw] h-full flex justify-center items-center">
+        <div className="w-[100vw] p-4 sm:p-8 mx-auto flex flex-col justify-center items-center">
+          <h1 className="text-xl neon-text sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-center text-white relative z-[4]">
+            <span className="text-white">
+              Welcome to <span className="text-green-500">DnDAI</span>{" "}
+              Adventures!
+            </span>
           </h1>
-          <div className="flex flex-col w-[80vw] sm:w-[20vw]">
+
+          <div className="flex flex-col w-[80vw] sm:w-[20vw] z-[4]">
             <button
               onClick={startGame}
               className="bg-green-500 text-white px-4 py-2 rounded-md mb-2 sm:mb-2 hover:bg-green-600 focus:outline-none transition-colors duration-300"
