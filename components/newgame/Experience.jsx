@@ -20,7 +20,7 @@ const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
 
-export default function Experience({ buttonRef, onIncreasePages }) {
+export default function Experience({ buttonRef, setPages, pages }) {
   const cameraGroup = useRef();
   const scroll = useScroll();
   const [offset, setScrollOffset] = useState(0);
@@ -52,13 +52,22 @@ export default function Experience({ buttonRef, onIncreasePages }) {
   }, [curve]);
 
   useFrame((_state, delta) => {
-    const scrollOffset = Math.max(0, scroll.offset);
-    console.log(scrollOffset);
+    //get scroll position
+    const scrollPosition =
+      document.documentElement.scrollTop /
+      (document.documentElement.scrollHeight -
+        document.documentElement.clientHeight);
 
-    if (scrollOffset >= 0.95) {
-      buttonRef.current.style.display = "block";
-    } else {
-      buttonRef.current.style.display = "none";
+    //    console.log(scrollPosition);
+    const scrollOffset = Math.max(0, scrollPosition);
+    // console.log(scrollOffset);
+
+    if (buttonRef.current) {
+      if (scrollOffset >= 0.95) {
+        buttonRef.current.style.display = "block";
+      } else {
+        buttonRef.current.style.display = "none";
+      }
     }
 
     const curPoint = curve.getPoint(scrollOffset);
@@ -126,7 +135,32 @@ export default function Experience({ buttonRef, onIncreasePages }) {
 
   const airplane = useRef();
   const endOfCurve = curve.getPoint(1);
-  console.log(endOfCurve);
+  const handleIncreaseScroll = () => {
+    console.log("here");
+    // //get scroll position
+    // const scrollPosition = scrollPosition;
+    //get scroll position
+    console.log(
+      document.documentElement.scrollTop /
+        (document.documentElement.scrollHeight -
+          document.documentElement.clientHeight)
+    );
+    const scrollPosition =
+      document.documentElement.scrollTop /
+      (document.documentElement.scrollHeight -
+        document.documentElement.clientHeight +
+        document.documentElement.clientHeight * 0.7);
+
+    setPages((prevPages) => prevPages + 1);
+    console.log(scrollPosition);
+    document.documentElement.scrollTop =
+      scrollPosition * document.documentElement.clientHeight * pages * 1.5;
+
+    //add threejs text to page
+
+    // console.log(scrollPosition);
+  };
+  console.log(pages);
 
   return (
     <>
@@ -148,9 +182,9 @@ export default function Experience({ buttonRef, onIncreasePages }) {
       {/* TEXT */}
       <group position={[-3, 0, -100]}>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="middle"
+          anchorY='middle'
           fontSize={0.22}
           maxWidth={2.5}
           font={"/fonts/Inter-Regular.ttf"}
@@ -162,9 +196,9 @@ export default function Experience({ buttonRef, onIncreasePages }) {
 
       <group position={[-10, 1, -200]}>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="center"
+          anchorY='center'
           fontSize={0.52}
           maxWidth={2.5}
           font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -172,9 +206,9 @@ export default function Experience({ buttonRef, onIncreasePages }) {
           Services
         </Text>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="top"
+          anchorY='top'
           position-y={-0.66}
           fontSize={0.22}
           maxWidth={2.5}
@@ -184,6 +218,60 @@ export default function Experience({ buttonRef, onIncreasePages }) {
           We have a wide range of beverages!
         </Text>
       </group>
+      {pages > 2 && (
+        <group position={[100, 0, -500]}>
+          <Text
+            color='white'
+            anchorX={"left"}
+            anchorY='center'
+            fontSize={0.52}
+            maxWidth={2.5}
+            font={"/fonts/DMSerifDisplay-Regular.ttf"}
+            onClick={handleIncreaseScroll}
+          >
+            Services
+          </Text>
+          <Text
+            color='white'
+            anchorX={"left"}
+            anchorY='top'
+            position-y={-0.66}
+            fontSize={0.22}
+            maxWidth={2.5}
+            font={"/fonts/Inter-Regular.ttf"}
+          >
+            Do you want a drink?{"\n"}
+            We have a wide range of beverages!
+          </Text>
+        </group>
+      )}
+      {pages > 3 && (
+        <group position={[-80, 0, -700]}>
+          <Text
+            color='white'
+            anchorX={"left"}
+            anchorY='center'
+            fontSize={0.52}
+            maxWidth={2.5}
+            font={"/fonts/DMSerifDisplay-Regular.ttf"}
+            onClick={handleIncreaseScroll}
+          >
+            Services
+          </Text>
+          <Text
+            color='white'
+            anchorX={"left"}
+            anchorY='top'
+            position-y={-0.66}
+            fontSize={0.22}
+            maxWidth={2.5}
+            font={"/fonts/Inter-Regular.ttf"}
+          >
+            Do you want a drink?{"\n"}
+            We have a wide range of beverages!
+          </Text>
+        </group>
+      )}
 
       {/* LINE */}
       <group position-y={-2}>
@@ -226,12 +314,18 @@ export default function Experience({ buttonRef, onIncreasePages }) {
       <Cloud scale={[0.8, 0.8, 0.8]} position={[-1, -1.5, -100]} />
 
       {/* <Cloud scale={[0.8, 0.8, 0.8]} /> */}
+      <group position={[4, 0, -300]}>
+        <Text
+          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'
+          onClick={handleIncreaseScroll}
+        >
+          Increase Scroll
+        </Text>
+      </group>
       <group position={[4, 0, -1750]}>
         <Text
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-          onClick={() =>
-            setScrollOffset((prevOffset) => Math.min(prevOffset + 10, 1))
-          }
+          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'
+          onClick={handleIncreaseScroll}
         >
           Increase Scroll
         </Text>
