@@ -20,7 +20,7 @@ const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
 
-export default function Experience() {
+export default function Experience({ buttonRef, onIncreasePages }) {
   const cameraGroup = useRef();
   const scroll = useScroll();
   const [offset, setScrollOffset] = useState(0);
@@ -52,8 +52,14 @@ export default function Experience() {
   }, [curve]);
 
   useFrame((_state, delta) => {
-    const scrollOffset = Math.max(0, scroll.offset + offset);
+    const scrollOffset = Math.max(0, scroll.offset);
     console.log(scrollOffset);
+
+    if (scrollOffset >= 0.95) {
+      buttonRef.current.style.display = "block";
+    } else {
+      buttonRef.current.style.display = "none";
+    }
 
     const curPoint = curve.getPoint(scrollOffset);
 
