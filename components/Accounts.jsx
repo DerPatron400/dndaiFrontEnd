@@ -51,7 +51,7 @@ const Accounts = () => {
           aria-labelledby="options-menu"
         >
           <Link
-            href="/new-game"
+            href="/newgame"
             className="cursor-pointer block px-4 py-2 text-sm text-white hover:text-white hover:bg-green-500 focus:text-white"
             role="menuitem"
           >
