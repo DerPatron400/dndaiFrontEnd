@@ -4,10 +4,10 @@ import { Gradient, LayerMaterial } from "lamina";
 import * as THREE from "three";
 
 export const Background = () => {
-  const colorA = "#0923be";
+  const colorA = "#000000";
   const colorB = "#ffad30";
   const start = 0.2;
-  const end = -0.5;
+  const end = -1;
   return (
     <>
       <Sphere scale={[500, 500, 500]} rotation-y={Math.PI / 2}>
@@ -29,7 +29,7 @@ export const Background = () => {
         >
           <LayerMaterial color={"#ffffff"} side={THREE.BackSide}>
             <Gradient
-              colorA={colorA}
+              colorA={"#ffffff"}
               colorB={colorB}
               axes={"y"}
               start={start}

@@ -4,44 +4,48 @@ import {
   Text,
   useScroll,
   Html,
+  Environment,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import { Model } from "./Airplane";
+import { Model } from "./Dragon";
 import { Background } from "./Background";
 import { Cloud } from "./Cloud";
 import { Group } from "three";
 import { useControls } from "leva";
 
 const LINE_NB_POINTS = 1000;
-const CURVE_DISTANCE = 250;
+const CURVE_DISTANCE = 200;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
 
-export default function Experience({ buttonRef, setPages, pages }) {
+export default function Experience({
+  buttonRef,
+  setPages,
+  pages,
+  setShowButton,
+  setOpen,
+}) {
   const cameraGroup = useRef();
   const scroll = useScroll();
   const [offset, setScrollOffset] = useState(0);
+  const [curvesData, setCurvesData] = useState([
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, -CURVE_DISTANCE),
+    new THREE.Vector3(0, 0, -2 * CURVE_DISTANCE),
+    new THREE.Vector3(0, 0, -3 * CURVE_DISTANCE),
+    // new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
+    // new THREE.Vector3(0, 0, -5 * CURVE_DISTANCE),
+    // new THREE.Vector3(0, 0, -6 * CURVE_DISTANCE),
+    // new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
+  ]);
+  const [text, setText] = useState([]);
 
   const curve = useMemo(() => {
-    return new THREE.CatmullRomCurve3(
-      [
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-        new THREE.Vector3(100, 0, -2 * CURVE_DISTANCE),
-        new THREE.Vector3(-100, 0, -3 * CURVE_DISTANCE),
-        new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
-        new THREE.Vector3(0, 0, -5 * CURVE_DISTANCE),
-        new THREE.Vector3(0, 0, -6 * CURVE_DISTANCE),
-        new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
-      ],
-      false,
-      "catmullrom",
-      0.5
-    );
-  }, []);
+    return new THREE.CatmullRomCurve3(curvesData, false, "catmullrom", 0.5);
+  }, [curvesData]);
 
   const shape = useMemo(() => {
     const shape = new THREE.Shape();
@@ -58,16 +62,12 @@ export default function Experience({ buttonRef, setPages, pages }) {
       (document.documentElement.scrollHeight -
         document.documentElement.clientHeight);
 
-    //    console.log(scrollPosition);
     const scrollOffset = Math.max(0, scrollPosition);
-    // console.log(scrollOffset);
 
-    if (buttonRef.current) {
-      if (scrollOffset >= 0.95) {
-        buttonRef.current.style.display = "block";
-      } else {
-        buttonRef.current.style.display = "none";
-      }
+    if (scrollPosition >= 0.95) {
+      setOpen(true);
+    } else {
+      setOpen(false);
     }
 
     const curPoint = curve.getPoint(scrollOffset);
@@ -130,51 +130,42 @@ export default function Experience({ buttonRef, setPages, pages }) {
         angle
       )
     );
+    console.log(cameraGroup.current.position);
     airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
   });
 
+  useEffect(() => {
+    setCurvesData((prevCurvesData) => [
+      ...prevCurvesData,
+      new THREE.Vector3(0, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
+    ]);
+    setText((prevText) => [
+      ...prevText,
+      {
+        heading: "Text " + pages,
+        text: "Some text here",
+        position: [0, 0, (pages + 1) * -210],
+      },
+    ]);
+  }, [pages]);
   const airplane = useRef();
   const endOfCurve = curve.getPoint(1);
-  const handleIncreaseScroll = () => {
-    console.log("here");
-    // //get scroll position
-    // const scrollPosition = scrollPosition;
-    //get scroll position
-    console.log(
-      document.documentElement.scrollTop /
-        (document.documentElement.scrollHeight -
-          document.documentElement.clientHeight)
-    );
-    const scrollPosition =
-      document.documentElement.scrollTop /
-      (document.documentElement.scrollHeight -
-        document.documentElement.clientHeight +
-        document.documentElement.clientHeight * 0.7);
-
-    setPages((prevPages) => prevPages + 1);
-    console.log(scrollPosition);
-    document.documentElement.scrollTop =
-      scrollPosition * document.documentElement.clientHeight * pages * 1.5;
-
-    //add threejs text to page
-
-    // console.log(scrollPosition);
-  };
-  console.log(pages);
 
   return (
     <>
-      <directionalLight position={[0, 3, 1]} intensity={0.1} />
+      <directionalLight position={[0, 3, 1]} intensity={1} />
       {/* <OrbitControls /> */}
       <group ref={cameraGroup}>
         <Background />
+        <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
+        <Environment preset='sunset' />
         <group ref={airplane}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
             <Model
+              refreshAnim={pages}
               rotation-y={Math.PI / 2}
               scale={[0.2, 0.2, 0.2]}
-              position-y={0.1}
             />
           </Float>
         </group>
@@ -218,60 +209,35 @@ export default function Experience({ buttonRef, setPages, pages }) {
           We have a wide range of beverages!
         </Text>
       </group>
-      {pages > 2 && (
-        <group position={[100, 0, -500]}>
-          <Text
-            color='white'
-            anchorX={"left"}
-            anchorY='center'
-            fontSize={0.52}
-            maxWidth={2.5}
-            font={"/fonts/DMSerifDisplay-Regular.ttf"}
-            onClick={handleIncreaseScroll}
-          >
-            Services
-          </Text>
-          <Text
-            color='white'
-            anchorX={"left"}
-            anchorY='top'
-            position-y={-0.66}
-            fontSize={0.22}
-            maxWidth={2.5}
-            font={"/fonts/Inter-Regular.ttf"}
-          >
-            Do you want a drink?{"\n"}
-            We have a wide range of beverages!
-          </Text>
-        </group>
-      )}
-      {pages > 3 && (
-        <group position={[-80, 0, -700]}>
-          <Text
-            color='white'
-            anchorX={"left"}
-            anchorY='center'
-            fontSize={0.52}
-            maxWidth={2.5}
-            font={"/fonts/DMSerifDisplay-Regular.ttf"}
-            onClick={handleIncreaseScroll}
-          >
-            Services
-          </Text>
-          <Text
-            color='white'
-            anchorX={"left"}
-            anchorY='top'
-            position-y={-0.66}
-            fontSize={0.22}
-            maxWidth={2.5}
-            font={"/fonts/Inter-Regular.ttf"}
-          >
-            Do you want a drink?{"\n"}
-            We have a wide range of beverages!
-          </Text>
-        </group>
-      )}
+
+      {text.map((t, i) => (
+        <>
+          {" "}
+          <group position={t.position}>
+            <Text
+              color='white'
+              anchorX={"left"}
+              anchorY='center'
+              fontSize={0.52}
+              maxWidth={2.5}
+              font={"/fonts/DMSerifDisplay-Regular.ttf"}
+            >
+              {t.heading}
+            </Text>
+            <Text
+              color='white'
+              anchorX={"left"}
+              anchorY='top'
+              position-y={-0.66}
+              fontSize={0.22}
+              maxWidth={2.5}
+              font={"/fonts/Inter-Regular.ttf"}
+            >
+              {t.text}
+            </Text>
+          </group>
+        </>
+      ))}
 
       {/* LINE */}
       <group position-y={-2}>
@@ -312,24 +278,6 @@ export default function Experience({ buttonRef, setPages, pages }) {
       />
       <Cloud scale={[0.3, 0.5, 2]} position={[-4, -0.5, -53]} />
       <Cloud scale={[0.8, 0.8, 0.8]} position={[-1, -1.5, -100]} />
-
-      {/* <Cloud scale={[0.8, 0.8, 0.8]} /> */}
-      <group position={[4, 0, -300]}>
-        <Text
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'
-          onClick={handleIncreaseScroll}
-        >
-          Increase Scroll
-        </Text>
-      </group>
-      <group position={[4, 0, -1750]}>
-        <Text
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'
-          onClick={handleIncreaseScroll}
-        >
-          Increase Scroll
-        </Text>
-      </group>
     </>
   );
 }

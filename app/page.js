@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { BackgroundScene } from "@/components/BackgroundScene";
+import { BackgroundScene } from "@/components/shared/BackgroundScene";
 import { useRouter } from "next/navigation";
 import { MdClose } from "react-icons/md";
 
