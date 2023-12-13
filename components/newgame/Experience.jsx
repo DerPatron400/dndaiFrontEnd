@@ -127,7 +127,7 @@ export default function Experience({
       {
         heading: "Text " + pages,
         text: "Some text here",
-        position: [0, 0, (pages + 1) * -100],
+        position: [0, 0, (pages + 1) * -50],
       },
     ]);
     setTimeout(() => {
@@ -142,11 +142,7 @@ export default function Experience({
       cameraGroup.current &&
       cameraGroup.current.position.z < text[text.length - 1].position[2]
     ) {
-      setTimeout(() => {
-        setOpen(true);
-      }, 2000);
-    } else {
-      setOpen(false);
+      setOpen(true);
     }
   };
 

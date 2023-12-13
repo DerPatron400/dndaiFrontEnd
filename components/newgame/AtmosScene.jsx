@@ -12,13 +12,8 @@ export default function AtmosScene() {
   const [showButton, setShowButton] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const increaseScroll = () => {
-    console.log(document.documentElement.scrollTop);
-    const scrollPosition = document.documentElement.scrollTop;
-    //buttonRef.current.style.display = "none";
+  const addTextToScene = () => {
     setPages((prev) => prev + 1);
-
-    document.documentElement.scrollTop = scrollPosition;
   };
 
   return (
@@ -36,26 +31,9 @@ export default function AtmosScene() {
             open={open}
           />
         </Canvas>
-
-        {/* <div>
-          <button
-            ref={buttonRef}
-            onClick={() => {
-              console.log(document.documentElement.scrollTop);
-              const scrollPosition = document.documentElement.scrollTop;
-              buttonRef.current.style.display = "none";
-              setPages((prev) => prev + 1);
-
-              document.documentElement.scrollTop = scrollPosition;
-            }}
-            className='none top-[50%] left-[50%] fixed translate-x-[-50%] translate-y-[-50%] py-2 px-4 bg-black text-white rounded-lg'
-          >
-            Scroll
-          </button>
-        </div> */}
       </div>
 
-      <GameLoop open={open} setOpen={setOpen} increaseScroll={increaseScroll} />
+      <GameLoop open={open} setOpen={setOpen} addTextToScene={addTextToScene} />
     </div>
   );
 }

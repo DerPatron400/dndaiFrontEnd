@@ -62,6 +62,16 @@ h2 {
 }
 
 .neon-text {
-  color: #00ff00; /* Neon green color */
+  color: #00ff00;
+  /* Neon green color */
   text-shadow: 0 0 1px #00ff00, 0 0 2px #00ff00, 0 0 2px #00ff00;
+}
+
+
+.rt-SelectTrigger:where(.rt-variant-surface) {
+  border: 1px solid white !important;
+}
+
+.rt-SelectTrigger:where(.rt-variant-surface):where([data-placeholder]) :where(.rt-SelectTriggerInner) {
+  color: #d3d3d3 !important;
 }

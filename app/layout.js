@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
-import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
+import "@radix-ui/themes/styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,9 +25,11 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body className={inter.className + " bg-black overflow-x-hidden"}>
         <div className='max-w-screen !overflow-hidden '>
-          {!hideNavbar && <Navbar />}
-          <div className='min-h-screen'>{children}</div>
-          {!hideFooter && <Footer />}
+          <Theme>
+            {!hideNavbar && <Navbar />}
+            <div className='min-h-screen'>{children}</div>
+            {!hideFooter && <Footer />}
+          </Theme>
         </div>
       </body>
     </html>
