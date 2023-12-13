@@ -65,6 +65,7 @@ export default function GameLoop({ open, setOpen, increaseScroll }) {
                             className='justify-center   h-10 border-0 rounded-md bg-green-600 px-3  py-1 text-sm font-semibold text-white shadow-sm hover:bg-green-500  '
                             onClick={() => {
                               setOpen(false);
+
                               increaseScroll();
                             }}
                           >

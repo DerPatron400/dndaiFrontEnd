@@ -33,6 +33,7 @@ export default function AtmosScene() {
             setPages={setPages}
             pages={pages}
             setOpen={setOpen}
+            open={open}
           />
         </Canvas>
 
@@ -53,11 +54,7 @@ export default function AtmosScene() {
           </button>
         </div> */}
       </div>
-      <div
-        style={{
-          height: `${pages * 100}vh`,
-        }}
-      ></div>
+
       <GameLoop open={open} setOpen={setOpen} increaseScroll={increaseScroll} />
     </div>
   );

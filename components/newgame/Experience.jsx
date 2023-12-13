@@ -20,6 +20,8 @@ const CURVE_DISTANCE = 200;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
+let offset = 0;
+let updating = false;
 
 export default function Experience({
   buttonRef,
@@ -27,15 +29,16 @@ export default function Experience({
   pages,
   setShowButton,
   setOpen,
+  open,
 }) {
   const cameraGroup = useRef();
   const scroll = useScroll();
-  const [offset, setScrollOffset] = useState(0);
+
   const [curvesData, setCurvesData] = useState([
     new THREE.Vector3(0, 0, 0),
     new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-    new THREE.Vector3(0, 0, -2 * CURVE_DISTANCE),
-    new THREE.Vector3(0, 0, -3 * CURVE_DISTANCE),
+    new THREE.Vector3(100, 0, -2 * CURVE_DISTANCE),
+    new THREE.Vector3(-100, 0, -3 * CURVE_DISTANCE),
     // new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
     // new THREE.Vector3(0, 0, -5 * CURVE_DISTANCE),
     // new THREE.Vector3(0, 0, -6 * CURVE_DISTANCE),
@@ -56,85 +59,65 @@ export default function Experience({
   }, [curve]);
 
   useFrame((_state, delta) => {
-    //get scroll position
-    const scrollPosition =
-      document.documentElement.scrollTop /
-      (document.documentElement.scrollHeight -
-        document.documentElement.clientHeight);
-
-    const scrollOffset = Math.max(0, scrollPosition);
-
-    if (scrollPosition >= 0.95) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-
-    const curPoint = curve.getPoint(scrollOffset);
-
-    // Follow the curve points
-    cameraGroup.current.position.lerp(curPoint, delta * 24);
-
-    // Make the group look ahead on the curve
-
-    const lookAtPoint = curve.getPoint(
-      Math.min(scrollOffset + CURVE_AHEAD_CAMERA, 1)
-    );
-
-    const currentLookAt = cameraGroup.current.getWorldDirection(
-      new THREE.Vector3()
-    );
-    const targetLookAt = new THREE.Vector3()
-      .subVectors(curPoint, lookAtPoint)
-      .normalize();
-
-    const lookAt = currentLookAt.lerp(targetLookAt, delta * 24);
-    cameraGroup.current.lookAt(
-      cameraGroup.current.position.clone().add(lookAt)
-    );
-
-    // Airplane rotation
-
-    const tangent = curve.getTangent(scrollOffset + CURVE_AHEAD_AIRPLANE);
-
-    const nonLerpLookAt = new Group();
-    nonLerpLookAt.position.copy(curPoint);
-    nonLerpLookAt.lookAt(nonLerpLookAt.position.clone().add(targetLookAt));
-
-    tangent.applyAxisAngle(
-      new THREE.Vector3(0, 1, 0),
-      -nonLerpLookAt.rotation.y
-    );
-
-    let angle = Math.atan2(-tangent.z, tangent.x);
-    angle = -Math.PI / 2 + angle;
-
-    let angleDegrees = (angle * 180) / Math.PI;
-    angleDegrees *= 2.4; // stronger angle
-
-    // LIMIT PLANE ANGLE
-    if (angleDegrees < 0) {
-      angleDegrees = Math.max(angleDegrees, -AIRPLANE_MAX_ANGLE);
-    }
-    if (angleDegrees > 0) {
-      angleDegrees = Math.min(angleDegrees, AIRPLANE_MAX_ANGLE);
-    }
-
-    // SET BACK ANGLE
-    angle = (angleDegrees * Math.PI) / 180;
-
-    const targetAirplaneQuaternion = new THREE.Quaternion().setFromEuler(
-      new THREE.Euler(
-        airplane.current.rotation.x,
-        airplane.current.rotation.y,
-        angle
-      )
-    );
-    console.log(cameraGroup.current.position);
-    airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
+    if (!updating) handleText();
+    //   //check keys
+    //   const scrollOffset = Math.max(0, offset);
+    //   // if (scrollPosition >= 0.95) {
+    //   //   setOpen(true);
+    //   // } else {
+    //   //   setOpen(false);
+    //   // }
+    //   const curPoint = curve.getPoint(scrollOffset);
+    //   // Make the group look ahead on the curve
+    //   cameraGroup.current.position.lerp(curPoint, delta * 24);
+    //   const lookAtPoint = curve.getPoint(
+    //     Math.min(scrollOffset + CURVE_AHEAD_CAMERA, 1)
+    //   );
+    //   // Follow the curve points
+    //   const currentLookAt = cameraGroup.current.getWorldDirection(
+    //     new THREE.Vector3()
+    //   );
+    //   const targetLookAt = new THREE.Vector3()
+    //     .subVectors(curPoint, lookAtPoint)
+    //     .normalize();
+    //   const lookAt = currentLookAt.lerp(targetLookAt, delta * 24);
+    //   cameraGroup.current.lookAt(
+    //     cameraGroup.current.position.clone().add(lookAt)
+    //   );
+    //   // Airplane rotation
+    //   const tangent = curve.getTangent(scrollOffset + CURVE_AHEAD_AIRPLANE);
+    //   const nonLerpLookAt = new Group();
+    //   nonLerpLookAt.position.copy(curPoint);
+    //   // nonLerpLookAt.lookAt(nonLerpLookAt.position.clone().add(targetLookAt));
+    //   tangent.applyAxisAngle(
+    //     new THREE.Vector3(0, 1, 0),
+    //     -nonLerpLookAt.rotation.y
+    //   );
+    //   let angle = Math.atan2(-tangent.z, tangent.x);
+    //   angle = -Math.PI / 2 + angle;
+    //   let angleDegrees = (angle * 180) / Math.PI;
+    //   angleDegrees *= 2.4; // stronger angle
+    //   // LIMIT PLANE ANGLE
+    //   if (angleDegrees < 0) {
+    //     angleDegrees = Math.max(angleDegrees, -AIRPLANE_MAX_ANGLE);
+    //   }
+    //   if (angleDegrees > 0) {
+    //     angleDegrees = Math.min(angleDegrees, AIRPLANE_MAX_ANGLE);
+    //   }
+    //   // SET BACK ANGLE
+    //   angle = (angleDegrees * Math.PI) / 180;
+    //   const targetAirplaneQuaternion = new THREE.Quaternion().setFromEuler(
+    //     new THREE.Euler(
+    //       airplane.current.rotation.x,
+    //       airplane.current.rotation.y,
+    //       angle
+    //     )
+    //   );
+    //   airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
   });
 
   useEffect(() => {
+    updating = true;
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
       new THREE.Vector3(0, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
@@ -144,12 +127,52 @@ export default function Experience({
       {
         heading: "Text " + pages,
         text: "Some text here",
-        position: [0, 0, (pages + 1) * -210],
+        position: [0, 0, (pages + 1) * -100],
       },
     ]);
+    setTimeout(() => {
+      updating = false;
+    }, 1000);
   }, [pages]);
   const airplane = useRef();
   const endOfCurve = curve.getPoint(1);
+
+  const handleText = () => {
+    if (
+      cameraGroup.current &&
+      cameraGroup.current.position.z < text[text.length - 1].position[2]
+    ) {
+      setTimeout(() => {
+        setOpen(true);
+      }, 2000);
+    } else {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!cameraGroup.current) return;
+
+    //use keys to translate
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowUp") {
+        offset += 0.005;
+        cameraGroup.current.position.z -= 0.3;
+      }
+      if (e.key === "ArrowDown") {
+        offset -= 0.001;
+        cameraGroup.current.position.z += 0.2;
+      }
+      // if (e.key === "ArrowLeft") {
+      //   cameraGroup.current.position.x -= 1;
+      // }
+      // if (e.key === "ArrowRight") {
+      //   cameraGroup.current.position.x += 1;
+      // }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <>
@@ -171,7 +194,7 @@ export default function Experience({
         </group>
       </group>
       {/* TEXT */}
-      <group position={[-3, 0, -100]}>
+      <group position={[0, 0, -100]}>
         <Text
           color='white'
           anchorX={"left"}
@@ -185,7 +208,7 @@ export default function Experience({
         </Text>
       </group>
 
-      <group position={[-10, 1, -200]}>
+      <group position={[0, 1, -200]}>
         <Text
           color='white'
           anchorX={"left"}
@@ -212,7 +235,6 @@ export default function Experience({
 
       {text.map((t, i) => (
         <>
-          {" "}
           <group position={t.position}>
             <Text
               color='white'
