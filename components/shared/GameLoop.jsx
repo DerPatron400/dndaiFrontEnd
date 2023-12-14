@@ -136,7 +136,7 @@ export default function GameLoop({ open, setOpen, addTextToScene }) {
   }, [rollDice]);
 
   return (
-    <Transition.Root show={true} as={Fragment}>
+    <Transition.Root show={false} as={Fragment}>
       <Dialog
         as='div'
         className='relative z-1 w-full '
