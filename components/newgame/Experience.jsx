@@ -16,7 +16,7 @@ import { Group } from "three";
 import { useControls } from "leva";
 
 const LINE_NB_POINTS = 1000;
-const CURVE_DISTANCE = 200;
+const CURVE_DISTANCE = 150;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
@@ -39,12 +39,9 @@ export default function Experience({
   const [curvesData, setCurvesData] = useState([
     new THREE.Vector3(0, 0, 0),
     new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-    new THREE.Vector3(30, 0, -2 * CURVE_DISTANCE),
-    new THREE.Vector3(-30, 0, -3 * CURVE_DISTANCE),
-    new THREE.Vector3(30, 0, -4 * CURVE_DISTANCE),
-    new THREE.Vector3(20, 0, -5 * CURVE_DISTANCE),
-    new THREE.Vector3(10, 0, -6 * CURVE_DISTANCE),
-    new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
+    new THREE.Vector3(10, 0, -2 * CURVE_DISTANCE),
+    new THREE.Vector3(-10, 0, -3 * CURVE_DISTANCE),
+    new THREE.Vector3(10, 0, -4 * CURVE_DISTANCE),
   ]);
   const [text, setText] = useState([]);
   const [isForwardPressed, setIsForwardPressed] = useState(false);
@@ -74,7 +71,7 @@ export default function Experience({
       const curPoint = curvesData[curPointIndex];
       const nextPoint = curvesData[curPointIndex + 1];
 
-      const xDisplacement = (nextPoint.x - curPoint.x) * 80;
+      const xDisplacement = (nextPoint.x - curPoint.x) * 40;
       const angleRotation =
         (xDisplacement < 0 ? 1 : -1) *
         Math.min(Math.abs(xDisplacement), Math.PI / 3);
@@ -83,7 +80,7 @@ export default function Experience({
         new THREE.Euler(
           dragonModel.current.rotation.x,
           dragonModel.current.rotation.y,
-          angleRotation
+          angleRotation * 0.5
         )
       );
 
@@ -97,7 +94,7 @@ export default function Experience({
 
       offset += 0.0005;
       cameraGroup.current.position.copy(curve.getPointAt(offset));
-      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
+      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
       // cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
     } else if (isBackwardPressed) {
       const curPointIndex = Math.min(
@@ -138,17 +135,24 @@ export default function Experience({
       ...prevCurvesData,
       new THREE.Vector3(0, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
     ]);
+
+    let newOffset =
+      (cameraGroup.current.position.z + 50) /
+      (curvesData.length * CURVE_DISTANCE);
+
+    if (newOffset < 0) newOffset *= -1;
+
+    let point = curve.getPointAt(offset + 0.002);
+
     setText((prevText) => [
       ...prevText,
       {
         heading: "Text " + pages,
         text: "Some text here",
-        position: [cameraGroup.current.position.x, 0, (pages + 1) * -50],
+        position: [point.x, 0, pages * -250],
       },
     ]);
   }, [pages]);
-
-  const endOfCurve = curve.getPoint(1);
 
   const handleText = () => {
     if (
@@ -158,10 +162,7 @@ export default function Experience({
       cameraGroup.current.position.z < text[text.length - 1].position[2]
       // console.log(cameraGroup.current.position.z, endOfCurve.z)
     ) {
-      // setOpen(true)
-      setIsSetting(true);
-      setPages((prev) => prev + 1);
-      setIsSetting(false);
+      setOpen(true);
     }
   };
 
