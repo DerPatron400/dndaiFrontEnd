@@ -34,6 +34,7 @@ export default function Experience({
   const cameraGroup = useRef();
   const scroll = useScroll();
   const dragonModel = useRef();
+  const [isSetting, setIsSetting] = useState(false);
 
   const [curvesData, setCurvesData] = useState([
     new THREE.Vector3(0, 0, 0),
@@ -64,6 +65,7 @@ export default function Experience({
   useFrame((_state, delta) => {
     // if (!updating) handleText();
     // if key is pressed move dragon following the curve
+
     if (isForwardPressed) {
       const curPointIndex = Math.min(
         Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
@@ -126,6 +128,8 @@ export default function Experience({
         )
       );
     }
+
+    handleText();
   });
 
   useEffect(() => {
@@ -139,24 +143,25 @@ export default function Experience({
       {
         heading: "Text " + pages,
         text: "Some text here",
-        position: [0, 0, (pages + 1) * -50],
+        position: [cameraGroup.current.position.x, 0, (pages + 1) * -50],
       },
     ]);
-    setTimeout(() => {
-      updating = false;
-    }, 1000);
   }, [pages]);
 
   const endOfCurve = curve.getPoint(1);
 
   const handleText = () => {
     if (
+      !isSetting &&
       cameraGroup.current &&
+      text.length > 0 &&
       cameraGroup.current.position.z < text[text.length - 1].position[2]
       // console.log(cameraGroup.current.position.z, endOfCurve.z)
     ) {
-      // setOpen(true);
+      // setOpen(true)
+      setIsSetting(true);
       setPages((prev) => prev + 1);
+      setIsSetting(false);
     }
   };
 
@@ -204,7 +209,7 @@ export default function Experience({
         <Background />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset="sunset" />
+        <Environment preset='sunset' />
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
             <Model
@@ -218,9 +223,9 @@ export default function Experience({
       {/* TEXT */}
       <group position={[0, 0, -100]}>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="middle"
+          anchorY='middle'
           fontSize={0.22}
           maxWidth={2.5}
           font={"/fonts/Inter-Regular.ttf"}
@@ -232,9 +237,9 @@ export default function Experience({
 
       <group position={[0, 1, -200]}>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="center"
+          anchorY='center'
           fontSize={0.52}
           maxWidth={2.5}
           font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -242,9 +247,9 @@ export default function Experience({
           Services
         </Text>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="top"
+          anchorY='top'
           position-y={-0.66}
           fontSize={0.22}
           maxWidth={2.5}
@@ -259,9 +264,9 @@ export default function Experience({
         <>
           <group position={t.position}>
             <Text
-              color="white"
+              color='white'
               anchorX={"left"}
-              anchorY="center"
+              anchorY='center'
               fontSize={0.52}
               maxWidth={2.5}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -269,9 +274,9 @@ export default function Experience({
               {t.heading}
             </Text>
             <Text
-              color="white"
+              color='white'
               anchorX={"left"}
-              anchorY="top"
+              anchorY='top'
               position-y={-0.66}
               fontSize={0.22}
               maxWidth={2.5}
