@@ -33,18 +33,21 @@ export default function Experience({
 }) {
   const cameraGroup = useRef();
   const scroll = useScroll();
+  const dragonModel = useRef();
 
   const [curvesData, setCurvesData] = useState([
     new THREE.Vector3(0, 0, 0),
     new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-    new THREE.Vector3(100, 0, -2 * CURVE_DISTANCE),
-    new THREE.Vector3(-100, 0, -3 * CURVE_DISTANCE),
-    // new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
-    // new THREE.Vector3(0, 0, -5 * CURVE_DISTANCE),
-    // new THREE.Vector3(0, 0, -6 * CURVE_DISTANCE),
-    // new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
+    new THREE.Vector3(30, 0, -2 * CURVE_DISTANCE),
+    new THREE.Vector3(-30, 0, -3 * CURVE_DISTANCE),
+    new THREE.Vector3(30, 0, -4 * CURVE_DISTANCE),
+    new THREE.Vector3(20, 0, -5 * CURVE_DISTANCE),
+    new THREE.Vector3(10, 0, -6 * CURVE_DISTANCE),
+    new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
   ]);
   const [text, setText] = useState([]);
+  const [isForwardPressed, setIsForwardPressed] = useState(false);
+  const [isBackwardPressed, setIsBackwardPressed] = useState(false);
 
   const curve = useMemo(() => {
     return new THREE.CatmullRomCurve3(curvesData, false, "catmullrom", 0.5);
@@ -59,61 +62,70 @@ export default function Experience({
   }, [curve]);
 
   useFrame((_state, delta) => {
-    if (!updating) handleText();
-    //   //check keys
-    //   const scrollOffset = Math.max(0, offset);
-    //   // if (scrollPosition >= 0.95) {
-    //   //   setOpen(true);
-    //   // } else {
-    //   //   setOpen(false);
-    //   // }
-    //   const curPoint = curve.getPoint(scrollOffset);
-    //   // Make the group look ahead on the curve
-    //   cameraGroup.current.position.lerp(curPoint, delta * 24);
-    //   const lookAtPoint = curve.getPoint(
-    //     Math.min(scrollOffset + CURVE_AHEAD_CAMERA, 1)
-    //   );
-    //   // Follow the curve points
-    //   const currentLookAt = cameraGroup.current.getWorldDirection(
-    //     new THREE.Vector3()
-    //   );
-    //   const targetLookAt = new THREE.Vector3()
-    //     .subVectors(curPoint, lookAtPoint)
-    //     .normalize();
-    //   const lookAt = currentLookAt.lerp(targetLookAt, delta * 24);
-    //   cameraGroup.current.lookAt(
-    //     cameraGroup.current.position.clone().add(lookAt)
-    //   );
-    //   // Airplane rotation
-    //   const tangent = curve.getTangent(scrollOffset + CURVE_AHEAD_AIRPLANE);
-    //   const nonLerpLookAt = new Group();
-    //   nonLerpLookAt.position.copy(curPoint);
-    //   // nonLerpLookAt.lookAt(nonLerpLookAt.position.clone().add(targetLookAt));
-    //   tangent.applyAxisAngle(
-    //     new THREE.Vector3(0, 1, 0),
-    //     -nonLerpLookAt.rotation.y
-    //   );
-    //   let angle = Math.atan2(-tangent.z, tangent.x);
-    //   angle = -Math.PI / 2 + angle;
-    //   let angleDegrees = (angle * 180) / Math.PI;
-    //   angleDegrees *= 2.4; // stronger angle
-    //   // LIMIT PLANE ANGLE
-    //   if (angleDegrees < 0) {
-    //     angleDegrees = Math.max(angleDegrees, -AIRPLANE_MAX_ANGLE);
-    //   }
-    //   if (angleDegrees > 0) {
-    //     angleDegrees = Math.min(angleDegrees, AIRPLANE_MAX_ANGLE);
-    //   }
-    //   // SET BACK ANGLE
-    //   angle = (angleDegrees * Math.PI) / 180;
-    //   const targetAirplaneQuaternion = new THREE.Quaternion().setFromEuler(
-    //     new THREE.Euler(
-    //       airplane.current.rotation.x,
-    //       airplane.current.rotation.y,
-    //       angle
-    //     )
-    //   );
-    //   airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
+    // if (!updating) handleText();
+    // if key is pressed move dragon following the curve
+    if (isForwardPressed) {
+      const curPointIndex = Math.min(
+        Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
+        curvesData.length - 1
+      );
+      const curPoint = curvesData[curPointIndex];
+      const nextPoint = curvesData[curPointIndex + 1];
+
+      const xDisplacement = (nextPoint.x - curPoint.x) * 80;
+      const angleRotation =
+        (xDisplacement < 0 ? 1 : -1) *
+        Math.min(Math.abs(xDisplacement), Math.PI / 3);
+
+      const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(
+          dragonModel.current.rotation.x,
+          dragonModel.current.rotation.y,
+          angleRotation
+        )
+      );
+
+      const targetCameraQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(
+          cameraGroup.current.rotation.x,
+          angleRotation,
+          cameraGroup.current.rotation.z
+        )
+      );
+
+      offset += 0.0005;
+      cameraGroup.current.position.copy(curve.getPointAt(offset));
+      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
+      // cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
+    } else if (isBackwardPressed) {
+      const curPointIndex = Math.min(
+        Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
+        curvesData.length - 1
+      );
+      const curPoint = curvesData[curPointIndex];
+      const nextPoint = curvesData[curPointIndex + 1];
+
+      const xDisplacement = (nextPoint.x - curPoint.x) * 80;
+      const angleRotation =
+        (xDisplacement < 0 ? 1 : -1) *
+        Math.min(Math.abs(xDisplacement), Math.PI / 3);
+
+      const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(
+          dragonModel.current.rotation.x,
+          dragonModel.current.rotation.y,
+          angleRotation
+        )
+      );
+
+      const targetCameraQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(
+          cameraGroup.current.rotation.x,
+          angleRotation,
+          cameraGroup.current.rotation.z
+        )
+      );
+    }
   });
 
   useEffect(() => {
@@ -134,15 +146,17 @@ export default function Experience({
       updating = false;
     }, 1000);
   }, [pages]);
-  const airplane = useRef();
+
   const endOfCurve = curve.getPoint(1);
 
   const handleText = () => {
     if (
       cameraGroup.current &&
       cameraGroup.current.position.z < text[text.length - 1].position[2]
+      // console.log(cameraGroup.current.position.z, endOfCurve.z)
     ) {
-      setOpen(true);
+      // setOpen(true);
+      setPages((prev) => prev + 1);
     }
   };
 
@@ -152,12 +166,14 @@ export default function Experience({
     //use keys to translate
     const handleKeyDown = (e) => {
       if (e.key === "ArrowUp") {
-        offset += 0.005;
-        cameraGroup.current.position.z -= 0.3;
+        // offset += 0.005;
+        // cameraGroup.current.position.z -= 0.3;
+        setIsForwardPressed(true);
       }
       if (e.key === "ArrowDown") {
-        offset -= 0.001;
-        cameraGroup.current.position.z += 0.2;
+        // offset -= 0.001;
+        // cameraGroup.current.position.z += 0.2;
+        setIsBackwardPressed(true);
       }
       // if (e.key === "ArrowLeft") {
       //   cameraGroup.current.position.x -= 1;
@@ -167,6 +183,16 @@ export default function Experience({
       // }
     };
 
+    const handleKeyUp = (e) => {
+      if (e.key === "ArrowUp") {
+        setIsForwardPressed(false);
+      }
+      if (e.key === "ArrowDown") {
+        setIsBackwardPressed(false);
+      }
+    };
+
+    window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
   }, []);
 
@@ -178,8 +204,8 @@ export default function Experience({
         <Background />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
-        <group ref={airplane}>
+        <Environment preset="sunset" />
+        <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
             <Model
               refreshAnim={pages}
@@ -192,9 +218,9 @@ export default function Experience({
       {/* TEXT */}
       <group position={[0, 0, -100]}>
         <Text
-          color='white'
+          color="white"
           anchorX={"left"}
-          anchorY='middle'
+          anchorY="middle"
           fontSize={0.22}
           maxWidth={2.5}
           font={"/fonts/Inter-Regular.ttf"}
@@ -206,9 +232,9 @@ export default function Experience({
 
       <group position={[0, 1, -200]}>
         <Text
-          color='white'
+          color="white"
           anchorX={"left"}
-          anchorY='center'
+          anchorY="center"
           fontSize={0.52}
           maxWidth={2.5}
           font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -216,9 +242,9 @@ export default function Experience({
           Services
         </Text>
         <Text
-          color='white'
+          color="white"
           anchorX={"left"}
-          anchorY='top'
+          anchorY="top"
           position-y={-0.66}
           fontSize={0.22}
           maxWidth={2.5}
@@ -233,9 +259,9 @@ export default function Experience({
         <>
           <group position={t.position}>
             <Text
-              color='white'
+              color="white"
               anchorX={"left"}
-              anchorY='center'
+              anchorY="center"
               fontSize={0.52}
               maxWidth={2.5}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -243,9 +269,9 @@ export default function Experience({
               {t.heading}
             </Text>
             <Text
-              color='white'
+              color="white"
               anchorX={"left"}
-              anchorY='top'
+              anchorY="top"
               position-y={-0.66}
               fontSize={0.22}
               maxWidth={2.5}
