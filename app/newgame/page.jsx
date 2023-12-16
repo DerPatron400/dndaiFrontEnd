@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import AtmosScene from "@/components/newgame/AtmosScene";
+import GameScene from "@/components/newgame/GameScene";
 
 export default function page() {
   return (
-    <div className="border border-white !overflow-hidden">
-      <AtmosScene />
+    <div className='border border-white !overflow-hidden'>
+      <GameScene />
     </div>
   );
 }
