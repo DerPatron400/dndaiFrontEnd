@@ -73,7 +73,7 @@ export function Model(props) {
   useEffect(() => {
     const rollDice = async () => {
       // Simulate rolling for 2 seconds
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 4000));
 
       // Stop rolling and set to a random face
       setRolling(false);
@@ -100,24 +100,6 @@ export function Model(props) {
       sceneRef.current.rotation.y += 0.2;
     }
   });
-
-  // const { rotationX, rotationY, rotationZ } = useControls({
-  //   rotationX: {
-  //     value: 0,
-  //     min: -10,
-  //     max: 10,
-  //   },
-  //   rotationY: {
-  //     value: 0,
-  //     min: -10,
-  //     max: 10,
-  //   },
-  //   rotationZ: {
-  //     value: 0,
-  //     min: -10,
-  //     max: 10,
-  //   },
-  // });
 
   return (
     <group {...props} dispose={null} ref={sceneRef}>

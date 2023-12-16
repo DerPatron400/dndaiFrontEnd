@@ -5,6 +5,7 @@ import {
   useScroll,
   Html,
   Environment,
+  Sparkles,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -12,47 +13,31 @@ import * as THREE from "three";
 import { Model } from "./Dragon";
 import { Background } from "./Background";
 import { Cloud } from "./Cloud";
-import { Group } from "three";
-import { useControls } from "leva";
+
 import { TextureLoader } from "three";
 
 const LINE_NB_POINTS = 1000;
-const CURVE_DISTANCE = 150;
+const CURVE_DISTANCE = 200;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
 let offset = 0;
-let updating = false;
 
-export default function Experience({
-  buttonRef,
-  setPages,
-  pages,
-  setShowButton,
-  setOpen,
-  open,
-  type,
-}) {
+const initialCurves = [
+  new THREE.Vector3(0, 0, 0),
+  new THREE.Vector3(0, 0, -CURVE_DISTANCE),
+  new THREE.Vector3(10, 0, -2 * CURVE_DISTANCE),
+  new THREE.Vector3(-10, 0, -3 * CURVE_DISTANCE),
+  new THREE.Vector3(10, 0, -4 * CURVE_DISTANCE),
+  new THREE.Vector3(-10, 0, -5 * CURVE_DISTANCE),
+];
+
+export default function Experience({ pages, setOpen, open, type }) {
   const cameraGroup = useRef();
-  const scroll = useScroll();
+  const sparklesRef = useRef();
   const dragonModel = useRef();
-  const [isSetting, setIsSetting] = useState(false);
-  const [images, setImages] = useState([]);
-
-  const [curvesData, setCurvesData] = useState([
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-    new THREE.Vector3(10, 0, -2 * CURVE_DISTANCE),
-    new THREE.Vector3(-10, 0, -3 * CURVE_DISTANCE),
-    new THREE.Vector3(10, 0, -4 * CURVE_DISTANCE),
-    new THREE.Vector3(-10, 0, -5 * CURVE_DISTANCE),
-    // new THREE.Vector3(10, 0, -6 * CURVE_DISTANCE),
-    // new THREE.Vector3(-10, 0, -7 * CURVE_DISTANCE),
-    // new THREE.Vector3(10, 0, -8 * CURVE_DISTANCE),
-    // new THREE.Vector3(-10, 0, -9 * CURVE_DISTANCE),
-    // new THREE.Vector3(10, 0, -10 * CURVE_DISTANCE),
-  ]);
-  const [text, setText] = useState([]);
+  const [curvesData, setCurvesData] = useState(initialCurves);
+  const [pathObjects, setPathObjects] = useState([]);
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
   const [imageTexture, setImageTexture] = useState(null);
@@ -65,15 +50,13 @@ export default function Experience({
     const shape = new THREE.Shape();
     shape.moveTo(0, -0.08);
     shape.lineTo(0, 0.08);
-
     return shape;
   }, [curve]);
 
   useFrame((_state, delta) => {
-    // if (!updating) handleText();
-    // if key is pressed move dragon following the curve
+    if (open) return;
 
-    if (isForwardPressed) {
+    if (isForwardPressed || isBackwardPressed) {
       const curPointIndex = Math.min(
         Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
         curvesData.length - 1
@@ -102,105 +85,43 @@ export default function Experience({
         )
       );
 
-      offset += 0.0005;
+      offset += 0.0005 * (isForwardPressed ? 1 : -1);
       cameraGroup.current.position.copy(curve.getPointAt(offset));
-      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
+      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
+      sparklesRef.current.position.z = cameraGroup.current.position.z;
+
       // cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
-    } else if (isBackwardPressed) {
-      const curPointIndex = Math.min(
-        Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
-        curvesData.length - 1
-      );
-      const curPoint = curvesData[curPointIndex];
-      const nextPoint = curvesData[curPointIndex + 1];
-
-      const xDisplacement = (nextPoint.x - curPoint.x) * 80;
-      const angleRotation =
-        (xDisplacement < 0 ? 1 : -1) *
-        Math.min(Math.abs(xDisplacement), Math.PI / 3);
-
-      const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(
-          dragonModel.current.rotation.x,
-          dragonModel.current.rotation.y,
-          angleRotation
-        )
-      );
-
-      const targetCameraQuaternion = new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(
-          cameraGroup.current.rotation.x,
-          angleRotation,
-          cameraGroup.current.rotation.z
-        )
-      );
-
-      offset -= 0.0005;
-      cameraGroup.current.position.copy(curve.getPointAt(offset));
-      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
     }
 
-    if (type === "text") {
-      handleText();
-    } else if (type === "image") {
-      handleImage();
-    }
+    handleText();
   });
 
   useEffect(() => {
-    updating = true;
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
       new THREE.Vector3(0, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
     ]);
 
-    let newOffset =
-      (cameraGroup.current.position.z + 50) /
-      (curvesData.length * CURVE_DISTANCE);
-
-    if (newOffset < 0) newOffset *= -1;
-
     let point = curve.getPointAt(offset + 0.002);
 
-    if (type === "text") {
-      setText((prevText) => [
-        ...prevText,
-        {
-          heading: "Text " + pages,
-          text: "Some text here",
-          position: [point.x, 0, pages * -250],
-        },
-      ]);
-    } else if (type === "image") {
-      setImages((prevImages) => [
-        ...prevImages,
-        {
-          imageUrl: "/dice2.jpg",
-          position: [point.x, 0, pages * -250],
-        },
-      ]);
-    }
-  }, [pages, type]);
+    setPathObjects((prevObjects) => [
+      ...prevObjects,
+      {
+        heading: type === "text" ? "Text " + pages : "",
+        text: type === "text" ? "Some text here" : "",
+        imageUrl: type === "image" ? "/dice2.jpg" : "",
+        position: [point.x, 0, pages * -250],
+        type,
+      },
+    ]);
+  }, [pages]);
 
   const handleText = () => {
     if (
-      !isSetting &&
       cameraGroup.current &&
-      text.length > 0 &&
-      cameraGroup.current.position.z < text[text.length - 1].position[2]
-      // console.log(cameraGroup.current.position.z, endOfCurve.z)
-    ) {
-      setOpen(true);
-    }
-  };
-
-  const handleImage = () => {
-    if (
-      !isSetting &&
-      cameraGroup.current &&
-      images.length > 0 &&
-      cameraGroup.current.position.z < images[images.length - 1].position[2]
-      // console.log(cameraGroup.current.position.z, endOfCurve.z)
+      pathObjects.length > 0 &&
+      cameraGroup.current.position.z <
+        pathObjects[pathObjects.length - 1].position[2]
     ) {
       setOpen(true);
     }
@@ -212,21 +133,11 @@ export default function Experience({
     //use keys to translate
     const handleKeyDown = (e) => {
       if (e.key === "ArrowUp") {
-        // offset += 0.005;
-        // cameraGroup.current.position.z -= 0.3;
         setIsForwardPressed(true);
       }
       if (e.key === "ArrowDown") {
-        // offset -= 0.001;
-        // cameraGroup.current.position.z += 0.2;
         setIsBackwardPressed(true);
       }
-      // if (e.key === "ArrowLeft") {
-      //   cameraGroup.current.position.x -= 1;
-      // }
-      // if (e.key === "ArrowRight") {
-      //   cameraGroup.current.position.x += 1;
-      // }
     };
 
     const handleKeyUp = (e) => {
@@ -240,6 +151,11 @@ export default function Experience({
 
     window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useMemo(() => {
@@ -258,11 +174,20 @@ export default function Experience({
     <>
       <directionalLight position={[0, 3, 1]} intensity={1} />
       {/* <OrbitControls /> */}
+      <Sparkles
+        count={300}
+        scale={20}
+        size={3}
+        ref={sparklesRef}
+        speed={0.6}
+        color={"#E48F45"}
+      />
       <group ref={cameraGroup}>
         <Background />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset="sunset" />
+        <Environment preset='sunset' />
+
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
             <Model
@@ -277,9 +202,9 @@ export default function Experience({
       {/* TEXT */}
       <group position={[0, 0, -100]}>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="middle"
+          anchorY='middle'
           fontSize={0.22}
           maxWidth={2.5}
           font={"/fonts/Inter-Regular.ttf"}
@@ -291,9 +216,9 @@ export default function Experience({
 
       <group position={[0, 1, -200]}>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="center"
+          anchorY='center'
           fontSize={0.52}
           maxWidth={2.5}
           font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -301,9 +226,9 @@ export default function Experience({
           Services
         </Text>
         <Text
-          color="white"
+          color='white'
           anchorX={"left"}
-          anchorY="top"
+          anchorY='top'
           position-y={-0.66}
           fontSize={0.22}
           maxWidth={2.5}
@@ -314,40 +239,40 @@ export default function Experience({
         </Text>
       </group>
 
-      {type === "text"
-        ? text.map((t, i) => (
-            <group key={i} position={t.position}>
-              <Text
-                color="white"
-                anchorX={"left"}
-                anchorY="center"
-                fontSize={0.52}
-                maxWidth={2.5}
-                font={"/fonts/DMSerifDisplay-Regular.ttf"}
-              >
-                {t.heading}
-              </Text>
-              <Text
-                color="white"
-                anchorX={"left"}
-                anchorY="top"
-                position-y={-0.66}
-                fontSize={0.22}
-                maxWidth={2.5}
-                font={"/fonts/Inter-Regular.ttf"}
-              >
-                {t.text}
-              </Text>
-            </group>
-          ))
-        : images.map((image, i) => (
-            <group key={i} position={image.position}>
-              <mesh>
-                <planeGeometry args={[5, 5]} />
-                <meshBasicMaterial map={imageTexture}></meshBasicMaterial>
-              </mesh>
-            </group>
-          ))}
+      {pathObjects.map((object, i) =>
+        object.type === "text" ? (
+          <group key={i} position={object.position}>
+            <Text
+              color='white'
+              anchorX={"left"}
+              anchorY='center'
+              fontSize={0.52}
+              maxWidth={2.5}
+              font={"/fonts/DMSerifDisplay-Regular.ttf"}
+            >
+              {object.heading}
+            </Text>
+            <Text
+              color='white'
+              anchorX={"left"}
+              anchorY='top'
+              position-y={-0.66}
+              fontSize={0.22}
+              maxWidth={2.5}
+              font={"/fonts/Inter-Regular.ttf"}
+            >
+              {object.text}
+            </Text>
+          </group>
+        ) : (
+          <group key={i} position={object.position}>
+            <mesh>
+              <planeGeometry args={[5, 5]} />
+              <meshBasicMaterial map={imageTexture}></meshBasicMaterial>
+            </mesh>
+          </group>
+        )
+      )}
 
       {/* LINE */}
       <group position-y={-2}>
