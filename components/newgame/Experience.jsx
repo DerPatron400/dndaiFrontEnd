@@ -14,6 +14,7 @@ import { Background } from "./Background";
 import { Cloud } from "./Cloud";
 import { Group } from "three";
 import { useControls } from "leva";
+import { TextureLoader } from "three";
 
 const LINE_NB_POINTS = 1000;
 const CURVE_DISTANCE = 150;
@@ -30,11 +31,13 @@ export default function Experience({
   setShowButton,
   setOpen,
   open,
+  type,
 }) {
   const cameraGroup = useRef();
   const scroll = useScroll();
   const dragonModel = useRef();
   const [isSetting, setIsSetting] = useState(false);
+  const [images, setImages] = useState([]);
 
   const [curvesData, setCurvesData] = useState([
     new THREE.Vector3(0, 0, 0),
@@ -42,10 +45,17 @@ export default function Experience({
     new THREE.Vector3(10, 0, -2 * CURVE_DISTANCE),
     new THREE.Vector3(-10, 0, -3 * CURVE_DISTANCE),
     new THREE.Vector3(10, 0, -4 * CURVE_DISTANCE),
+    new THREE.Vector3(-10, 0, -5 * CURVE_DISTANCE),
+    // new THREE.Vector3(10, 0, -6 * CURVE_DISTANCE),
+    // new THREE.Vector3(-10, 0, -7 * CURVE_DISTANCE),
+    // new THREE.Vector3(10, 0, -8 * CURVE_DISTANCE),
+    // new THREE.Vector3(-10, 0, -9 * CURVE_DISTANCE),
+    // new THREE.Vector3(10, 0, -10 * CURVE_DISTANCE),
   ]);
   const [text, setText] = useState([]);
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
+  const [imageTexture, setImageTexture] = useState(null);
 
   const curve = useMemo(() => {
     return new THREE.CatmullRomCurve3(curvesData, false, "catmullrom", 0.5);
@@ -124,9 +134,17 @@ export default function Experience({
           cameraGroup.current.rotation.z
         )
       );
+
+      offset -= 0.0005;
+      cameraGroup.current.position.copy(curve.getPointAt(offset));
+      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
     }
 
-    handleText();
+    if (type === "text") {
+      handleText();
+    } else if (type === "image") {
+      handleImage();
+    }
   });
 
   useEffect(() => {
@@ -144,15 +162,25 @@ export default function Experience({
 
     let point = curve.getPointAt(offset + 0.002);
 
-    setText((prevText) => [
-      ...prevText,
-      {
-        heading: "Text " + pages,
-        text: "Some text here",
-        position: [point.x, 0, pages * -250],
-      },
-    ]);
-  }, [pages]);
+    if (type === "text") {
+      setText((prevText) => [
+        ...prevText,
+        {
+          heading: "Text " + pages,
+          text: "Some text here",
+          position: [point.x, 0, pages * -250],
+        },
+      ]);
+    } else if (type === "image") {
+      setImages((prevImages) => [
+        ...prevImages,
+        {
+          imageUrl: "/dice2.jpg",
+          position: [point.x, 0, pages * -250],
+        },
+      ]);
+    }
+  }, [pages, type]);
 
   const handleText = () => {
     if (
@@ -160,6 +188,18 @@ export default function Experience({
       cameraGroup.current &&
       text.length > 0 &&
       cameraGroup.current.position.z < text[text.length - 1].position[2]
+      // console.log(cameraGroup.current.position.z, endOfCurve.z)
+    ) {
+      setOpen(true);
+    }
+  };
+
+  const handleImage = () => {
+    if (
+      !isSetting &&
+      cameraGroup.current &&
+      images.length > 0 &&
+      cameraGroup.current.position.z < images[images.length - 1].position[2]
       // console.log(cameraGroup.current.position.z, endOfCurve.z)
     ) {
       setOpen(true);
@@ -202,6 +242,18 @@ export default function Experience({
     window.addEventListener("keydown", handleKeyDown);
   }, []);
 
+  useMemo(() => {
+    const textureLoader = new TextureLoader();
+    const loadedTexture = textureLoader.load("/dice2.jpg");
+
+    // Customize texture properties if needed
+    loadedTexture.wrapS = THREE.RepeatWrapping;
+    loadedTexture.wrapT = THREE.RepeatWrapping;
+    loadedTexture.repeat.set(1, 1);
+
+    setImageTexture(loadedTexture);
+  }, []);
+
   return (
     <>
       <directionalLight position={[0, 3, 1]} intensity={1} />
@@ -210,7 +262,7 @@ export default function Experience({
         <Background />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
             <Model
@@ -221,12 +273,13 @@ export default function Experience({
           </Float>
         </group>
       </group>
+
       {/* TEXT */}
       <group position={[0, 0, -100]}>
         <Text
-          color='white'
+          color="white"
           anchorX={"left"}
-          anchorY='middle'
+          anchorY="middle"
           fontSize={0.22}
           maxWidth={2.5}
           font={"/fonts/Inter-Regular.ttf"}
@@ -238,9 +291,9 @@ export default function Experience({
 
       <group position={[0, 1, -200]}>
         <Text
-          color='white'
+          color="white"
           anchorX={"left"}
-          anchorY='center'
+          anchorY="center"
           fontSize={0.52}
           maxWidth={2.5}
           font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -248,9 +301,9 @@ export default function Experience({
           Services
         </Text>
         <Text
-          color='white'
+          color="white"
           anchorX={"left"}
-          anchorY='top'
+          anchorY="top"
           position-y={-0.66}
           fontSize={0.22}
           maxWidth={2.5}
@@ -261,33 +314,40 @@ export default function Experience({
         </Text>
       </group>
 
-      {text.map((t, i) => (
-        <>
-          <group position={t.position}>
-            <Text
-              color='white'
-              anchorX={"left"}
-              anchorY='center'
-              fontSize={0.52}
-              maxWidth={2.5}
-              font={"/fonts/DMSerifDisplay-Regular.ttf"}
-            >
-              {t.heading}
-            </Text>
-            <Text
-              color='white'
-              anchorX={"left"}
-              anchorY='top'
-              position-y={-0.66}
-              fontSize={0.22}
-              maxWidth={2.5}
-              font={"/fonts/Inter-Regular.ttf"}
-            >
-              {t.text}
-            </Text>
-          </group>
-        </>
-      ))}
+      {type === "text"
+        ? text.map((t, i) => (
+            <group key={i} position={t.position}>
+              <Text
+                color="white"
+                anchorX={"left"}
+                anchorY="center"
+                fontSize={0.52}
+                maxWidth={2.5}
+                font={"/fonts/DMSerifDisplay-Regular.ttf"}
+              >
+                {t.heading}
+              </Text>
+              <Text
+                color="white"
+                anchorX={"left"}
+                anchorY="top"
+                position-y={-0.66}
+                fontSize={0.22}
+                maxWidth={2.5}
+                font={"/fonts/Inter-Regular.ttf"}
+              >
+                {t.text}
+              </Text>
+            </group>
+          ))
+        : images.map((image, i) => (
+            <group key={i} position={image.position}>
+              <mesh>
+                <planeGeometry args={[5, 5]} />
+                <meshBasicMaterial map={imageTexture}></meshBasicMaterial>
+              </mesh>
+            </group>
+          ))}
 
       {/* LINE */}
       <group position-y={-2}>

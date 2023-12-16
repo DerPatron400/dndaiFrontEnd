@@ -11,16 +11,21 @@ export default function AtmosScene() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const [open, setOpen] = useState(false);
+  const [type, setType] = useState("text");
 
   const addTextToScene = () => {
     setPages((prev) => prev + 1);
   };
 
+  const addImageToScene = () => {
+    setPages((prev) => prev + 1);
+  };
+
   return (
-    <div className='relative'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+    <div className="relative">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
         <Canvas>
-          <color attach='background' args={["#ececec"]} />
+          <color attach="background" args={["#ececec"]} />
 
           <Experience
             setShowButton={setShowButton}
@@ -29,11 +34,18 @@ export default function AtmosScene() {
             pages={pages}
             setOpen={setOpen}
             open={open}
+            type={type}
           />
         </Canvas>
       </div>
 
-      <GameLoop open={open} setOpen={setOpen} addTextToScene={addTextToScene} />
+      <GameLoop
+        open={open}
+        setOpen={setOpen}
+        addTextToScene={addTextToScene}
+        addImageToScene={addImageToScene}
+        setType={setType}
+      />
     </div>
   );
 }
