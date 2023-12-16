@@ -72,10 +72,8 @@ export function Model(props) {
 
   useEffect(() => {
     const rollDice = async () => {
-      // Simulate rolling for 2 seconds
       await new Promise((resolve) => setTimeout(resolve, 4000));
 
-      // Stop rolling and set to a random face
       setRolling(false);
 
       // Generate a random number between 1 and 20
