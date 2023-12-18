@@ -32,7 +32,11 @@ export function Model(props) {
     <group
       ref={group}
       rotation={[0.3, Math.PI, 0]}
-      position={[window.innerWidth < 768 ? 0 : 0, -2, 0]}
+      position={[
+        window.innerWidth < 768 ? 0 : 0,
+        window.innerWidth < 768 ? -1 : -2,
+        0,
+      ]}
       scale={window.innerWidth < 768 ? 0.5 : 1}
     >
       <primitive object={scene} dispose={null} position={[0, 0, 0]} />
