@@ -201,7 +201,7 @@ export default function Experience({
       setIsBackwardPressed(false);
     };
 
-    // Add event listeners
+    // Add event listeners here
     window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("touchstart", handleTouchStart);
