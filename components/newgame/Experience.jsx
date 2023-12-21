@@ -104,6 +104,20 @@ export default function Experience({
   });
 
   useEffect(() => {
+    if (type === "image") {
+      setPathObjects((prevObjects) => [
+        ...prevObjects,
+        {
+          type: "image",
+          position: [
+            prevObjects[prevObjects.length - 1].position[0],
+            0,
+            prevObjects[prevObjects.length - 1].position[2] - 40,
+          ],
+        },
+      ]);
+      return;
+    }
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
       new THREE.Vector3(10, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
@@ -115,6 +129,7 @@ export default function Experience({
     ]);
 
     const multiplyingFactor = pathObjects.length > 0 ? 0.1 : 5;
+
     textualData.resultArray.forEach((result, i) => {
       let point = curve.getPointAt(offset + 0.002 * i);
       setPathObjects((prevObjects) => [
@@ -139,7 +154,6 @@ export default function Experience({
     });
 
     if (textualData.visualText) {
-      console.log(textualData.visualText);
       setPathObjects((prevObjects) => [
         ...prevObjects,
         {
