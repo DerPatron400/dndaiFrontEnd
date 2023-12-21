@@ -154,7 +154,10 @@ export default function Experience({
   useEffect(() => {
     if (!cameraGroup.current) return;
 
-    //use keys to translate
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    // Use keys to translate
     const handleKeyDown = (e) => {
       if (e.key === "ArrowUp") {
         setIsForwardPressed(true);
@@ -173,12 +176,43 @@ export default function Experience({
       }
     };
 
+    const handleTouchStart = (e) => {
+      const touch = e.touches[0];
+      touchStartY = touch.clientY;
+    };
+
+    const handleTouchMove = (e) => {
+      const touch = e.touches[0];
+      touchEndY = touch.clientY;
+
+      // Determine the swipe direction
+      const swipeDistance = touchEndY - touchStartY;
+      if (swipeDistance > 50) {
+        setIsForwardPressed(true);
+        setIsBackwardPressed(false);
+      } else if (swipeDistance < -50) {
+        setIsForwardPressed(false);
+        setIsBackwardPressed(true);
+      }
+    };
+
+    const handleTouchEnd = () => {
+      setIsForwardPressed(false);
+      setIsBackwardPressed(false);
+    };
+
     window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
 
@@ -210,7 +244,7 @@ export default function Experience({
         <Background />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -227,9 +261,9 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color='white'
+              color="white"
               anchorX={"left"}
-              anchorY='center'
+              anchorY="center"
               fontSize={0.52}
               maxWidth={2.5}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -237,9 +271,9 @@ export default function Experience({
               {object.heading}
             </Text>
             <Text
-              color='white'
+              color="white"
               anchorX={"left"}
-              anchorY='top'
+              anchorY="top"
               position-y={object.heading ? -0.66 : 0}
               fontSize={0.3}
               maxWidth={2.5}
