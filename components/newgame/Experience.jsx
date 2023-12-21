@@ -17,7 +17,7 @@ import { Cloud } from "./Cloud";
 import { TextureLoader } from "three";
 
 const LINE_NB_POINTS = 1000;
-const CURVE_DISTANCE = 200;
+const CURVE_DISTANCE = 400;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
@@ -32,7 +32,13 @@ const initialCurves = [
   new THREE.Vector3(-10, 0, -5 * CURVE_DISTANCE),
 ];
 
-export default function Experience({ pages, setOpen, open, type }) {
+export default function Experience({
+  pages,
+  setOpen,
+  open,
+  type,
+  textualData,
+}) {
   const cameraGroup = useRef();
   const sparklesRef = useRef();
   const dragonModel = useRef();
@@ -54,7 +60,7 @@ export default function Experience({ pages, setOpen, open, type }) {
   }, [curve]);
 
   useFrame((_state, delta) => {
-    if (open) return;
+    if (open || pathObjects.length === 0) return;
 
     if (isForwardPressed || isBackwardPressed) {
       const curPointIndex = Math.min(
@@ -99,22 +105,40 @@ export default function Experience({ pages, setOpen, open, type }) {
   useEffect(() => {
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
-      new THREE.Vector3(0, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
+      new THREE.Vector3(10, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
+      new THREE.Vector3(
+        -10,
+        0,
+        -1 * (prevCurvesData.length + 1) * CURVE_DISTANCE
+      ),
     ]);
 
-    let point = curve.getPointAt(offset + 0.002);
-
-    setPathObjects((prevObjects) => [
-      ...prevObjects,
-      {
-        heading: type === "text" ? "Text " + pages : "",
-        text: type === "text" ? "Some text here" : "",
-        imageUrl: type === "image" ? "/dice2.jpg" : "",
-        position: [point.x, 0, pages * -250],
-        type,
-      },
-    ]);
+    const multiplyingFactor = pathObjects.length > 0 ? 0.1 : 5;
+    textualData.resultArray.forEach((result, i) => {
+      let point = curve.getPointAt(offset + 0.002 * i);
+      setPathObjects((prevObjects) => [
+        ...prevObjects,
+        {
+          heading: result.heading,
+          text: result,
+          //imageUrl: result.imageUrl,
+          position: [
+            point.x *
+              (i !== 0 && prevObjects[prevObjects.length - 1].position[0] > 0
+                ? 1 * multiplyingFactor
+                : -1 * multiplyingFactor),
+            0,
+            i === 0
+              ? pathObjects.length * -50 - 100
+              : prevObjects[prevObjects.length - 1].position[2] - 40,
+          ],
+          type: "text",
+        },
+      ]);
+    });
   }, [pages]);
+
+  console.log("pathObjects", pathObjects);
 
   const handleText = () => {
     if (
@@ -199,46 +223,6 @@ export default function Experience({ pages, setOpen, open, type }) {
         </group>
       </group>
 
-      {/* TEXT */}
-      <group position={[0, 0, -100]}>
-        <Text
-          color='white'
-          anchorX={"left"}
-          anchorY='middle'
-          fontSize={0.22}
-          maxWidth={2.5}
-          font={"/fonts/Inter-Regular.ttf"}
-        >
-          Welcome to Wawatmos!{"\n"}
-          Have a seat and enjoy the ride!
-        </Text>
-      </group>
-
-      <group position={[0, 1, -200]}>
-        <Text
-          color='white'
-          anchorX={"left"}
-          anchorY='center'
-          fontSize={0.52}
-          maxWidth={2.5}
-          font={"/fonts/DMSerifDisplay-Regular.ttf"}
-        >
-          Services
-        </Text>
-        <Text
-          color='white'
-          anchorX={"left"}
-          anchorY='top'
-          position-y={-0.66}
-          fontSize={0.22}
-          maxWidth={2.5}
-          font={"/fonts/Inter-Regular.ttf"}
-        >
-          Do you want a drink?{"\n"}
-          We have a wide range of beverages!
-        </Text>
-      </group>
-
       {pathObjects.map((object, i) =>
         object.type === "text" ? (
           <group key={i} position={object.position}>
@@ -256,8 +240,8 @@ export default function Experience({ pages, setOpen, open, type }) {
               color='white'
               anchorX={"left"}
               anchorY='top'
-              position-y={-0.66}
-              fontSize={0.22}
+              position-y={object.heading ? -0.66 : 0}
+              fontSize={0.3}
               maxWidth={2.5}
               font={"/fonts/Inter-Regular.ttf"}
             >

@@ -11,9 +11,9 @@ import { Model as RollDice } from "@/components/shared/D20";
 const Input = () => {
   return (
     <input
-      type="text"
-      placeholder="Enter your choice"
-      className="bg-transparent border px-3 md:w-64 w-32 placeholder:text-[#d3d3d3] text-white py-1 rounded"
+      type='text'
+      placeholder='Enter your choice'
+      className='bg-transparent border px-3 md:w-64 w-32 placeholder:text-[#d3d3d3] text-white py-1 rounded'
     />
   );
 };
@@ -23,15 +23,15 @@ const Selection = () => {
   return (
     <Select.Root>
       <Select.Trigger
-        className="z-[50] !md:w-64 w-32 placeholder:!text-white !text-white !border !py-1 !px-2 !border-white !rounded-md"
-        placeholder="Pick a Style"
+        className='z-[50] !md:w-64 w-32 placeholder:!text-white !text-white !border !py-1 !px-2 !border-white !rounded-md'
+        placeholder='Pick a Style'
       />
-      <Select.Content className="z-[50] !bg-black !text-white ">
-        <Select.Item value="orange">Orange</Select.Item>
-        <Select.Item value="apple">Apple</Select.Item>
+      <Select.Content className='z-[50] !bg-black !text-white '>
+        <Select.Item value='orange'>Orange</Select.Item>
+        <Select.Item value='apple'>Apple</Select.Item>
 
-        <Select.Item value="carrot">Carrot</Select.Item>
-        <Select.Item value="potato">Potato</Select.Item>
+        <Select.Item value='carrot'>Carrot</Select.Item>
+        <Select.Item value='potato'>Potato</Select.Item>
       </Select.Content>
     </Select.Root>
   );
@@ -39,17 +39,17 @@ const Selection = () => {
 
 const Choice = ({ buttonText, title, isInput, onClick }) => {
   return (
-    <div className="flex flex-col items-center flex-1 h-3/4">
-      <div className="flex items-center w-[43vw] md:w-full h-full py-10 flex-1 flex-col gap-y-24">
-        <label className="text-white md:text-2xl text-xl capitalize">
+    <div className='flex flex-col items-center flex-1 h-3/4'>
+      <div className='flex items-center w-[43vw] md:w-full h-full py-10 flex-1 flex-col gap-y-24'>
+        <label className='text-white md:text-2xl text-xl capitalize'>
           {title}
         </label>
-        <div className="flex md:flex-row flex-col gap-x-2">
+        <div className='flex md:flex-row flex-col gap-x-2'>
           {isInput ? <Input /> : <Selection />}
 
           <button
-            type="button"
-            className="justify-center mt-2 md:mt-0 h-10 border-0 rounded-md bg-green-600 px-3  py-1 text-sm font-semibold text-white shadow-sm hover:bg-green-500  "
+            type='button'
+            className='justify-center mt-2 md:mt-0 h-10 border-0 rounded-md bg-green-600 px-3  py-1 text-sm font-semibold text-white shadow-sm hover:bg-green-500  '
             onClick={onClick}
           >
             {buttonText}
@@ -89,7 +89,7 @@ const DragonHead = () => {
     <>
       <Center>
         <Html position={[window.innerWidth < 768 ? -4.3 : -5.7, 3, 0]}>
-          <div className="absolute top-0 left-0 w-[30rem] h-full flex items-center justify-center text-white md:text-2xl text-[13px]">
+          <div className='absolute top-0 left-0 w-[30rem] h-full flex items-center justify-center text-white md:text-2xl text-[13px]'>
             Please wait while we load your journey
           </div>
         </Html>
@@ -101,7 +101,7 @@ const DragonHead = () => {
 
 function Scene({ children }) {
   return (
-    <Canvas className="z-10">
+    <Canvas className='z-10'>
       <Suspense fallback={null}>
         <pointLight position={[10, 10, 10]} />
         <Stage shadows={false} environment={"apartment"}>
@@ -112,7 +112,7 @@ function Scene({ children }) {
   );
 }
 
-export default function GameLoop({ open, setOpen, addToScene }) {
+export default function GameLoop({ open, setOpen, addToScene, type }) {
   const cancelButtonRef = useRef(null);
   const [rollDice, setRollDice] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -138,36 +138,36 @@ export default function GameLoop({ open, setOpen, addToScene }) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
-        as="div"
-        className="relative z-1 w-full "
+        as='div'
+        className='relative z-1 w-full '
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
         <Transition.Child
           as={Fragment}
-          enter="ease-out duration-300 transition-all"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter='ease-out duration-300 transition-all'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='ease-in duration-200'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
         >
-          <div className="fixed inset-0 transition-opacity" />
+          <div className='fixed inset-0 transition-opacity' />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto ">
-          <div className="flex min-h-full min-w-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className='fixed inset-0 z-10 w-screen overflow-y-auto '>
+          <div className='flex min-h-full min-w-full items-center justify-center p-4 text-center sm:items-center sm:p-0'>
             <Transition.Child
               as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enter='ease-out duration-300'
+              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              enterTo='opacity-100 translate-y-0 sm:scale-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
-              <Dialog.Panel className="relative min-w-[60vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full ">
+              <Dialog.Panel className='relative min-w-[60vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
+                <div className='bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full '>
                   {loading ? (
                     <Scene>
                       <DragonHead />
@@ -177,19 +177,20 @@ export default function GameLoop({ open, setOpen, addToScene }) {
                       <RollDice />
                     </Scene>
                   ) : (
-                    <div className="sm:flex w-fui sm:items-start w-full h-full">
-                      <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full h-full">
+                    <div className='sm:flex w-fui sm:items-start w-full h-full'>
+                      <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full h-full'>
                         <Dialog.Title
-                          as="h3"
-                          className="text-xl font-semibold leading-6 text-white"
+                          as='h3'
+                          className='text-xl font-semibold leading-6 text-white'
                         >
                           Player's Menu
                         </Dialog.Title>
-                        <div className="flex relative  w-full items-center h-full justify-between">
-                          <hr className="absolute rotate-90 w-72 translate-x-[-50%]  text-white top-[50%] left-[50%]" />
+                        <div className='flex relative  w-full items-center h-full justify-between'>
+                          <hr className='absolute rotate-90 w-72 translate-x-[-50%]  text-white top-[50%] left-[50%]' />
+                          {}
                           <Choice
                             buttonText={"Roll Dice"}
-                            title="select path"
+                            title='select path'
                             isInput
                             onClick={() => {
                               addToScene("text");
@@ -200,7 +201,7 @@ export default function GameLoop({ open, setOpen, addToScene }) {
                           />
                           <Choice
                             buttonText={<Image />}
-                            title=" Generate Image"
+                            title=' Generate Image'
                             onClick={() => {
                               addToScene("image");
                               setLoading(true);
