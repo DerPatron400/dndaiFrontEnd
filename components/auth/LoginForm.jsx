@@ -52,66 +52,66 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen w-screen relative">
-      <div className="w-1/2 h-full hidden md:block relative">
+    <div className='flex h-screen w-screen relative'>
+      <div className='w-1/2 h-full hidden md:block relative'>
         <img
-          src="/auth.jpg"
-          alt="Login"
-          className="w-full h-full object-cover"
+          src='/auth.jpg'
+          alt='Login'
+          className='w-full h-full object-cover'
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
+        <div className='absolute top-0 left-0 w-full h-full bg-black opacity-30'></div>
       </div>
-      <div className="md:w-1/2 w-[100vw] flex items-center justify-center p-8 text-white bg-black">
-        <div className="w-96">
-          <div className="flex flex-col justify-center items-center">
-            <h2 className="text-3xl font-bold mb-2">Login</h2>
-            <p className="text-white text-sm mb-6 flex justify-center items-center">
+      <div className='md:w-1/2 w-[100vw] flex items-center justify-center p-8 text-white bg-black'>
+        <div className='w-96'>
+          <div className='flex flex-col justify-center items-center'>
+            <h2 className='text-3xl font-bold mb-2'>Login</h2>
+            <p className='text-white text-sm mb-6 flex justify-center items-center'>
               Log in to your account to continue
             </p>
           </div>
-          <form id="loginForm" className="space-y-6" onSubmit={submitForm}>
-            <div className="mb-4">
+          <form id='loginForm' className='space-y-6' onSubmit={submitForm}>
+            <div className='mb-4'>
               <label
-                htmlFor="username"
-                className="mb-2 block text-md text-white"
+                htmlFor='username'
+                className='mb-2 block text-md text-white'
               >
                 Enter your username
               </label>
               <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="john_doe123"
+                type='text'
+                id='username'
+                name='username'
+                placeholder='john_doe123'
                 required
-                className="w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500"
+                className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
             </div>
-            <div className="mb-4">
+            <div className='mb-4'>
               <label
-                htmlFor="password"
-                className="mb-2 block text-md text-white"
+                htmlFor='password'
+                className='mb-2 block text-md text-white'
               >
                 Enter your password
               </label>
               <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="YourSecurePassword123"
+                type='password'
+                id='password'
+                name='password'
+                placeholder='YourSecurePassword123'
                 required
-                className="w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500"
+                className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
             </div>
             <button
-              type="submit"
-              className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300"
+              type='submit'
+              className='w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300'
             >
               Login
             </button>
-            <p className="text-sm mt-4">
+            <p className='text-sm mt-4'>
               No account yet?{" "}
               <span
-                className="text-white hover:text-green-300 cursor-pointer transition-colors duration-300"
+                className='text-white hover:text-green-300 cursor-pointer transition-colors duration-300'
                 onClick={handleSignupClick}
               >
                 Sign Up
@@ -120,7 +120,7 @@ export default function Login() {
           </form>
           <button
             onClick={handleHomeClick}
-            className="absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300"
+            className='absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300'
           >
             <FaHome size={24} />
           </button>
