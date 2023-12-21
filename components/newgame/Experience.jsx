@@ -37,6 +37,7 @@ export default function Experience({
   setOpen,
   open,
   type,
+  setType,
   textualData,
 }) {
   const cameraGroup = useRef();
@@ -136,9 +137,24 @@ export default function Experience({
         },
       ]);
     });
-  }, [pages]);
 
-  console.log("pathObjects", pathObjects);
+    if (textualData.visualText) {
+      console.log(textualData.visualText);
+      setPathObjects((prevObjects) => [
+        ...prevObjects,
+        {
+          type: "text",
+          isVisual: true,
+          text: textualData.visualText,
+          position: [
+            prevObjects[prevObjects.length - 1].position[0],
+            0,
+            prevObjects[prevObjects.length - 1].position[2] - 40,
+          ],
+        },
+      ]);
+    }
+  }, [pages]);
 
   const handleText = () => {
     if (
@@ -148,6 +164,7 @@ export default function Experience({
         pathObjects[pathObjects.length - 1].position[2]
     ) {
       setOpen(true);
+      setType("text");
     }
   };
 
@@ -245,7 +262,7 @@ export default function Experience({
         <Background />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset="sunset" />
+        <Environment preset='sunset' />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -260,11 +277,22 @@ export default function Experience({
 
       {pathObjects.map((object, i) =>
         object.type === "text" ? (
-          <group key={i} position={object.position}>
+          <group
+            onClick={() => {
+              console.log(object);
+              if (object.isVisual) {
+                console.log("here");
+                setType("image");
+                setOpen(true);
+              }
+            }}
+            key={i}
+            position={object.position}
+          >
             <Text
-              color="white"
+              color='white'
               anchorX={"left"}
-              anchorY="center"
+              anchorY='center'
               fontSize={0.52}
               maxWidth={2.5}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -272,12 +300,12 @@ export default function Experience({
               {object.heading}
             </Text>
             <Text
-              color="white"
+              color='white'
               anchorX={"left"}
-              anchorY="top"
+              anchorY='top'
               position-y={object.heading ? -0.66 : 0}
               fontSize={0.3}
-              maxWidth={2.5}
+              maxWidth={6}
               font={"/fonts/Inter-Regular.ttf"}
             >
               {object.text}

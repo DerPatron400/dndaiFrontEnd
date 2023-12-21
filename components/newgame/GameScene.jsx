@@ -57,7 +57,6 @@ export default function AtmosScene() {
   console.log("resultArray", resultArray);
 
   const addToScene = (type) => {
-    setType(type);
     setPages((prev) => prev + 1);
   };
 
@@ -73,11 +72,17 @@ export default function AtmosScene() {
             setOpen={setOpen}
             open={open}
             type={type}
+            setType={setType}
           />
         </Canvas>
       </div>
 
-      <GameLoop open={open} setOpen={setOpen} addToScene={addToScene} />
+      <GameLoop
+        open={open}
+        setOpen={setOpen}
+        addToScene={addToScene}
+        type={type}
+      />
     </div>
   );
 }

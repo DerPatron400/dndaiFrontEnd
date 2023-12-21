@@ -23,15 +23,28 @@ const Selection = () => {
   return (
     <Select.Root>
       <Select.Trigger
-        className='z-[50] !md:w-64 w-32 placeholder:!text-white !text-white !border !py-1 !px-2 !border-white !rounded-md'
+        className='z-[50] w-32 md:!w-[20rem]  placeholder:!text-white !text-white !border !py-1 !px-2 !border-white !rounded-md'
         placeholder='Pick a Style'
       />
-      <Select.Content className='z-[50] !bg-black !text-white '>
-        <Select.Item value='orange'>Orange</Select.Item>
-        <Select.Item value='apple'>Apple</Select.Item>
-
-        <Select.Item value='carrot'>Carrot</Select.Item>
-        <Select.Item value='potato'>Potato</Select.Item>
+      <Select.Content className='z-[50] !bg-black !text-white h-full overflow-scroll '>
+        <Select.Item value='Art Nouveau'>Art Nouveau</Select.Item>
+        <Select.Item value='Anime'>Anime</Select.Item>
+        <Select.Item value='Pixel Art'>Pixel Art</Select.Item>
+        <Select.Item value='Line Art'>Line Art</Select.Item>
+        <Select.Item value='Steam Punk'>Steam Punk</Select.Item>
+        <Select.Item value='Blender Render'>Blender Render</Select.Item>
+        <Select.Item value='Low-Poly Art'>Low-Poly Art</Select.Item>
+        <Select.Item value='Psychedelic Art'>Psychedelic Art</Select.Item>
+        <Select.Item value='Neon Art'>Neon Art</Select.Item>
+        <Select.Item value='Airbrush Art'>Airbrush Art</Select.Item>
+        <Select.Item value='Origami'>Origami</Select.Item>
+        <Select.Item value='Wood carving'>Wood carving</Select.Item>
+        <Select.Item value='Oil Painting'>Oil Painting</Select.Item>
+        <Select.Item value='Silhouette illustration'>
+          Silhouette illustration
+        </Select.Item>
+        <Select.Item value='Blueprint'>Blueprint</Select.Item>
+        <Select.Item value='American Impressionism'>Impressionism</Select.Item>
       </Select.Content>
     </Select.Root>
   );
@@ -166,7 +179,7 @@ export default function GameLoop({ open, setOpen, addToScene, type }) {
               leaveFrom='opacity-100 translate-y-0 sm:scale-100'
               leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
-              <Dialog.Panel className='relative min-w-[60vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
+              <Dialog.Panel className='relative min-w-[40vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
                 <div className='bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full '>
                   {loading ? (
                     <Scene>
@@ -186,27 +199,28 @@ export default function GameLoop({ open, setOpen, addToScene, type }) {
                           Player's Menu
                         </Dialog.Title>
                         <div className='flex relative  w-full items-center h-full justify-between'>
-                          <hr className='absolute rotate-90 w-72 translate-x-[-50%]  text-white top-[50%] left-[50%]' />
-                          {}
-                          <Choice
-                            buttonText={"Roll Dice"}
-                            title='select path'
-                            isInput
-                            onClick={() => {
-                              addToScene("text");
+                          {type === "text" ? (
+                            <Choice
+                              buttonText={"Roll Dice"}
+                              title='select path'
+                              isInput
+                              onClick={() => {
+                                addToScene("text");
 
-                              //this starts rolling dice
-                              setRollDice(true);
-                            }}
-                          />
-                          <Choice
-                            buttonText={<Image />}
-                            title=' Generate Image'
-                            onClick={() => {
-                              addToScene("image");
-                              setLoading(true);
-                            }}
-                          />
+                                //this starts rolling dice
+                                setRollDice(true);
+                              }}
+                            />
+                          ) : (
+                            <Choice
+                              buttonText={<Image />}
+                              title=' Generate Image'
+                              onClick={() => {
+                                addToScene("image");
+                                setLoading(true);
+                              }}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
