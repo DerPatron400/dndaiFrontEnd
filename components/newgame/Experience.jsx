@@ -1,27 +1,21 @@
-import {
-  Float,
-  PerspectiveCamera,
-  Text,
-  useScroll,
-  Html,
-  Environment,
-  Sparkles,
-} from "@react-three/drei";
+import { Float, PerspectiveCamera, Text, Environment } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { Model } from "./Dragon";
 import { Background } from "./Background";
 import { Cloud } from "./Cloud";
-
+import gsap from "gsap";
 import { TextureLoader } from "three";
+import WindEffect from "./WindEffect";
 
-const LINE_NB_POINTS = 1000;
+const LINE_NB_POINTS = 1200;
 const CURVE_DISTANCE = 400;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
 let offset = 0;
+let anim = 0;
 
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
@@ -41,7 +35,11 @@ export default function Experience({
   textualData,
 }) {
   const cameraGroup = useRef();
-  const sparklesRef = useRef();
+  const backgroundColorRef = useRef({
+    colorA: "#000000",
+    colorB: "#ffad30",
+  });
+  const tl = useRef();
   const dragonModel = useRef();
   const [curvesData, setCurvesData] = useState(initialCurves);
   const [pathObjects, setPathObjects] = useState([]);
@@ -64,6 +62,8 @@ export default function Experience({
     if (open || pathObjects.length === 0) return;
 
     if (isForwardPressed || isBackwardPressed) {
+      if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
+      switchBackground();
       const curPointIndex = Math.min(
         Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
         curvesData.length - 1
@@ -95,7 +95,6 @@ export default function Experience({
       offset += 0.0005 * (isForwardPressed ? 1 : -1);
       cameraGroup.current.position.copy(curve.getPointAt(offset));
       dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
-      sparklesRef.current.position.z = cameraGroup.current.position.z;
 
       // cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
     }
@@ -128,10 +127,9 @@ export default function Experience({
       ),
     ]);
 
-    const multiplyingFactor = pathObjects.length > 0 ? 0.1 : 5;
-
     textualData.resultArray.forEach((result, i) => {
       let point = curve.getPointAt(offset + 0.002 * i);
+
       setPathObjects((prevObjects) => [
         ...prevObjects,
         {
@@ -139,10 +137,7 @@ export default function Experience({
           text: result,
           //imageUrl: result.imageUrl,
           position: [
-            point.x *
-              (i !== 0 && prevObjects[prevObjects.length - 1].position[0] > 0
-                ? 1 * multiplyingFactor
-                : -1 * multiplyingFactor),
+            point.x,
             0,
             i === 0
               ? pathObjects.length * -50 - 100
@@ -185,8 +180,8 @@ export default function Experience({
   useEffect(() => {
     if (!cameraGroup.current) return;
 
-    let touchStartY = 0;
-    let touchEndY = 0;
+    // let touchStartY = 0;
+    // let touchEndY = 0;
 
     // Use keys to translate
     const handleKeyDown = (e) => {
@@ -207,44 +202,74 @@ export default function Experience({
       }
     };
 
-    const handleTouchStart = (e) => {
-      const touch = e.touches[0];
-      touchStartY = touch.clientY;
-    };
+    // const handleTouchStart = (e) => {
+    //   const touch = e.touches[0];
+    //   touchStartY = touch.clientY;
+    // };
 
-    const handleTouchMove = (e) => {
-      const touch = e.touches[0];
-      touchEndY = touch.clientY;
+    // const handleTouchMove = (e) => {
+    //   const touch = e.touches[0];
+    //   touchEndY = touch.clientY;
 
-      // Determine the swipe direction
-      const swipeDistance = touchEndY - touchStartY;
-      if (swipeDistance > 50) {
+    //   // Determine the swipe direction
+    //   const swipeDistance = touchEndY - touchStartY;
+    //   if (swipeDistance > 10) {
+    //     setIsForwardPressed(true);
+    //     setIsBackwardPressed(false);
+    //   } else if (swipeDistance < -10) {
+    //     setIsForwardPressed(false);
+    //     setIsBackwardPressed(true);
+    //   }
+    // };
+
+    // const handleTouchEnd = () => {
+    //   setIsForwardPressed(false);
+    //   setIsBackwardPressed(false);
+    // };
+
+    // Get the height of the screen
+    const screenHeight = window.innerHeight;
+
+    // Variable to track touch positions
+    let touchY = 0;
+
+    // Function to handle touch move
+    const onTouchMove = (event) => {
+      const touch = event.touches[0];
+      touchY = touch.clientY;
+
+      // Define the threshold for upper and lower parts
+      const upperThreshold = screenHeight / 2;
+
+      // Check if the user is holding on the upper part
+      if (touchY < upperThreshold) {
         setIsForwardPressed(true);
         setIsBackwardPressed(false);
-      } else if (swipeDistance < -50) {
+      } else {
         setIsForwardPressed(false);
         setIsBackwardPressed(true);
       }
     };
 
-    const handleTouchEnd = () => {
+    // Function to handle touch end
+    const onTouchEnd = () => {
       setIsForwardPressed(false);
       setIsBackwardPressed(false);
     };
 
+    // Add event listeners
+    document.addEventListener("touchstart", onTouchMove, false);
+    document.addEventListener("touchend", onTouchEnd, false);
+
     // Add event listeners here
     window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchstart", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
@@ -260,20 +285,47 @@ export default function Experience({
     setImageTexture(loadedTexture);
   }, []);
 
+  const switchBackground = () => {
+    tl.current.seek(anim * tl.current.duration());
+    if (isForwardPressed) {
+      anim += 0.0015;
+    } else {
+      anim -= 0.0015;
+    }
+    if (anim >= 1) anim = 0;
+    if (anim < 0) anim = 1;
+  };
+
+  useLayoutEffect(() => {
+    tl.current = gsap.timeline();
+
+    tl.current
+      .to(backgroundColorRef.current, {
+        duration: 1,
+        colorA: "#000000",
+        colorB: "#ffad30",
+      })
+      .to(backgroundColorRef.current, {
+        duration: 1,
+        colorA: "#000000",
+        colorB: "#424242",
+      })
+      .to(backgroundColorRef.current, {
+        duration: 1,
+        colorA: "#000000",
+        colorB: "#38419D",
+      });
+
+    tl.current.pause();
+  }, []);
+
   return (
     <>
       <directionalLight position={[0, 3, 1]} intensity={1} />
-      {/* <OrbitControls /> */}
-      <Sparkles
-        count={300}
-        scale={20}
-        size={3}
-        ref={sparklesRef}
-        speed={0.6}
-        color={"#E48F45"}
-      />
+
       <group ref={cameraGroup}>
-        <Background />
+        <WindEffect isMoving={isForwardPressed} />
+        <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
         <Environment preset='sunset' />
@@ -315,9 +367,8 @@ export default function Experience({
             </Text>
             <Text
               color='white'
-              anchorX={"left"}
               anchorY='top'
-              position-y={object.heading ? -0.66 : 0}
+              position-y={object.heading ? -0.66 : 1.4}
               fontSize={0.3}
               maxWidth={6}
               font={"/fonts/Inter-Regular.ttf"}

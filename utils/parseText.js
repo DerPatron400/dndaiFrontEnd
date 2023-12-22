@@ -20,7 +20,7 @@ const splitTextIntoArray = (text, wordsPerElement) => {
 };
 
 export const parseGameText = (text) => {
-  const wordsPerElement = 17;
+  const wordsPerElement = 20;
 
   var paragraphs = text.split("\n");
   var visualText = paragraphs

@@ -1,10 +1,11 @@
 // AtmosScene.js
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import Experience from "./Experience";
 import GameLoop from "@/components/shared/GameLoop";
 import { parseGameText } from "@/utils/parseText";
+import { EffectComposer, Noise } from "@react-three/postprocessing";
 
 const responseText =
   "Welcome to the adventure, Dol Katzius, the Halfling Barbarian!\n" +
