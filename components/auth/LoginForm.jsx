@@ -1,18 +1,22 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { FaGoogle, FaHome } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import Cookie from "universal-cookie";
+import useUserStore from "@/utils/store/userStore";
+import toast from "react-hot-toast";
 
 export default function Login() {
+  const cookies = new Cookie();
   const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
   const handleSignupClick = () => {
     router.push("/register");
   };
 
-  const BACKEND_LOGIN_URL = "https://dndai.app/login";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   const submitForm = async (e) => {
     e.preventDefault();
-
-    console.log(e);
 
     let formData = e.target;
 
@@ -24,7 +28,7 @@ export default function Login() {
 
     try {
       // Send the form data to your backend
-      const response = await fetch(BACKEND_LOGIN_URL, {
+      const response = await fetch(BACKEND_URL + "/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +39,10 @@ export default function Login() {
       // Handle the response from the backend
       if (response.ok) {
         const data = await response.json();
-        console.log("Login successful:", data);
+
+        setUser(data);
+        cookies.set("uid", data._id, { path: "/" });
+        toast.success("Login Successful");
         router.push("/");
       } else {
         console.error("Login failed:", response.status);
@@ -55,7 +62,7 @@ export default function Login() {
     <div className='flex h-screen w-screen relative'>
       <div className='w-1/2 h-full hidden md:block relative'>
         <img
-          src='/auth.jpg'
+          src='/images/auth.jpg'
           alt='Login'
           className='w-full h-full object-cover'
         />

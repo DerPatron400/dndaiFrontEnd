@@ -6,6 +6,7 @@ import Experience from "./Experience";
 import GameLoop from "@/components/shared/GameLoop";
 import { parseGameText } from "@/utils/parseText";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
+import useIntroTextStore from "@/utils/store/introTextStore";
 
 const responseText =
   "Welcome to the adventure, Dol Katzius, the Halfling Barbarian!\n" +
@@ -45,10 +46,12 @@ const responseText =
   "What do you choose to do, Dol Katzius?";
 
 export default function AtmosScene() {
+  const introText = useIntroTextStore((state) => state.introText);
+
   const buttonRef = useRef();
   const [pages, setPages] = useState(1);
 
-  const { visualText, resultArray } = parseGameText(responseText);
+  const { visualText, resultArray } = parseGameText(introText);
 
   const [showButton, setShowButton] = useState(false);
   const [open, setOpen] = useState(false);
@@ -56,7 +59,6 @@ export default function AtmosScene() {
 
   console.log("visualText", visualText);
   console.log("resultArray", resultArray);
-
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
   };

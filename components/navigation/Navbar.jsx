@@ -5,12 +5,22 @@ import EnableSound from "../util/SoundModal";
 import Link from "next/link";
 import Accounts from "../Accounts";
 import useSoundStore from "@/utils/store";
+import useUserStore from "@/utils/store/userStore";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const { audio, setAudio } = useSoundStore((state) => state);
+  const { user } = useUserStore((state) => state);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!audio) return;
@@ -45,7 +55,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <Accounts />
           ) : (
-            <>
+            <div>
               {" "}
               <Link
                 href='/login'
@@ -59,7 +69,7 @@ const Navbar = () => {
               >
                 Sign Up
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>

@@ -108,7 +108,7 @@ export function Model(props) {
         duration: 10,
         ease: "power2.inOut",
         onUpdate: () => {
-          group.current.lookAt(
+          group.current?.lookAt(
             group.current.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
@@ -214,4 +214,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/bird-transformed.glb");
+useGLTF.preload("/dragon.glb");

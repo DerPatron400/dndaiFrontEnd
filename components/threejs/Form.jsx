@@ -4,6 +4,10 @@ import { twMerge } from "tailwind-merge";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import toast from "react-hot-toast";
+import axios from "axios";
+import useUserStore from "@/utils/store/userStore";
+import useIntroTextStore from "@/utils/store/introTextStore";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,27 +20,27 @@ const DropDown = ({ data, className, animName = "", value, onChange }) => {
       )}
     >
       <div className={`flex flex-col items-start z-[4] ${animName} `}>
-        <label className="text-white mb-1 font-bold text-3xl">
+        <label className='text-white mb-1 font-bold text-3xl'>
           {data.label}
         </label>
 
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="bg-transparent border-[1px] cursor-pointer border-green-500 my-4 p-3  text-white rounded-md md:w-[40vw] w-[70vw] focus:outline-none focus:ring focus:border-green-500 dropdown-custom"
+          className='bg-transparent border-[1px] cursor-pointer border-green-500 my-4 p-3  text-white rounded-md md:w-[40vw] w-[70vw] focus:outline-none focus:ring focus:border-green-500 dropdown-custom'
           style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
         >
           <option
-            value=""
+            value=''
             disabled
             selected
-            className="disabled:bg-black disabled:text-white"
+            className='disabled:bg-black disabled:text-white'
           >
             {data.placeholder}
           </option>
           {data.options.map((option) => (
             <option
-              className="cursor-pointer bg-black"
+              className='cursor-pointer bg-black'
               key={option}
               value={option}
             >
@@ -60,29 +64,32 @@ const InitialState = {
   wisdom: "",
   charisma: "",
 };
+const getRandomName = () => {
+  const prefixes = ["Thorn", "Shadow", "Dragon", "Mystic", "Storm"];
+  const suffixes = ["blade", "fire", "whisper", "bane", "soul"];
+
+  const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+  const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+
+  return `${randomPrefix} ${randomSuffix}`;
+};
+
+const getRandomDropdownOption = (options) => {
+  if (!options || options.length === 0) {
+    return ""; // Return an empty string or handle appropriately if options are empty
+  }
+
+  const randomIndex = Math.floor(Math.random() * options.length);
+  return options[randomIndex];
+};
 
 export default function Form() {
   const formRef = useRef(null);
   const [formData, setFormData] = useState(InitialState);
-
-  const getRandomName = () => {
-    const prefixes = ["Thorn", "Shadow", "Dragon", "Mystic", "Storm"];
-    const suffixes = ["blade", "fire", "whisper", "bane", "soul"];
-
-    const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-    const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
-
-    return `${randomPrefix} ${randomSuffix}`;
-  };
-
-  const getRandomDropdownOption = (options) => {
-    if (!options || options.length === 0) {
-      return ""; // Return an empty string or handle appropriately if options are empty
-    }
-
-    const randomIndex = Math.floor(Math.random() * options.length);
-    return options[randomIndex];
-  };
+  const [isLoading, setIsLoading] = useState(false); // Set this to true when the form is being submitted
+  const user = useUserStore((state) => state.user);
+  const setIntroText = useIntroTextStore((state) => state.setIntroText);
+  const router = useRouter();
 
   const smoothScrollTo = (targetPosition, duration) => {
     const startPosition = window.pageYOffset;
@@ -139,12 +146,44 @@ export default function Form() {
     return Object.values(formData).every((val) => val !== "");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validateData()) {
       toast.error("Please fill all the fields");
       return;
     }
-    console.log(formData);
+
+    setIsLoading(true);
+
+    let currentPrompt = `${formData.name}${formData.class}${formData.race} ${formData.strength}${formData.dexterity}${formData.constitution}${formData.intelligence}${formData.wisdom}${formData.charisma}`;
+
+    const bodyData = {
+      strength: formData.strength,
+      who: formData.name,
+      constitution: formData.constitution,
+      intelligence: formData.intelligence,
+      wisdom: formData.wisdom,
+      charisma: formData.charisma,
+      dexterity: formData.dexterity,
+      styleArt: "dnd",
+      dndClasses: formData.class,
+      dndRace: formData.race,
+    };
+
+    try {
+      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const response = await axios.post(BACKEND_URL + "/gpt4/chat", bodyData, {
+        params: {
+          _id: user._id,
+        },
+      });
+      console.log(response.data.responseText);
+      setIntroText(response.data.responseText);
+      router.push("/newgame");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -174,7 +213,6 @@ export default function Form() {
         {
           opacity: 1,
           x: window.innerWidth < 768 ? 90 : 0,
-
           delay: 0.5,
           ease: "power4.inOut",
           duration: 2,
@@ -218,7 +256,6 @@ export default function Form() {
         {
           opacity: 1,
           x: window.innerWidth < 768 ? -90 : 0,
-
           ease: "power4.inOut",
           duration: 2,
         }
@@ -235,7 +272,6 @@ export default function Form() {
           x: 0,
           y: 0,
           delay: 0.5,
-
           ease: "power4.inOut",
           duration: 2,
         }
@@ -251,7 +287,6 @@ export default function Form() {
           opacity: 1,
           x: 0,
           y: 0,
-
           ease: "power4.inOut",
           duration: 2,
         }
@@ -264,7 +299,6 @@ export default function Form() {
         {
           opacity: 1,
           x: 0,
-
           ease: "power4.inOut",
           duration: 3,
         }
@@ -280,25 +314,25 @@ export default function Form() {
   }, []);
 
   return (
-    <div className="form z-[-1] w-screen h-full bg-transparent ">
-      <form className="flex flex-col w-full items-center h-full ">
-        <div className="mb-4 h-screen md:w-2/4 md:me-auto flex flex-col items-center md:ps-10 ps-[25%] justify-center ">
-          <div className="flex flex-col items-start j z-[5] w-[20rem] md:w-full">
-            <label className="text-white font-bold text-xl">
+    <div className='form z-[-1] w-screen h-full bg-transparent '>
+      <form className='flex flex-col w-full items-center h-full '>
+        <div className='mb-4 h-screen md:w-2/4 md:me-auto flex flex-col items-center md:ps-10 ps-[25%] justify-center '>
+          <div className='flex flex-col items-start j z-[5] w-[20rem] md:w-full'>
+            <label className='text-white font-bold text-xl'>
               Main Protagonist
             </label>
             <input
-              type="text"
+              type='text'
               value={formData.name}
               onChange={(e) => handleChange("name", e.target.value)}
-              placeholder="Enter Name"
-              className="bg-transparent border-[1px] border-green-500 my-4 p-3 text-white rounded-md md:w-[30rem]  focus:outline-none focus:ring focus:border-green-500"
+              placeholder='Enter Name'
+              className='bg-transparent border-[1px] border-green-500 my-4 p-3 text-white rounded-md md:w-[30rem]  focus:outline-none focus:ring focus:border-green-500'
               style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
             />
             <button
-              type="button"
+              type='button'
               onClick={handleClick}
-              className="bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-white py-2 px-4 border-none cursor-pointer rounded-md"
+              className='bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-white py-2 px-4 border-none cursor-pointer rounded-md'
             >
               Random Character
             </button>
@@ -306,14 +340,14 @@ export default function Form() {
         </div>
         <DropDown
           data={dropdowns[0]}
-          className="ms-auto md:w-2/4"
+          className='ms-auto md:w-2/4'
           animName={"anim-1"}
           value={formData.class}
           onChange={(value) => handleChange("class", value)}
         />
         <DropDown
           data={dropdowns[1]}
-          className="me-auto w-2/4"
+          className='me-auto w-2/4'
           animName={"anim-2"}
           value={formData.race}
           onChange={(value) => handleChange("race", value)}
@@ -326,57 +360,58 @@ export default function Form() {
         >
           <DropDown
             data={dropdowns[2]}
-            className="h-full"
-            animName="anim-3"
+            className='h-full'
+            animName='anim-3'
             value={formData.strength}
             onChange={(value) => handleChange("strength", value)}
           />
           <DropDown
             data={dropdowns[3]}
-            className="h-full"
-            animName="anim-3"
+            className='h-full'
+            animName='anim-3'
             value={formData.dexterity}
             onChange={(value) => handleChange("dexterity", value)}
           />
         </div>
         <DropDown
           data={dropdowns[4]}
-          className=" w-2/4 me-auto"
+          className=' w-2/4 me-auto'
           animName={"anim-5"}
           value={formData.intelligence}
           onChange={(value) => handleChange("intelligence", value)}
         />
         <DropDown
           data={dropdowns[5]}
-          className="w-2/4 ms-auto"
+          className='w-2/4 ms-auto'
           animName={"anim-6"}
           value={formData.constitution}
           onChange={(value) => handleChange("constitution", value)}
         />
         <DropDown
           data={dropdowns[6]}
-          className=" w-full"
+          className=' w-full'
           animName={"anim-7"}
           value={formData.wisdom}
           onChange={(value) => handleChange("wisdom", value)}
         />
         <DropDown
           data={dropdowns[7]}
-          className=" w-full"
+          className=' w-full'
           animName={"anim-8"}
           value={formData.charisma}
           onChange={(value) => handleChange("charisma", value)}
         />
 
-        <div className="h-[150vh] z-[4] flex items-end">
-          <div className="h-screen flex items-center " ref={formRef}>
+        <div className='h-[150vh] z-[4] flex items-end'>
+          <div className='h-screen flex items-center ' ref={formRef}>
             <button
               onClick={handleSubmit}
-              type="button"
+              disabled={isLoading}
+              type='button'
               style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
-              className="bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-xl text-white py-6 px-12 border-none cursor-pointer rounded-md anim-9"
+              className='bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-xl text-white py-6 px-12 border-none cursor-pointer rounded-md anim-9'
             >
-              Start Game
+              {isLoading ? "Loading..." : " Start Game"}
             </button>
           </div>
         </div>

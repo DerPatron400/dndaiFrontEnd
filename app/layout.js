@@ -6,6 +6,7 @@ import Footer from "@/components/navigation/Footer";
 import { Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 import "@radix-ui/themes/styles.css";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
             {!hideNavbar && <Navbar />}
             <div className='min-h-screen'>{children}</div>
             {!hideFooter && <Footer />}
+            <Toaster />
           </Theme>
         </div>
       </body>
