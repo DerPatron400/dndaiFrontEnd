@@ -26,7 +26,8 @@ export const parseGameText = (text) => {
   var visualText = paragraphs
     .map((line) => line.replace(/^[\*]*\s*/, "").trim()) // Remove leading asterisks and whitespace
     .filter((line) => line.startsWith("VISUAL")) // Filter lines starting with VISUAL
-    .find((line) => line); // Find the first one
+    .find((line) => line)
+    .replace("VISUAL:", ""); // Find the first one
 
   const pathText = text.replace(visualText, "");
   const resultArray = splitTextIntoArray(pathText, wordsPerElement);

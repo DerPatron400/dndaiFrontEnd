@@ -6,8 +6,10 @@ import Link from "next/link";
 import Accounts from "../Accounts";
 import useSoundStore from "@/utils/store";
 import useUserStore from "@/utils/store/userStore";
+import Cookies from "universal-cookie";
 
 const Navbar = () => {
+  const cookie = new Cookies();
   const { audio, setAudio } = useSoundStore((state) => state);
   const { user } = useUserStore((state) => state);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -19,6 +21,7 @@ const Navbar = () => {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
+      cookie.set("uid", "", { path: "/" });
     }
   }, [user]);
 

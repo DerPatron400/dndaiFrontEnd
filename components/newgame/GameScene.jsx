@@ -46,7 +46,7 @@ const responseText =
   "What do you choose to do, Dol Katzius?";
 
 export default function AtmosScene() {
-  const introText = useIntroTextStore((state) => state.introText);
+  const { introText, image } = useIntroTextStore((state) => state);
 
   const buttonRef = useRef();
   const [pages, setPages] = useState(1);
@@ -57,8 +57,8 @@ export default function AtmosScene() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
 
-  console.log("visualText", visualText);
-  console.log("resultArray", resultArray);
+  // console.log("visualText", visualText);
+  // console.log("resultArray", resultArray);
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
   };
@@ -70,12 +70,13 @@ export default function AtmosScene() {
           <color attach='background' args={["#ececec"]} />
 
           <Experience
-            textualData={{ visualText, resultArray }}
+            textualData={{ visualText, resultArray, image }}
             pages={pages}
             setOpen={setOpen}
             open={open}
             type={type}
             setType={setType}
+            visualText={visualText}
           />
         </Canvas>
       </div>
@@ -85,6 +86,7 @@ export default function AtmosScene() {
         setOpen={setOpen}
         addToScene={addToScene}
         type={type}
+        visualText={visualText}
       />
     </div>
   );

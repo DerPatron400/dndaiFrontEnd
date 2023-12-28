@@ -176,9 +176,9 @@ export default function Form() {
           _id: user._id,
         },
       });
-      console.log(response.data.responseText);
+      console.log(response.data);
       setIntroText(response.data.responseText);
-      router.push("/newgame");
+      router.push("/newgame?conversationIndex="+ response.data.conversationIndex);
     } catch (error) {
       console.log(error);
     } finally {

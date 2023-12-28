@@ -5,7 +5,9 @@ const useIntroTextStore = create(
   persist(
     (set, get) => ({
       introText: "",
+      image: "",
       setIntroText: (introText) => set({ introText }),
+      setImage: (image) => set({ image }),
     }),
     {
       name: "into-text-storage", // name of the item in the storage (must be unique)
