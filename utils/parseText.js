@@ -22,12 +22,16 @@ const splitTextIntoArray = (text, wordsPerElement) => {
 export const parseGameText = (text) => {
   const wordsPerElement = 20;
 
-  var paragraphs = text.split("\n");
-  var visualText = paragraphs
-    .map((line) => line.replace(/^[\*]*\s*/, "").trim()) // Remove leading asterisks and whitespace
-    .filter((line) => line.startsWith("VISUAL")) // Filter lines starting with VISUAL
-    .find((line) => line)
-    .replace("VISUAL:", ""); // Find the first one
+  // Use a regular expression to extract the line labeled as VISUAL
+  const visualMatch = text.match(/VISUAL:.*?(?=\n|$)/);
+
+  // Extracted visual line
+  const visualText = visualMatch
+    ? visualMatch[0]
+        .replace(/[*:|#]/g, "")
+        .replace("VISUAL", "")
+        .trim()
+    : null;
 
   const pathText = text.replace(visualText, "");
   const resultArray = splitTextIntoArray(pathText, wordsPerElement);

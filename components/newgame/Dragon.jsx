@@ -44,4 +44,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/dragon.glb");
+useGLTF.preload("/models/dragon.glb");

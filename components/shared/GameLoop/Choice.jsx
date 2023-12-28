@@ -8,7 +8,7 @@ const Input = ({ input, setInput }) => {
       value={input}
       onChange={(e) => setInput(e.target.value)}
       placeholder='Enter your choice'
-      className='bg-transparent border px-3 md:w-64 w-32 placeholder:text-[#d3d3d3] text-white py-1 rounded'
+      className='bg-transparent border px-3 w-full md:w-64  placeholder:text-[#d3d3d3] text-white py-1 rounded'
     />
   );
 };
