@@ -59,7 +59,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <Accounts />
           ) : (
-            <div>
+            <div className="flex gap-x-2">
               {" "}
               <Link
                 href="/login"

@@ -5,7 +5,7 @@ import * as THREE from "three";
 
 export function Model(props) {
   const group = useRef();
-  const { animations, scene } = useGLTF("/dragon.glb");
+  const { animations, scene } = useGLTF("/models/dragon.glb");
   let mixer, action;
   const modelAnimations = () => {
     mixer = new THREE.AnimationMixer(group.current);

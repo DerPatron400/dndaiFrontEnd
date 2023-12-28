@@ -7,6 +7,7 @@ import GameLoop from "@/components/shared/GameLoop";
 import { parseGameText } from "@/utils/parseText";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
 import useIntroTextStore from "@/utils/store/introTextStore";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const responseText =
   "Welcome to the adventure, Dol Katzius, the Halfling Barbarian!\n" +
@@ -51,11 +52,13 @@ export default function AtmosScene() {
   const buttonRef = useRef();
   const [pages, setPages] = useState(1);
 
-  const { visualText, resultArray } = parseGameText(introText);
+  const { visualText, resultArray } = parseGameText(responseText);
 
   const [showButton, setShowButton] = useState(false);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
+  const [isForwardPressed, setIsForwardPressed] = useState(false);
+  const [isBackwardPressed, setIsBackwardPressed] = useState(false);
 
   // console.log("visualText", visualText);
   // console.log("resultArray", resultArray);
@@ -89,6 +92,26 @@ export default function AtmosScene() {
         type={type}
         visualText={visualText}
       />
+
+      <div className="fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden">
+        <button
+          ref={buttonRef}
+          onClick={() => {
+            setIsForwardPressed(true);
+          }}
+          className="bg-white text-black px-4 py-2 rounded-md"
+        >
+          <FaChevronUp size={20} />
+        </button>
+        <button
+          onClick={() => {
+            setIsBackwardPressed(true);
+          }}
+          className="bg-white text-black px-4 py-2 rounded-md"
+        >
+          <FaChevronDown size={20} />
+        </button>
+      </div>
     </div>
   );
 }

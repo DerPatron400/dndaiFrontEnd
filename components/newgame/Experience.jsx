@@ -321,7 +321,7 @@ export default function Experience({
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -338,9 +338,9 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color='white'
+              color="white"
               anchorX={"left"}
-              anchorY='center'
+              anchorY="center"
               fontSize={0.52}
               maxWidth={2.5}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -348,8 +348,8 @@ export default function Experience({
               {object.heading}
             </Text>
             <Text
-              color='white'
-              anchorY='top'
+              color="white"
+              anchorY="top"
               position-y={object.heading ? -0.66 : 1.4}
               fontSize={0.3}
               maxWidth={6}

@@ -33,7 +33,7 @@ const DragonHead = () => {
     <>
       <Center>
         <Html position={[window.innerWidth < 768 ? -4.3 : -5.7, 3, 0]}>
-          <div className='absolute top-0 left-0 w-[30rem] h-full flex items-center justify-center text-white md:text-2xl text-[13px]'>
+          <div className="absolute top-0 w-[30rem] h-full flex items-center justify-center text-white md:text-2xl text-[13px]">
             Please wait while we load your journey
           </div>
         </Html>
