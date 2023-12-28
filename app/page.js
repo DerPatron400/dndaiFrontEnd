@@ -67,10 +67,10 @@ export default function Home() {
   const user = useUserStore((state) => state.user);
 
   const startGame = () => {
-    if (!user) {
-      toast.error("Please login to play the game");
-      return;
-    }
+    // if (!user) {
+    //   toast.error("Please login to play the game");
+    //   return;
+    // }
     router.push("/input");
   };
 

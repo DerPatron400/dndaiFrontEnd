@@ -178,7 +178,9 @@ export default function Form() {
       });
       console.log(response.data);
       setIntroText(response.data.responseText);
-      router.push("/newgame?conversationIndex="+ response.data.conversationIndex);
+      router.push(
+        "/newgame?conversationIndex=" + response.data.conversationIndex
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -403,7 +405,10 @@ export default function Form() {
         />
 
         <div className='h-[150vh] z-[4] flex items-end'>
-          <div className='h-screen flex items-center ' ref={formRef}>
+          <div
+            className='h-screen flex justify-center flex-col items-center '
+            ref={formRef}
+          >
             <button
               onClick={handleSubmit}
               disabled={isLoading}
@@ -411,8 +416,13 @@ export default function Form() {
               style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
               className='bg-green-500 hover:bg-green-600 transition-all duration-300 z-[4] text-xl text-white py-6 px-12 border-none cursor-pointer rounded-md anim-9'
             >
-              {isLoading ? "Loading..." : " Start Game"}
+              {isLoading ? "Loading... " : " Start Game"}
             </button>
+            {isLoading && (
+              <span className='text-white mt-10'>
+                Loading can take 5 - 90 seconds, please wait patiently.
+              </span>
+            )}
           </div>
         </div>
       </form>
