@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useState } from "react";
 import { useGLTF, Sparkles } from "@react-three/drei";
 import gsap from "gsap";
@@ -19,109 +20,109 @@ export function Model(props) {
   const { camera } = useThree();
 
   const gsapAnimations = (t1) => {
-    t1.to(group.current.position, {
-      x: window.innerWidth < 768 ? 0 : -1,
-      y: window.innerWidth < 768 ? -0.8 : -1.5,
+    t1.to(group.current?.position, {
+      x: window?.innerWidth < 768 ? 0 : -1,
+      y: window?.innerWidth < 768 ? -0.8 : -1.5,
       delay: 1,
       duration: 10,
       ease: "power2.inOut",
       onUpdate: () => {
-        group.current.lookAt(
-          group.current.position.x * -1.5,
+        group.current?.lookAt(
+          group.current?.position.x * -1.5,
           camera.position.y - 1.3,
           camera.position.z
         );
       },
     })
-      .to(group.current.position, {
-        x: window.innerWidth < 768 ? 0 : 1,
+      .to(group.current?.position, {
+        x: window?.innerWidth < 768 ? 0 : 1,
         delay: 1,
         duration: 10,
         ease: "power2.inOut",
         onUpdate: () => {
-          group.current.lookAt(
-            group.current.position.x * -1.5,
+          group.current?.lookAt(
+            group.current?.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
           );
         },
       })
-      .to(group.current.position, {
+      .to(group.current?.position, {
         x: 0,
         delay: 1,
         duration: 15,
         ease: "power2.inOut",
         onUpdate: () => {
-          group.current.lookAt(
-            group.current.position.x * -1.5,
+          group.current?.lookAt(
+            group.current?.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
           );
         },
       })
-      .to(group.current.position, {
-        x: window.innerWidth < 768 ? 0 : 1,
+      .to(group.current?.position, {
+        x: window?.innerWidth < 768 ? 0 : 1,
         delay: 2,
         duration: 10,
         ease: "power2.inOut",
         onUpdate: () => {
-          group.current.lookAt(
-            group.current.position.x * -1.5,
+          group.current?.lookAt(
+            group.current?.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
           );
         },
       })
-      .to(group.current.position, {
-        x: window.innerWidth < 768 ? 0 : -1,
+      .to(group.current?.position, {
+        x: window?.innerWidth < 768 ? 0 : -1,
         delay: 2,
         duration: 10,
         ease: "power2.inOut",
         onUpdate: () => {
-          group.current.lookAt(
-            group.current.position.x * -1.5,
+          group.current?.lookAt(
+            group.current?.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
           );
         },
       })
-      .to(group.current.position, {
-        x: window.innerWidth < 768 ? 0 : 12,
+      .to(group.current?.position, {
+        x: window?.innerWidth < 768 ? 0 : 12,
         delay: 1,
         duration: 10,
         ease: "power2.inOut",
         onStart: () => {
-          group.current.lookAt(
-            group.current.position.x * -2,
+          group.current?.lookAt(
+            group.current?.position.x * -2,
             camera.position.y - 1.3,
             camera.position.z
           );
         },
       })
-      .to(group.current.rotation, {
-        y: window.innerWidth < 768 ? group.current.rotation.y : Math.PI * -2,
+      .to(group.current?.rotation, {
+        y: window?.innerWidth < 768 ? group.current?.rotation.y : Math.PI * -2,
         duration: 4,
       })
-      .to(group.current.position, {
+      .to(group.current?.position, {
         x: 0,
         delay: 1,
         duration: 10,
         ease: "power2.inOut",
         onUpdate: () => {
           group.current?.lookAt(
-            group.current.position.x * -1.5,
+            group.current?.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
           );
         },
       })
-      .to(group.current.rotation, {
+      .to(group.current?.rotation, {
         x: -0.5,
         duration: 4,
         ease: "power2.inOut",
         delay: 1,
       })
-      .to(group.current.position, {
+      .to(group.current?.position, {
         y: 10,
         delay: 1,
         duration: 10,
@@ -149,9 +150,9 @@ export function Model(props) {
   };
 
   const initialAnimation = () => {
-    gsap.to(group.current.position, {
-      x: window.innerWidth < 768 ? 0 : 1,
-      y: window.innerWidth < 768 ? -0.3 : -1.5,
+    gsap.to(group.current?.position, {
+      x: window?.innerWidth < 768 ? 0 : 1,
+      y: window?.innerWidth < 768 ? -0.3 : -1.5,
       duration: 4.3,
       ease: "power2.inOut",
       onComplete: () => {
@@ -161,8 +162,8 @@ export function Model(props) {
       onUpdate: () => {
         mixer.update(0.04);
         if (group.current)
-          group.current.lookAt(
-            group.current.position.x * -1.5,
+          group.current?.lookAt(
+            group.current?.position.x * -1.5,
             camera.position.y - 1.3,
             camera.position.z
           );
@@ -202,11 +203,11 @@ export function Model(props) {
         ref={group}
         rotation={[0, -1.7, 0]}
         position={[
-          window.innerWidth < 768 ? 0 : 5,
-          window.innerWidth < 768 ? 3 : -1.5,
+          window?.innerWidth < 768 ? 0 : 5,
+          window?.innerWidth < 768 ? 3 : -1.5,
           3,
         ]}
-        scale={window.innerWidth < 768 ? 0.5 : 1}
+        scale={window?.innerWidth < 768 ? 0.5 : 1}
       >
         <primitive object={scene} dispose={null} position={[0, 0, 0]} />
       </group>

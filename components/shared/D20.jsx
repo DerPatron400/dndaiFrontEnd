@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useControls } from "leva";
+import toast from "react-hot-toast";
 
 const facePositions = {
   face1: { value: [-6, 0.3, 0] },
@@ -64,21 +64,21 @@ const facePositions = {
   },
 };
 
-export function Model(props) {
+export function Model({ selectedFace, setSelectedFace }) {
   const { nodes, materials } = useGLTF("/models/d20-transformed.glb");
   const sceneRef = useRef(null);
   const [rolling, setRolling] = useState(true);
-  const [selectedFace, setSelectedFace] = useState(1);
 
   useEffect(() => {
     const rollDice = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 4000));
+      await new Promise((resolve) => setTimeout(resolve, 8000));
 
       setRolling(false);
 
       // Generate a random number between 1 and 20
       const randomFace = Math.floor(Math.random() * 20) + 1;
       setSelectedFace(randomFace);
+      toast.success(`You rolled a ${randomFace}!`);
 
       // Set the position for the selected face
       const newPosition = facePositions[`face${randomFace}`]?.value || [
@@ -100,7 +100,7 @@ export function Model(props) {
   });
 
   return (
-    <group {...props} dispose={null} ref={sceneRef}>
+    <group dispose={null} ref={sceneRef}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
           <mesh
@@ -113,4 +113,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/d20-transformed.glb");
+useGLTF.preload("/models/d20-transformed.glb");

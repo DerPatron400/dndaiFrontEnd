@@ -1,4 +1,10 @@
-import { Float, PerspectiveCamera, Text, Environment } from "@react-three/drei";
+import {
+  Float,
+  PerspectiveCamera,
+  Text,
+  Environment,
+  useTexture,
+} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
@@ -8,6 +14,7 @@ import { Cloud } from "./Cloud";
 import gsap from "gsap";
 import { TextureLoader } from "three";
 import WindEffect from "./WindEffect";
+import Button from "./button";
 
 const LINE_NB_POINTS = 1200;
 const CURVE_DISTANCE = 400;
@@ -108,6 +115,7 @@ export default function Experience({
         ...prevObjects,
         {
           type: "image",
+          image: loadTexture(textualData.image),
           position: [
             prevObjects[prevObjects.length - 1].position[0],
             0,
@@ -135,7 +143,7 @@ export default function Experience({
         {
           heading: result.heading,
           text: result,
-          //imageUrl: result.imageUrl,
+
           position: [
             point.x,
             0,
@@ -202,31 +210,6 @@ export default function Experience({
       }
     };
 
-    // const handleTouchStart = (e) => {
-    //   const touch = e.touches[0];
-    //   touchStartY = touch.clientY;
-    // };
-
-    // const handleTouchMove = (e) => {
-    //   const touch = e.touches[0];
-    //   touchEndY = touch.clientY;
-
-    //   // Determine the swipe direction
-    //   const swipeDistance = touchEndY - touchStartY;
-    //   if (swipeDistance > 10) {
-    //     setIsForwardPressed(true);
-    //     setIsBackwardPressed(false);
-    //   } else if (swipeDistance < -10) {
-    //     setIsForwardPressed(false);
-    //     setIsBackwardPressed(true);
-    //   }
-    // };
-
-    // const handleTouchEnd = () => {
-    //   setIsForwardPressed(false);
-    //   setIsBackwardPressed(false);
-    // };
-
     // Get the height of the screen
     const screenHeight = window.innerHeight;
 
@@ -272,6 +255,16 @@ export default function Experience({
       window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
+  const loadTexture = (url) => {
+    const textureLoader = new TextureLoader();
+    const loadedTexture = textureLoader.load(url);
+
+    // Customize texture properties if needed
+    loadedTexture.wrapS = THREE.RepeatWrapping;
+    loadedTexture.wrapT = THREE.RepeatWrapping;
+    loadedTexture.repeat.set(1, 1);
+    return loadedTexture;
+  };
 
   useMemo(() => {
     const textureLoader = new TextureLoader();
@@ -343,18 +336,7 @@ export default function Experience({
 
       {pathObjects.map((object, i) =>
         object.type === "text" ? (
-          <group
-            onClick={() => {
-              console.log(object);
-              if (object.isVisual) {
-                console.log("here");
-                setType("image");
-                setOpen(true);
-              }
-            }}
-            key={i}
-            position={object.position}
-          >
+          <group key={i} position={object.position}>
             <Text
               color='white'
               anchorX={"left"}
@@ -375,12 +357,21 @@ export default function Experience({
             >
               {object.text}
             </Text>
+
+            {object.isVisual && (
+              <Button
+                onClick={() => {
+                  setType("image");
+                  setOpen(true);
+                }}
+              />
+            )}
           </group>
         ) : (
           <group key={i} position={object.position}>
             <mesh>
               <planeGeometry args={[5, 5]} />
-              <meshBasicMaterial map={imageTexture}></meshBasicMaterial>
+              <meshBasicMaterial map={object.image}></meshBasicMaterial>
             </mesh>
           </group>
         )
