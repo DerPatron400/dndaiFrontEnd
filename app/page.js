@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { BackgroundScene } from "@/components/shared/BackgroundScene";
 import { useRouter } from "next/navigation";
 import { MdClose } from "react-icons/md";
+import useUserStore from "@/utils/store/userStore";
+import toast from "react-hot-toast";
 
 const InstructionsModal = ({ onClose }) => (
   <div className='fixed inset-0 flex justify-center items-center bg-opacity-75 bg-black z-50'>
@@ -62,8 +64,13 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
   const [showInstructions, setShowInstructions] = useState(false);
+  const user = useUserStore((state) => state.user);
 
   const startGame = () => {
+    if (!user) {
+      toast.error("Please login to play the game");
+      return;
+    }
     router.push("/input");
   };
 

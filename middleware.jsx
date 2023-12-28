@@ -8,9 +8,14 @@ export default async function middleware(req) {
   let clientLogin = req.cookies.get("uid")?.value;
 
   //if not logged in and not on the login page
-  if (!clientLogin && !url.includes("/login") && !url.includes("/register")) {
+  if (
+    !clientLogin &&
+    !url.includes("/login") &&
+    url !== baseURL + "/" &&
+    !url.includes("/register")
+  ) {
     console.log("here");
-    return NextResponse.redirect(`${baseURL}/login`);
+    return NextResponse.redirect(`${baseURL}/`);
   }
 
   if (clientLogin && (url.includes("/login") || url.includes("/register"))) {

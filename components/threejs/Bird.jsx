@@ -13,7 +13,7 @@ export function Model(props) {
   const group = useRef();
   const [animationEnded, setAnimationEnded] = useState(false);
 
-  const { animations, scene } = useGLTF("/dragon.glb");
+  const { animations, scene } = useGLTF("/models/dragon.glb");
   const [addLight, setAddLight] = useState(false);
   let mixer;
 
@@ -215,4 +215,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/dragon.glb");
+useGLTF.preload("/models/dragon.glb");
