@@ -59,15 +59,16 @@ export default function AtmosScene() {
 
   // console.log("visualText", visualText);
   // console.log("resultArray", resultArray);
+  // console.log("image", image);
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
   };
 
   return (
-    <div className='relative'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+    <div className="relative">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
         <Canvas>
-          <color attach='background' args={["#ececec"]} />
+          <color attach="background" args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
