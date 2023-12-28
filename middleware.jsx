@@ -8,14 +8,19 @@ export default async function middleware(req) {
   let clientLogin = req.cookies.get("uid")?.value;
 
   //if not logged in and not on the login page
-  if (!clientLogin && !url.includes("/login") && !url.includes("/register")) {
-    console.log("here");
-    return NextResponse.redirect(`${baseURL}/login`);
-  }
+  // if (
+  //   !clientLogin &&
+  //   !url.includes("/login") &&
+  //   url !== baseURL + "/" &&
+  //   !url.includes("/register")
+  // ) {
+  //   console.log("here");
+  //   return NextResponse.redirect(`${baseURL}/`);
+  // }
 
-  if (clientLogin && (url.includes("/login") || url.includes("/register"))) {
-    return NextResponse.redirect(`${baseURL}/`);
-  }
+  // if (clientLogin && (url.includes("/login") || url.includes("/register"))) {
+  //   return NextResponse.redirect(`${baseURL}/`);
+  // }
 }
 export const config = {
   matcher: [
