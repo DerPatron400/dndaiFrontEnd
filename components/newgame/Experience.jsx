@@ -369,7 +369,9 @@ export default function Experience({
               anchorY='top'
               position-y={object.heading ? -0.66 : 1.4}
               fontSize={0.3}
-              maxWidth={6}
+              lineHeight={1.4}
+              letterSpacing={-0.05}
+              maxWidth={4.5}
               font={"/fonts/Inter-Regular.ttf"}
             >
               {object.text}
