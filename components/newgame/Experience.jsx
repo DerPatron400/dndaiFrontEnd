@@ -138,24 +138,35 @@ export default function Experience({
     ]);
 
     textualData.resultArray.forEach((result, i) => {
-      let point = curve.getPointAt(offset + 0.002 * i);
-
-      setPathObjects((prevObjects) => [
-        ...prevObjects,
-        {
-          heading: result.heading,
-          text: result,
-
-          position: [
-            point.x,
-            0,
-            i === 0
-              ? pathObjects.length * -50 - 100
-              : prevObjects[prevObjects.length - 1].position[2] - 40,
-          ],
-          type: "text",
-        },
-      ]);
+      // Split the text into words
+      const words = result.split(' ');
+      // Create chunks of 10 words or fewer
+      const chunks = [];
+      for (let j = 0; j < words.length; j += 10) {
+        const chunk = words.slice(j, j + 10).join(' ');
+        chunks.push(chunk);
+      }
+  
+      // Create a new object for each chunk and add it to the pathObjects state
+      chunks.forEach((chunk, chunkIndex) => {
+        let point = curve.getPointAt(offset + 0.002 * (i + chunkIndex));
+      
+        setPathObjects((prevObjects) => [
+          ...prevObjects,
+          {
+            heading: result.heading,
+            text: chunk,
+            position: [
+              point.x,
+              0,
+              i === 0
+                ? prevObjects.length * -50 - 100
+                : prevObjects[prevObjects.length - 1].position[2] - 40,
+            ],
+            type: "text",
+          }, 
+        ]);
+      });
     });
 
     if (textualData.visualText) {
@@ -174,7 +185,8 @@ export default function Experience({
       ]);
     }
     setOpen(false);
-  }, [pages]);
+  }, [pages]); 
+  
 
   console.log(pathObjects);
 
