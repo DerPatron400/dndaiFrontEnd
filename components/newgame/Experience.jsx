@@ -139,7 +139,19 @@ export default function Experience({
     ]);
 
     textualData.resultArray.forEach((result, i) => {
-      let point = curve.getPointAt(offset + 0.002 * i);
+      const curPointIndex = Math.min(
+        Math.round(-offset / CURVE_DISTANCE),
+        curvesData.length - 1
+      );
+      const curPoint = curvesData[curPointIndex];
+      const nextPoint = curvesData[curPointIndex + 1];
+      const t = offset / CURVE_DISTANCE - curPointIndex;
+
+      const pointOnCurve = new THREE.Vector3();
+      pointOnCurve.lerpVectors(curPoint, nextPoint, t);
+
+      // Adjust x position based on the curve's geometry
+      const xOffset = Math.sin(t * Math.PI) * 10;
 
       setPathObjects((prevObjects) => [
         ...prevObjects,
@@ -148,7 +160,7 @@ export default function Experience({
           text: result,
 
           position: [
-            point.x,
+            pointOnCurve.x + xOffset,
             0,
             i === 0
               ? pathObjects.length * -50 - 100
