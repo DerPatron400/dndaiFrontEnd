@@ -49,23 +49,22 @@ const responseText =
 export default function AtmosScene() {
   const { introText, image } = useIntroTextStore((state) => state);
   const [pages, setPages] = useState(1);
+
   const { visualText, resultArray } = parseGameText(introText);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
 
-  console.log(visualText);
-
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
   };
 
   return (
-    <div className="relative">
-      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
+    <div className='relative'>
+      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
         <Canvas>
-          <color attach="background" args={["#ececec"]} />
+          <color attach='background' args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
@@ -91,7 +90,7 @@ export default function AtmosScene() {
         visualText={visualText}
       />
 
-      <div className="fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden">
+      <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
         <button
           tabIndex={0}
           onTouchStart={() => {
@@ -102,7 +101,7 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className="bg-white text-black px-4 py-2 rounded-md"
+          className='bg-white text-black px-4 py-2 rounded-md'
         >
           <FaChevronUp size={20} />
         </button>
@@ -116,7 +115,7 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className="bg-white text-black px-4 py-2 rounded-md"
+          className='bg-white text-black px-4 py-2 rounded-md'
         >
           <FaChevronDown size={20} />
         </button>

@@ -4,6 +4,7 @@ import { FaHome } from "react-icons/fa";
 import Cookie from "universal-cookie";
 import useUserStore from "@/utils/store/userStore";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function Login() {
   const cookies = new Cookie();
@@ -27,29 +28,23 @@ export default function Login() {
     //console.log(password)
 
     try {
-      // Send the form data to your backend
-      const response = await fetch(BACKEND_URL + "/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
+      const response = await axios.post(BACKEND_URL + "/api/auth/login", {
+        username,
+        password,
       });
 
-      // Handle the response from the backend
-      if (response.ok) {
-        const data = await response.json();
+      console.log(response);
+      const data = response.data;
 
-        setUser(data);
-        cookies.set("uid", data._id, { path: "/" });
-        toast.success("Login Successful");
-        router.push("/");
-      } else {
-        console.error("Login failed:", response.status);
-        // Handle errors, such as displaying a message to the user
-      }
+      setUser(data);
+      cookies.set("uid", data._id, { path: "/" });
+      toast.success("Login Successful");
+      router.push("/");
+
+      // Handle errors, such as displaying a message to the user
     } catch (error) {
-      console.error("An error occurred:", error);
+      toast.error(error?.response?.data?.message);
+      console.log("An error occurred:", error.status);
       // Handle network errors, such as displaying a message to the user
     }
   };

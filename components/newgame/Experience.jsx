@@ -4,6 +4,7 @@ import {
   Text,
   Environment,
   useTexture,
+  Html,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
@@ -141,22 +142,41 @@ export default function Experience({
     textualData.resultArray.forEach((result, i) => {
       let point = curve.getPointAt(offset + 0.002 * i);
 
-      setPathObjects((prevObjects) => [
-        ...prevObjects,
-        {
-          heading: result.heading,
-          text: result,
+      if (result.heading?.toLowerCase() === "visual") {
+        setPathObjects((prevObjects) => [
+          ...prevObjects,
+          {
+            text: result.content,
+            isVisual: true,
 
-          position: [
-            point.x,
-            0,
-            i === 0
-              ? pathObjects.length * -50 - 100
-              : prevObjects[prevObjects.length - 1].position[2] - 40,
-          ],
-          type: "text",
-        },
-      ]);
+            position: [
+              point.x,
+              0,
+              i === 0
+                ? pathObjects.length * -50 - 100
+                : prevObjects[prevObjects.length - 1].position[2] - 40,
+            ],
+            type: "text",
+          },
+        ]);
+      } else {
+        setPathObjects((prevObjects) => [
+          ...prevObjects,
+          {
+            heading: result.heading,
+            text: result.content,
+
+            position: [
+              point.x,
+              0,
+              i === 0
+                ? pathObjects.length * -50 - 100
+                : prevObjects[prevObjects.length - 1].position[2] - 40,
+            ],
+            type: "text",
+          },
+        ]);
+      }
     });
 
     if (textualData.visualText) {
@@ -177,8 +197,6 @@ export default function Experience({
     setOpen(false);
   }, [pages]);
 
-  console.log(pathObjects);
-
   const handleText = () => {
     if (
       cameraGroup.current &&
@@ -193,9 +211,6 @@ export default function Experience({
 
   useEffect(() => {
     if (!cameraGroup.current) return;
-
-    // let touchStartY = 0;
-    // let touchEndY = 0;
 
     // Use keys to translate
     const handleKeyDown = (e) => {
@@ -216,40 +231,6 @@ export default function Experience({
       }
     };
 
-    // Get the height of the screen
-    const screenHeight = window.innerHeight;
-
-    // Variable to track touch positions
-    let touchY = 0;
-
-    // Function to handle touch move
-    const onTouchMove = (event) => {
-      const touch = event.touches[0];
-      touchY = touch.clientY;
-
-      // Define the threshold for upper and lower parts
-      const upperThreshold = screenHeight / 2;
-
-      // Check if the user is holding on the upper part
-      if (touchY < upperThreshold) {
-        setIsForwardPressed(true);
-        setIsBackwardPressed(false);
-      } else {
-        setIsForwardPressed(false);
-        setIsBackwardPressed(true);
-      }
-    };
-
-    // Function to handle touch end
-    const onTouchEnd = () => {
-      setIsForwardPressed(false);
-      setIsBackwardPressed(false);
-    };
-
-    // Add event listeners
-    // document.addEventListener("touchstart", onTouchMove, false);
-    // document.addEventListener("touchend", onTouchEnd, false);
-
     // Add event listeners here
     window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
@@ -257,8 +238,6 @@ export default function Experience({
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
-      // window.removeEventListener("touchstart", onTouchMove);
-      // window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
   const loadTexture = (url) => {
@@ -317,7 +296,7 @@ export default function Experience({
 
     tl.current.pause();
   }, []);
-
+  console.log(pathObjects);
   return (
     <>
       <directionalLight position={[0, 3, 1]} intensity={1} />
@@ -327,7 +306,7 @@ export default function Experience({
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset="sunset" />
+        <Environment preset='sunset' />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -344,19 +323,20 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color="white"
-              anchorX={"left"}
-              anchorY="center"
-              fontSize={0.52}
-              maxWidth={2.5}
+              color='white'
+              anchorX={"center"}
+              anchorY='center'
+              fontSize={0.6}
+              position-y={2.5}
+              maxWidth={20}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
             >
               {object.heading}
             </Text>
             <Text
-              color="white"
-              anchorY="top"
-              position-y={object.heading ? -0.66 : 1.4}
+              color='white'
+              anchorY='top'
+              position-y={1.4}
               fontSize={0.3}
               maxWidth={6}
               font={"/fonts/Inter-Regular.ttf"}
@@ -374,6 +354,7 @@ export default function Experience({
             )}
           </group>
         ) : (
+         
           <group key={i} position={object.position}>
             <mesh>
               <planeGeometry args={[5, 5]} />

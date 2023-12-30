@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
+import { Html, Text } from "@react-three/drei";
 
 const Button = ({ onClick }) => {
   return (
     <group position={[0, -1.4, 0.1]}>
       <mesh
-        position={[0, 0, -0.1]}
+        position={[0, 0, -0.3]}
         onPointerOver={() => {
           document.body.style.cursor = "pointer";
         }}
@@ -15,11 +15,11 @@ const Button = ({ onClick }) => {
         }}
         onClick={onClick}
       >
-        <boxGeometry args={[2, 1, 0.1]} />
-        <meshBasicMaterial color={"white"} />
+        <boxGeometry args={[2, 1, 0.7]} />
+        <meshPhongMaterial color={"#22c55e"} />
       </mesh>
-      <mesh>
-        <Text fontSize={0.24} color="black" anchorX="center" anchorY="middle">
+      <mesh position={[0, 0, 0.4]}>
+        <Text fontSize={0.24} color='white' anchorX='center' anchorY='middle'>
           Generate Image
         </Text>
       </mesh>

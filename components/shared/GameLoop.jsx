@@ -164,9 +164,14 @@ export default function GameLoop({
               <Dialog.Panel className='relative min-w-[70vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-1/2 md:min-w-[40vw]'>
                 <div className='bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full '>
                   {loading ? (
-                    <Scene>
-                      <DragonHead />
-                    </Scene>
+                    <>
+                      <Scene>
+                        <DragonHead />
+                      </Scene>
+                      <div className='absolute top-0 z-[10] left-0 px-5 text-sm md:text-2xl pt-5 flex items-center justify-center w-full text-white'>
+                        Please wait while we load your journey
+                      </div>
+                    </>
                   ) : rollDice ? (
                     <Scene>
                       <RollDice
