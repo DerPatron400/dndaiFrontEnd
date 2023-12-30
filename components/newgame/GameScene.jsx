@@ -49,7 +49,7 @@ const responseText =
 export default function AtmosScene() {
   const { introText, image } = useIntroTextStore((state) => state);
   const [pages, setPages] = useState(1);
-
+  console.log(introText);
   const { visualText, resultArray } = parseGameText(introText);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");

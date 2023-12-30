@@ -94,19 +94,9 @@ export default function Experience({
         )
       );
 
-      const targetCameraQuaternion = new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(
-          cameraGroup.current.rotation.x,
-          angleRotation,
-          cameraGroup.current.rotation.z
-        )
-      );
-
       offset += 0.0005 * (isForwardPressed ? 1 : -1);
       cameraGroup.current.position.copy(curve.getPointAt(offset));
       dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
-
-      // cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
     }
 
     handleText();
@@ -140,7 +130,19 @@ export default function Experience({
     ]);
 
     textualData.resultArray.forEach((result, i) => {
-      let point = curve.getPointAt(offset + 0.002 * i);
+      const curPointIndex = Math.min(
+        Math.round(-offset / CURVE_DISTANCE),
+        curvesData.length - 1
+      );
+      const curPoint = curvesData[curPointIndex];
+      const nextPoint = curvesData[curPointIndex + 1];
+      const t = offset / CURVE_DISTANCE - curPointIndex;
+
+      const pointOnCurve = new THREE.Vector3();
+      pointOnCurve.lerpVectors(curPoint, nextPoint, t);
+
+      // Adjust x position based on the curve's geometry
+      const xOffset = Math.sin(t * Math.PI) * 10;
 
       if (result.heading?.toLowerCase() === "visual") {
         setPathObjects((prevObjects) => [
@@ -150,7 +152,8 @@ export default function Experience({
             isVisual: true,
 
             position: [
-              point.x,
+              pointOnCurve.x + xOffset,
+
               0,
               i === 0
                 ? pathObjects.length * -50 - 100
@@ -167,7 +170,7 @@ export default function Experience({
             text: result.content,
 
             position: [
-              point.x,
+              pointOnCurve.x + xOffset,
               0,
               i === 0
                 ? pathObjects.length * -50 - 100
@@ -354,7 +357,6 @@ export default function Experience({
             )}
           </group>
         ) : (
-         
           <group key={i} position={object.position}>
             <mesh>
               <planeGeometry args={[5, 5]} />
