@@ -127,6 +127,7 @@ export default function Experience({
       ]);
       return;
     }
+
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
       new THREE.Vector3(10, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
@@ -246,8 +247,8 @@ export default function Experience({
     };
 
     // Add event listeners
-    document.addEventListener("touchstart", onTouchMove, false);
-    document.addEventListener("touchend", onTouchEnd, false);
+    // document.addEventListener("touchstart", onTouchMove, false);
+    // document.addEventListener("touchend", onTouchEnd, false);
 
     // Add event listeners here
     window.addEventListener("keyup", handleKeyUp);
@@ -256,8 +257,8 @@ export default function Experience({
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("touchstart", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
+      // window.removeEventListener("touchstart", onTouchMove);
+      // window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
   const loadTexture = (url) => {
@@ -322,11 +323,11 @@ export default function Experience({
       <directionalLight position={[0, 3, 1]} intensity={1} />
 
       <group ref={cameraGroup}>
-        <WindEffect isMoving={isForwardPressed} />
+        {/* <WindEffect isMoving={isForwardPressed} /> */}
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -343,9 +344,9 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color='white'
+              color="white"
               anchorX={"left"}
-              anchorY='center'
+              anchorY="center"
               fontSize={0.52}
               maxWidth={2.5}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -353,8 +354,8 @@ export default function Experience({
               {object.heading}
             </Text>
             <Text
-              color='white'
-              anchorY='top'
+              color="white"
+              anchorY="top"
               position-y={object.heading ? -0.66 : 1.4}
               fontSize={0.3}
               maxWidth={6}

@@ -62,10 +62,10 @@ export default function AtmosScene() {
   };
 
   return (
-    <div className='relative'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+    <div className="relative">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
         <Canvas>
-          <color attach='background' args={["#ececec"]} />
+          <color attach="background" args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
@@ -91,30 +91,32 @@ export default function AtmosScene() {
         visualText={visualText}
       />
 
-      <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
+      <div className="fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden">
         <button
-          onKeyDown={() => {
+          tabIndex={0}
+          onTouchStart={() => {
             setIsForwardPressed(true);
             setIsBackwardPressed(false);
           }}
-          onKeyUp={() => {
+          onTouchEnd={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronUp size={20} />
         </button>
         <button
-          onKeyDown={() => {
+          onTouchStart={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(true);
+            console.log("backward");
           }}
-          onKeyUp={() => {
+          onTouchEnd={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronDown size={20} />
         </button>

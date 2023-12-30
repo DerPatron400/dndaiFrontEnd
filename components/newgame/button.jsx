@@ -19,7 +19,7 @@ const Button = ({ onClick }) => {
         <meshBasicMaterial color={"white"} />
       </mesh>
       <mesh>
-        <Text fontSize={0.2} color='black' anchorX='center' anchorY='middle'>
+        <Text fontSize={0.24} color="black" anchorX="center" anchorY="middle">
           Generate Image
         </Text>
       </mesh>
