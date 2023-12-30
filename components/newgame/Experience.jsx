@@ -130,6 +130,7 @@ export default function Experience({
     ]);
 
     textualData.resultArray.forEach((result, i) => {
+      let point = 0;
       const curPointIndex = Math.min(
         Math.round(-offset / CURVE_DISTANCE),
         curvesData.length - 1
@@ -144,6 +145,7 @@ export default function Experience({
       // Adjust x position based on the curve's geometry
       const xOffset = Math.sin(t * Math.PI) * 10;
 
+      //setting text position
       if (result.heading?.toLowerCase() === "visual") {
         setPathObjects((prevObjects) => [
           ...prevObjects,
@@ -309,7 +311,7 @@ export default function Experience({
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -326,9 +328,9 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color='white'
+              color="white"
               anchorX={"center"}
-              anchorY='center'
+              anchorY="center"
               fontSize={0.6}
               position-y={2.5}
               maxWidth={20}
@@ -337,8 +339,8 @@ export default function Experience({
               {object.heading}
             </Text>
             <Text
-              color='white'
-              anchorY='top'
+              color="white"
+              anchorY="top"
               position-y={1.4}
               fontSize={0.3}
               maxWidth={6}
