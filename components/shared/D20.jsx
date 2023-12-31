@@ -76,7 +76,12 @@ export function Model({ selectedFace, setSelectedFace }) {
       setRolling(false);
 
       // Generate a random number between 1 and 20
-      const randomFace = Math.floor(Math.random() * 20) + 1;
+      let randomFace = Math.floor(Math.random() * 20) + 1;
+
+      // to make sure that use effect is triggered
+      if (randomFace === selectedFace) {
+        randomFace = randomFace === 20 ? 1 : randomFace + 1;
+      }
       setSelectedFace(randomFace);
       toast.success(`You rolled a ${randomFace}!`);
 

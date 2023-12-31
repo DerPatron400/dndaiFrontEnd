@@ -18,7 +18,7 @@ import WindEffect from "./WindEffect";
 import Button from "./button";
 
 const LINE_NB_POINTS = 1200;
-const CURVE_DISTANCE = 400;
+const CURVE_DISTANCE = 450;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
@@ -28,10 +28,10 @@ let anim = 0;
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
   new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-  new THREE.Vector3(10, 0, -2 * CURVE_DISTANCE),
-  new THREE.Vector3(-10, 0, -3 * CURVE_DISTANCE),
-  new THREE.Vector3(10, 0, -4 * CURVE_DISTANCE),
-  new THREE.Vector3(-10, 0, -5 * CURVE_DISTANCE),
+  new THREE.Vector3(7.5, 0, -2 * CURVE_DISTANCE),
+  new THREE.Vector3(-7.5, 0, -3 * CURVE_DISTANCE),
+  new THREE.Vector3(7.5, 0, -4 * CURVE_DISTANCE),
+  new THREE.Vector3(-7.5, 0, -5 * CURVE_DISTANCE),
 ];
 
 export default function Experience({
@@ -121,28 +121,34 @@ export default function Experience({
 
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
-      new THREE.Vector3(10, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
+      new THREE.Vector3(7.5, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
       new THREE.Vector3(
-        -10,
+        -7.5,
         0,
         -1 * (prevCurvesData.length + 1) * CURVE_DISTANCE
+      ),
+      new THREE.Vector3(
+        7.5,
+        0,
+        -1 * (prevCurvesData.length + 2) * CURVE_DISTANCE
+      ),
+      new THREE.Vector3(
+        -7.5,
+        0,
+        -1 * (prevCurvesData.length + 3) * CURVE_DISTANCE
       ),
     ]);
 
     textualData.resultArray.forEach((result, i) => {
-      const curPointIndex = Math.min(
-        Math.round(-offset / CURVE_DISTANCE),
-        curvesData.length - 1
-      );
-      const curPoint = curvesData[curPointIndex];
-      const nextPoint = curvesData[curPointIndex + 1];
-      const t = offset / CURVE_DISTANCE - curPointIndex;
+      let tempOffset = offset + 0.02 * (i + 1);
+      if (tempOffset > 0.9) {
+        tempOffset = 0.9;
+      }
+      let tempPoint = curve.getPointAt(tempOffset).x;
 
-      const pointOnCurve = new THREE.Vector3();
-      pointOnCurve.lerpVectors(curPoint, nextPoint, t);
-
-      // Adjust x position based on the curve's geometry
-      const xOffset = Math.sin(t * Math.PI) * 10;
+      if (tempPoint > 4.5 || tempPoint < -4.5) {
+        tempPoint *= 0.7;
+      }
 
       if (result.heading?.toLowerCase() === "visual") {
         setPathObjects((prevObjects) => [
@@ -152,8 +158,7 @@ export default function Experience({
             isVisual: true,
 
             position: [
-              pointOnCurve.x + xOffset,
-
+              tempPoint,
               0,
               i === 0
                 ? pathObjects.length * -50 - 100
@@ -170,7 +175,7 @@ export default function Experience({
             text: result.content,
 
             position: [
-              pointOnCurve.x + xOffset,
+              tempPoint,
               0,
               i === 0
                 ? pathObjects.length * -50 - 100
@@ -197,6 +202,7 @@ export default function Experience({
         },
       ]);
     }
+    if (offset > 0.15) offset -= 0.1;
     setOpen(false);
   }, [pages]);
 
@@ -299,13 +305,13 @@ export default function Experience({
 
     tl.current.pause();
   }, []);
-  console.log(pathObjects);
+
   return (
     <>
       <directionalLight position={[0, 3, 1]} intensity={1} />
 
       <group ref={cameraGroup}>
-        {/* <WindEffect isMoving={isForwardPressed} /> */}
+        {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />}
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />

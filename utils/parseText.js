@@ -67,6 +67,7 @@ function parseAdventureText(text) {
         content: lines[index + 1],
       });
     } else if (startsWithDoubleAsterisks(line)) {
+      //or if the line starts with **
       const heading = extractHeading(line);
       const content = line
         .replaceAll("*", "")
@@ -79,6 +80,7 @@ function parseAdventureText(text) {
         content,
       });
     } else if (startsWithNumberAndDoubleAsterisks(line)) {
+      // or if the line starts as 1. **choice:**
       const heading = extractHeading(line);
       const content = line
         .replaceAll("*", "")
@@ -90,6 +92,12 @@ function parseAdventureText(text) {
       choices.push({
         heading,
         content,
+      });
+    } else {
+      //else its just some normal content
+      choices.push({
+        heading: null,
+        content: line,
       });
     }
   });
@@ -111,14 +119,10 @@ export const parseGameText = (text) => {
         .trim()
     : null;
 
-  const pathText = text.replace(visualText, "");
-
-  //get all text before a choice
-  const introText = pathText.split("*")[0];
-
-  let resultArray = splitTextIntoArray(introText, wordsPerElement);
-
+  const pathText = text.replace(visualText, "").replace(/\*\*(.*?)\*\*/, "");
   const paths = parseAdventureText(pathText);
+
+  let resultArray = [];
 
   paths.map((path) => {
     if (path.heading?.toLowerCase() === "visual") {
@@ -128,17 +132,12 @@ export const parseGameText = (text) => {
 
       textToBeAdded.map((text, index) => {
         if (index === 0) {
-          resultArray.push({ heading: path.heading, content: text.content });
+          resultArray.push({ heading: path?.heading, content: text.content });
         } else {
           resultArray.push(text);
         }
       });
     }
-  });
-
-  resultArray.push({
-    heading: null,
-    content: "What would you choose",
   });
 
   return { visualText, resultArray };
