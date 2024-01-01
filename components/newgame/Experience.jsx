@@ -141,21 +141,6 @@ export default function Experience({
     ]);
 
     textualData.resultArray.forEach((result, i) => {
-<<<<<<< HEAD
-      // Split the text into words
-      const words = result.split(' ');
-      // Create chunks of 10 words or fewer
-      const chunks = [];
-      for (let j = 0; j < words.length; j += 10) {
-        const chunk = words.slice(j, j + 10).join(' ');
-        chunks.push(chunk);
-      }
-  
-      // Create a new object for each chunk and add it to the pathObjects state
-      chunks.forEach((chunk, chunkIndex) => {
-        let point = curve.getPointAt(offset + 0.002 * (i + chunkIndex));
-      
-=======
       let tempOffset = offset + 0.02 * (i + 1);
       if (tempOffset > 0.9) {
         tempOffset = 0.9;
@@ -185,25 +170,10 @@ export default function Experience({
           },
         ]);
       } else {
->>>>>>> dnd
         setPathObjects((prevObjects) => [
           ...prevObjects,
           {
             heading: result.heading,
-<<<<<<< HEAD
-            text: chunk,
-            position: [
-              point.x,
-              0,
-              i === 0
-                ? prevObjects.length * -50 - 100
-                : prevObjects[prevObjects.length - 1].position[2] - 40,
-            ],
-            type: "text",
-          }, 
-        ]);
-      });
-=======
             text: result.content,
 
             position: [
@@ -217,7 +187,6 @@ export default function Experience({
           },
         ]);
       }
->>>>>>> dnd
     });
 
     if (textualData.visualText) {
