@@ -29,18 +29,7 @@ const DragonHead = () => {
     }
   });
 
-  return (
-    <>
-      <Center>
-        <Html position={[window.innerWidth < 768 ? -4.3 : -5, 3, 0]}>
-          <div className='absolute top-0 w-[30rem] h-full flex items-center justify-center text-white md:text-2xl text-[13px]'>
-            Please wait while we load your journey
-          </div>
-        </Html>
-      </Center>
-      <primitive ref={sceneRef} object={scene} />
-    </>
-  );
+  return <primitive ref={sceneRef} object={scene} />;
 };
 
 export default DragonHead;

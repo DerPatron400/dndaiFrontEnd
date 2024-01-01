@@ -4,6 +4,7 @@ import {
   Text,
   Environment,
   useTexture,
+  Html,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
@@ -17,7 +18,7 @@ import WindEffect from "./WindEffect";
 import Button from "./button";
 
 const LINE_NB_POINTS = 1200;
-const CURVE_DISTANCE = 400;
+const CURVE_DISTANCE = 450;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
@@ -27,10 +28,10 @@ let anim = 0;
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
   new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-  new THREE.Vector3(10, 0, -2 * CURVE_DISTANCE),
-  new THREE.Vector3(-10, 0, -3 * CURVE_DISTANCE),
-  new THREE.Vector3(10, 0, -4 * CURVE_DISTANCE),
-  new THREE.Vector3(-10, 0, -5 * CURVE_DISTANCE),
+  new THREE.Vector3(7.5, 0, -2 * CURVE_DISTANCE),
+  new THREE.Vector3(-7.5, 0, -3 * CURVE_DISTANCE),
+  new THREE.Vector3(7.5, 0, -4 * CURVE_DISTANCE),
+  new THREE.Vector3(-7.5, 0, -5 * CURVE_DISTANCE),
 ];
 
 export default function Experience({
@@ -55,6 +56,7 @@ export default function Experience({
   const [curvesData, setCurvesData] = useState(initialCurves);
   const [pathObjects, setPathObjects] = useState([]);
   const [imageTexture, setImageTexture] = useState(null);
+  let point;
 
   const curve = useMemo(() => {
     return new THREE.CatmullRomCurve3(curvesData, false, "catmullrom", 0.5);
@@ -93,19 +95,9 @@ export default function Experience({
         )
       );
 
-      const targetCameraQuaternion = new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(
-          cameraGroup.current.rotation.x,
-          angleRotation,
-          cameraGroup.current.rotation.z
-        )
-      );
-
       offset += 0.0005 * (isForwardPressed ? 1 : -1);
       cameraGroup.current.position.copy(curve.getPointAt(offset));
       dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
-
-      // cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
     }
 
     handleText();
@@ -127,17 +119,29 @@ export default function Experience({
       ]);
       return;
     }
+
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
-      new THREE.Vector3(10, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
+      new THREE.Vector3(7.5, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
       new THREE.Vector3(
-        -10,
+        -7.5,
         0,
         -1 * (prevCurvesData.length + 1) * CURVE_DISTANCE
+      ),
+      new THREE.Vector3(
+        7.5,
+        0,
+        -1 * (prevCurvesData.length + 2) * CURVE_DISTANCE
+      ),
+      new THREE.Vector3(
+        -7.5,
+        0,
+        -1 * (prevCurvesData.length + 3) * CURVE_DISTANCE
       ),
     ]);
 
     textualData.resultArray.forEach((result, i) => {
+<<<<<<< HEAD
       // Split the text into words
       const words = result.split(' ');
       // Create chunks of 10 words or fewer
@@ -151,10 +155,42 @@ export default function Experience({
       chunks.forEach((chunk, chunkIndex) => {
         let point = curve.getPointAt(offset + 0.002 * (i + chunkIndex));
       
+=======
+      let tempOffset = offset + 0.02 * (i + 1);
+      if (tempOffset > 0.9) {
+        tempOffset = 0.9;
+      }
+      let tempPoint = curve.getPointAt(tempOffset).x;
+
+      if (tempPoint > 4.5 || tempPoint < -4.5) {
+        tempPoint *= 0.7;
+      }
+
+      //setting text position
+      if (result.heading?.toLowerCase() === "visual") {
+        setPathObjects((prevObjects) => [
+          ...prevObjects,
+          {
+            text: result.content,
+            isVisual: true,
+
+            position: [
+              tempPoint,
+              0,
+              i === 0
+                ? pathObjects.length * -50 - 100
+                : prevObjects[prevObjects.length - 1].position[2] - 40,
+            ],
+            type: "text",
+          },
+        ]);
+      } else {
+>>>>>>> dnd
         setPathObjects((prevObjects) => [
           ...prevObjects,
           {
             heading: result.heading,
+<<<<<<< HEAD
             text: chunk,
             position: [
               point.x,
@@ -167,6 +203,21 @@ export default function Experience({
           }, 
         ]);
       });
+=======
+            text: result.content,
+
+            position: [
+              tempPoint,
+              0,
+              i === 0
+                ? pathObjects.length * -50 - 100
+                : prevObjects[prevObjects.length - 1].position[2] - 40,
+            ],
+            type: "text",
+          },
+        ]);
+      }
+>>>>>>> dnd
     });
 
     if (textualData.visualText) {
@@ -184,11 +235,10 @@ export default function Experience({
         },
       ]);
     }
+    if (offset > 0.15) offset -= 0.1;
     setOpen(false);
   }, [pages]); 
   
-
-  console.log(pathObjects);
 
   const handleText = () => {
     if (
@@ -204,9 +254,6 @@ export default function Experience({
 
   useEffect(() => {
     if (!cameraGroup.current) return;
-
-    // let touchStartY = 0;
-    // let touchEndY = 0;
 
     // Use keys to translate
     const handleKeyDown = (e) => {
@@ -227,40 +274,6 @@ export default function Experience({
       }
     };
 
-    // Get the height of the screen
-    const screenHeight = window.innerHeight;
-
-    // Variable to track touch positions
-    let touchY = 0;
-
-    // Function to handle touch move
-    const onTouchMove = (event) => {
-      const touch = event.touches[0];
-      touchY = touch.clientY;
-
-      // Define the threshold for upper and lower parts
-      const upperThreshold = screenHeight / 2;
-
-      // Check if the user is holding on the upper part
-      if (touchY < upperThreshold) {
-        setIsForwardPressed(true);
-        setIsBackwardPressed(false);
-      } else {
-        setIsForwardPressed(false);
-        setIsBackwardPressed(true);
-      }
-    };
-
-    // Function to handle touch end
-    const onTouchEnd = () => {
-      setIsForwardPressed(false);
-      setIsBackwardPressed(false);
-    };
-
-    // Add event listeners
-    document.addEventListener("touchstart", onTouchMove, false);
-    document.addEventListener("touchend", onTouchEnd, false);
-
     // Add event listeners here
     window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
@@ -268,8 +281,6 @@ export default function Experience({
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("touchstart", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
   const loadTexture = (url) => {
@@ -334,11 +345,11 @@ export default function Experience({
       <directionalLight position={[0, 3, 1]} intensity={1} />
 
       <group ref={cameraGroup}>
-        <WindEffect isMoving={isForwardPressed} />
+        {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />}
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -355,19 +366,20 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color='white'
-              anchorX={"left"}
-              anchorY='center'
-              fontSize={0.52}
-              maxWidth={2.5}
+              color="white"
+              anchorX={"center"}
+              anchorY="center"
+              fontSize={0.6}
+              position-y={2.5}
+              maxWidth={20}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
             >
               {object.heading}
             </Text>
             <Text
-              color='white'
-              anchorY='top'
-              position-y={object.heading ? -0.66 : 1.4}
+              color="white"
+              anchorY="top"
+              position-y={1.4}
               fontSize={0.3}
               lineHeight={1.4}
               letterSpacing={-0.05}

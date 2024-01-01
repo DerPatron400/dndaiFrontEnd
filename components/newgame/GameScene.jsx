@@ -49,13 +49,12 @@ const responseText =
 export default function AtmosScene() {
   const { introText, image } = useIntroTextStore((state) => state);
   const [pages, setPages] = useState(1);
+  console.log(introText);
   const { visualText, resultArray } = parseGameText(introText);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
-
-  console.log(visualText);
 
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
@@ -93,11 +92,12 @@ export default function AtmosScene() {
 
       <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
         <button
-          onKeyDown={() => {
+          tabIndex={0}
+          onTouchStart={() => {
             setIsForwardPressed(true);
             setIsBackwardPressed(false);
           }}
-          onKeyUp={() => {
+          onTouchEnd={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
@@ -106,11 +106,12 @@ export default function AtmosScene() {
           <FaChevronUp size={20} />
         </button>
         <button
-          onKeyDown={() => {
+          onTouchStart={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(true);
+            console.log("backward");
           }}
-          onKeyUp={() => {
+          onTouchEnd={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
