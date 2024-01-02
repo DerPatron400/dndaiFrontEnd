@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import Cookies from "universal-cookie";
 
 export default async function middleware(req) {
-  const cookies = new Cookies();
   let url = req.url;
   let baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   let clientLogin = req.cookies.get("uid")?.value;

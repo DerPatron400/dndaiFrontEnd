@@ -105,7 +105,7 @@ export default function GameLoop({
       };
 
       const response = await axios.post(
-        BACKEND_URL + "/generateImages",
+        BACKEND_URL + "/api/images/generateImages",
         bodyData,
         {
           params: {
