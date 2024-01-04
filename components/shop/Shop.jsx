@@ -1,9 +1,10 @@
+"use client";
 import React, { useEffect } from "react";
 import Product from "./Product";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-function Shop() {
+function Shop({ data }) {
   useEffect(() => {
     AOS.init();
   }, []);
@@ -36,14 +37,14 @@ function Shop() {
             Our <span className="text-green-500 ml-2">Products</span>
           </h2>
           <div className="flex flex-wrap justify-center sm:justify-between">
-            {[...Array(3)].map((_, index) => (
+            {data.map((product, index) => (
               <div
                 key={index}
                 className="mb-6"
                 data-aos="fade-up"
                 data-aos-delay={100 * (index + 1)}
               >
-                <Product />
+                <Product data={product} />
               </div>
             ))}
           </div>
