@@ -1,7 +1,7 @@
 import React from "react";
 import ImageComponent from "./ImageComponent";
 
-const Images = () => {
+const Images = ({ data }) => {
   return (
     <div className='relative w-full    mx-auto  h-auto text-white rounded-md shadow-lg font-sans'>
       <div className='relative'>
@@ -18,10 +18,9 @@ const Images = () => {
         </h1>
       </div>
       <div className='flex flex-wrap justify-center mb-10'>
-        <ImageComponent />
-        <ImageComponent />
-        <ImageComponent />
-        <ImageComponent />
+        {data.map((image) => (
+          <ImageComponent key={image._id} image={image} />
+        ))}
       </div>
     </div>
   );
