@@ -45,6 +45,8 @@ export default function GameLoop({
 
   const conversationIndex = searchParams.get("conversationIndex");
 
+  const savedGame = searchParams.get("savedGame");
+
   //this is for rolling dice
   useEffect(() => {
     if (rollDice) {
@@ -194,6 +196,7 @@ export default function GameLoop({
                               buttonText={"Roll Dice"}
                               title='select path'
                               isInput
+                              savedGame
                               input={input}
                               setInput={setInput}
                               onClick={handleRollDice}

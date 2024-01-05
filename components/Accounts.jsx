@@ -22,6 +22,7 @@ const Accounts = () => {
   };
 
   useEffect(() => {
+    setIsDropdownOpen(false);
     document.addEventListener("click", closeDropdown);
 
     return () => {
@@ -41,7 +42,13 @@ const Accounts = () => {
   };
 
   return (
-    <div className='relative inline-block text-left ' ref={dropdownRef}>
+    <div
+      style={{
+        fontFamily: "Poppins, sans-serif ",
+      }}
+      className='relative inline-block text-left '
+      ref={dropdownRef}
+    >
       <button
         onClick={toggleDropdown}
         type='button'
@@ -55,44 +62,46 @@ const Accounts = () => {
 
       {isDropdownOpen && (
         <div
-          className='absolute right-0 mt-2 space-y-2 bg-[#4a4848] text-white text-center rounded-md shadow-md'
+          className='absolute right-0 mt-2 py-2 space-y-2 bg-white w-40  text-center rounded-md shadow-md'
           role='menu'
           aria-orientation='vertical'
           aria-labelledby='options-menu'
         >
           <Link
             href='/input'
-            className='cursor-pointer block px-4 py-2 text-sm text-white hover:text-white hover:bg-green-500 focus:text-white'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
             New Game
           </Link>
-          <div className='border-t border-gray-700'></div>
-          <div className='px-4 py-2 text-sm'>Credits: {user?.credits || 0}</div>
+
+          <div className='px-4 py-2 rounded-md text-sm'>
+            Credits: {user?.credits || 0}
+          </div>
           <Link
             href='/savegame'
-            className='cursor-pointer block px-4 py-2 text-sm text-white hover:text-white hover:bg-green-500 focus:text-white'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
             Save Games
           </Link>
           <Link
             href='/gallery'
-            className='cursor-pointer block px-4 py-2 text-sm text-white hover:text-white hover:bg-green-500 focus:text-white'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
             Images
           </Link>
           <Link
             href='/shop'
-            className='cursor-pointer block px-4 py-2 text-sm text-white hover:text-white hover:bg-green-500 focus:text-white'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
             Shop
           </Link>
           <span
             onClick={handleLogout}
-            className='cursor-pointer block px-4 py-2 text-sm text-white hover:text-white hover:bg-green-500 focus:text-white'
+            className='cursor-pointer block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
             Logout

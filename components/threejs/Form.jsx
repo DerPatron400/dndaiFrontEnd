@@ -183,8 +183,6 @@ export default function Form() {
       );
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
