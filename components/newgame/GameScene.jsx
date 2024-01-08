@@ -59,6 +59,7 @@ export default function AtmosScene() {
   const [type, setType] = useState("text");
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useUserStore((state) => state.user);
   const searchParams = useSearchParams();
 
@@ -71,6 +72,7 @@ export default function AtmosScene() {
         conversationIndex,
       };
 
+      setIsLoading(true);
       const response = await axios.post(
         BACKEND_URL + "/api/savedGames/save-game",
         bodyData,
@@ -84,6 +86,8 @@ export default function AtmosScene() {
       toast.success("Game saved successfully!");
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -154,9 +158,10 @@ export default function AtmosScene() {
       <div className="fixed bottom-[11%] right-4 ">
         <button
           onClick={handleSaveGame}
-          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+          disabled={isLoading}
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Save Game
+          {isLoading ? "Saving..." : "Save Game"}
         </button>
       </div>
     </div>
