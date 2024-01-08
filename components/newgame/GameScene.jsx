@@ -8,6 +8,10 @@ import { parseGameText } from "@/utils/parseText";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import useUserStore from "@/utils/store/userStore";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 const responseText =
   "Welcome to the adventure, Dol Katzius, the Halfling Barbarian!\n" +
@@ -55,16 +59,43 @@ export default function AtmosScene() {
   const [type, setType] = useState("text");
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
+  const user = useUserStore((state) => state.user);
+  const searchParams = useSearchParams();
+
+  const conversationIndex = searchParams.get("conversationIndex");
+
+  const handleSaveGame = async () => {
+    try {
+      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const bodyData = {
+        conversationIndex,
+      };
+
+      const response = await axios.post(
+        BACKEND_URL + "/api/savedGames/save-game",
+        bodyData,
+        {
+          params: {
+            _id: user._id,
+          },
+        }
+      );
+      console.log(response);
+      toast.success("Game saved successfully!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
   };
 
   return (
-    <div className='relative'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+    <div className="relative">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
         <Canvas>
-          <color attach='background' args={["#ececec"]} />
+          <color attach="background" args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
@@ -90,7 +121,7 @@ export default function AtmosScene() {
         visualText={visualText}
       />
 
-      <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
+      <div className="fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden">
         <button
           tabIndex={0}
           onTouchStart={() => {
@@ -101,7 +132,7 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronUp size={20} />
         </button>
@@ -115,9 +146,17 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronDown size={20} />
+        </button>
+      </div>
+      <div className="fixed bottom-[11%] right-4 ">
+        <button
+          onClick={handleSaveGame}
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+        >
+          Save Game
         </button>
       </div>
     </div>

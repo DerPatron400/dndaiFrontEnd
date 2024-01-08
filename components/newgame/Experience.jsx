@@ -313,11 +313,11 @@ export default function Experience({
       <directionalLight position={[0, 3, 1]} intensity={1} />
 
       <group ref={cameraGroup}>
-        {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />}
+        {/* {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />} */}
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
-        <Environment preset='sunset' />
+        <Environment preset="sunset" />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -334,9 +334,9 @@ export default function Experience({
         object.type === "text" ? (
           <group key={i} position={object.position}>
             <Text
-              color='white'
+              color="white"
               anchorX={"center"}
-              anchorY='center'
+              anchorY="center"
               fontSize={0.6}
               position-y={2.5}
               maxWidth={20}
@@ -345,8 +345,8 @@ export default function Experience({
               {object.heading}
             </Text>
             <Text
-              color='white'
-              anchorY='top'
+              color="white"
+              anchorY="top"
               position-y={1.4}
               fontSize={0.3}
               maxWidth={6}
