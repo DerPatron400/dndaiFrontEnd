@@ -7,7 +7,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const getProducts = async () => {
   try {
     const response = await axios.get(BACKEND_URL + "/api/products");
-    console.log("Products:", response.data);
+    // console.log("Products:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -16,7 +16,7 @@ const getProducts = async () => {
 
 export default async function Page() {
   const products = await getProducts();
-  console.log(products);
+  // console.log(products);
   return (
     <div>
       <Shop data={products} />
