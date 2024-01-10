@@ -66,6 +66,7 @@ export default function AtmosScene() {
   const conversationIndex = searchParams.get("conversationIndex");
 
   const handleSaveGame = async () => {
+    console.log("saving game");
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const bodyData = {
@@ -96,10 +97,10 @@ export default function AtmosScene() {
   };
 
   return (
-    <div className="relative">
-      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
+    <div className='relative'>
+      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
         <Canvas>
-          <color attach="background" args={["#ececec"]} />
+          <color attach='background' args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
@@ -125,7 +126,7 @@ export default function AtmosScene() {
         visualText={visualText}
       />
 
-      <div className="fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden">
+      <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
         <button
           tabIndex={0}
           onTouchStart={() => {
@@ -136,7 +137,7 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className="bg-white text-black px-4 py-2 rounded-md"
+          className='bg-white text-black px-4 py-2 rounded-md'
         >
           <FaChevronUp size={20} />
         </button>
@@ -150,16 +151,16 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className="bg-white text-black px-4 py-2 rounded-md"
+          className='bg-white text-black px-4 py-2 rounded-md'
         >
           <FaChevronDown size={20} />
         </button>
       </div>
-      <div className="fixed bottom-[11%] right-4 ">
+      <div className='fixed bottom-[11%] right-4 '>
         <button
           onClick={handleSaveGame}
           disabled={isLoading}
-          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className='bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50'
         >
           {isLoading ? "Saving..." : "Save Game"}
         </button>
