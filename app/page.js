@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { MdClose } from "react-icons/md";
 import useUserStore from "@/utils/store/userStore";
 import toast from "react-hot-toast";
+import Cookies from "universal-cookie";
 
 const InstructionsModal = ({ onClose }) => (
   <div className='fixed inset-0 flex justify-center items-center bg-opacity-75 bg-black z-50'>
@@ -65,12 +66,17 @@ export default function Home() {
   const router = useRouter();
   const [showInstructions, setShowInstructions] = useState(false);
   const user = useUserStore((state) => state.user);
+  const cookies = new Cookies();
 
+  useEffect(() => {
+    cookies.set("uid", user._id, { path: "/" });
+  }, [user]);
   const startGame = () => {
     if (!user) {
       toast.error("Please login to play the game");
       return;
     }
+
     router.push("/input");
   };
 

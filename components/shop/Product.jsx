@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 
 export default function Product({ data }) {
-  const user = useUserStore((state) => state.user._id);
+  const user = useUserStore((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -18,7 +18,7 @@ export default function Product({ data }) {
 
       const bodyData = {
         productid: data._id,
-        userid: user,
+        userid: user._id,
         success_url: successUrl,
         cancel_url: cancelUrl,
       };
@@ -26,7 +26,7 @@ export default function Product({ data }) {
       console.log("Request Body:", bodyData);
       setIsLoading(true);
       const response = await axios.post(
-        BACKEND_URL + "/create-checkout-session",
+        BACKEND_URL + "/api/payment/create-checkout-session",
         bodyData
       );
 
