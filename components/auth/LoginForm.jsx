@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaHome } from "react-icons/fa";
 import Cookie from "universal-cookie";
@@ -6,15 +6,17 @@ import useUserStore from "@/utils/store/userStore";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export default function Login() {
   const cookies = new Cookie();
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSignupClick = () => {
     router.push("/register");
   };
-
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -23,11 +25,8 @@ export default function Login() {
 
     const username = formData.username.value;
     const password = formData.password.value;
-
-    //console.log(username)
-    //console.log(password)
-
     try {
+      setIsLoading(true);
       const response = await axios.post(BACKEND_URL + "/api/auth/login", {
         username,
         password,
@@ -46,6 +45,8 @@ export default function Login() {
       toast.error(error?.response?.data?.message);
       console.log("An error occurred:", error.status);
       // Handle network errors, such as displaying a message to the user
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,9 +107,10 @@ export default function Login() {
             </div>
             <button
               type='submit'
-              className='w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300'
+              disabled={isLoading}
+              className='w-full bg-green-500 disabled:bg-green-300 disabled:cursor-not-allowed text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300'
             >
-              Login
+              {isLoading ? "Loggingin In" : "Login"}
             </button>
             <p className='text-sm mt-4'>
               No account yet?{" "}

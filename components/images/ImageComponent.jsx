@@ -1,8 +1,9 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import { MdFullscreen, MdClose } from "react-icons/md";
 
-const ImageComponent = () => {
+const ImageComponent = ({ image }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -23,18 +24,18 @@ const ImageComponent = () => {
       data-aos="fade-left"
     >
       <img
-        src="/image.png"
+        src={image}
         alt="Your Image Alt Text"
         className="w-full border-2 border-green-500 h-[60vh] object-cover rounded-md transition-transform duration-300 transform scale-100 hover:scale-105"
         onClick={openFullscreen}
       />
 
       {isFullscreen && (
-        <div className="fixed inset-0 z-50 flex justify-center items-center">
+        <div className="fixed inset-0  z-50 flex justify-center items-center">
           <div className="absolute inset-0 bg-black opacity-80"></div>
           <div className="relative max-w-screen-lg max-h-screen overflow-hidden">
             <img
-              src="/image.png"
+              src={image}
               alt="Fullscreen Image"
               className="w-full h-full object-cover"
             />
