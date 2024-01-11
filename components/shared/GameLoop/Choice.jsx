@@ -51,6 +51,7 @@ const Choice = ({
   isInput,
   onClick,
   input = "",
+  savedGame = false,
   setInput = null,
 }) => {
   return (

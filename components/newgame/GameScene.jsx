@@ -8,6 +8,10 @@ import { parseGameText } from "@/utils/parseText";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import useUserStore from "@/utils/store/userStore";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 const responseText =
   "Welcome to the adventure, Dol Katzius, the Halfling Barbarian!\n" +
@@ -55,6 +59,38 @@ export default function AtmosScene() {
   const [type, setType] = useState("text");
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useUserStore((state) => state.user);
+  const searchParams = useSearchParams();
+
+  const conversationIndex = searchParams.get("conversationIndex");
+
+  const handleSaveGame = async () => {
+    console.log("saving game");
+    try {
+      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const bodyData = {
+        conversationIndex,
+      };
+
+      setIsLoading(true);
+      const response = await axios.post(
+        BACKEND_URL + "/api/savedGames/save-game",
+        bodyData,
+        {
+          params: {
+            _id: user._id,
+          },
+        }
+      );
+      console.log(response);
+      toast.success("Game saved successfully!");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
@@ -118,6 +154,15 @@ export default function AtmosScene() {
           className='bg-white text-black px-4 py-2 rounded-md'
         >
           <FaChevronDown size={20} />
+        </button>
+      </div>
+      <div className='fixed bottom-[11%] right-4 '>
+        <button
+          onClick={handleSaveGame}
+          disabled={isLoading}
+          className='bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50'
+        >
+          {isLoading ? "Saving..." : "Save Game"}
         </button>
       </div>
     </div>

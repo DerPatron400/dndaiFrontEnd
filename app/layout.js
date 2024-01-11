@@ -25,7 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className + " bg-black overflow-x-hidden"}>
-        <div className='max-w-screen !overflow-hidden '>
+        <div
+         
+          className='max-w-screen !overflow-hidden '
+        >
           <Theme>
             {!hideNavbar && <Navbar />}
             <div className='min-h-screen'>{children}</div>

@@ -42,6 +42,18 @@ function startsWithNumberAndDoubleAsterisks(str) {
   // Test if the string matches the pattern
   return regex.test(str);
 }
+function startsWithNumber(str) {
+  // Regular expression to match strings that start and end with **
+  const regex = /^[1-9]\..*/gm;
+  // Test if the string matches the pattern
+  return regex.test(str);
+}
+function startsWithDashAndDoubleAsterisks(str) {
+  // Regular expression to match strings that start and end with **
+  const regex = /- \*\*.*?\*\*/g;
+  // Test if the string matches the pattern
+  return regex.test(str);
+}
 
 function extractHeading(str) {
   const regex = /\*\*(.*?)\*\*/;
@@ -93,6 +105,27 @@ function parseAdventureText(text) {
         heading,
         content,
       });
+    } else if (startsWithDashAndDoubleAsterisks(line)) {
+      line = line.replaceAll(":", "");
+      const heading = extractHeading(line);
+      const content = line
+        .replaceAll("*", "")
+        .replace(heading, "")
+        .replace(/-/, "")
+        .trim();
+
+      choices.push({
+        heading,
+        content,
+      });
+    } else if (startsWithNumber(line)) {
+      const heading = line.replace(/^\d+\.\s*/, "");
+      const content = line.replace(/^\d+\.\s*/, "");
+
+      choices.push({
+        heading,
+        content,
+      });
     } else {
       //else its just some normal content
       choices.push({
@@ -119,7 +152,11 @@ export const parseGameText = (text) => {
         .trim()
     : null;
 
-  const pathText = text.replace(visualText, "").replace(/\*\*(.*?)\*\*/, "");
+  let pathText = text
+    .replace(visualText, "")
+    .replaceAll(":", "")
+    .replaceAll("VISUAL", "");
+
   const paths = parseAdventureText(pathText);
 
   let resultArray = [];

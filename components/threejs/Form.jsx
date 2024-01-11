@@ -8,6 +8,7 @@ import axios from "axios";
 import useUserStore from "@/utils/store/userStore";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/shared/DragonLoader";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -183,7 +184,6 @@ export default function Form() {
       );
     } catch (error) {
       console.log(error);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -419,9 +419,7 @@ export default function Form() {
               {isLoading ? "Loading... " : " Start Game"}
             </button>
             {isLoading && (
-              <span className='text-white mt-10'>
-                Loading can take 5 - 90 seconds, please wait patiently.
-              </span>
+              <Loader text='it may take a few minutes to generate your character..' />
             )}
           </div>
         </div>
