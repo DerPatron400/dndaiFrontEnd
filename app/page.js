@@ -69,7 +69,7 @@ export default function Home() {
   const cookies = new Cookies();
 
   useEffect(() => {
-    cookies.set("uid", user._id, { path: "/" });
+    if (user) cookies.set("uid", user._id, { path: "/" });
   }, [user]);
   const startGame = () => {
     if (!user) {
