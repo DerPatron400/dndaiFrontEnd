@@ -83,7 +83,7 @@ const Accounts = () => {
             className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
-            Save Games
+            Saved Games
           </Link>
           <Link
             href='/gallery'
