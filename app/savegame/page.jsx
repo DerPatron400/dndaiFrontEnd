@@ -10,13 +10,17 @@ const getSavedGames = async () => {
 
   const uid = cookieStore.get("uid").value;
 
-  const response = await axios.get(BACKEND_URL + "/api/savedGames", {
-    params: {
-      _id: uid,
-    },
-  });
+  try {
+    const response = await axios.get(BACKEND_URL + "/api/savedGames", {
+      params: {
+        _id: uid,
+      },
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    return [];
+  }
 };
 
 export default async function Page() {

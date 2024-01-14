@@ -39,22 +39,22 @@ function Faq() {
   ];
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-black">
-      <div className="md:w-[70vw] w-[90vw] mx-auto mt-10 mb-10 p-8 h-auto bg-transparent text-white rounded-md shadow-lg font-sans">
-        <div data-aos="fade-up">
-          <h2 className="text-3xl font-semibold mb-6 flex justify-center items-center text-center">
-            <span className="text-white">
-              Frequently Asked <span className="text-green-500">Questions</span>
+    <div className='w-screen h-screen flex justify-center items-center bg-black'>
+      <div className='md:w-[70vw] w-[90vw] mx-auto mt-10 mb-10 p-8 h-auto bg-transparent text-white rounded-md shadow-lg font-sans'>
+        <div data-aos='fade-up'>
+          <h2 className='text-3xl font-semibold mb-6 flex justify-center items-center text-center'>
+            <span className='text-white'>
+              Frequently Asked <span className='text-green-500'>Questions</span>
             </span>
           </h2>
 
           {questions.map((item, index) => (
-            <div key={index} className="mb-6">
+            <div key={index} className='mb-6'>
               <div
-                className="flex justify-between items-center cursor-pointer"
+                className='flex justify-between items-center cursor-pointer'
                 onClick={() => handleToggleQuestion(index)}
               >
-                <h3 className="text-xl mb-2 ml-2">{item.question}</h3>
+                <h3 className='text-xl mb-2 ml-2'>{item.question}</h3>
                 <IoIosArrowDown
                   className={`text-green-500 transform transition-transform ${
                     openQuestion === index ? "rotate-180" : ""
@@ -62,21 +62,21 @@ function Faq() {
                 />
               </div>
               <div
-                className={`overflow-hidden transition-max-height ease-in-out duration-300 transition ${
+                className={`overflow-hidden transition-all ease-in-out duration-300  ${
                   openQuestion === index ? "max-h-96" : "max-h-0"
                 }`}
               >
                 {openQuestion === index && (
                   <div
-                    data-aos="fade-down"
-                    data-aos-delay="200"
-                    className="p-4"
+                    data-aos='fade-down'
+                    data-aos-delay='200'
+                    className='p-4'
                   >
                     <p>{item.answer}</p>
                   </div>
                 )}
               </div>
-              <hr className="border-t border-green-500" />
+              <hr className='border-t border-green-500' />
             </div>
           ))}
         </div>

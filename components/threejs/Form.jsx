@@ -12,7 +12,14 @@ import Loader from "@/components/shared/DragonLoader";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const DropDown = ({ data, className, animName = "", value, onChange }) => {
+const DropDown = ({
+  data,
+  className,
+  animName = "",
+  value,
+  onChange,
+  formdata,
+}) => {
   return (
     <div
       className={twMerge(
@@ -44,6 +51,7 @@ const DropDown = ({ data, className, animName = "", value, onChange }) => {
               className='cursor-pointer bg-black'
               key={option}
               value={option}
+              disabled={Object.values(formdata).includes(option)}
             >
               {option}
             </option>
@@ -80,8 +88,22 @@ const getRandomDropdownOption = (options) => {
     return ""; // Return an empty string or handle appropriately if options are empty
   }
 
-  const randomIndex = Math.floor(Math.random() * options.length);
+  let randomIndex = Math.floor(Math.random() * options.length);
+
   return options[randomIndex];
+};
+
+const getRandomValueOnce = (options) => {
+  if (!options || options.length === 0) {
+    return ""; // Return an empty string or handle appropriately if options are empty
+  }
+
+  let randomIndex = Math.floor(Math.random() * options.length);
+  const randomValue = options[randomIndex];
+  //remove this value
+  options.splice(randomIndex, 1);
+
+  return randomValue;
 };
 
 export default function Form() {
@@ -118,17 +140,18 @@ export default function Form() {
 
   const handleClick = () => {
     // Generate random values and update the form data
+    let optionsToChoose = ["15", "14", "13", "12", "10", "8"];
     setFormData((prev) => ({
       ...prev,
       name: getRandomName(),
       class: getRandomDropdownOption(dropdowns[0].options),
       race: getRandomDropdownOption(dropdowns[1].options),
-      strength: getRandomDropdownOption(dropdowns[2].options),
-      dexterity: getRandomDropdownOption(dropdowns[3].options),
-      intelligence: getRandomDropdownOption(dropdowns[4].options),
-      constitution: getRandomDropdownOption(dropdowns[5].options),
-      wisdom: getRandomDropdownOption(dropdowns[6].options),
-      charisma: getRandomDropdownOption(dropdowns[7].options),
+      strength: getRandomValueOnce(optionsToChoose),
+      dexterity: getRandomValueOnce(optionsToChoose),
+      intelligence: getRandomValueOnce(optionsToChoose),
+      constitution: getRandomValueOnce(optionsToChoose),
+      wisdom: getRandomValueOnce(optionsToChoose),
+      charisma: getRandomValueOnce(optionsToChoose),
     }));
 
     // Scroll to the form with smooth animation
@@ -234,7 +257,6 @@ export default function Form() {
           duration: 2,
         }
       )
-
       .fromTo(
         ".anim-5",
         {
@@ -345,6 +367,7 @@ export default function Form() {
           className='ms-auto md:w-2/4'
           animName={"anim-1"}
           value={formData.class}
+          formdata={formData}
           onChange={(value) => handleChange("class", value)}
         />
         <DropDown
@@ -352,6 +375,7 @@ export default function Form() {
           className='me-auto w-2/4'
           animName={"anim-2"}
           value={formData.race}
+          formdata={formData}
           onChange={(value) => handleChange("race", value)}
         />
 
@@ -365,6 +389,7 @@ export default function Form() {
             className='h-full'
             animName='anim-3'
             value={formData.strength}
+            formdata={formData}
             onChange={(value) => handleChange("strength", value)}
           />
           <DropDown
@@ -372,6 +397,7 @@ export default function Form() {
             className='h-full'
             animName='anim-3'
             value={formData.dexterity}
+            formdata={formData}
             onChange={(value) => handleChange("dexterity", value)}
           />
         </div>
@@ -380,6 +406,7 @@ export default function Form() {
           className=' w-2/4 me-auto'
           animName={"anim-5"}
           value={formData.intelligence}
+          formdata={formData}
           onChange={(value) => handleChange("intelligence", value)}
         />
         <DropDown
@@ -387,6 +414,7 @@ export default function Form() {
           className='w-2/4 ms-auto'
           animName={"anim-6"}
           value={formData.constitution}
+          formdata={formData}
           onChange={(value) => handleChange("constitution", value)}
         />
         <DropDown
@@ -394,6 +422,7 @@ export default function Form() {
           className=' w-full'
           animName={"anim-7"}
           value={formData.wisdom}
+          formdata={formData}
           onChange={(value) => handleChange("wisdom", value)}
         />
         <DropDown
@@ -401,6 +430,7 @@ export default function Form() {
           className=' w-full'
           animName={"anim-8"}
           value={formData.charisma}
+          formdata={formData}
           onChange={(value) => handleChange("charisma", value)}
         />
 

@@ -22,8 +22,8 @@ const CURVE_DISTANCE = 450;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
-let offset = 0;
 let anim = 0;
+let offset = 0;
 
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
@@ -55,8 +55,6 @@ export default function Experience({
   const dragonModel = useRef();
   const [curvesData, setCurvesData] = useState(initialCurves);
   const [pathObjects, setPathObjects] = useState([]);
-  const [imageTexture, setImageTexture] = useState(null);
-  let point;
 
   const curve = useMemo(() => {
     return new THREE.CatmullRomCurve3(curvesData, false, "catmullrom", 0.5);
@@ -68,6 +66,11 @@ export default function Experience({
     shape.lineTo(0, 0.08);
     return shape;
   }, [curve]);
+
+  useEffect(() => {
+    //resetting values on component mount
+    offset = 0;
+  }, []);
 
   useFrame((_state, delta) => {
     if (open || pathObjects.length === 0) return;
@@ -219,6 +222,8 @@ export default function Experience({
     ) {
       setOpen(true);
       setType("text");
+    } else {
+      setOpen(false);
     }
   };
 
@@ -263,18 +268,6 @@ export default function Experience({
     loadedTexture.repeat.set(1, 1);
     return loadedTexture;
   };
-
-  useMemo(() => {
-    const textureLoader = new TextureLoader();
-    const loadedTexture = textureLoader.load("/dice2.jpg");
-
-    // Customize texture properties if needed
-    loadedTexture.wrapS = THREE.RepeatWrapping;
-    loadedTexture.wrapT = THREE.RepeatWrapping;
-    loadedTexture.repeat.set(1, 1);
-
-    setImageTexture(loadedTexture);
-  }, []);
 
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
