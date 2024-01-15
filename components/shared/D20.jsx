@@ -70,11 +70,20 @@ export function Model({ selectedFace, setSelectedFace }) {
   const [rolling, setRolling] = useState(true);
 
   useEffect(() => {
-    const rollDice = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 8000));
+    const rollDice = async (randomFace) => {
+      await new Promise((resolve) => setTimeout(resolve, 6000));
 
       setRolling(false);
+      toast.success(`You rolled a ${randomFace}!`);
 
+      // Set the position for the selected face
+      const newPosition = facePositions[`face${randomFace}`]?.value || [
+        0, 0, 0,
+      ];
+      sceneRef.current?.rotation.set(...newPosition);
+    };
+
+    if (rolling) {
       // Generate a random number between 1 and 20
       let randomFace = Math.floor(Math.random() * 20) + 1;
 
@@ -83,24 +92,15 @@ export function Model({ selectedFace, setSelectedFace }) {
         randomFace = randomFace === 20 ? 1 : randomFace + 1;
       }
       setSelectedFace(randomFace);
-      toast.success(`You rolled a ${randomFace}!`);
 
-      // Set the position for the selected face
-      const newPosition = facePositions[`face${randomFace}`]?.value || [
-        0, 0, 0,
-      ];
-      sceneRef.current.rotation.set(...newPosition);
-    };
-
-    if (rolling) {
-      rollDice();
+      rollDice(randomFace);
     }
   }, [rolling]);
 
   useFrame(() => {
     if (sceneRef.current && rolling) {
-      sceneRef.current.rotation.x += 0.1;
-      sceneRef.current.rotation.y += 0.2;
+      sceneRef.current.rotation.x += 0.08;
+      sceneRef.current.rotation.y += 0.15;
     }
   });
 

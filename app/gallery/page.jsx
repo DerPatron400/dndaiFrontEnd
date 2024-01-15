@@ -10,13 +10,17 @@ const getImages = async () => {
 
   const uid = cookieStore.get("uid").value;
 
-  const response = await axios.get(BACKEND_URL + "/api/images/", {
-    params: {
-      _id: uid,
-    },
-  });
+  try {
+    const response = await axios.get(BACKEND_URL + "/api/images/", {
+      params: {
+        _id: uid,
+      },
+    });
 
-  return response.data.images;
+    return response.data.images;
+  } catch (error) {
+    return [];
+  }
 };
 
 export default async function Page() {
