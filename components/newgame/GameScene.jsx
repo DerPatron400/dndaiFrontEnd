@@ -12,6 +12,7 @@ import useUserStore from "@/utils/store/userStore";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const responseText =
   "Welcome to the adventure, Dol Katzius, the Halfling Barbarian!\n" +
@@ -62,12 +63,19 @@ export default function AtmosScene() {
   const [isLoading, setIsLoading] = useState(false);
   const user = useUserStore((state) => state.user);
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const conversationIndex = searchParams.get("conversationIndex");
 
   const handleSaveGame = async () => {
     console.log("saving game");
     try {
+      // console.log(user.credits);
+      if (user.credits <= 0) {
+        router.push("/shop");
+        return;
+      }
+
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const bodyData = {
         conversationIndex,
@@ -97,10 +105,10 @@ export default function AtmosScene() {
   };
 
   return (
-    <div className='relative'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+    <div className="relative">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
         <Canvas>
-          <color attach='background' args={["#ececec"]} />
+          <color attach="background" args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
@@ -126,7 +134,7 @@ export default function AtmosScene() {
         visualText={visualText}
       />
 
-      <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
+      <div className="fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden">
         <button
           tabIndex={0}
           onTouchStart={() => {
@@ -137,7 +145,7 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronUp size={20} />
         </button>
@@ -151,16 +159,16 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronDown size={20} />
         </button>
       </div>
-      <div className='fixed bottom-[11%] right-4 '>
+      <div className="fixed bottom-[11%] right-4 ">
         <button
           onClick={handleSaveGame}
           disabled={isLoading}
-          className='bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50'
+          className="bg-gradient-to-t from-green-950 to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
         >
           {isLoading ? "Saving..." : "Save Game"}
         </button>

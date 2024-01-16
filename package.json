@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
-    "@radix-ui/themes": "^2.0.1",
+    "@radix-ui/themes": "^2.0.3",
     "@react-icons/all-files": "^4.1.0",
     "@react-three/drei": "^9.89.0",
     "@react-three/fiber": "^8.15.11",
