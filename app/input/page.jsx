@@ -1,5 +1,5 @@
 "use client";
-import Scene from "@/components/threejs/Scene";
+import Scene from "@/components/StartGame/Scene";
 import { Toaster } from "react-hot-toast";
 
 export default function Input() {

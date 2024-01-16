@@ -32,6 +32,9 @@ const initialCurves = [
   new THREE.Vector3(-7.5, 0, -3 * CURVE_DISTANCE),
   new THREE.Vector3(7.5, 0, -4 * CURVE_DISTANCE),
   new THREE.Vector3(-7.5, 0, -5 * CURVE_DISTANCE),
+  new THREE.Vector3(7.5, 0, -6 * CURVE_DISTANCE),
+  new THREE.Vector3(-7.5, 0, -7 * CURVE_DISTANCE),
+  new THREE.Vector3(7.5, 0, -8 * CURVE_DISTANCE),
 ];
 
 export default function Experience({
@@ -73,7 +76,7 @@ export default function Experience({
   }, []);
 
   useFrame((_state, delta) => {
-    if (open || pathObjects.length === 0) return;
+    if (isForwardPressed && (open || pathObjects.length === 0)) return;
 
     if (isForwardPressed || isBackwardPressed) {
       if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
@@ -223,7 +226,7 @@ export default function Experience({
       setOpen(true);
       setType("text");
     } else {
-      setOpen(false);
+      if (type === "text") setOpen(false);
     }
   };
 

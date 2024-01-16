@@ -3,8 +3,8 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import { Model } from "../threejs/Bird";
-import Loader from "../threejs/Loader";
+import { Model } from "../StartGame/Bird";
+import Loader from "../StartGame/Loader";
 
 export function BackgroundScene({ setLoaded }) {
   return (

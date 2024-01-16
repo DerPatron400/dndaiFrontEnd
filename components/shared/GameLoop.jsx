@@ -15,7 +15,7 @@ import Choice from "@/components/shared/GameLoop/Choice";
 
 function Scene({ children }) {
   return (
-    <Canvas className="z-10">
+    <Canvas className='z-10'>
       <Suspense fallback={null}>
         <pointLight position={[10, 10, 10]} />
         <Stage shadows={false} environment={"apartment"}>
@@ -32,6 +32,7 @@ export default function GameLoop({
   addToScene,
   type,
   visualText,
+  paths,
 }) {
   const cancelButtonRef = useRef(null);
   const [rollDice, setRollDice] = useState(false);
@@ -39,14 +40,12 @@ export default function GameLoop({
   const [selectedFace, setSelectedFace] = useState(null);
   const [input, setInput] = useState("");
   const [selection, setSelection] = useState("");
-  const user = useUserStore((state) => state.user);
+  const { user, setCredits } = useUserStore((state) => state);
   const { setIntroText, setImage } = useIntroTextStore((state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const conversationIndex = searchParams.get("conversationIndex");
-
-  const savedGame = searchParams.get("savedGame");
 
   //this is for rolling dice
   useEffect(() => {
@@ -65,7 +64,7 @@ export default function GameLoop({
             conversationIndex,
           };
 
-          const response = await axios.post(
+          const { data } = await axios.post(
             BACKEND_URL + "/gpt4/user-input",
             bodyData,
             {
@@ -74,7 +73,8 @@ export default function GameLoop({
               },
             }
           );
-          setIntroText(response.data.responseText);
+          setIntroText(data.responseText);
+          setCredits(data.credits);
 
           addToScene("text");
           setInput("");
@@ -120,7 +120,7 @@ export default function GameLoop({
       };
       console.log(bodyData);
 
-      const response = await axios.post(
+      const { data } = await axios.post(
         BACKEND_URL + "/api/images/generateImages",
         bodyData,
         {
@@ -130,7 +130,8 @@ export default function GameLoop({
         }
       );
 
-      setImage(response.data[0]);
+      setImage(data.image);
+      setCredits(data.credits);
 
       addToScene("image");
       setSelection("");
@@ -155,8 +156,8 @@ export default function GameLoop({
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
-        as="div"
-        className="relative z-1 w-full "
+        as='div'
+        className='relative z-1 w-full '
         initialFocus={cancelButtonRef}
         onClose={() => {
           if (type === "image") {
@@ -166,35 +167,35 @@ export default function GameLoop({
       >
         <Transition.Child
           as={Fragment}
-          enter="ease-out duration-300 transition-all"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter='ease-out duration-300 transition-all'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='ease-in duration-200'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
         >
-          <div className="fixed inset-0 transition-opacity" />
+          <div className='fixed inset-0 transition-opacity' />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto ">
-          <div className="flex min-h-full min-w-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className='fixed inset-0 z-10 w-screen overflow-y-auto '>
+          <div className='flex min-h-full min-w-full items-center justify-center p-4 text-center sm:items-center sm:p-0'>
             <Transition.Child
               as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enter='ease-out duration-300'
+              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              enterTo='opacity-100 translate-y-0 sm:scale-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
-              <Dialog.Panel className="relative min-w-[70vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-1/2 md:min-w-[40vw]">
-                <div className="bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full ">
+              <Dialog.Panel className='relative min-w-[70vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-1/2 md:min-w-[40vw]'>
+                <div className='bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full '>
                   {loading ? (
                     <>
                       <Scene>
                         <DragonHead />
                       </Scene>
-                      <div className="absolute top-0 z-[10] left-0 px-5 text-sm md:text-2xl pt-5 flex items-center justify-center w-full text-white">
+                      <div className='absolute top-0 z-[10] left-0 px-5 text-sm md:text-2xl pt-5 flex items-center justify-center w-full text-white'>
                         Please wait while we load your journey
                       </div>
                     </>
@@ -206,23 +207,24 @@ export default function GameLoop({
                       />
                     </Scene>
                   ) : (
-                    <div className="sm:flex w-fui sm:items-start w-full h-full">
-                      <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full h-full">
+                    <div className='sm:flex w-fui sm:items-start w-full h-full'>
+                      <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full h-full'>
                         <Dialog.Title
-                          as="h3"
-                          className="text-xl font-semibold leading-6 text-white"
+                          as='h3'
+                          className='text-xl font-semibold leading-6 text-white'
                         >
                           Player's Menu
                         </Dialog.Title>
                         <div
                           onKeyDown={handleKeyDown}
-                          className="flex relative  w-full items-center h-full justify-between"
+                          className='flex relative  w-full items-center h-full justify-between'
                         >
                           {type === "text" ? (
                             <Choice
                               buttonText={"Roll Dice"}
-                              title="select path"
+                              title='select path'
                               isInput
+                              paths={paths}
                               savedGame
                               input={input}
                               setInput={setInput}
@@ -231,7 +233,7 @@ export default function GameLoop({
                           ) : (
                             <Choice
                               buttonText={<Image />}
-                              title=" Generate Image"
+                              title=' Generate Image'
                               input={selection}
                               setInput={setSelection}
                               onClick={handleImageGeneration}

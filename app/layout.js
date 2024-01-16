@@ -5,6 +5,7 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "@radix-ui/themes/styles.css";
 import { Toaster } from "react-hot-toast";
 
@@ -24,11 +25,9 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='en'>
+      <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className + " bg-black overflow-x-hidden"}>
-        <div
-         
-          className='max-w-screen !overflow-hidden '
-        >
+        <div className='max-w-screen !overflow-hidden '>
           <Theme>
             {!hideNavbar && <Navbar />}
             <div className='min-h-screen'>{children}</div>
