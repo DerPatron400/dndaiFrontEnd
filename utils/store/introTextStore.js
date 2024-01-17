@@ -6,6 +6,7 @@ const useIntroTextStore = create(
     (set, get) => ({
       introText: "",
       image: "",
+
       setIntroText: (introText) => set({ introText }),
       setImage: (image) => set({ image }),
     }),

@@ -4,6 +4,7 @@ import useUserStore from "@/utils/store/userStore";
 import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export default function Product({ data }) {
   const user = useUserStore((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,8 +14,8 @@ export default function Product({ data }) {
   const handleClick = async () => {
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const successUrl = "http://localhost:3000/success";
-      const cancelUrl = "http://localhost:3000/failure";
+      const successUrl = BASE_URL + "payment-status/success";
+      const cancelUrl = BASE_URL + "payment-status/failure";
 
       const bodyData = {
         productid: data._id,
@@ -65,7 +66,7 @@ export default function Product({ data }) {
         <button
           disabled={isLoading}
           onClick={handleClick}
-          className='disabled:bg-green-400 bg-green-500 w-full text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-blue transition-all duration-300'
+          className='disabled:bg-green-400 w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
         >
           {isLoading ? "Processing" : "Buy"}
         </button>

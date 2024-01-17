@@ -1,4 +1,5 @@
 const splitTextIntoArray = (text, wordsPerElement) => {
+  if (!text) return [];
   const words = text.split(/\s+/);
   const result = [];
   let currentElement = "";
@@ -29,6 +30,13 @@ function isWrappedWithDoubleAsterisks(str) {
   return regex.test(str);
 }
 
+function startsWithSpecialCharacter(str) {
+  // Regular expression to match strings that start and end with **
+  const regex = /^\^.*/;
+
+  // Test if the string matches the pattern
+  return regex.test(str);
+}
 function startsWithDoubleAsterisks(str) {
   // Regular expression to match strings that start and end with **
   const regex = /^\*\*/;
@@ -69,28 +77,75 @@ function extractHeading(str) {
 
 function parseAdventureText(text) {
   const choices = [];
+  const paths = [];
   const lines = removeEmptyStrings(text.split("\n")); // Split each section into lines
 
   lines.map((line, index) => {
     // If the line is wrapped with **, then it's a choice
-    if (isWrappedWithDoubleAsterisks(line)) {
+    if (isWrappedWithDoubleAsterisks(line.replace("^", ""))) {
+      if (startsWithSpecialCharacter(line.replaceAll("*", ""))) {
+        line = line.replaceAll("*", "").replaceAll("^", "");
+        paths.push({
+          heading: line.replace(/Path\s*\d+/g, ""),
+          content: lines[index + 1],
+        });
+      }
       choices.push({
-        heading: line.replaceAll("*", ""),
+        heading: line.replace(/Path\s*\d+/g, ""),
         content: lines[index + 1],
       });
     } else if (startsWithDoubleAsterisks(line)) {
       //or if the line starts with **
-      const heading = extractHeading(line);
+      let heading = extractHeading(line).replace(/Path\s*\d+/g, "");
+
       const content = line
         .replaceAll("*", "")
         .replace(heading, "")
         .replaceAll(":", "")
         .trim();
 
+      if (startsWithSpecialCharacter(heading)) {
+        heading = heading.replaceAll("^", "");
+        paths.push({
+          heading,
+          content,
+        });
+      }
+
       choices.push({
-        heading,
+        heading: heading,
         content,
       });
+    } else if (startsWithSpecialCharacter(line)) {
+      line = line.replaceAll("^", "").replace(/Path\s*\d+/g, "");
+      if (line.length < 40) {
+        paths.push({
+          heading: line.replace(/Path\s*\d+/g, ""),
+          content: lines[index + 1],
+        });
+
+        choices.push({
+          heading: line.replace(/Path\s*\d+/g, ""),
+          content: lines[index + 1],
+        });
+      } else {
+        const heading = extractHeading(line);
+
+        const content = line
+          .replaceAll("*", "")
+          .replace(heading, "")
+          .replaceAll(":", "")
+          .trim();
+
+        paths.push({
+          heading,
+          content,
+        });
+        choices.push({
+          heading,
+          content,
+        });
+      }
     } else if (startsWithNumberAndDoubleAsterisks(line)) {
       // or if the line starts as 1. **choice:**
       const heading = extractHeading(line);
@@ -135,7 +190,7 @@ function parseAdventureText(text) {
     }
   });
 
-  return choices;
+  return { choices, paths };
 }
 export const parseGameText = (text) => {
   const wordsPerElement = 10;
@@ -157,11 +212,11 @@ export const parseGameText = (text) => {
     .replaceAll(":", "")
     .replaceAll("VISUAL", "");
 
-  const paths = parseAdventureText(pathText);
+  const { paths, choices } = parseAdventureText(pathText);
 
   let resultArray = [];
 
-  paths.map((path) => {
+  choices.map((path) => {
     if (path.heading?.toLowerCase() === "visual") {
       resultArray.push({ heading: path.heading, content: path.content });
     } else {
@@ -177,5 +232,5 @@ export const parseGameText = (text) => {
     }
   });
 
-  return { visualText, resultArray };
+  return { visualText, resultArray, paths };
 };

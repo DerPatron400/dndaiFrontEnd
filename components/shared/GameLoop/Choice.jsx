@@ -1,5 +1,7 @@
 import React from "react";
-import { Select } from "@radix-ui/themes";
+import { Select, Tooltip } from "@radix-ui/themes";
+import useIntroTextStore from "@/utils/store/introTextStore";
+import { twMerge } from "tailwind-merge";
 
 const Input = ({ input, setInput }) => {
   return (
@@ -53,13 +55,48 @@ const Choice = ({
   input = "",
   savedGame = false,
   setInput = null,
+  paths = [],
 }) => {
+  const handleClick = (path, index) => {
+    if (
+      path.heading.toLowerCase().includes("free") &&
+      path.heading.toLowerCase().includes("choice")
+    ) {
+      setInput("");
+      return;
+    } else {
+      setInput(path.content);
+    }
+  };
   return (
-    <div className='flex flex-col items-center flex-1 h-3/4'>
-      <div className='flex items-center w-[43vw] md:w-full h-full py-10 flex-1 flex-col gap-y-24'>
+    <div className='flex flex-col items-center flex-1 h-full'>
+      <div
+        className={twMerge(
+          "flex items-center w-[43vw] md:w-full h-full py-10 flex-1 flex-col ",
+          isInput ? "gap-y-6" : "gap-y-24"
+        )}
+      >
         <label className='text-white md:text-2xl text-xl capitalize'>
           {title}
         </label>
+        <div className='flex gap-2 items-center flex-wrap w-full mx-auto justify-center'>
+          {paths.map((path, index) => (
+            <Tooltip
+              className='z-[50] w-64 '
+              key={index}
+              content={path.content}
+            >
+              <button
+                onClick={() => {
+                  handleClick(path, index);
+                }}
+                className=' text-sm bg-gradient-to-t from-green-950 to-green-500 text-white px-2 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out '
+              >
+                {path.heading.replaceAll("_", " ")}
+              </button>
+            </Tooltip>
+          ))}
+        </div>
         <div className='flex md:flex-row flex-col gap-x-2'>
           {isInput ? (
             <Input input={input} setInput={setInput} />

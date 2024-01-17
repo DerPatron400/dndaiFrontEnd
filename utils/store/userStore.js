@@ -6,17 +6,13 @@ const useUserStore = create(
     (set, get) => ({
       user: null,
       setUser: (user) => set({ user }),
+      setCredits: (credits) => set({ user: { ...get().user, credits } }),
     }),
     {
       name: "user-storage", // name of the item in the storage (must be unique)
       storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
     }
   )
-);
-
-useUserStore.subscribe(
-  (user) => console.log("user", user),
-  (state) => state.user
 );
 
 export default useUserStore;

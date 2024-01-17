@@ -58,7 +58,7 @@ export default function EnableSound({ setPlaying }) {
                 <div className="bg-black px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center  border-0 rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                    className="inline-flex w-full justify-center  border-0 bg-gradient-to-t from-green-950 to-green-500 text-white font-semibold px-2 sm:ml-3 sm:w-auto py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
                     onClick={() => {
                       setPlaying(true);
                       setOpen(false);

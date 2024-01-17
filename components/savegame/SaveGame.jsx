@@ -10,29 +10,6 @@ import useIntroTextStore from "@/utils/store/introTextStore";
 import { useRouter } from "next/navigation";
 import Loader from "../shared/DragonLoader";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-const continueGame = async (conversationIndex, user) => {
-  const bodyData = {
-    conversationIndex,
-  };
-
-  console.log("here");
-  const response = await axios.post(
-    BACKEND_URL + "/gpt4/continue-game",
-    bodyData,
-    {
-      params: {
-        _id: user._id,
-      },
-    }
-  );
-
-  console.log(response);
-
-  return response.data;
-};
-
 const SaveGame = ({ data }) => {
   const [userName, setUserName] = useState("");
   const { user } = useUserStore((state) => state);
@@ -71,19 +48,19 @@ const SaveGame = ({ data }) => {
   return (
     <div className=' border  border-[#393a3b] rounded-md shadow-lg w-full sm:w-[70vw] mx-auto h-full min-h-screen  text-white overflow-hidden'>
       {/* Header Section */}
-      <div className="relative flex flex-col items-center">
+      <div className='relative flex flex-col items-center'>
         <img
-          src="/dice2.jpg"
-          alt="Header Image Alt Text"
-          className="w-full h-[30vh] object-cover mb-4 rounded-md"
+          src='/dice2.jpg'
+          alt='Header Image Alt Text'
+          className='w-full h-[30vh] object-cover mb-4 rounded-md'
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black opacity-60 rounded-md"></div>
+        <div className='absolute inset-0 bg-black opacity-60 rounded-md'></div>
 
-        <h1 className="text-[2rem] sm:text-[3rem] text-center font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+        <h1 className='text-[2rem] sm:text-[3rem] text-center font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10'>
           Your Quest Awaits,{" "}
-          <span className="text-green-500 capitalize">{userName}</span>!
+          <span className='text-green-500 capitalize'>{userName}</span>!
         </h1>
       </div>
 

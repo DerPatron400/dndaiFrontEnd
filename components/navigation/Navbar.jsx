@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Info } from "lucide-react";
 import EnableSound from "../util/SoundModal";
 import Link from "next/link";
 import Accounts from "../Accounts";
@@ -8,12 +8,16 @@ import useSoundStore from "@/utils/store";
 import useUserStore from "@/utils/store/userStore";
 import Cookies from "universal-cookie";
 import TextToSpeech from "@/components/shared/TextToSpeech";
+import { Tooltip } from "@radix-ui/themes";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const cookie = new Cookies();
   const { audio, setAudio } = useSoundStore((state) => state);
   const { user } = useUserStore((state) => state);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const isNewGame = usePathname().includes("newgame");
 
   //settig sound
   const [playing, setPlaying] = useState(false);
@@ -33,6 +37,8 @@ const Navbar = () => {
   }, [playing, audio]);
   useEffect(() => {
     if (!audio) setAudio(new Audio("/Audio/ambient.mp3"));
+
+    setIsMobile(window.innerWidth < 768);
   }, []);
 
   return (
@@ -44,8 +50,21 @@ const Navbar = () => {
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16' />
         </Link>
 
-        <div className='flex items-center space-x-4 pr-2'>
+        <div className='flex items-center space-x-2 pr-2'>
           <TextToSpeech />
+          {isNewGame && (
+            <Tooltip
+              className='cursor-pointer'
+              content={
+                isMobile
+                  ? "Use provided arrow buttons to move dragon"
+                  : "Use forward and backward keys to move dragon"
+              }
+              side='bottom'
+            >
+              <Info color='black' fill='white' size={44} strokeWidth={1} />
+            </Tooltip>
+          )}
           <div
             onClick={() => {
               setPlaying(!playing);
@@ -71,7 +90,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href='/register'
-                className='cursor-pointer text-md text-white bg-green-500 hover:bg-green-600 hover:text-white px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out'
+                className='cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
               >
                 Sign Up
               </Link>
