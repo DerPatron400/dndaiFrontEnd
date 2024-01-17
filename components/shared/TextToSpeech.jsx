@@ -3,8 +3,6 @@ import { Speech, XCircle } from "lucide-react";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
 
 export default function TextToSpeech() {
   const [isTalking, setIsTalking] = useState(false);
