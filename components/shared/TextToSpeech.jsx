@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Speech, XCircle } from "lucide-react";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 
 export default function TextToSpeech() {
   const [isTalking, setIsTalking] = useState(false);
   const introText = useIntroTextStore((state) => state.introText);
   const pathname = usePathname();
   const [audio, setAudio] = useState(null);
+  const audioRef = useRef();
 
   const isNewGame = pathname.includes("/newgame");
   useEffect(() => {
@@ -33,7 +36,9 @@ export default function TextToSpeech() {
             URL.createObjectURL(new Blob([audioData], { type: "audio/mpeg" }))
           );
           console.log("audio", audio);
+          console.log(audio);
           setAudio(audio);
+          audioRef.current = audio;
         })
         .catch((error) => console.error("Error:", error));
     };
@@ -47,11 +52,19 @@ export default function TextToSpeech() {
   return (
     <div className={``}>
       {isNewGame && audio && (
+        <audio controls className='hidden md:block h-9 min-w-60'>
+          <source src={audio?.src} type='audio/ogg' />
+          <source src={audio?.src} type='audio/mpeg' />
+          Your browser does not support the audio element.
+        </audio>
+      )}
+
+      {isNewGame && audio && (
         <div
           onClick={() => {
             setIsTalking(!isTalking);
           }}
-          className='bg-white relative cursor-pointer p-2 rounded-full'
+          className='bg-white relative md:hidden  cursor-pointer p-2 rounded-full'
         >
           {isTalking ? <XCircle size={20} /> : <Speech size={20} />}
         </div>

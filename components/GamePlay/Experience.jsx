@@ -311,7 +311,7 @@ export default function Experience({
       <directionalLight position={[0, 3, 1]} intensity={1} />
 
       <group ref={cameraGroup}>
-        {/* {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />} */}
+        {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />}
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Info } from "lucide-react";
 import EnableSound from "../util/SoundModal";
 import Link from "next/link";
 import Accounts from "../Accounts";
@@ -9,13 +9,15 @@ import useUserStore from "@/utils/store/userStore";
 import Cookies from "universal-cookie";
 import TextToSpeech from "@/components/shared/TextToSpeech";
 import { Tooltip } from "@radix-ui/themes";
-import { Info } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const cookie = new Cookies();
   const { audio, setAudio } = useSoundStore((state) => state);
   const { user } = useUserStore((state) => state);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const isNewGame = usePathname().includes("newgame");
 
   //settig sound
   const [playing, setPlaying] = useState(false);
@@ -35,6 +37,8 @@ const Navbar = () => {
   }, [playing, audio]);
   useEffect(() => {
     if (!audio) setAudio(new Audio("/Audio/ambient.mp3"));
+
+    setIsMobile(window.innerWidth < 768);
   }, []);
 
   return (
@@ -46,19 +50,21 @@ const Navbar = () => {
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16' />
         </Link>
 
-        <div className='flex items-center space-x-4 pr-2'>
+        <div className='flex items-center space-x-2 pr-2'>
           <TextToSpeech />
-          <Tooltip
-            className='cursor-pointer'
-            content={
-              window.innerWidth < 768
-                ? "Use provided arrow buttons to move dragon"
-                : "Use forward and backward keys to move dragon"
-            }
-            side='bottom'
-          >
-            <Info color='black' fill='white' size={44} strokeWidth={1} />
-          </Tooltip>
+          {isNewGame && (
+            <Tooltip
+              className='cursor-pointer'
+              content={
+                isMobile
+                  ? "Use provided arrow buttons to move dragon"
+                  : "Use forward and backward keys to move dragon"
+              }
+              side='bottom'
+            >
+              <Info color='black' fill='white' size={44} strokeWidth={1} />
+            </Tooltip>
+          )}
           <div
             onClick={() => {
               setPlaying(!playing);

@@ -4,6 +4,7 @@ import useUserStore from "@/utils/store/userStore";
 import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export default function Product({ data }) {
   const user = useUserStore((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,8 +14,8 @@ export default function Product({ data }) {
   const handleClick = async () => {
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const successUrl = "http://localhost:3000/success";
-      const cancelUrl = "http://localhost:3000/failure";
+      const successUrl = BASE_URL + "payment-status/success";
+      const cancelUrl = BASE_URL + "payment-status/failure";
 
       const bodyData = {
         productid: data._id,
@@ -49,23 +50,23 @@ export default function Product({ data }) {
   };
 
   return (
-    <div className="bg-[#201f1f] p-4 rounded-md md:w-[30vw] w-full">
+    <div className='bg-[#201f1f] p-4 rounded-md md:w-[30vw] w-full'>
       <img
-        src="/Product1.png"
-        alt="Product 1"
-        className="w-full rounded-lg h-auto mb-4"
+        src='/Product1.png'
+        alt='Product 1'
+        className='w-full rounded-lg h-auto mb-4'
       />
-      <div className="flex justify-between gap-y-4 flex-col items-center">
-        <div className="text-left flex justify-between w-full">
-          <p className="text-xl font-light mb-2">
+      <div className='flex justify-between gap-y-4 flex-col items-center'>
+        <div className='text-left flex justify-between w-full'>
+          <p className='text-xl font-light mb-2'>
             Credit Points: {data.productName}
           </p>
-          <p className="text-xl font-light mb-2">Price: {data.value}$</p>
+          <p className='text-xl font-light mb-2'>Price: {data.value}$</p>
         </div>
         <button
           disabled={isLoading}
           onClick={handleClick}
-          className="disabled:bg-green-400 w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+          className='disabled:bg-green-400 w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
         >
           {isLoading ? "Processing" : "Buy"}
         </button>

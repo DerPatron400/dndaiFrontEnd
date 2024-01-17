@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import GameScene from "@/components/newgame/GameScene";
+import GameScene from "@/components/GamePlay/GameScene";
 
 export default function page() {
   return (

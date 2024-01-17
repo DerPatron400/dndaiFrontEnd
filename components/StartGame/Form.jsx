@@ -194,6 +194,12 @@ export default function Form() {
       dndRace: formData.race,
     };
 
+    if (user.credits <= 0) {
+      toast.error("You don't have enough credits to play");
+      router.push("/shop");
+      return;
+    }
+
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const { data } = await axios.post(BACKEND_URL + "/gpt4/chat", bodyData, {
@@ -201,7 +207,7 @@ export default function Form() {
           _id: user._id,
         },
       });
-      console.log(data);
+
       setIntroText(data.responseText);
       setCredits(data.credits);
       router.push("/newgame?conversationIndex=" + data.conversationIndex);
