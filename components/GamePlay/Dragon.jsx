@@ -7,7 +7,7 @@ export function Model(props) {
   const group = useRef();
   const { animations, scene } = useGLTF("/models/dragon.glb");
   let mixer, action;
-  //animations[0] is the first animation in the glb file
+
   const modelAnimations = () => {
     mixer = new THREE.AnimationMixer(group.current);
     const clip = animations[0];
