@@ -77,6 +77,16 @@ const Navbar = () => {
               <Volume2 size={20} />
             )}
           </div>
+          {user && (
+            <Tooltip content='Your Credits'>
+              <Link href={"/shop"}>
+                <div className='w-9 h-9 rounded-full bg-white text-xs font-semibold flex items-center justify-center'>
+                  {user?.credits}
+                </div>
+              </Link>
+            </Tooltip>
+          )}
+
           {isLoggedIn ? (
             <Accounts />
           ) : (
@@ -84,13 +94,13 @@ const Navbar = () => {
               {" "}
               <Link
                 href='/login'
-                className='cursor-pointer text-md text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out'
+                className='cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out'
               >
                 Login
               </Link>
               <Link
                 href='/register'
-                className='cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+                className='cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all'
               >
                 Sign Up
               </Link>

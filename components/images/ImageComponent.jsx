@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import { MdFullscreen, MdClose } from "react-icons/md";
-
 const ImageComponent = ({ image, key }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -38,11 +37,11 @@ const ImageComponent = ({ image, key }) => {
             <img
               src={image}
               alt='Fullscreen Image'
-              className='w-full h-full object-cover'
+              className='w-full h-[80vh] object-cover'
             />
             <div className='absolute top-4 right-4 cursor-pointer'>
               <MdClose
-                className='text-black'
+                className='text-white'
                 size={34}
                 onClick={closeFullscreen}
               />
@@ -52,7 +51,7 @@ const ImageComponent = ({ image, key }) => {
       )}
 
       {/* Overlay */}
-      <div className='absolute inset-0 bg-black opacity-0 rounded-md transition-opacity duration-300 hover:opacity-60 flex justify-end items-start'>
+      <div className='absolute inset-0  opacity-0 rounded-md transition-opacity duration-300 hover:opacity-60 flex justify-end items-start'>
         <MdFullscreen
           className='text-green-600 m-4 hover:text-white transition-colors duration-300'
           size={44}

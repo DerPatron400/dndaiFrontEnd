@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { Coins } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/utils/store/userStore";
 import Cookie from "universal-cookie";
@@ -46,63 +47,63 @@ const Accounts = () => {
       style={{
         fontFamily: "Poppins, sans-serif ",
       }}
-      className="relative inline-block text-left "
+      className='relative inline-block text-left '
       ref={dropdownRef}
     >
       <button
         onClick={toggleDropdown}
-        type="button"
-        id="options-menu"
-        aria-haspopup="true"
-        aria-expanded="true"
-        className="bg-gradient-to-t from-green-950 to-green-500 text-white px-6 py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+        type='button'
+        id='options-menu'
+        aria-haspopup='true'
+        aria-expanded='true'
+        className='bg-gradient-to-t capitalize flex from-green-950 items-end gap-x-1 to-green-500 text-white px-6 py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
       >
-        Account
+        {user?.username}
       </button>
 
       {isDropdownOpen && (
         <div
-          className="absolute right-0 mt-2 py-2 space-y-2 bg-white w-40  text-center rounded-md shadow-md"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="options-menu"
+          className='absolute right-0 mt-2 py-2 space-y-2 bg-white w-40  text-center rounded-md shadow-md'
+          role='menu'
+          aria-orientation='vertical'
+          aria-labelledby='options-menu'
         >
           <Link
-            href="/input"
-            className="cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green"
-            role="menuitem"
+            href='/input'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
+            role='menuitem'
           >
             New Game
           </Link>
 
-          <div className="px-4 py-2 rounded-md text-sm">
+          <div className='px-4 py-2 rounded-md text-sm'>
             Credits: {user?.credits || 0}
           </div>
           <Link
-            href="/savegame"
-            className="cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green"
-            role="menuitem"
+            href='/savegame'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
+            role='menuitem'
           >
             Saved Games
           </Link>
           <Link
-            href="/gallery"
-            className="cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green"
-            role="menuitem"
+            href='/gallery'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
+            role='menuitem'
           >
             Images
           </Link>
           <Link
-            href="/shop"
-            className="cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green"
-            role="menuitem"
+            href='/shop'
+            className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
+            role='menuitem'
           >
             Shop
           </Link>
           <span
             onClick={handleLogout}
-            className="cursor-pointer block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green"
-            role="menuitem"
+            className='cursor-pointer block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
+            role='menuitem'
           >
             Logout
           </span>

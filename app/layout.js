@@ -1,15 +1,19 @@
 "use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 import { GoogleTagManager } from "@next/third-parties/google";
 import "@radix-ui/themes/styles.css";
 import { Toaster } from "react-hot-toast";
+import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const Navbar = dynamic(() => import("@/components/navigation/Navbar"), {
+  ssr: false,
+});
 
 // export const metadata = {
 //   title: "Create Next App",

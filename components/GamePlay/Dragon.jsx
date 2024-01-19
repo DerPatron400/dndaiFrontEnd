@@ -19,7 +19,7 @@ export function Model(props) {
   };
 
   const updateMixer = () => {
-    mixer.update(0.03);
+    mixer.update(0.035);
     //add some wait
 
     requestAnimationFrame(updateMixer);
@@ -38,7 +38,7 @@ export function Model(props) {
         window.innerWidth < 768 ? -1 : -2,
         0,
       ]}
-      scale={window.innerWidth < 768 ? 0.5 : 1}
+      scale={window.innerWidth < 768 ? 0.5 : 0.8}
     >
       <primitive object={scene} dispose={null} position={[0, 0, 0]} />
     </group>

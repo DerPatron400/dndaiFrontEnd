@@ -142,7 +142,7 @@ export default function Register() {
             <p className='text-sm mt-4'>
               If you already have an account, please{" "}
               <span
-                className='text-white hover:text-green-300 cursor-pointer transition-colors duration-300'
+                className='w-full  disabled:opacity-60 disabled:cursor-not-allowed  bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400  focus:outline-none transition-colors duration-300'
                 onClick={handleSigninClick}
               >
                 Sign in
