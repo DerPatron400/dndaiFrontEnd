@@ -47,13 +47,13 @@ function WindShape() {
 const WindEffect = ({ isMoving }) => {
   const materialRef = useRef();
   const INSTANCE = {
-    number: 240,
+    number: 120,
   };
 
   useEffect(() => {
     if (isMoving) {
       gsap.to(materialRef.current, {
-        opacity: 0.15,
+        opacity: 0.12,
         duration: 0.5,
       });
     } else {

@@ -27,12 +27,13 @@ export default function AtmosScene() {
   const { user, setCredits } = useUserStore((state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
+  console.log(introText);
 
   const conversationIndex = searchParams.get("conversationIndex");
 
   const handleSaveGame = async () => {
     try {
-      if (user.credits >= 0) {
+      if (user.credits <= 0) {
         toast.error("You don't have enough credits to play");
         router.push("/shop");
         return;
