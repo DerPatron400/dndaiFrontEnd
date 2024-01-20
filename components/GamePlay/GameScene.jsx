@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Tooltip } from "@radix-ui/themes";
+import HowToPlay from "./HowToPlay";
 
 export default function AtmosScene() {
   const { introText, image } = useIntroTextStore((state) => state);
@@ -129,6 +130,7 @@ export default function AtmosScene() {
           <FaChevronDown size={20} />
         </button>
       </div>
+      <HowToPlay />
       <div className='fixed bottom-[11%] right-4 '>
         <Tooltip content='Spend one credits to save your game' side='left'>
           <button
