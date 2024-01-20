@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 import AOS from "aos";
 import { IoIosArrowDown } from "react-icons/io";
+import { getCredits } from "@/api/user";
 
 const InstructionsModal = ({ onClose }) => {
   useEffect(() => {
@@ -53,26 +54,26 @@ const InstructionsModal = ({ onClose }) => {
     },
   ];
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-opacity-75 bg-black z-50">
-      <div className="bg-black border border-green-500 text-white p-8 rounded-md w-[70vw] max-h-[70vh] overflow-auto relative">
-        <div className="absolute top-4 right-4">
+    <div className='fixed inset-0 flex justify-center items-center bg-opacity-75 bg-black z-50'>
+      <div className='bg-black border border-green-500 text-white p-8 rounded-md w-[70vw] max-h-[70vh] overflow-auto relative'>
+        <div className='absolute top-4 right-4'>
           <MdClose
-            className="cursor-pointer hover:text-green-500 transition-colors duration-300"
+            className='cursor-pointer hover:text-green-500 transition-colors duration-300'
             size={30}
             onClick={onClose}
           />
         </div>
-        <h2 className="text-3xl font-bold mb-4">
-          DnDAI <span className="text-green-500">Instructions</span>
+        <h2 className='text-3xl font-bold mb-4'>
+          DnDAI <span className='text-green-500'>Instructions</span>
         </h2>
 
         {instructions.map((item, index) => (
-          <div key={index} className="mb-6">
+          <div key={index} className='mb-6'>
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className='flex justify-between items-center cursor-pointer'
               onClick={() => handleToggleQuestion(index)}
             >
-              <h3 className="text-xl mb-2 ml-2">{item.heading}</h3>
+              <h3 className='text-xl mb-2 ml-2'>{item.heading}</h3>
               <IoIosArrowDown
                 className={`text-green-500 transform transition-transform ${
                   openQuestion === index ? "rotate-180" : ""
@@ -85,7 +86,7 @@ const InstructionsModal = ({ onClose }) => {
               }`}
             >
               {openQuestion === index && (
-                <div data-aos="fade-down" data-aos-delay="200" className="p-4">
+                <div data-aos='fade-down' data-aos-delay='200' className='p-4'>
                   <p>{item.content}</p>
                 </div>
               )}
@@ -101,11 +102,24 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
   const [showInstructions, setShowInstructions] = useState(false);
-  const user = useUserStore((state) => state.user);
+  const { user, setCredits } = useUserStore((state) => state);
   const cookies = new Cookies();
 
   useEffect(() => {
-    if (user) cookies.set("uid", user._id, { path: "/" });
+    const fetchCredts = async (id) => {
+      const credits = await getCredits(id);
+      console.log(credits);
+      setCredits(credits);
+    };
+    if (user) {
+      fetchCredts(user._id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      cookies.set("uid", user._id, { path: "/" });
+    }
   }, [user]);
   const startGame = () => {
     if (!user) {
@@ -126,27 +140,27 @@ export default function Home() {
   };
 
   return (
-    <div className="relative h-screen bg-black z-[1]">
+    <div className='relative h-screen bg-black z-[1]'>
       <BackgroundScene setLoaded={setLoaded} />
       {loaded && (
-        <div className="relative top-0 left-0 w-[100vw] h-full flex justify-center items-center">
-          <div className="w-[100vw] p-4 sm:p-8 mx-auto flex flex-col justify-center items-center">
-            <h1 className="text-xl neon-text sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-center text-white relative z-[4]">
-              <span className="text-white">
-                Welcome to <span className="text-green-500">DnDAI</span>{" "}
+        <div className='relative top-0 left-0 w-[100vw] h-full flex justify-center items-center'>
+          <div className='w-[100vw] p-4 sm:p-8 mx-auto flex flex-col justify-center items-center'>
+            <h1 className='text-xl neon-text sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-center text-white relative z-[4]'>
+              <span className='text-white'>
+                Welcome to <span className='text-green-500'>DnDAI</span>{" "}
                 Adventures!
               </span>
             </h1>
-            <div className="flex flex-col w-[80vw] sm:w-[20vw] z-[4]">
+            <div className='flex flex-col w-[80vw] sm:w-[20vw] z-[4]'>
               <button
                 onClick={startGame}
-                className="bg-gradient-to-t from-green-950 to-green-500 text-white px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+                className='bg-gradient-to-t from-green-950 to-green-500 text-white px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
               >
                 Play Game
               </button>
               <button
                 onClick={toggleInstructions}
-                className="bg-gradient-to-t from-green-950 to-green-500 text-white px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+                className='bg-gradient-to-t from-green-950 to-green-500 text-white px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
               >
                 Show Instructions
               </button>

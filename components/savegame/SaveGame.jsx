@@ -17,7 +17,6 @@ const SaveGame = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  console.log(data);
   useEffect(() => {
     AOS.init();
   }, []);
@@ -81,7 +80,7 @@ const SaveGame = ({ data }) => {
                     Character Name: {savedGame.title}
                   </h2>
                   {isLoading && <Loader text={"Resuming your quest.."} />}
-                  <p>{savedGame.summary}</p>
+                  <p>{savedGame.summary?.replaceAll("*", "")}</p>
                 </div>
               );
             })

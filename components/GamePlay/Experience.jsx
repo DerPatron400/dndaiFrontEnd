@@ -16,25 +16,29 @@ import gsap from "gsap";
 import { TextureLoader } from "three";
 import WindEffect from "./WindEffect";
 import Button from "./button";
+import {
+  fadeOnBeforeCompile,
+  fadeOnBeforeCompileFlat,
+} from "@/utils/fadeShader";
 
 const LINE_NB_POINTS = 1200;
 const CURVE_DISTANCE = 450;
-const CURVE_AHEAD_CAMERA = 0.008;
-const CURVE_AHEAD_AIRPLANE = 0.02;
-const AIRPLANE_MAX_ANGLE = 35;
+const FRICTION_DISTANC = 42;
+const CURVE_ANGLE = 1;
 let anim = 0;
 let offset = 0;
+let directionFactor = 0.1;
 
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
   new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-  new THREE.Vector3(7.5, 0, -2 * CURVE_DISTANCE),
-  new THREE.Vector3(-7.5, 0, -3 * CURVE_DISTANCE),
-  new THREE.Vector3(7.5, 0, -4 * CURVE_DISTANCE),
-  new THREE.Vector3(-7.5, 0, -5 * CURVE_DISTANCE),
-  new THREE.Vector3(7.5, 0, -6 * CURVE_DISTANCE),
-  new THREE.Vector3(-7.5, 0, -7 * CURVE_DISTANCE),
-  new THREE.Vector3(7.5, 0, -8 * CURVE_DISTANCE),
+  new THREE.Vector3(CURVE_ANGLE, 0, -2 * CURVE_DISTANCE),
+  new THREE.Vector3(-CURVE_ANGLE, 0, -3 * CURVE_DISTANCE),
+  new THREE.Vector3(CURVE_ANGLE, 0, -4 * CURVE_DISTANCE),
+  new THREE.Vector3(-CURVE_ANGLE, 0, -5 * CURVE_DISTANCE),
+  new THREE.Vector3(CURVE_ANGLE, 0, -6 * CURVE_DISTANCE),
+  new THREE.Vector3(-CURVE_ANGLE, 0, -7 * CURVE_DISTANCE),
+  new THREE.Vector3(CURVE_ANGLE, 0, -8 * CURVE_DISTANCE),
 ];
 
 export default function Experience({
@@ -55,6 +59,7 @@ export default function Experience({
     colorB: "#ffad30",
   });
   const tl = useRef();
+  const cameraRail = useRef();
   const dragonModel = useRef();
   const [curvesData, setCurvesData] = useState(initialCurves);
   const [pathObjects, setPathObjects] = useState([]);
@@ -78,6 +83,20 @@ export default function Experience({
   useFrame((_state, delta) => {
     if (isForwardPressed && (open || pathObjects.length === 0)) return;
 
+    pathObjects.forEach((object, i) => {
+      const position = new THREE.Vector3(...object.position);
+      const distance = position.distanceTo(cameraGroup.current.position);
+
+      if (distance < FRICTION_DISTANC) {
+        const targetCameraRailPosition = new THREE.Vector3(
+          1 - distance / FRICTION_DISTANC,
+          0,
+          0
+        );
+        //cameraRail.current.position.lerp(targetCameraRailPosition, delta);
+      }
+    });
+
     if (isForwardPressed || isBackwardPressed) {
       if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
       switchBackground();
@@ -97,11 +116,11 @@ export default function Experience({
         new THREE.Euler(
           dragonModel.current.rotation.x,
           dragonModel.current.rotation.y,
-          angleRotation * 0.5
+          angleRotation * 0.3
         )
       );
 
-      offset += 0.0005 * (isForwardPressed ? 1 : -1);
+      offset += 0.0005 * (isForwardPressed ? 0.8 : -0.8);
       if (offset > 0) {
         cameraGroup.current.position.copy(curve.getPointAt(offset));
         dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
@@ -130,19 +149,23 @@ export default function Experience({
 
     setCurvesData((prevCurvesData) => [
       ...prevCurvesData,
-      new THREE.Vector3(7.5, 0, -1 * prevCurvesData.length * CURVE_DISTANCE),
       new THREE.Vector3(
-        -7.5,
+        CURVE_ANGLE,
+        0,
+        -1 * prevCurvesData.length * CURVE_DISTANCE
+      ),
+      new THREE.Vector3(
+        -CURVE_ANGLE,
         0,
         -1 * (prevCurvesData.length + 1) * CURVE_DISTANCE
       ),
       new THREE.Vector3(
-        7.5,
+        CURVE_ANGLE,
         0,
         -1 * (prevCurvesData.length + 2) * CURVE_DISTANCE
       ),
       new THREE.Vector3(
-        -7.5,
+        -CURVE_ANGLE,
         0,
         -1 * (prevCurvesData.length + 3) * CURVE_DISTANCE
       ),
@@ -154,10 +177,9 @@ export default function Experience({
         tempOffset = 0.9;
       }
       let tempPoint = curve.getPointAt(tempOffset).x;
+      console.log(tempPoint);
 
-      if (tempPoint > 4.5 || tempPoint < -4.5) {
-        tempPoint *= 0.7;
-      }
+      tempPoint *= 0.2;
 
       //setting text position
       if (result.heading?.toLowerCase() === "visual") {
@@ -168,8 +190,12 @@ export default function Experience({
             isVisual: true,
 
             position: [
-              tempPoint,
-              0,
+              i === 0
+                ? 1
+                : prevObjects[prevObjects.length - 1].position[0] < 1
+                ? 1
+                : -6,
+              -2,
               i === 0
                 ? pathObjects.length * -50 - 100
                 : prevObjects[prevObjects.length - 1].position[2] - 40,
@@ -181,12 +207,17 @@ export default function Experience({
         setPathObjects((prevObjects) => [
           ...prevObjects,
           {
-            heading: result.heading,
-            text: result.content,
+            heading: result.heading?.replaceAll("*", ""),
+            text: result.content?.replaceAll("*", ""),
 
             position: [
-              tempPoint,
-              0,
+              i === 0
+                ? 1
+                : prevObjects[prevObjects.length - 1].position[0] < 1
+                ? 1
+                : -6,
+
+              -2,
               i === 0
                 ? pathObjects.length * -50 - 100
                 : prevObjects[prevObjects.length - 1].position[2] - 40,
@@ -275,13 +306,20 @@ export default function Experience({
 
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
+
     if (isForwardPressed) {
-      anim += 0.0015;
+      anim += 0.0015 * directionFactor;
     } else {
-      anim -= 0.0015;
+      anim -= 0.0015 * directionFactor;
     }
-    if (anim >= 1) anim = 0;
-    if (anim < 0) anim = 1;
+    if (anim >= 1) {
+      anim = 1;
+      directionFactor = -1;
+    }
+    if (anim < 0) {
+      anim = 0;
+      directionFactor = 1;
+    }
   };
 
   useLayoutEffect(() => {
@@ -289,17 +327,20 @@ export default function Experience({
 
     tl.current
       .to(backgroundColorRef.current, {
-        duration: 1,
+        duration: 2,
+        ease: "power1.easeInOut",
         colorA: "#000000",
         colorB: "#ffad30",
       })
       .to(backgroundColorRef.current, {
-        duration: 1,
+        ease: "power1.easeInOut",
+        duration: 2,
         colorA: "#000000",
         colorB: "#424242",
       })
       .to(backgroundColorRef.current, {
-        duration: 1,
+        ease: "power1.easeInOut",
+        duration: 2,
         colorA: "#000000",
         colorB: "#38419D",
       });
@@ -315,7 +356,9 @@ export default function Experience({
         {setIsForwardPressed && <WindEffect isMoving={isForwardPressed} />}
         <Background backgroundColors={backgroundColorRef} />
         <ambientLight intensity={0.5} />
-        <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
+        <group ref={cameraRail}>
+          <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
+        </group>
         <Environment preset='sunset' />
 
         <group ref={dragonModel}>
@@ -334,26 +377,47 @@ export default function Experience({
           <group key={i} position={object.position}>
             <Text
               color='white'
-              anchorX={"center"}
-              anchorY='center'
+              anchorX={"left"}
+              anchorY='top'
               fontSize={0.6}
-              position-y={2.5}
-              maxWidth={20}
+              position-y={
+                object?.heading?.length < 20
+                  ? 3
+                  : object?.heading?.length < 25
+                  ? 4
+                  : object?.heading?.length < 35
+                  ? 5
+                  : 6.6
+              }
+              maxWidth={4}
               font={"/fonts/DMSerifDisplay-Regular.ttf"}
             >
               {object.heading}
+              <meshStandardMaterial
+                color={"white"}
+                onBeforeCompile={fadeOnBeforeCompileFlat}
+              />
             </Text>
             <Text
               color='white'
+              anchorX={"left"}
               anchorY='top'
-              position-y={1.4}
+              position-y={object?.heading ? 1.4 : 2}
               fontSize={0.3}
+<<<<<<< HEAD
               lineHeight={1.4}
               letterSpacing={-0.05}
               maxWidth={4.5}
+=======
+              maxWidth={5}
+>>>>>>> dnd
               font={"/fonts/Inter-Regular.ttf"}
             >
               {object.text}
+              <meshStandardMaterial
+                color={"white"}
+                onBeforeCompile={fadeOnBeforeCompileFlat}
+              />
             </Text>
 
             {object.isVisual && (
@@ -369,7 +433,10 @@ export default function Experience({
           <group key={i} position={object.position}>
             <mesh>
               <planeGeometry args={[5, 5]} />
-              <meshBasicMaterial map={object.image}></meshBasicMaterial>
+              <meshBasicMaterial
+                map={object.image}
+                onBeforeCompile={fadeOnBeforeCompile}
+              ></meshBasicMaterial>
             </mesh>
           </group>
         )
@@ -393,19 +460,24 @@ export default function Experience({
             opacity={1}
             transparent
             envMapIntensity={2}
+            onBeforeCompile={fadeOnBeforeCompile}
           />
         </mesh>
       </group>
 
       {/* CLOUDS */}
-      <Cloud scale={[1, 1, 1.5]} position={[-3.5, -1.2, -7]} />
-      <Cloud scale={[1, 1, 2]} position={[3.5, -1, -10]} rotation-y={Math.PI} />
+      <Cloud scale={[1, 1, 1.5]} position={[-3.5, -1.2, -400]} />
+      <Cloud
+        scale={[1, 1, 2]}
+        position={[3.5, -1, -300]}
+        rotation-y={Math.PI}
+      />
       <Cloud
         scale={[1, 1, 1]}
-        position={[-3.5, 0.2, -12]}
+        position={[-3.5, 0.2, -200]}
         rotation-y={Math.PI / 3}
       />
-      <Cloud scale={[1, 1, 1]} position={[3.5, 0.2, -12]} />
+      <Cloud scale={[1, 1, 1]} position={[3.5, 0.2, -350]} />
 
       <Cloud
         scale={[0.4, 0.4, 0.4]}
