@@ -132,6 +132,8 @@ export default function GameLoop({
         }
       );
 
+      console.log(data);
+
       setImage(data.image);
       setCredits(data.credits);
 
@@ -190,7 +192,7 @@ export default function GameLoop({
               leaveFrom='opacity-100 translate-y-0 sm:scale-100'
               leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
-              <Dialog.Panel className='relative min-w-[70vw] h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-1/2 md:min-w-[40vw]'>
+              <Dialog.Panel className='relative min-w-[70vw] h-auto md:h-[50vh] border-green-500 border transform overflow-hidden rounded-lg bg-black text-left shadow-xl transition-all sm:my-8 sm:w-1/2 md:min-w-[40vw]'>
                 <div className='bg-black px-2 w-full pb-4 pt-5 sm:p-6 sm:pb-4 h-full '>
                   {loading ? (
                     <>

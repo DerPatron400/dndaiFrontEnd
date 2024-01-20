@@ -100,7 +100,7 @@ export default function AtmosScene() {
         paths={paths}
       />
 
-      <div className='fixed bottom-10 left-0 w-screen h-[10vh] items-center gap-x-2 px-4 flex md:hidden'>
+      <div className='fixed bottom-20 left-0 w-screen h-[10vh] flex-col gap-y-2 items-start px-4 flex md:hidden'>
         <button
           tabIndex={0}
           onTouchStart={() => {

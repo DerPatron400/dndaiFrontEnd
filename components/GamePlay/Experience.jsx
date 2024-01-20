@@ -426,10 +426,7 @@ export default function Experience({
           <group key={i} position={object.position}>
             <mesh>
               <planeGeometry args={[5, 5]} />
-              <meshBasicMaterial
-                map={object.image}
-                onBeforeCompile={fadeOnBeforeCompile}
-              ></meshBasicMaterial>
+              <meshBasicMaterial map={object.image}></meshBasicMaterial>
             </mesh>
           </group>
         )

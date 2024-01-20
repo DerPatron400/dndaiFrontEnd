@@ -52,19 +52,7 @@ const Navbar = () => {
 
         <div className='flex items-center space-x-2 pr-2'>
           <TextToSpeech />
-          {isNewGame && (
-            <Tooltip
-              className='cursor-pointer'
-              content={
-                isMobile
-                  ? "Use provided arrow buttons to move dragon"
-                  : "Use forward and backward keys to move dragon"
-              }
-              side='bottom'
-            >
-              <Info color='black' fill='white' size={44} strokeWidth={1} />
-            </Tooltip>
-          )}
+
           <div
             onClick={() => {
               setPlaying(!playing);
