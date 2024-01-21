@@ -81,8 +81,10 @@ function parseAdventureText(text) {
   const lines = removeEmptyStrings(text.split("\n")); // Split each section into lines
 
   lines.map((line, index) => {
-    // If the line is wrapped with **, then it's a choice
+    if (line === "") return;
+
     if (isWrappedWithDoubleAsterisks(line.replace("^", ""))) {
+      // If the line is wrapped with **, then it's a choice
       if (startsWithSpecialCharacter(line.replaceAll("*", ""))) {
         line = line.replaceAll("*", "").replaceAll("^", "");
         paths.push({
@@ -94,6 +96,8 @@ function parseAdventureText(text) {
         heading: line.replace(/Path\s*\d+/g, ""),
         content: lines[index + 1],
       });
+      //make sure lines[index+1] doenst appear again
+      lines[index + 1] = "";
     } else if (startsWithDoubleAsterisks(line)) {
       //or if the line starts with **
       let heading = extractHeading(line).replace(/Path\s*\d+/g, "");
