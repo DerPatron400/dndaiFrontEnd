@@ -19,7 +19,6 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const isNewGame = usePathname().includes("newgame");
 
-  //settig sound
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
@@ -42,45 +41,33 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className='flex py-8 p-4 z-10 absolute top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
+    <div className="flex py-8 p-4 z-10 absolute top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between">
       <EnableSound setPlaying={setPlaying} />
 
-      <div className='flex items-center justify-between w-full'>
-        <Link href='/' className='cursor-pointer hover:bg-transparent'>
-          <img src='/Logo/white.png' alt='Logo' className='h-16 w-16' />
+      <div className="flex items-center justify-between w-full">
+        <Link href="/" className="cursor-pointer hover:bg-transparent">
+          <img src="/Logo/white.png" alt="Logo" className="h-16 w-16" />
         </Link>
 
-        <div className='flex items-center space-x-2 pr-2'>
+        <div className="flex items-center space-x-2 pr-2">
           <TextToSpeech />
-          {isNewGame && (
-            <Tooltip
-              className='cursor-pointer'
-              content={
-                isMobile
-                  ? "Use provided arrow buttons to move dragon"
-                  : "Use forward and backward keys to move dragon"
-              }
-              side='bottom'
-            >
-              <Info color='black' fill='white' size={44} strokeWidth={1} />
-            </Tooltip>
-          )}
+
           <div
             onClick={() => {
               setPlaying(!playing);
             }}
-            className='rounded-full bg-white p-2 cursor-pointer'
+            className="rounded-full bg-white p-2 cursor-pointer"
           >
             {!playing ? (
-              <VolumeX size={20} color='black' />
+              <VolumeX size={20} color="black" />
             ) : (
               <Volume2 size={20} />
             )}
           </div>
           {user && (
-            <Tooltip content='Your Credits'>
+            <Tooltip content="Your Credits">
               <Link href={"/shop"}>
-                <div className='w-9 h-9 rounded-full bg-white text-xs font-semibold flex items-center justify-center'>
+                <div className="w-9 h-9 rounded-full bg-white text-xs font-semibold flex items-center justify-center">
                   {user?.credits}
                 </div>
               </Link>
@@ -90,17 +77,17 @@ const Navbar = () => {
           {isLoggedIn ? (
             <Accounts />
           ) : (
-            <div className='flex gap-x-2'>
+            <div className="flex gap-x-2">
               {" "}
               <Link
-                href='/login'
-                className='cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out'
+                href="/login"
+                className="cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out"
               >
                 Login
               </Link>
               <Link
-                href='/register'
-                className='cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+                href="/register"
+                className="cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all"
               >
                 Sign Up
               </Link>
