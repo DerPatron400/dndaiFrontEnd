@@ -5,6 +5,7 @@ import { fadeOnBeforeCompile } from "@/utils/fadeShader";
 import { TextureLoader } from "three";
 
 const Button = ({ onClick }) => {
+  //loadin texture
   const btntexture = new TextureLoader().load("/download.jpeg");
   return (
     <group position={[1, -1.4, -0.1]}>
@@ -28,7 +29,7 @@ const Button = ({ onClick }) => {
         </RoundedBox>
       </mesh>
       <mesh position={[0, 0, 0.4]}>
-        <Text fontSize={0.24} color='white' anchorX='center' anchorY='middle'>
+        <Text fontSize={0.24} color="white" anchorX="center" anchorY="middle">
           <meshStandardMaterial
             onBeforeCompile={fadeOnBeforeCompile}
             color={"#22c55e"}
