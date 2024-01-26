@@ -50,18 +50,25 @@ export default function Product({ data }) {
   };
 
   return (
-    <div className='bg-[#201f1f] p-4 rounded-md md:w-[30vw] w-full'>
+    <div className='bg-[#201f1f] shadow-lg p-4 rounded-lg md:w-[30vw] w-full'>
       <img
-        src='/Product1.png'
+        src={data.imageUrl || "/Product1.png"}
         alt='Product 1'
         className='w-full rounded-lg h-auto mb-4'
       />
-      <div className='flex justify-between gap-y-4 flex-col items-center'>
+      <div className='flex justify-between gap-y-4 mt-2  flex-col items-center'>
         <div className='text-left flex justify-between w-full'>
-          <p className='text-xl font-light mb-2'>
-            Credit Points: {data.productName}
+          <div className='flex gap-x-2 items-center'>
+            <span className='text-xl font-light '>{data.productName} </span>
+            <img
+              src='/CreditsDndAi.png'
+              alt=''
+              className='w-4 h-6 bg-transparent'
+            />
+          </div>
+          <p className='text-xl font-light '>
+            {data.value} <span className='text-sm'>$</span>
           </p>
-          <p className='text-xl font-light mb-2'>Price: {data.value}$</p>
         </div>
         <button
           disabled={isLoading}

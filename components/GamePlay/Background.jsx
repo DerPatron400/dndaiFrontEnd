@@ -20,8 +20,7 @@ export const Background = ({ backgroundColors }) => {
       backgroundColors.current.colorB
     );
   });
-  const colorA = "#000000";
-  const colorB = "#ffad30";
+
   const start = 0.2;
   const end = -1;
   return (
@@ -37,7 +36,7 @@ export const Background = ({ backgroundColors }) => {
           rotation-y={Math.PI / 2}
           rotation-x={Math.PI}
         >
-          <LayerMaterial color={"#ffffff"} side={THREE.BackSide}>
+          <LayerMaterial color={"#000000"} side={THREE.BackSide}>
             <Gradient
               colorA={"#ffffff"}
               ref={gradientEnvRef}

@@ -48,11 +48,11 @@ export default function TextToSpeech() {
     isTalking ? audio.play() : audio.pause();
   }, [isTalking, isNewGame]);
   return (
-    <div className={``}>
+    <div className={` flex justify-end items-end`}>
       {isNewGame && audio && (
-        <audio controls className="hidden md:block h-9 min-w-60">
-          <source src={audio?.src} type="audio/ogg" />
-          <source src={audio?.src} type="audio/mpeg" />
+        <audio controls className='hidden md:block h-9 !w-60 ms-auto'>
+          <source src={audio?.src} type='audio/ogg' />
+          <source src={audio?.src} type='audio/mpeg' />
           Your browser does not support the audio element.
         </audio>
       )}
@@ -62,7 +62,7 @@ export default function TextToSpeech() {
           onClick={() => {
             setIsTalking(!isTalking);
           }}
-          className="bg-white relative md:hidden  cursor-pointer p-2 rounded-full"
+          className='bg-white relative md:hidden  cursor-pointer p-2 rounded-full'
         >
           {isTalking ? <XCircle size={20} /> : <Speech size={20} />}
         </div>

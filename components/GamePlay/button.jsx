@@ -7,7 +7,7 @@ import { TextureLoader } from "three";
 const Button = ({ onClick }) => {
   const btntexture = new TextureLoader().load("/download.jpeg");
   return (
-    <group position={[1, -1.4, 0.1]}>
+    <group position={[1, -1.4, -0.1]}>
       <mesh
         position={[0, 0, -0.3]}
         onPointerOver={() => {
@@ -22,14 +22,13 @@ const Button = ({ onClick }) => {
           <meshStandardMaterial
             onBeforeCompile={fadeOnBeforeCompile}
             color={"#0B6623"}
-            // map={btntexture}
             transparent
             opacity={1}
           />
         </RoundedBox>
       </mesh>
-      <mesh position={[0.1, 0, 0.4]}>
-        <Text fontSize={0.24} color="white" anchorX="center" anchorY="middle">
+      <mesh position={[0, 0, 0.4]}>
+        <Text fontSize={0.24} color='white' anchorX='center' anchorY='middle'>
           <meshStandardMaterial
             onBeforeCompile={fadeOnBeforeCompile}
             color={"#22c55e"}
