@@ -3,9 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/navigation/Footer";
 import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import { usePathname } from "next/navigation";
 import { GoogleTagManager } from "@next/third-parties/google";
-import "@radix-ui/themes/styles.css";
+
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
 
@@ -28,13 +29,13 @@ export default function RootLayout({ children }) {
   const hideFooter = path.includes("/login") || path.includes("/register");
 
   return (
-    <html lang='en'>
-      <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
+    <html lang="en">
+      <GoogleTagManager gtmId="G-BTHMYX7TZ9" />
       <body className={inter.className + " bg-black overflow-x-hidden"}>
-        <div className='max-w-screen !overflow-hidden '>
+        <div className="max-w-screen !overflow-hidden ">
           <Theme>
             {!hideNavbar && <Navbar />}
-            <div className='min-h-screen'>{children}</div>
+            <div className="min-h-screen">{children}</div>
             {!hideFooter && <Footer />}
             <Toaster />
           </Theme>
