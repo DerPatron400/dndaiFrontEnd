@@ -67,8 +67,13 @@ const Navbar = () => {
           {user && (
             <Tooltip content='Your Credits'>
               <Link href={"/shop"}>
-                <div className='w-9 h-9 rounded-full bg-white text-xs font-semibold flex items-center justify-center'>
-                  {user?.credits}
+                <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                  <span>{user?.credits}</span>
+                  <img
+                    src='/CreditsDndAi.png'
+                    alt=''
+                    className='w-4 h-6 bg-transparent'
+                  />
                 </div>
               </Link>
             </Tooltip>

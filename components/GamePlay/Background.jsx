@@ -16,9 +16,9 @@ export const Background = ({ backgroundColors }) => {
     gradientRef.current.colorB = new THREE.Color(
       backgroundColors.current.colorB
     );
-    gradientEnvRef.current.colorB = new THREE.Color(
-      backgroundColors.current.colorB
-    );
+    // gradientEnvRef.current.colorB = new THREE.Color(
+    //   backgroundColors.current.colorB
+    // );
   });
 
   const start = 0.2;
@@ -30,7 +30,7 @@ export const Background = ({ backgroundColors }) => {
           <Gradient ref={gradientRef} axes={"y"} start={start} end={end} />
         </LayerMaterial>
       </Sphere>
-      <Environment resolution={256} frames={Infinity}>
+      <Environment resolution={128} frames={Infinity}>
         <Sphere
           scale={[100, 100, 100]}
           rotation-y={Math.PI / 2}
