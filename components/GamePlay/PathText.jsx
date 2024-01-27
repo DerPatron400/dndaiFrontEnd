@@ -3,23 +3,26 @@ import { Text } from "@react-three/drei";
 import Button from "./Button";
 import { fadeOnBeforeCompileFlat } from "../../utils/fadeShader";
 
-export default function PathText({ object, key, setType, setOpen }) {
+export default function PathText({ object, setType, setOpen }) {
+  const anchorX = object?.position[0] < 1 ? "right" : "left";
+
   const subTextPos = object?.heading
     ? object.heading.length > 30
       ? 0.5
       : 1.4
     : 2;
   const titlePos =
-    object?.heading?.length < 16 ? 2.5 : object?.heading?.length < 25 ? 3.3 : 4;
+    object?.heading?.length < 18 ? 2.5 : object?.heading?.length < 29 ? 3.3 : 4;
   return object.type === "text" ? (
-    <group key={key} position={object.position}>
+    <group position={object.position}>
       <Text
         color='white'
-        anchorX={"left"}
+        anchorX={anchorX}
         anchorY='center'
         fontSize={0.6}
+        textAlign={anchorX}
         position-y={titlePos}
-        maxWidth={4.8}
+        maxWidth={5}
         font={"/fonts/DMSerifDisplay-Regular.ttf"}
       >
         {object.heading?.trim()}
@@ -30,14 +33,15 @@ export default function PathText({ object, key, setType, setOpen }) {
       </Text>
       <Text
         color='white'
-        anchorX={"left"}
+        anchorX={anchorX}
         anchorY='top'
+        textAlign={anchorX}
         position-y={subTextPos}
         fontSize={0.3}
         maxWidth={5}
         font={"/fonts/Inter-Regular.ttf"}
       >
-        {object.text}
+        {object.text.trim()}
         <meshStandardMaterial
           color={"white"}
           onBeforeCompile={fadeOnBeforeCompileFlat}
@@ -56,7 +60,7 @@ export default function PathText({ object, key, setType, setOpen }) {
       )}
     </group>
   ) : (
-    <group key={key} position={object.position}>
+    <group position={object.position}>
       <mesh>
         <planeGeometry args={[5, 5]} />
         <meshBasicMaterial map={object.image}></meshBasicMaterial>

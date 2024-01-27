@@ -43,7 +43,7 @@ export default function Experience({
   const cameraGroup = useRef();
   const backgroundColorRef = useRef({
     colorA: "#000000",
-    colorB: "#ffad30",
+    colorB: "#9333ea",
   });
   const tl = useRef();
   const cameraRail = useRef();
@@ -89,8 +89,8 @@ export default function Experience({
       );
       cameraGroup.current.position.z = THREE.MathUtils.lerp(
         cameraGroup.current.position.z,
-        cameraGroup.current.position.z + 12 * (isForwardPressed ? -1 : 1),
-        0.1
+        cameraGroup.current.position.z + 11 * (isForwardPressed ? -1 : 1),
+        0.11
       );
 
       dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
@@ -153,8 +153,8 @@ export default function Experience({
               i === 0
                 ? 1
                 : prevObjects[prevObjects.length - 1].position[0] < 1
-                ? 1
-                : -5,
+                ? 1.5
+                : -1.5,
               -2,
               i === 0
                 ? pathObjects.length * -50 - 90
@@ -168,18 +168,18 @@ export default function Experience({
           ...prevObjects,
           {
             heading: result.heading?.replaceAll("*", ""),
-            text: result.content?.replaceAll("*", ""),
+            text: result.content?.replace(/[*\-^]/g, ""),
 
             position: [
               i === 0
                 ? 1
                 : prevObjects[prevObjects.length - 1].position[0] < 1
-                ? 1
-                : -5,
+                ? 1.5
+                : -1.5,
               -2,
               i === 0
                 ? pathObjects.length * -50 - 200
-                : prevObjects[prevObjects.length - 1].position[2] - 70,
+                : prevObjects[prevObjects.length - 1].position[2] - 90,
             ],
             type: "text",
           },
@@ -197,7 +197,7 @@ export default function Experience({
           position: [
             prevObjects[prevObjects.length - 1].position[0],
             0,
-            prevObjects[prevObjects.length - 1].position[2] - 40,
+            prevObjects[prevObjects.length - 1].position[2] - 60,
           ],
         },
       ]);
@@ -286,7 +286,7 @@ export default function Experience({
         duration: 2,
         ease: "power1.easeInOut",
         colorA: "#000000",
-        colorB: "#ffad30",
+        colorB: "#9333ea",
       })
       .to(backgroundColorRef.current, {
         ease: "power1.easeInOut",
@@ -318,11 +318,13 @@ export default function Experience({
         <Environment preset='sunset' />
 
         <group ref={dragonModel}>
-          <Model
-            refreshAnim={pages}
-            rotation-y={Math.PI / 2}
-            scale={[0.2, 0.2, 0.2]}
-          />
+          <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
+            <Model
+              refreshAnim={pages}
+              rotation-y={Math.PI / 2}
+              scale={[0.2, 0.2, 0.2]}
+            />
+          </Float>
         </group>
       </group>
 

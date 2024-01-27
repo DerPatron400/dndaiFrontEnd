@@ -23,32 +23,23 @@ export function Model(props) {
 
   const modelAnimations = () => {
     mixer = new THREE.AnimationMixer(group.current);
-    const clip = animations[0];
-    action = mixer.clipAction(clip);
+    let clip = animations[0];
+    var glideClip = THREE.AnimationUtils.subclip(clip, "glide", 135, 170);
+
+    action = mixer.clipAction(glideClip);
+
     action.play();
-    action.loop = THREE.LoopRepeat;
-    mixer.update(0.025);
+    action.loop = THREE.LoopPingPong;
+    mixer.update(0.005);
     updateMixer();
   };
 
   const updateMixer = () => {
-    mixer.update(0.025);
+    mixer.update(0.005);
     //add some wait
 
     requestAnimationFrame(updateMixer);
   };
-
-  const { rotation, position } = useControls({
-    position: {
-      value: [0, -1, -2.599999999999999],
-      step: 0.1,
-    },
-    rotation: {
-      value: [-1.6000000000000003, 1.1000000000000016, 1.6000000000000005],
-
-      step: 0.1,
-    },
-  });
 
   useEffect(() => {
     if (group.current) modelAnimations();
@@ -56,17 +47,8 @@ export function Model(props) {
   }, [group.current]);
 
   return (
-    <group ref={group} {...props} dispose={null} position={position}>
-      <group
-        scale={0.85}
-        name='Sketchfab_Scene'
-        rotation={rotation}
-        // rotation-y={1.6}
-        // position-y={-4}
-        // scale={0.75}
-        // rotation-x={-0.5}
-        // position-x={5}
-      >
+    <group ref={group} {...props} dispose={null} position={[0, -1, -2.6]}>
+      <group scale={0.85} name='Sketchfab_Scene' rotation={[-1.6, 1.1, 1.6]}>
         <primitive object={nodes.Armature_rootJoint} />
         <skinnedMesh
           name='Circle_0'
