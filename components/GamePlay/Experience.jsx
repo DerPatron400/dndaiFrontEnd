@@ -16,6 +16,9 @@ const CURVE_ANGLE = 1;
 let anim = 0;
 let directionFactor = 0.1;
 
+let speed = 0;
+const maxSpeed = 3;
+
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
   new THREE.Vector3(0, 0, -CURVE_DISTANCE),
@@ -63,6 +66,18 @@ export default function Experience({
   }, [curve]);
 
   useFrame((_state, delta) => {
+    if (!isForwardPressed && !isBackwardPressed) {
+      if (speed > 0) {
+        speed -= delta;
+      } else if (speed < 0) {
+        speed += delta;
+      }
+
+      if (Math.abs(speed) < 0.01) {
+        speed = 0;
+      }
+    }
+
     if (isForwardPressed && (open || pathObjects.length === 0)) return;
 
     if (isForwardPressed || isBackwardPressed) {
@@ -87,14 +102,19 @@ export default function Experience({
           angleRotation * 0.3
         )
       );
-      cameraGroup.current.position.z = THREE.MathUtils.lerp(
-        cameraGroup.current.position.z,
-        cameraGroup.current.position.z + 12 * (isForwardPressed ? -1 : 1),
-        0.1
-      );
+
+      speed += delta * ( isForwardPressed ? -1 : 1);
+      speed = speed > maxSpeed ? maxSpeed : speed;
+      speed = speed < maxSpeed * -1 ? maxSpeed * -1 : speed;
 
       dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
     }
+
+    cameraGroup.current.position.z = THREE.MathUtils.lerp(
+      cameraGroup.current.position.z,
+      cameraGroup.current.position.z + speed,
+      0.1
+    );
 
     handleText();
   });
@@ -209,11 +229,9 @@ export default function Experience({
     if (
       cameraGroup.current &&
       pathObjects.length > 0 &&
-      cameraGroup.current.position.z <
-        pathObjects[pathObjects.length - 1].position[2]
-    ) {
-      setOpen(true);
-      setType("text");
+      cameraGroup.current.position.z < pathObjects[pathObjects.length - 1].position[2]) {
+        setOpen(true);
+        setType("text");
     } else {
       if (type === "text") setOpen(false);
     }
@@ -263,9 +281,9 @@ export default function Experience({
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
 
-    if (isForwardPressed) {
+    if (speed < 0) {
       anim += 0.0085 * directionFactor;
-    } else {
+    } else if (speed > 0) {
       anim -= 0.0085 * directionFactor;
     }
     if (anim >= 1) {
