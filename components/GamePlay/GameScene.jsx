@@ -15,6 +15,7 @@ import { Tooltip } from "@radix-ui/themes";
 import HowToPlay from "./HowToPlay";
 
 export default function AtmosScene() {
+  //states from store
   const { introText, image } = useIntroTextStore((state) => state);
   const [pages, setPages] = useState(1);
 
@@ -70,10 +71,10 @@ export default function AtmosScene() {
   };
 
   return (
-    <div className='relative'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+    <div className="relative">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
         <Canvas>
-          <color attach='background' args={["#ececec"]} />
+          <color attach="background" args={["#ececec"]} />
 
           <Experience
             textualData={{ visualText, resultArray, image }}
@@ -100,7 +101,7 @@ export default function AtmosScene() {
         paths={paths}
       />
 
-      <div className='fixed bottom-20 left-0 w-screen h-[10vh] flex-col gap-y-2 items-start px-4 flex md:hidden'>
+      <div className="fixed bottom-20 left-0 w-screen h-[10vh] flex-col gap-y-2 items-start px-4 flex md:hidden">
         <button
           tabIndex={0}
           onTouchStart={() => {
@@ -111,7 +112,7 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronUp size={20} />
         </button>
@@ -125,18 +126,18 @@ export default function AtmosScene() {
             setIsForwardPressed(false);
             setIsBackwardPressed(false);
           }}
-          className='bg-white text-black px-4 py-2 rounded-md'
+          className="bg-white text-black px-4 py-2 rounded-md"
         >
           <FaChevronDown size={20} />
         </button>
       </div>
       <HowToPlay />
-      <div className='fixed bottom-[11%] right-4 '>
-        <Tooltip content='Spend one credits to save your game' side='left'>
+      <div className="fixed bottom-[11%] right-4 ">
+        <Tooltip content="Spend one credits to save your game" side="left">
           <button
             onClick={handleSaveGame}
             disabled={isLoading}
-            className='bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+            className="bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
           >
             {isLoading ? "Saving..." : "Save Game"}
           </button>
