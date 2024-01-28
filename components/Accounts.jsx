@@ -47,7 +47,7 @@ const Accounts = () => {
       style={{
         fontFamily: "Poppins, sans-serif ",
       }}
-      className='relative inline-block text-left '
+      className='relative inline-block   '
       ref={dropdownRef}
     >
       <button
@@ -58,8 +58,8 @@ const Accounts = () => {
         aria-expanded='true'
         className='bg-gradient-to-t capitalize flex from-green-950 items-end gap-x-1 to-green-500 text-white px-6 py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
       >
-        {user?.username?.length > 10
-          ? user?.username?.slice(0, 10) + "..."
+        {user?.username?.length > 7
+          ? user?.username?.slice(0, 7) + "..."
           : user?.username}
       </button>
 

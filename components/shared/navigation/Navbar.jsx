@@ -41,15 +41,15 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className='flex py-8 p-4 z-10 absolute top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
+    <div className='flex py-8 md:p-4 z-10 absolute top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
       <EnableSound setPlaying={setPlaying} />
 
-      <div className='flex items-center justify-between w-full'>
+      <div className='flex flex-row items-center justify-between w-full'>
         <Link href='/' className='cursor-pointer hover:bg-transparent'>
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16' />
         </Link>
 
-        <div className='flex items-center space-x-2 pr-2'>
+        <div className='flex  items-center space-x-2 pr-2'>
           <TextToSpeech />
 
           <div
