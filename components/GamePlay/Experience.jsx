@@ -171,10 +171,10 @@ export default function Experience({
             position: [
               i === 0
                 ? 1
-                : prevObjects[prevObjects.length - 1].position[0] < 1
-                ? 1.5
-                : -1.5,
-              -2,
+                : prevObjects[prevObjects.length - 1].position[0] < 0
+                ? 0.5
+                : -0.5,
+              -1.7,
               i === 0
                 ? pathObjects.length * -50 - 90
                 : prevObjects[prevObjects.length - 1].position[2] - 70,
@@ -192,10 +192,10 @@ export default function Experience({
             position: [
               i === 0
                 ? 1
-                : prevObjects[prevObjects.length - 1].position[0] < 1
-                ? 1.5
-                : -1.5,
-              -2,
+                : prevObjects[prevObjects.length - 1].position[0] < 0
+                ? 0.5
+                : -0.5,
+              -1.7,
               i === 0
                 ? pathObjects.length * -50 - 200
                 : prevObjects[prevObjects.length - 1].position[2] - 90,

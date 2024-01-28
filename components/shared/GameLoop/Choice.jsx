@@ -5,21 +5,25 @@ import { twMerge } from "tailwind-merge";
 
 const Input = ({ input, setInput }) => {
   const textAreaRef = useRef(null);
-  useEffect(() => {
-    if (textAreaRef.current)
-      textAreaRef.current.addEventListener("input", function () {
-        this.style.height = "auto"; // Reset height
-        this.style.height = this.scrollHeight + "px"; // Set new height
-        this.style.overflowY = "hidden";
-      });
-  }, [textAreaRef]);
+  // useEffect(() => {
+  //   if (textAreaRef.current)
+  //     textAreaRef.current.addEventListener("input", function () {
+  //       if (this.value.length < 20) {
+  //         this.style.height = "1px !important";
+  //         return;
+  //       }
+  //       this.style.height = "auto"; // Reset height
+  //       this.style.height = this.scrollHeight + "px"; // Set new height
+  //       this.style.overflowY = "hidden";
+  //     });
+  // }, [textAreaRef.current]);
   return (
-    <input
+    <textarea
       type='text'
       value={input}
       onChange={(e) => setInput(e.target.value)}
       placeholder='Enter your choice'
-      className='bg-transparent border px-3 w-full placeholder:text-[#d3d3d3] text-white py-1 rounded'
+      className='bg-transparent border  px-3 h-14 w-full md:w-64 placeholder:text-[#d3d3d3] text-white py-2 rounded'
       ref={textAreaRef}
     />
   );
@@ -105,7 +109,7 @@ const Choice = ({
               </Tooltip>
             ))}
           </div>
-          <div className='flex md:flex-row flex-col gap-x-2'>
+          <div className='flex md:flex-row flex-col items-center gap-x-2'>
             {isInput ? (
               <Input input={input} setInput={setInput} />
             ) : (
@@ -114,7 +118,7 @@ const Choice = ({
 
             <button
               type='button'
-              className='justify-center mt-2 w-32 items-center flex  md:mt-0 h-10 text-sm bg-gradient-to-t from-green-950 to-green-500 text-white px-2 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out  '
+              className='justify-center mt-2 w-32 items-center flex  md:mt-0 h-10 text-sm bg-gradient-to-t from-green-950 to-green-500 text-white px-2 z-[4] py-3 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out  '
               onClick={onClick}
             >
               {buttonText}
