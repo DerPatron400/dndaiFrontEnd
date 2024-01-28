@@ -93,3 +93,30 @@ audio::-webkit-media-controls-panel {
   border-radius: 5px;
 
 }
+
+audio::-webkit-media-controls-timeline {
+  color: greenyellow;
+
+
+  /* Add more styles as needed */
+}
+
+audio::-webkit-media-controls-current-time-display {
+  display: none;
+  /* Add more styles as needed */
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+  display: none;
+  /* Add more styles as needed */
+}
+
+audio::-webkit-media-controls-seek-back-button {
+  display: none;
+  /* Add more styles as needed */
+}
+
+audio::-webkit-media-controls-seek-forward-button {
+  display: none;
+  /* Add more styles as needed */
+}

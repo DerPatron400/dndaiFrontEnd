@@ -17,7 +17,7 @@ let anim = 0;
 let directionFactor = 0.1;
 
 let speed = 0;
-const maxSpeed = 3;
+const maxSpeed = 5;
 
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
@@ -103,13 +103,12 @@ export default function Experience({
         )
       );
 
-      speed += delta * (isForwardPressed ? -1 : 1);
+      speed += delta * (isForwardPressed ? -1.5 : 1.5);
       speed = speed > maxSpeed ? maxSpeed : speed;
       speed = speed < maxSpeed * -1 ? maxSpeed * -1 : speed;
 
       dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
     }
-
     cameraGroup.current.position.z = THREE.MathUtils.lerp(
       cameraGroup.current.position.z,
       cameraGroup.current.position.z + speed,
@@ -261,13 +260,20 @@ export default function Experience({
       }
     };
 
+    const handleSwitch = (e) => {
+      setIsForwardPressed(false);
+      setIsBackwardPressed(false);
+    };
+
     // Add event listeners here
-    window.addEventListener("keyup", handleKeyUp);
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("visibilitychange", handleSwitch);
 
     return () => {
-      window.removeEventListener("keyup", handleKeyUp);
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("visibilitychange", handleSwitch);
     };
   }, []);
   const loadTexture = (url) => {
@@ -284,9 +290,9 @@ export default function Experience({
     tl.current.seek(anim * tl.current.duration());
 
     if (speed < 0) {
-      anim += 0.0085 * directionFactor;
+      anim += 0.001 * directionFactor;
     } else if (speed > 0) {
-      anim -= 0.0085 * directionFactor;
+      anim -= 0.001 * directionFactor;
     }
     if (anim >= 1) {
       anim = 1;
@@ -335,14 +341,14 @@ export default function Experience({
         <group ref={cameraRail}>
           <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
         </group>
-        <Environment preset="sunset" />
+        <Environment preset='sunset' />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
             <Model
-              refreshAnim={pages}
               rotation-y={Math.PI / 2}
               scale={[0.2, 0.2, 0.2]}
+              isPressed={isForwardPressed || isBackwardPressed}
             />
           </Float>
         </group>
@@ -356,7 +362,7 @@ export default function Experience({
       <Line shape={shape} curve={curve} />
 
       {/* CLOUDS */}
-      <Clouds />
+      {/* <Clouds /> */}
     </>
   );
 }

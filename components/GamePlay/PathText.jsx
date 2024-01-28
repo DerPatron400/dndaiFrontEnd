@@ -12,7 +12,7 @@ export default function PathText({ object, setType, setOpen }) {
       : 1.4
     : 2;
   const titlePos =
-    object?.heading?.length < 18 ? 2.5 : object?.heading?.length < 29 ? 3.3 : 4;
+    object?.heading?.length < 18 ? 2.5 : object?.heading?.length < 32 ? 3.3 : 4;
   return object.type === "text" ? (
     <group position={object.position}>
       <Text

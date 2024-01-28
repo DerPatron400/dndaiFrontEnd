@@ -28,7 +28,7 @@ function WindShape() {
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.position.z += randomSpeed * delta;
+      ref.current.position.z += randomSpeed * delta * 0.1;
       if (ref.current.position.z > 5) {
         resetRandomPosition();
         ref.current.position.z = randomPosition.z;
