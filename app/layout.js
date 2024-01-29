@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
-      <body className={inter.className + " bg-black overflow-x-hidden"}>
-        <div className='max-w-screen !overflow-hidden '>
+      <body className={inter.className}>
+        <div className='max-w-screen !overflow-hidden bg-black overflow-x-hidden'>
           <Theme>
             {!hideNavs && <Navbar />}
             <div className='min-h-screen'>{children}</div>

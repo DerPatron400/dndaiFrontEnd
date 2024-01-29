@@ -18,6 +18,8 @@ let directionFactor = 0.1;
 
 let speed = 0;
 const maxSpeed = 5;
+const TEXT_GAP = 90;
+const INITIAL_TEXT_GAP = 200;
 
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
@@ -176,8 +178,8 @@ export default function Experience({
                 : -0.5,
               -1.7,
               i === 0
-                ? pathObjects.length * -50 - 90
-                : prevObjects[prevObjects.length - 1].position[2] - 70,
+                ? pathObjects.length * -TEXT_GAP - INITIAL_TEXT_GAP
+                : prevObjects[prevObjects.length - 1].position[2] - TEXT_GAP,
             ],
             type: "text",
           },
@@ -197,8 +199,8 @@ export default function Experience({
                 : -0.5,
               -1.7,
               i === 0
-                ? pathObjects.length * -50 - 200
-                : prevObjects[prevObjects.length - 1].position[2] - 90,
+                ? pathObjects.length * -TEXT_GAP - INITIAL_TEXT_GAP
+                : prevObjects[prevObjects.length - 1].position[2] - TEXT_GAP,
             ],
             type: "text",
           },
@@ -216,7 +218,7 @@ export default function Experience({
           position: [
             prevObjects[prevObjects.length - 1].position[0],
             0,
-            prevObjects[prevObjects.length - 1].position[2] - 60,
+            prevObjects[prevObjects.length - 1].position[2] - TEXT_GAP,
           ],
         },
       ]);
@@ -286,6 +288,7 @@ export default function Experience({
     return loadedTexture;
   };
 
+  console.log(pathObjects);
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
 

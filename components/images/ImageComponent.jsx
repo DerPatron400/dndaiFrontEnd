@@ -43,7 +43,7 @@ const ImageComponent = ({ image, key }) => {
           className='fixed inset-0  z-50 flex justify-center items-center'
         >
           <div className='absolute inset-0 bg-black opacity-80'></div>
-          <div className='relative max-w-screen-lg max-h-screen overflow-hidden'>
+          <div className='relative  max-h-screen overflow-hidden'>
             <img
               src={image}
               alt='Fullscreen Image'

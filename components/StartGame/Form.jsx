@@ -176,6 +176,9 @@ export default function Form() {
       toast.error("Please fill all the fields");
       return;
     }
+    if (isLoading) {
+      return;
+    }
 
     setIsLoading(true);
 
