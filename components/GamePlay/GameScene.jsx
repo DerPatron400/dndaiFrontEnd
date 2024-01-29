@@ -15,6 +15,7 @@ import { Tooltip } from "@radix-ui/themes";
 import HowToPlay from "./HowToPlay";
 
 export default function AtmosScene() {
+  //states
   const { introText, image } = useIntroTextStore((state) => state);
   const [pages, setPages] = useState(1);
 
