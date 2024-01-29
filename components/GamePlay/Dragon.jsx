@@ -31,8 +31,8 @@ export function Model(props) {
 
     action = mixer.clipAction(props.isPressed ? flyClip : glideClip);
 
-    action.setEffectiveTimeScale(1).setEffectiveWeight(1).fadeIn(0.2).play();
     action.loop = props.isPressed ? THREE.LoopRepeat : THREE.LoopPingPong;
+    action.fadeIn(0.2).play();
     mixer.update(animSpeed);
     updateMixer();
   };

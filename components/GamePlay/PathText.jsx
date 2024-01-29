@@ -4,7 +4,7 @@ import Button from "./Button";
 import { fadeOnBeforeCompileFlat } from "../../utils/fadeShader";
 
 export default function PathText({ object, setType, setOpen }) {
-  const anchorX = object?.position[0] < 1 ? "right" : "left";
+  const anchorX = object?.position[0] < 0 ? "right" : "left";
 
   const subTextPos = object?.heading
     ? object.heading.length > 30
@@ -12,7 +12,7 @@ export default function PathText({ object, setType, setOpen }) {
       : 1.4
     : 2;
   const titlePos =
-    object?.heading?.length < 18 ? 2.5 : object?.heading?.length < 32 ? 3.3 : 4;
+    object?.heading?.length < 17 ? 2.5 : object?.heading?.length < 32 ? 3.3 : 4;
   return object.type === "text" ? (
     <group position={object.position}>
       <Text
