@@ -78,7 +78,9 @@ function extractHeading(str) {
 function parseAdventureText(text) {
   const choices = [];
   const paths = [];
-  const lines = removeEmptyStrings(text.split("\n")); // Split each section into lines
+  let lines = removeEmptyStrings(text.split("\n")); // Split each section into lines
+  lines = lines.map((line) => line.trim()).filter((line) => line !== "");
+  console.log(lines);
 
   lines.map((line, index) => {
     if (line === "") return;
@@ -88,7 +90,8 @@ function parseAdventureText(text) {
       if (startsWithSpecialCharacter(line.replaceAll("*", ""))) {
         line = line.replaceAll("*", "").replaceAll("^", "");
         paths.push({
-          heading: line.replace(/Path\s*\d+/g, ""),
+          heading:
+            line.replace(/Path\s*\d+/g, "") || "Path " + paths.length + 1,
           content: lines[index + 1],
         });
       }
@@ -111,7 +114,7 @@ function parseAdventureText(text) {
       if (startsWithSpecialCharacter(heading)) {
         heading = heading.replaceAll("^", "");
         paths.push({
-          heading,
+          heading: heading || "Path " + paths.length + 1,
           content,
         });
       }
@@ -124,7 +127,8 @@ function parseAdventureText(text) {
       line = line.replaceAll("^", "").replace(/Path\s*\d+/g, "");
       if (line.length < 40) {
         paths.push({
-          heading: line.replace(/Path\s*\d+/g, ""),
+          heading:
+            line.replace(/Path\s*\d+/g, "") || "Path " + paths.length + 1,
           content: lines[index + 1],
         });
 
@@ -142,7 +146,7 @@ function parseAdventureText(text) {
           .trim();
 
         paths.push({
-          heading,
+          heading: heading || "Path " + paths.length + 1,
           content,
         });
         choices.push({
