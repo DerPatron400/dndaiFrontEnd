@@ -6,7 +6,8 @@ import axios from "axios";
 
 export default function TextToSpeech() {
   const [isTalking, setIsTalking] = useState(false);
-  const introText = useIntroTextStore((state) => state.introText);
+  const { introText, playAudio } = useIntroTextStore((state) => state);
+
   const pathname = usePathname();
   const [audio, setAudio] = useState(null);
   const audioRef = useRef();
@@ -16,7 +17,6 @@ export default function TextToSpeech() {
     if (!isNewGame) return;
 
     const trySpeech = async () => {
-      console.log("introText", introText);
       const BASELINK = process.env.NEXT_PUBLIC_BACKEND_URL;
       audio?.pause();
       setAudio(null);
@@ -40,8 +40,12 @@ export default function TextToSpeech() {
         })
         .catch((error) => console.error("Error:", error));
     };
-    trySpeech();
-  }, [introText, isNewGame]);
+    if (playAudio) {
+      trySpeech();
+    } else {
+      setAudio(null);
+    }
+  }, [playAudio]);
 
   useEffect(() => {
     if (!audio) return;

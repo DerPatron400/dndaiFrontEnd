@@ -18,14 +18,18 @@ const Input = ({ input, setInput }) => {
   //     });
   // }, [textAreaRef.current]);
   return (
-    <textarea
-      type='text'
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      placeholder='Enter your choice'
-      className='bg-transparent border  px-3 h-14 w-full md:w-64 placeholder:text-[#d3d3d3] text-white py-2 rounded'
-      ref={textAreaRef}
-    />
+    <div className='flex flex-col items-end'>
+      <textarea
+        type='text'
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder='Enter your choice'
+        className='bg-transparent border  px-3 h-14 w-full md:w-64 placeholder:text-[#d3d3d3] text-white py-2 rounded'
+        ref={textAreaRef}
+        maxLength={100}
+      />
+      <p className='text-xs text-white mt-1 opacity-60'>{input.length}/100</p>
+    </div>
   );
 };
 
