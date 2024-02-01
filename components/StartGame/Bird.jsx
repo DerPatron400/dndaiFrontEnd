@@ -13,7 +13,9 @@ export function Model(props) {
   const group = useRef();
   const [animationEnded, setAnimationEnded] = useState(false);
 
-  const { animations, scene } = useGLTF("/models/dragon.glb");
+  const { animations, scene } = useGLTF(
+    "/models/purple_dragon-transformed.glb"
+  );
   const [addLight, setAddLight] = useState(false);
   let mixer;
 
@@ -136,7 +138,7 @@ export function Model(props) {
       end: "bottom bottom",
       scrub: true,
       onUpdate: (self) => {
-        mixer.update(0.04);
+        mixer.update(0.004);
       },
     });
   };
@@ -146,7 +148,7 @@ export function Model(props) {
     const clip = animations[0];
     const action = mixer.clipAction(clip);
     action.play();
-    mixer.update(0.03);
+    mixer.update(0.003);
   };
 
   const initialAnimation = () => {
@@ -160,7 +162,7 @@ export function Model(props) {
       },
 
       onUpdate: () => {
-        mixer.update(0.04);
+        mixer.update(0.004);
         if (group.current)
           group.current?.lookAt(
             group.current?.position.x * -1.5,
@@ -193,7 +195,7 @@ export function Model(props) {
     <>
       {addLight && (
         <MovingLight
-          color='#FFFFFF'
+          color="#FFFFFF"
           position={[0, 0, 3]}
           modelPosition={group?.current?.position}
         />
@@ -204,15 +206,15 @@ export function Model(props) {
         rotation={[0, -1.7, 0]}
         position={[
           window?.innerWidth < 768 ? 0 : 5,
-          window?.innerWidth < 768 ? 3 : -1.5,
+          window?.innerWidth < 768 ? 3 : -1,
           3,
         ]}
-        scale={window?.innerWidth < 768 ? 0.5 : 1}
+        scale={window?.innerWidth < 768 ? 0.1 : 0.5}
       >
-        <primitive object={scene} dispose={null} position={[0, 0, 0]} />
+        <primitive object={scene} dispose={null} position={[1, 1.5, 0]} />
       </group>
     </>
   );
 }
 
-useGLTF.preload("/models/dragon.glb");
+useGLTF.preload("/models/purple_dragon-transformed.glb");

@@ -51,10 +51,10 @@ export function Model(props) {
 
   return (
     <group ref={group} {...props} dispose={null} position={[0, -1, -2.6]}>
-      <group scale={0.7} name='Sketchfab_Scene' rotation={[-1.6, 1.1, 1.6]}>
+      <group scale={0.7} name="Sketchfab_Scene" rotation={[-1.6, 1.1, 1.6]}>
         <primitive object={nodes.Armature_rootJoint} />
         <skinnedMesh
-          name='Circle_0'
+          name="Circle_0"
           geometry={nodes.Circle_0.geometry}
           material={materials.drgnHrn}
           skeleton={nodes.Circle_0.skeleton}
@@ -65,7 +65,7 @@ export function Model(props) {
           material-metalness={0}
         />
         <skinnedMesh
-          name='mouth_0'
+          name="mouth_0"
           geometry={nodes.mouth_0.geometry}
           material={materials.drgnMth}
           skeleton={nodes.mouth_0.skeleton}
@@ -76,7 +76,7 @@ export function Model(props) {
           material-metalness={0}
         />
         <skinnedMesh
-          name='theeth_0'
+          name="theeth_0"
           geometry={nodes.theeth_0.geometry}
           material={materials.drgnThht}
           skeleton={nodes.theeth_0.skeleton}
@@ -87,7 +87,7 @@ export function Model(props) {
           material-metalness={0}
         />
         <skinnedMesh
-          name='HPCreature002_0'
+          name="HPCreature002_0"
           geometry={nodes.HPCreature002_0.geometry}
           material={materials.drgnClws}
           skeleton={nodes.HPCreature002_0.skeleton}
@@ -98,7 +98,7 @@ export function Model(props) {
           material-metalness={0}
         />
         <skinnedMesh
-          name='HPCreature001_0'
+          name="HPCreature001_0"
           geometry={nodes.HPCreature001_0.geometry}
           material={materials.drgnSkn}
           skeleton={nodes.HPCreature001_0.skeleton}
