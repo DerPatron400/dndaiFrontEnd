@@ -1,5 +1,5 @@
 // AtmosScene.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import GameLoop from "@/components/shared/GameLoop";
@@ -15,19 +15,20 @@ import { Tooltip } from "@radix-ui/themes";
 import HowToPlay from "./HowToPlay";
 
 export default function AtmosScene() {
-  const { introText, image } = useIntroTextStore((state) => state);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { introText, image, setPlayAudio, playAudio } = useIntroTextStore(
+    (state) => state
+  );
+  const { user, setCredits } = useUserStore((state) => state);
   const [pages, setPages] = useState(1);
-
-  const { visualText, resultArray, paths } = parseGameText(introText);
-
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setCredits } = useUserStore((state) => state);
-  const searchParams = useSearchParams();
-  const router = useRouter();
+
+  const { visualText, resultArray, paths } = parseGameText(introText);
   console.log(introText);
 
   const conversationIndex = searchParams.get("conversationIndex");
@@ -65,10 +66,16 @@ export default function AtmosScene() {
     }
   };
 
+  const handlePlayAudio = () => {
+    setPlayAudio(true);
+  };
+
   const addToScene = (type) => {
     setPages((prev) => prev + 1);
   };
-
+  useEffect(() => {
+    setPlayAudio(false);
+  }, [introText]);
   return (
     <div className="relative">
       <div className="fixed top-0 border left-0 h-[100vh] w-screen">
@@ -131,7 +138,7 @@ export default function AtmosScene() {
         </button>
       </div>
       <HowToPlay />
-      <div className="fixed bottom-[11%] right-4 ">
+      <div className="fixed bottom-[11%] right-4 flex flex-col gap-y-4 ">
         <Tooltip content="Spend one credits to save your game" side="left">
           <button
             onClick={handleSaveGame}
@@ -139,6 +146,15 @@ export default function AtmosScene() {
             className="bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
           >
             {isLoading ? "Saving..." : "Save Game"}
+          </button>
+        </Tooltip>
+        <Tooltip content="Narrates your Game" side="left">
+          <button
+            onClick={handlePlayAudio}
+            disabled={playAudio}
+            className="bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+          >
+            {"Play Audio"}
           </button>
         </Tooltip>
       </div>
