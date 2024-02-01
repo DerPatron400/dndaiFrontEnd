@@ -132,7 +132,7 @@ export default function Home() {
       return;
     }
 
-    router.push("/input");
+    router.push("/game/new");
   };
 
   const toggleInstructions = () => {

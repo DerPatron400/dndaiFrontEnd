@@ -71,7 +71,7 @@ const Accounts = () => {
           aria-labelledby='options-menu'
         >
           <Link
-            href='/input'
+            href='/game/new'
             className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
@@ -87,7 +87,7 @@ const Accounts = () => {
             />
           </div>
           <Link
-            href='/savegame'
+            href='/game/saved'
             className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
