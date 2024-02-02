@@ -12,8 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Model(props) {
   const group = useRef();
-  const pathname = usePathname();
-  console.log(pathname);
+  const isLandingPage = usePathname() === "/";
+
   const [animationEnded, setAnimationEnded] = useState(false);
 
   const { animations, scene } = useGLTF("/models/dragon.glb");
@@ -153,32 +153,51 @@ export function Model(props) {
   };
 
   const initialAnimation = () => {
-    gsap.to(group.current?.position, {
-      x: window?.innerWidth < 768 ? 0 : 1,
-      y: window?.innerWidth < 768 ? -0.3 : -1.5,
-      duration: 4.3,
-      ease: "power2.inOut",
-      onComplete: () => {
-        setAnimationEnded(true);
-      },
+    if (isLandingPage) {
+      gsap.to(group.current?.position, {
+        x: 0,
+        y: window?.innerWidth < 768 ? -0.3 : -1.3,
+        duration: 4.3,
+        ease: "power2.inOut",
 
-      onUpdate: () => {
-        mixer.update(0.04);
-        if (group.current)
-          group.current?.lookAt(
-            group.current?.position.x * -1.5,
-            camera.position.y - 1.3,
-            camera.position.z
-          );
-      },
-    });
+        onUpdate: () => {
+          mixer.update(0.04);
+          if (group.current)
+            group.current?.lookAt(
+              group.current?.position.x * -1.5,
+              camera.position.y - 1.3,
+              camera.position.z
+            );
+        },
+      });
+    } else {
+      gsap.to(group.current?.position, {
+        x: window?.innerWidth < 768 ? 0 : 1,
+        y: window?.innerWidth < 768 ? -0.3 : -1.5,
+        duration: 4.3,
+        ease: "power2.inOut",
+        onComplete: () => {
+          setAnimationEnded(true);
+        },
+
+        onUpdate: () => {
+          mixer.update(0.04);
+          if (group.current)
+            group.current?.lookAt(
+              group.current?.position.x * -1.5,
+              camera.position.y - 1.3,
+              camera.position.z
+            );
+        },
+      });
+    }
   };
 
   useEffect(() => {
     if (animationEnded) {
       modelAnimations();
 
-      if (pathname !== "/") {
+      if (isLandingPage) {
         const t1 = gsap.timeline();
         gsapAnimations(t1);
       }
