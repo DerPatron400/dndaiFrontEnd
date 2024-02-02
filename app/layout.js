@@ -21,6 +21,8 @@ export default function RootLayout({ children }) {
 
   const hideNavs = path.includes("/login") || path.includes("/register");
 
+  const hideFooter = path.includes("/game/play") || path.includes("/game/new");
+
   return (
     <html lang='en'>
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
@@ -28,8 +30,8 @@ export default function RootLayout({ children }) {
         <div className='max-w-screen !overflow-hidden bg-black overflow-x-hidden'>
           <Theme>
             {!hideNavs && <Navbar />}
-            <div className='min-h-screen'>{children}</div>
-            {!hideNavs && <Footer />}
+            <div className='min-h-auto'>{children}</div>
+            {!hideNavs && !hideFooter && <Footer />}
             <Toaster />
           </Theme>
         </div>

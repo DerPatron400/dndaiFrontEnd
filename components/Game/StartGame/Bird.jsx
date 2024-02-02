@@ -6,11 +6,14 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 import MovingLight from "./MovingLight";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Model(props) {
   const group = useRef();
+  const pathname = usePathname();
+  console.log(pathname);
   const [animationEnded, setAnimationEnded] = useState(false);
 
   const { animations, scene } = useGLTF("/models/dragon.glb");
@@ -174,8 +177,11 @@ export function Model(props) {
   useEffect(() => {
     if (animationEnded) {
       modelAnimations();
-      const t1 = gsap.timeline();
-      gsapAnimations(t1);
+
+      if (pathname !== "/") {
+        const t1 = gsap.timeline();
+        gsapAnimations(t1);
+      }
     }
   }, [animationEnded]);
 
