@@ -40,6 +40,7 @@ const instructions = [
 function Instructions() {
   const [openQuestion, setOpenQuestion] = useState(null);
 
+  // toggle button
   const handleToggleQuestion = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
   };
@@ -48,23 +49,23 @@ function Instructions() {
   }, []);
 
   return (
-    <div className='w-screen h-screen flex justify-center items-center bg-black'>
-      <div className='md:w-[70vw] w-[90vw] my-auto border border-green-500 p-8 h-auto bg-transparent text-white rounded-md shadow-lg font-sans'>
-        <div data-aos='fade-up'>
+    <div className="w-screen h-screen flex justify-center items-center bg-black">
+      <div className="md:w-[70vw] w-[90vw] my-auto border border-green-500 p-8 h-auto bg-transparent text-white rounded-md shadow-lg font-sans">
+        <div data-aos="fade-up">
           <section>
-            <h2 className='text-3xl font-bold mb-4 text-center'>
-              DnDAI <span className='text-green-500'>Instructions</span>
+            <h2 className="text-3xl font-bold mb-4 text-center">
+              DnDAI <span className="text-green-500">Instructions</span>
             </h2>
 
             {instructions.map((item, index) => (
               <div key={index}>
                 <h3>
                   <button
-                    className='flex items-center justify-between w-full px-6 py-5 text-base font-semibold text-left text-white sm:p-6'
+                    className="flex items-center justify-between w-full px-6 py-5 text-base font-semibold text-left text-white sm:p-6"
                     onClick={() => handleToggleQuestion(index)}
                   >
-                    <span className='w-[90%]'>{item.heading}</span>
-                    <span className='ml-4'>
+                    <span className="w-[90%]">{item.heading}</span>
+                    <span className="ml-4">
                       <IoIosArrowDown
                         className={`text-green-500 transform duration-700 transition-transform ${
                           openQuestion === index ? "rotate-180" : ""
@@ -78,8 +79,8 @@ function Instructions() {
                     openQuestion === index ? "max-h-96" : "max-h-0"
                   }`}
                 >
-                  <div className='px-6 pb-6'>
-                    <p className='text-base text-white opacity-90'>
+                  <div className="px-6 pb-6">
+                    <p className="text-base text-white opacity-90">
                       <React.Fragment>{item.content}</React.Fragment>
                     </p>
                   </div>
