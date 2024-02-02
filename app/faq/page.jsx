@@ -39,7 +39,7 @@ function Faq() {
   ];
 
   return (
-    <div className='w-screen h-screen flex justify-center items-center bg-black'>
+    <div className='w-screen h-[80vh] flex justify-center items-center bg-black'>
       <div className='md:w-[70vw] w-[90vw] mx-auto mt-10 mb-10 p-8 h-auto bg-transparent text-white rounded-md shadow-lg font-sans'>
         <div data-aos='fade-up'>
           <h2 className='text-3xl font-semibold mb-6 flex justify-center items-center text-center'>

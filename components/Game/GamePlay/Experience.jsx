@@ -5,11 +5,10 @@ import * as THREE from "three";
 import { Model } from "./Dragon";
 import { Background } from "./Background";
 import gsap from "gsap";
-import { TextureLoader } from "three";
+import { loadTexture } from "@/utils/game";
 import WindEffect from "./WindEffect";
 import PathText from "./PathText";
 import Line from "./Line";
-import Clouds from "./Clouds";
 
 const CURVE_DISTANCE = 450;
 const CURVE_ANGLE = 1;
@@ -278,24 +277,14 @@ export default function Experience({
       document.removeEventListener("visibilitychange", handleSwitch);
     };
   }, []);
-  const loadTexture = (url) => {
-    const textureLoader = new TextureLoader();
-    const loadedTexture = textureLoader.load(url);
-    // Customize texture properties if needed
-    loadedTexture.wrapS = THREE.RepeatWrapping;
-    loadedTexture.wrapT = THREE.RepeatWrapping;
-    loadedTexture.repeat.set(1, 1);
-    return loadedTexture;
-  };
 
-  console.log(pathObjects);
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
 
-    if (speed < 0) {
-      anim += 0.001 * directionFactor;
-    } else if (speed > 0) {
-      anim -= 0.001 * directionFactor;
+    if (isForwardPressed) {
+      anim += 0.0045 * directionFactor;
+    } else {
+      anim -= 0.0045 * directionFactor;
     }
     if (anim >= 1) {
       anim = 1;
@@ -336,7 +325,6 @@ export default function Experience({
   return (
     <>
       <directionalLight position={[0, 3, 1]} intensity={1} />
-
       <group ref={cameraGroup}>
         {isForwardPressed && <WindEffect isMoving={isForwardPressed} />}
         <Background backgroundColors={backgroundColorRef} />
@@ -363,9 +351,6 @@ export default function Experience({
 
       {/* LINE */}
       <Line shape={shape} curve={curve} />
-
-      {/* CLOUDS */}
-      {/* <Clouds /> */}
     </>
   );
 }

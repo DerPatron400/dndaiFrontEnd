@@ -27,10 +27,10 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
-        <div className='max-w-screen !overflow-hidden bg-black overflow-x-hidden'>
+        <div className='max-w-screen !overflow-hidden relative bg-black overflow-x-hidden'>
           <Theme>
             {!hideNavs && <Navbar />}
-            <div className='min-h-auto'>{children}</div>
+            {children}
             {!hideNavs && !hideFooter && <Footer />}
             <Toaster />
           </Theme>
