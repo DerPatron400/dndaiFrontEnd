@@ -65,7 +65,7 @@ export default function Register() {
     <div className='flex h-screen w-screen relative'>
       <div className='w-1/2 h-full hidden md:block'>
         <img
-          src='/images/auth.jpg'
+          src='/images/auth.png'
           alt='Register'
           className='w-full h-full object-cover'
         />
