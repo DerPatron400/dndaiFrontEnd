@@ -46,7 +46,7 @@ const SaveGame = ({ data }) => {
       {/* Header Section */}
       <div className='relative flex flex-col items-center'>
         <img
-          src='/dice2.jpg'
+          src='/dragonbaby.png'
           alt='Header Image Alt Text'
           className='w-full h-[30vh] object-cover mb-4 rounded-md'
         />

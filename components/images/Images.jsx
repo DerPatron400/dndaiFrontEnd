@@ -6,7 +6,7 @@ const Images = ({ data }) => {
     <div className='relative w-full    mx-auto  h-auto text-white rounded-md shadow-lg font-sans'>
       <div className='relative'>
         <img
-          src='/dice2.jpg'
+          src='/dice2.png'
           alt='Header Image Alt Text'
           className='w-full h-[30vh] object-cover mb-4 rounded-md'
         />
