@@ -43,7 +43,7 @@ function Instructions() {
   const handleToggleQuestion = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
   };
-  //animation
+
   useEffect(() => {
     AOS.init();
   }, []);
