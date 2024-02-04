@@ -197,7 +197,7 @@ export function Model(props) {
     if (animationEnded) {
       modelAnimations();
 
-      if (isLandingPage) {
+      if (!isLandingPage) {
         const t1 = gsap.timeline();
         gsapAnimations(t1);
       }
