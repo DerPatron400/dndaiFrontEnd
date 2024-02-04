@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { BackgroundScene } from "@/components/shared/BackgroundScene";
 import { useRouter } from "next/navigation";
-import { MdClose } from "react-icons/md";
 import useUserStore from "@/utils/store/userStore";
 import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
-import AOS from "aos";
-import { IoIosArrowDown } from "react-icons/io";
+
 import { getCredits } from "@/api/user";
+import { Helmet } from "react-helmet";
+import Script from "next/script";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -53,6 +53,8 @@ export default function Home() {
 
   return (
     <div className='relative h-[85vh] bg-black z-[1]'>
+   
+    
       <BackgroundScene setLoaded={setLoaded} />
       {loaded && (
         <div className='relative top-0 left-0 w-[100vw] h-full flex border justify-center items-end pb-32 '>

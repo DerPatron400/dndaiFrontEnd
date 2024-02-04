@@ -9,6 +9,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,9 +26,16 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='en'>
+      <Script
+        id='CookieDeclaration'
+        src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
+        type='text/javascript'
+        async
+      ></Script>
+
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
-        <div className='max-w-screen !overflow-hidden relative bg-black overflow-x-hidden'>
+        <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
           <Theme>
             {!hideNavs && <Navbar />}
             {children}

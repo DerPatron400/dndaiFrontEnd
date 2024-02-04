@@ -47,7 +47,7 @@ export default function Experience({
   const cameraGroup = useRef();
   const backgroundColorRef = useRef({
     colorA: "#000000",
-    colorB: "#9333ea",
+    colorB: "#ffad30",
   });
   const tl = useRef();
   const cameraRail = useRef();
@@ -304,7 +304,7 @@ export default function Experience({
         duration: 2,
         ease: "power1.easeInOut",
         colorA: "#000000",
-        colorB: "#9333ea",
+        colorB: "#ffad30",
       })
       .to(backgroundColorRef.current, {
         ease: "power1.easeInOut",
