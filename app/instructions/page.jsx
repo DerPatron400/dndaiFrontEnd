@@ -40,6 +40,7 @@ const instructions = [
 function Instructions() {
   const [openQuestion, setOpenQuestion] = useState(null);
 
+  //toggle method
   const handleToggleQuestion = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
   };
