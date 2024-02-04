@@ -13,7 +13,7 @@ function Shop({ data }) {
     <div className="w-full mx-auto mb-10 bg-black text-white rounded-md shadow-md font-sans">
       <div className="relative w-full h-[50vh]">
         <img
-          src="/shop-bg.jpg"
+          src="/shop-bg.png"
           alt="image here"
           className="w-full h-full object-cover"
         />
@@ -22,7 +22,7 @@ function Shop({ data }) {
             Welcome to the <span className="text-green-500">DnDAI</span> Shop!
           </h1>
           <p className="text-lg sm:text-xl">
-            Explore our exclusive products and enhance your DnDAI experience.
+            
           </p>
         </div>
       </div>
