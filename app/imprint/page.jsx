@@ -20,20 +20,34 @@ function Imprint() {
             <h3 className='text-xl mb-2 font-medium'>Imprint</h3>
             <hr className='border border-green-500  w-1/3 mb-2' />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              eget consectetur libero. Integer convallis, lacus vel interdum
-              lobortis, massa enim ullamcorper eros, eget ultrices ex tortor eu
-              odio. Nulla at quam risus. Sed euismod, magna nec suscipit
-              pellentesque, dolor lorem consectetur odio, vel ultricies turpis
-              sapien sit amet lacus. In dapibus nisi at sem pulvinar suscipit.
-              Morbi nec tellus sem. Phasellus sollicitudin, mauris non vehicula
-              efficitur, tortor magna facilisis libero, sit amet fermentum elit
-              sapien nec ipsum. Cras eget commodo massa. Sed ut ex bibendum,
-              tristique nisi et, vehicula urna. Quisque fringilla turpis velit,
-              ut pharetra nulla iaculis sit amet. Nulla facilisi. Morbi a ante
-              vel eros tempor aliquet.
+
+This website is operated by Alexander Ksela as an individual and is not affiliated with any formal business entity. The content on this website is Alexander Ksela's personal views and opinions.
+<p>
+Copyright © 2024 dndai.app. All rights reserved.
+</p>
             </p>
           </section>
+          <hr className="border-t border-green-500 my-6" />
+
+<section>
+  <h3 className="text-xl mb-2 font-medium">
+  Contact
+  </h3>
+  <ul className="list-disc ml-6">
+    <li>
+Alexander Ksela
+    </li>
+    <li>
+Brockmanngasse 38 
+    </li>
+    <li>
+    8010 Graz, Austria.  
+    </li>
+    <li>
+info@dndai.app
+    </li>
+  </ul>
+</section>
         </div>
       </div>
     </div>
