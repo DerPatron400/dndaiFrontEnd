@@ -1,4 +1,5 @@
 import { TextureLoader } from "three";
+import * as THREE from "three";
 
 export const loadTexture = (url) => {
   const textureLoader = new TextureLoader();
