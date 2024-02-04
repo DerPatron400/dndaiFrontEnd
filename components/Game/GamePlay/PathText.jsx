@@ -50,6 +50,7 @@ export default function PathText({ object, setType, setOpen }) {
 
       {object.isVisual && (
         <Button
+          xPosition={object.position[0]}
           onClick={() => {
             setType("image");
             setTimeout(() => {

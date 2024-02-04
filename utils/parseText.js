@@ -80,7 +80,6 @@ function parseAdventureText(text) {
   const paths = [];
   let lines = removeEmptyStrings(text.split("\n")); // Split each section into lines
   lines = lines.map((line) => line.trim()).filter((line) => line !== "");
-  console.log(lines);
 
   lines.map((line, index) => {
     if (line === "") return;

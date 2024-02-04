@@ -1,14 +1,10 @@
-import { useState, useRef, useCallback } from "react";
-import { useFrame } from "@react-three/fiber";
-import { Html, Text, shaderMaterial, RoundedBox } from "@react-three/drei";
+import { Text, RoundedBox } from "@react-three/drei";
 import { fadeOnBeforeCompile } from "@/utils/fadeShader";
-import { TextureLoader } from "three";
 
-const Button = ({ onClick }) => {
-  //loadin texture
-  const btntexture = new TextureLoader().load("/download.jpeg");
+const Button = ({ onClick, xPosition }) => {
+  console.log(xPosition)
   return (
-    <group position={[0.5, -1.4, -0.1]}>
+    <group position={[xPosition < 0 ? -1 : 1, -1.4, -0.1]}>
       <mesh
         position={[0, 0, -0.3]}
         onPointerOver={() => {

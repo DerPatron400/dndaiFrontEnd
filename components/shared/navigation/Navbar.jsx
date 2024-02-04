@@ -41,7 +41,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className='flex py-8 md:p-4 z-[20]  top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
+    <div className='flex py-8 md:p-4 z-[20] fixed  top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
       <EnableSound setPlaying={setPlaying} />
 
       <div className='flex flex-row items-center justify-between w-full z-[20]'>

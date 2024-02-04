@@ -100,7 +100,7 @@ export default function Experience({
         new THREE.Euler(
           dragonModel.current.rotation.x,
           dragonModel.current.rotation.y,
-          angleRotation * 0.3
+          angleRotation * 0.15
         )
       );
 
@@ -108,7 +108,7 @@ export default function Experience({
       speed = speed > maxSpeed ? maxSpeed : speed;
       speed = speed < maxSpeed * -1 ? maxSpeed * -1 : speed;
 
-      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta * 2);
+      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
     }
     cameraGroup.current.position.z = THREE.MathUtils.lerp(
       cameraGroup.current.position.z,
@@ -288,11 +288,11 @@ export default function Experience({
     }
     if (anim >= 1) {
       anim = 1;
-      directionFactor = -1;
+      directionFactor = -0.1;
     }
     if (anim < 0) {
       anim = 0;
-      directionFactor = 1;
+      directionFactor = 0.1;
     }
   };
 
@@ -332,7 +332,7 @@ export default function Experience({
         <group ref={cameraRail}>
           <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
         </group>
-        <Environment preset='sunset' />
+        <Environment files={"/env/lebombo_1k.hdr"} />
 
         <group ref={dragonModel}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>

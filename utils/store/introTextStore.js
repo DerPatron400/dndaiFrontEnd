@@ -19,9 +19,9 @@ const useIntroTextStore = create(
   )
 );
 
-useIntroTextStore.subscribe(
-  (introText) => console.log("introText", introText),
-  (state) => state.introText
-);
+// useIntroTextStore.subscribe(
+//   (introText) => console.log("introText", introText),
+//   (state) => state.introText
+// );
 
 export default useIntroTextStore;

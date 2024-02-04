@@ -1,5 +1,5 @@
 // AtmosScene.js
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import GameLoop from "@/components/shared/GameLoop";
@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Tooltip } from "@radix-ui/themes";
 import HowToPlay from "./HowToPlay";
+import Loader from "../StartGame/Loader";
 
 export default function AtmosScene() {
   const searchParams = useSearchParams();
@@ -29,7 +30,7 @@ export default function AtmosScene() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { visualText, resultArray, paths } = parseGameText(introText);
-  console.log(introText);
+  //console.log(introText);
 
   const conversationIndex = searchParams.get("conversationIndex");
 
@@ -79,22 +80,24 @@ export default function AtmosScene() {
   return (
     <div className='relative'>
       <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
-        <Canvas>
+        <Canvas className='z-[1]'>
           <color attach='background' args={["#ececec"]} />
 
-          <Experience
-            textualData={{ visualText, resultArray, image }}
-            pages={pages}
-            setOpen={setOpen}
-            open={open}
-            type={type}
-            setType={setType}
-            isForwardPressed={isForwardPressed}
-            isBackwardPressed={isBackwardPressed}
-            setIsForwardPressed={setIsForwardPressed}
-            setIsBackwardPressed={setIsBackwardPressed}
-            visualText={visualText}
-          />
+          <Suspense fallback={<Loader />}>
+            <Experience
+              textualData={{ visualText, resultArray, image }}
+              pages={pages}
+              setOpen={setOpen}
+              open={open}
+              type={type}
+              setType={setType}
+              isForwardPressed={isForwardPressed}
+              isBackwardPressed={isBackwardPressed}
+              setIsForwardPressed={setIsForwardPressed}
+              setIsBackwardPressed={setIsBackwardPressed}
+              visualText={visualText}
+            />
+          </Suspense>
         </Canvas>
       </div>
 
@@ -126,7 +129,6 @@ export default function AtmosScene() {
           onTouchStart={() => {
             setIsForwardPressed(false);
             setIsBackwardPressed(true);
-            console.log("backward");
           }}
           onTouchEnd={() => {
             setIsForwardPressed(false);
