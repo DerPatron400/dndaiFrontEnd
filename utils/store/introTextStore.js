@@ -6,7 +6,9 @@ const useIntroTextStore = create(
     (set, get) => ({
       introText: "",
       image: "",
+      playAudio: false,
 
+      setPlayAudio: (playAudio) => set({ playAudio }),
       setIntroText: (introText) => set({ introText }),
       setImage: (image) => set({ image }),
     }),
@@ -17,9 +19,9 @@ const useIntroTextStore = create(
   )
 );
 
-useIntroTextStore.subscribe(
-  (introText) => console.log("introText", introText),
-  (state) => state.introText
-);
+// useIntroTextStore.subscribe(
+//   (introText) => console.log("introText", introText),
+//   (state) => state.introText
+// );
 
 export default useIntroTextStore;

@@ -6,17 +6,17 @@ import axios from "axios";
 
 export default function TextToSpeech() {
   const [isTalking, setIsTalking] = useState(false);
-  const introText = useIntroTextStore((state) => state.introText);
+  const { introText, playAudio } = useIntroTextStore((state) => state);
+
   const pathname = usePathname();
   const [audio, setAudio] = useState(null);
   const audioRef = useRef();
 
-  const isNewGame = pathname.includes("/newgame");
+  const isNewGame = pathname.includes("/game/play");
   useEffect(() => {
     if (!isNewGame) return;
 
-    const trySpeech = async () => {
-      console.log("introText", introText);
+    const getSpeech = async () => {
       const BASELINK = process.env.NEXT_PUBLIC_BACKEND_URL;
       audio?.pause();
       setAudio(null);
@@ -40,17 +40,21 @@ export default function TextToSpeech() {
         })
         .catch((error) => console.error("Error:", error));
     };
-    trySpeech();
-  }, [introText, isNewGame]);
 
+    if (playAudio) {
+      getSpeech();
+    } else {
+      setAudio(null);
+    }
+  }, [playAudio]);
   useEffect(() => {
     if (!audio) return;
     isTalking ? audio.play() : audio.pause();
   }, [isTalking, isNewGame]);
   return (
-    <div className={``}>
+    <div className={` flex justify-end items-end z-[50]`}>
       {isNewGame && audio && (
-        <audio controls className="hidden md:block h-9 min-w-60">
+        <audio controls className="hidden md:block h-9 !w-60 ms-auto ">
           <source src={audio?.src} type="audio/ogg" />
           <source src={audio?.src} type="audio/mpeg" />
           Your browser does not support the audio element.

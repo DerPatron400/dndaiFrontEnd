@@ -12,10 +12,13 @@ export default function Product({ data }) {
 
   //to send data to backend for payment
   const handleClick = async () => {
+    if (!user) {
+      router.push("/auth/login");
+    }
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const successUrl = BASE_URL + "payment-status/success";
-      const cancelUrl = BASE_URL + "payment-status/failure";
+      const successUrl = BASE_URL + "/payment-status/success";
+      const cancelUrl = BASE_URL + "/payment-status/failure";
 
       const bodyData = {
         productid: data._id,
@@ -50,25 +53,32 @@ export default function Product({ data }) {
   };
 
   return (
-    <div className='bg-[#201f1f] p-4 rounded-md md:w-[30vw] w-full'>
+    <div className='bg-[#201f1f] shadow-lg p-4 rounded-lg md:w-[30vw] w-full'>
       <img
-        src='/Product1.png'
+        src={data.imageUrl || "/Product1.png"}
         alt='Product 1'
         className='w-full rounded-lg h-auto mb-4'
       />
-      <div className='flex justify-between gap-y-4 flex-col items-center'>
+      <div className='flex justify-between gap-y-4 mt-2  flex-col items-center'>
         <div className='text-left flex justify-between w-full'>
-          <p className='text-xl font-light mb-2'>
-            Credit Points: {data.productName}
+          <div className='flex gap-x-2 items-center'>
+            <span className='text-xl font-light '>{data.productName} </span>
+            <img
+              src='/images/CreditsDndAi.png'
+              alt=''
+              className='w-4 h-6 bg-transparent'
+            />
+          </div>
+          <p className='text-xl font-light '>
+            {data.value} <span className='text-sm'>$</span>
           </p>
-          <p className='text-xl font-light mb-2'>Price: {data.value}$</p>
         </div>
         <button
           disabled={isLoading}
           onClick={handleClick}
-          className='disabled:bg-green-400 w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+          className=' disabled:cursor-not-allowed w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all disabled:!bg-green-400 disabled:hover:!bg-green-400 disabled:pointer-events-none'
         >
-          {isLoading ? "Processing" : "Buy"}
+          {!user ? "Get Started" : isLoading ? "Processing" : "Buy"}
         </button>
       </div>
     </div>

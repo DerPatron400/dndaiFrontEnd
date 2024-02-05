@@ -39,7 +39,7 @@ function Faq() {
   ];
 
   return (
-    <div className='w-screen h-screen flex justify-center items-center bg-black'>
+    <div className='w-screen h-[80vh] flex justify-center items-center bg-black'>
       <div className='md:w-[70vw] w-[90vw] mx-auto mt-10 mb-10 p-8 h-auto bg-transparent text-white rounded-md shadow-lg font-sans'>
         <div data-aos='fade-up'>
           <h2 className='text-3xl font-semibold mb-6 flex justify-center items-center text-center'>
@@ -49,34 +49,33 @@ function Faq() {
           </h2>
 
           {questions.map((item, index) => (
-            <div key={index} className='mb-6'>
+            <div key={index}>
+              <h3>
+                <button
+                  className='flex items-center justify-between w-full px-6 py-5 text-base font-semibold text-left text-white sm:p-6'
+                  onClick={() => handleToggleQuestion(index)}
+                >
+                  <span className='w-[90%]'>{item.question}</span>
+                  <span className='ml-4'>
+                    <IoIosArrowDown
+                      className={`text-green-500 transform duration-700 transition-transform ${
+                        openQuestion === index ? "rotate-180" : ""
+                      }`}
+                    />
+                  </span>
+                </button>
+              </h3>
               <div
-                className='flex justify-between items-center cursor-pointer'
-                onClick={() => handleToggleQuestion(index)}
-              >
-                <h3 className='text-xl mb-2 ml-2'>{item.question}</h3>
-                <IoIosArrowDown
-                  className={`text-green-500 transform transition-transform ${
-                    openQuestion === index ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-              <div
-                className={`overflow-hidden transition-all ease-in-out duration-300  ${
+                className={`overflow-hidden transition-max-height duration-700 ${
                   openQuestion === index ? "max-h-96" : "max-h-0"
                 }`}
               >
-                {openQuestion === index && (
-                  <div
-                    data-aos='fade-down'
-                    data-aos-delay='200'
-                    className='p-4'
-                  >
-                    <p>{item.answer}</p>
-                  </div>
-                )}
+                <div className='px-6 pb-6'>
+                  <p className='text-base text-white opacity-90'>
+                    <React.Fragment>{item.answer}</React.Fragment>
+                  </p>
+                </div>
               </div>
-              <hr className='border-t border-green-500' />
             </div>
           ))}
         </div>

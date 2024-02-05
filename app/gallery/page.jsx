@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+
+//fetch again on reload
+
+
 const getImages = async () => {
   const cookieStore = cookies();
 
