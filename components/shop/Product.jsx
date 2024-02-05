@@ -14,8 +14,8 @@ export default function Product({ data }) {
   const handleClick = async () => {
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const successUrl = BASE_URL + "payment-status/success";
-      const cancelUrl = BASE_URL + "payment-status/failure";
+      const successUrl = BASE_URL + "/payment-status/success";
+      const cancelUrl = BASE_URL + "/payment-status/failure";
 
       const bodyData = {
         productid: data._id,
