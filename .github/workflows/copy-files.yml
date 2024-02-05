@@ -24,8 +24,6 @@ jobs:
         EC2_HOSTNAME: ${{ secrets.HOST }}
     - name: Copy files via SSH
       run: |
-        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cp -r ~/dndaiFrontEnd/* ~/dndaiFrontEnd-Backup"
-        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd/*"
         scp -i ssh_key.pem -r ${GITHUB_WORKSPACE}/* ec2-user@$EC2_HOSTNAME:~/dndaiFrontEnd/
       env:
         EC2_HOSTNAME: ${{ secrets.HOST }}        
