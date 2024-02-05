@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import axios from "axios";
 
 export default function TextToSpeech() {
-  //states
   const [isTalking, setIsTalking] = useState(false);
   const { introText, playAudio } = useIntroTextStore((state) => state);
 
