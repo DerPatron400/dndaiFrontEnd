@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import axios from "axios";
 
 export default function TextToSpeech() {
+  //states
   const [isTalking, setIsTalking] = useState(false);
   const { introText, playAudio } = useIntroTextStore((state) => state);
 
@@ -54,9 +55,9 @@ export default function TextToSpeech() {
   return (
     <div className={` flex justify-end items-end z-[50]`}>
       {isNewGame && audio && (
-        <audio controls className='hidden md:block h-9 !w-60 ms-auto '>
-          <source src={audio?.src} type='audio/ogg' />
-          <source src={audio?.src} type='audio/mpeg' />
+        <audio controls className="hidden md:block h-9 !w-60 ms-auto ">
+          <source src={audio?.src} type="audio/ogg" />
+          <source src={audio?.src} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       )}
@@ -66,7 +67,7 @@ export default function TextToSpeech() {
           onClick={() => {
             setIsTalking(!isTalking);
           }}
-          className='bg-white relative md:hidden  cursor-pointer p-2 rounded-full'
+          className="bg-white relative md:hidden  cursor-pointer p-2 rounded-full"
         >
           {isTalking ? <XCircle size={20} /> : <Speech size={20} />}
         </div>
