@@ -32,6 +32,6 @@ export const config = {
      * - public (public files)
      * - images (image files)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|public|images|models|fonts|Audio|Logo|env).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|public|images|models|fonts|Audio|Logo|env|privacy|cookies|faq|imprint|instructions|terms).*)",
   ],
 };
