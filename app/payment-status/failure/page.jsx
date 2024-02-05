@@ -9,7 +9,7 @@ export default function page() {
         We regret to inform you that there was some{" "}
         <span className='text-red-500'> Problem</span> with your Payment
       </h2>
-      <Link href='/input'>
+      <Link href='/game/new'>
         <button className='bg-gradient-to-t from-green-950 to-green-500 text-white px-6 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out'>
           New Game
         </button>

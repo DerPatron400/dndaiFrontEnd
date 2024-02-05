@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Coins } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/utils/store/userStore";
 import Cookie from "universal-cookie";
@@ -39,7 +38,7 @@ const Accounts = () => {
   const handleLogout = () => {
     setUser(null);
     cookies.set("uid", "", { path: "/" });
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   return (
