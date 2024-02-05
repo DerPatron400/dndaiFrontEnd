@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "@react-three/drei";
-import Button from "./Button";
+import Button from "./button";
 import { fadeOnBeforeCompileFlat } from "../../../utils/fadeShader";
 
 export default function PathText({ object, setType, setOpen }) {
