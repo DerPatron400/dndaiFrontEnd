@@ -70,7 +70,7 @@ const Navbar = () => {
                 <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
                   <span>{user?.credits}</span>
                   <img
-                    src='/CreditsDndAi.png'
+                    src='/images/CreditsDndAi.png'
                     alt=''
                     className='w-4 h-6 bg-transparent'
                   />

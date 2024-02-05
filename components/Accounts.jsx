@@ -80,7 +80,7 @@ const Accounts = () => {
           <div className='py-2 z-[50] px-4 rounded-md text-sm flex items-center justify-center gap-x-2'>
             <div> {user?.credits || 0}</div>
             <img
-              src='/CreditsDndAi.png'
+              src='/images/CreditsDndAi.png'
               alt=''
               className='w-4 h-6 bg-transparent'
             />
