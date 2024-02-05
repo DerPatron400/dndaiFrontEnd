@@ -12,6 +12,9 @@ export default function Product({ data }) {
 
   //to send data to backend for payment
   const handleClick = async () => {
+    if (!user) {
+      router.push("/auth/login");
+    }
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const successUrl = BASE_URL + "/payment-status/success";
@@ -61,7 +64,7 @@ export default function Product({ data }) {
           <div className='flex gap-x-2 items-center'>
             <span className='text-xl font-light '>{data.productName} </span>
             <img
-              src='/CreditsDndAi.png'
+              src='/images/CreditsDndAi.png'
               alt=''
               className='w-4 h-6 bg-transparent'
             />
@@ -73,9 +76,9 @@ export default function Product({ data }) {
         <button
           disabled={isLoading}
           onClick={handleClick}
-          className='disabled:bg-green-400 w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+          className=' disabled:cursor-not-allowed w-full bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all disabled:!bg-green-400 disabled:hover:!bg-green-400 disabled:pointer-events-none'
         >
-          {isLoading ? "Processing" : "Buy"}
+          {!user ? "Get Started" : isLoading ? "Processing" : "Buy"}
         </button>
       </div>
     </div>
