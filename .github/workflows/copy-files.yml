@@ -37,7 +37,7 @@ jobs:
         EC2_HOSTNAME: ${{ secrets.HOST }}
     - name: Restarting server
       run: |
-        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && pm2 start npm --name frontend -- run build && pm2 start npm --name frontend -- start"
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && pm2 start npm --name 'frontend' -- run build && pm2 start npm --name 'frontend' -- start"
         env:
         EC2_HOSTNAME: ${{ secrets.HOST }}
   
