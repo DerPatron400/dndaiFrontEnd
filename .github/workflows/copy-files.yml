@@ -40,7 +40,7 @@ jobs:
 
     - name: Build the project
       run: |
-        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && npm run build"
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "export NEXT_PUBLIC_BACKEND_URL=http://dndai.app:4000 && cd ~/dndaiFrontEnd && npm run build"
       env:
         EC2_HOSTNAME: ${{ secrets.HOST }}
 
