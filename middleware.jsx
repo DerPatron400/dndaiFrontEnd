@@ -9,8 +9,7 @@ export default async function middleware(req) {
   if (
     !clientLogin &&
     !url.includes("/login") &&
-    url !== baseURL + "/" &&
-    !url.includes("/register")
+    !url.endsWith("/") && url !== baseURL && !url.includes("/register")
   ) {
     console.log("here");
     return NextResponse.redirect(`${baseURL}/`);
