@@ -394,7 +394,7 @@ export default function Form() {
 
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const { data } = await axios.post(BACKEND_URL + "/api/gpt4/chat", bodyData, {
+      const { data } = await axios.post(BACKEND_URL + "/gpt4/chat", bodyData, {
         params: {
           _id: user._id
         },

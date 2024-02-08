@@ -66,7 +66,7 @@ export default function GameLoop({
           };
 
           const { data } = await axios.post(
-            BACKEND_URL + "/api/gpt4/user-input",
+            BACKEND_URL + "/gpt4/user-input",
             bodyData,
             {
               params: {
