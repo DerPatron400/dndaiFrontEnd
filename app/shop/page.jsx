@@ -11,6 +11,7 @@ const getProducts = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
+    return [];
   }
 };
 
