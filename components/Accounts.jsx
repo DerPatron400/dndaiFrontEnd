@@ -38,6 +38,7 @@ const Accounts = () => {
   const handleLogout = () => {
     setUser(null);
     cookies.set("uid", "", { path: "/" });
+    cookies.set("token", "", { path: "/" });
     router.push("/auth/login");
   };
 

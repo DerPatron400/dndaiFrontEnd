@@ -1,23 +1,18 @@
 import SaveGame from "@/components/Game/savegame/SaveGame";
 import React from "react";
 import { cookies } from "next/headers";
-import axios from "axios";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { fetchSavedGames } from "@/api/user";
 
 const getSavedGames = async () => {
   const cookieStore = cookies();
 
-  const uid = cookieStore.get("uid").value;
+  const token = cookieStore.get("token").value;
 
   try {
-    const response = await axios.get(BACKEND_URL + "/api/savedGames", {
-      params: {
-        _id: uid,
-      },
-    });
+    const response = await fetchSavedGames(token);
 
-    return response.data;
+    return response.reverse() || [];
   } catch (error) {
     return [];
   }

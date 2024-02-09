@@ -12,6 +12,7 @@ import useIntroTextStore from "@/utils/store/introTextStore";
 import DragonHead from "@/components/shared/GameLoop/DragonHead";
 import { useRouter } from "next/navigation";
 import Choice from "@/components/shared/GameLoop/Choice";
+import { generateImage, sendUserInput } from "@/api/game";
 
 function Scene({ children }) {
   return (
@@ -58,22 +59,14 @@ export default function GameLoop({
       }
       const fetchResponse = async () => {
         try {
-          const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
           const bodyData = {
             userInput: input,
             randomNumber: selectedFace,
             conversationIndex,
           };
 
-          const { data } = await axios.post(
-            BACKEND_URL + "/gpt4/user-input",
-            bodyData,
-            {
-              params: {
-                _id: user._id,
-              },
-            }
-          );
+          const data = await sendUserInput(bodyData, user.token);
+
           setIntroText(data.responseText);
           setCredits(data.credits);
 
@@ -113,26 +106,16 @@ export default function GameLoop({
       if (user.credits <= 0) {
         toast.error("You don't have enough credits to play");
         router.push("/shop");
+        
         return;
       }
-      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
       const bodyData = {
         visualText: visualText + " in " + selection,
         imageCount: 1,
       };
-      console.log(bodyData);
 
-      const { data } = await axios.post(
-        BACKEND_URL + "/api/images/generateImages",
-        bodyData,
-        {
-          params: {
-            _id: user._id,
-          },
-        }
-      );
-
-      console.log(data);
+      const data = await generateImage(bodyData, user.token);
 
       setImage(data.image);
       setCredits(data.credits);

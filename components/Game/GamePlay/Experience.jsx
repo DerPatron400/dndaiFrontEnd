@@ -112,7 +112,7 @@ export default function Experience({
     }
     cameraGroup.current.position.z = THREE.MathUtils.lerp(
       cameraGroup.current.position.z,
-      cameraGroup.current.position.z + speed,
+      cameraGroup.current.position.z + speed * 10,
       0.1
     );
 

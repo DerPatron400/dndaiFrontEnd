@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaHome } from "react-icons/fa";
-import axios from "axios";
+import { Home } from "lucide-react";
 import toast from "react-hot-toast";
 import Cookie from "universal-cookie";
 import useUserStore from "@/utils/store/userStore";
+import { register } from "@/api/auth";
+import SocialAuths from "./SocialAuths";
 
 const initialState = {
   email: "",
@@ -20,8 +21,8 @@ export default function Register() {
   const setUserStore = useUserStore((state) => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSigninClick = () => {
-    router.push("/signup");
+  const handleSigninRedirect = () => {
+    router.push("/auth/login");
   };
 
   const handleHomeClick = () => {
@@ -47,11 +48,15 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const { data } = await axios.post(baseURL + "/api/auth/signup", user);
+      const data = await register({
+        email: user.email,
+        username: user.username,
+        password: user.password,
+      });
       console.log(data);
       setUserStore(data);
       cookies.set("uid", data._id, { path: "/" });
+      cookies.set("token", data.token, { path: "/" });
       toast.success("Signup Successful");
       router.push("/");
     } catch (err) {
@@ -137,24 +142,31 @@ export default function Register() {
               onClick={handleSignup}
               className='w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300'
             >
-              {isLoading ? "Loading..." : "Sign up"}
+              {isLoading ? "Loading..." : "Register"}
             </button>
-            <p className='text-sm mt-4'>
-              If you already have an account, please{" "}
-              <span
-                className='w-full  disabled:opacity-60 disabled:cursor-not-allowed  bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400  focus:outline-none transition-colors duration-300'
-                onClick={handleSigninClick}
-              >
-                Sign in
-              </span>
-            </p>
+            <div className='justify-center flex w-full opacity-60 text-lg'>
+              Or
+            </div>
+
+            <SocialAuths isSignup />
           </form>
           <button
             onClick={handleHomeClick}
             className='absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300'
           >
-            <FaHome size={24} />
+            <Home />
           </button>
+          <div className=' w-full absolute bottom-5 right-0 flex items-center justify-center'>
+            <p className='text-sm '>
+              If you already have an account, please{" "}
+              <span
+                className=' text-green-300 cursor-pointer transition-colors duration-300'
+                onClick={handleSigninRedirect}
+              >
+                Login
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
