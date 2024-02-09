@@ -17,8 +17,8 @@ export default function Product({ data }) {
     }
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const successUrl = BASE_URL + "api/payment-status/success";
-      const cancelUrl = BASE_URL + "api/payment-status/failure";
+      const successUrl = BASE_URL + "/api/payment-status/success";
+      const cancelUrl = BASE_URL + "/api/payment-status/failure";
 
       const bodyData = {
         productid: data._id,
