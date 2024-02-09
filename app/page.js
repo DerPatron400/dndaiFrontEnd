@@ -7,30 +7,30 @@ import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 
 import { getCredits } from "@/api/user";
-import { Helmet } from "react-helmet";
-import Script from "next/script";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
-  const [showInstructions, setShowInstructions] = useState(false);
+
   const { user, setCredits } = useUserStore((state) => state);
   const cookies = new Cookies();
 
   useEffect(() => {
     const fetchCredts = async (id) => {
       const credits = await getCredits(id);
-      console.log(credits);
+
       setCredits(credits);
     };
     if (user) {
-      fetchCredts(user._id);
+      fetchCredts(user.token);
     }
   }, []);
 
   useEffect(() => {
     if (user) {
       cookies.set("uid", user._id, { path: "/" });
+      cookies.set("token", user.token, { path: "/" });
     }
   }, [user]);
   const startGame = () => {
@@ -47,14 +47,8 @@ export default function Home() {
     router.push("/game/new");
   };
 
-  const toggleInstructions = () => {
-    setShowInstructions(!showInstructions);
-  };
-
   return (
     <div className='relative h-[85vh] bg-black z-[1]'>
-   
-    
       <BackgroundScene setLoaded={setLoaded} />
       {loaded && (
         <div className='relative top-0 left-0 w-[100vw] h-full flex border justify-center items-end pb-32 '>
@@ -72,16 +66,7 @@ export default function Home() {
               >
                 Play Game
               </button>
-              {/* <button
-                onClick={toggleInstructions}
-                className="bg-gradient-to-t from-green-950 to-green-500 text-white px-6 py-2 mb-2 sm:mb-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
-              >
-                Show Instructions
-              </button> */}
             </div>
-            {/* {showInstructions && (
-              <InstructionsModal onClose={toggleInstructions} />
-            )} */}
           </div>
         </div>
       )}

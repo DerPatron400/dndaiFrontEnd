@@ -37,7 +37,7 @@ function Shop({ data }) {
             Our <span className="text-green-500 ml-2">Products</span>
           </h2>
           <div className="flex flex-wrap justify-center sm:justify-between">
-            {data.map((product, index) => (
+            {data?.map((product, index) => (
               <div
                 key={index}
                 className="mb-6"
