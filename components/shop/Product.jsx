@@ -34,16 +34,13 @@ export default function Product({ data }) {
         bodyData
       );
 
-      const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-      );
-
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
       await stripe.redirectToCheckout({
         sessionId: response.data.id,
       });
 
       console.log("Selected product:", response.data.id);
-      router.replace(response.data.redirect);
+      //router.replace(response.data.redirect);
       //redirect user
     } catch (error) {
       console.error(error);
