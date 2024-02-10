@@ -40,7 +40,7 @@ export default function Product({ data }) {
       });
 
       console.log("Selected product:", response.data.id);
-      //router.replace(response.data.redirect);
+      router.replace(response.data.redirect);
       //redirect user
     } catch (error) {
       console.error(error);
