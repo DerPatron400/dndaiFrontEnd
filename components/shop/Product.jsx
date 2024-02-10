@@ -17,8 +17,8 @@ export default function Product({ data }) {
     }
     try {
       const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const successUrl = BASE_URL + "/api/payment/status/success";
-      const cancelUrl = BASE_URL + "/api/payment/status/failure";
+      const successUrl = BASE_URL + "/payment-status/success";
+      const cancelUrl = BASE_URL + "/payment-status/failure";
 
       const bodyData = {
         productid: data._id,
@@ -35,7 +35,7 @@ export default function Product({ data }) {
       );
 
       const stripe = await loadStripe(
-        'pk_live_51OEHaIC3pOodH4oaf8j7izh1o6WnLnIrfb7gw2C1MGRpIEvf0gwcs35eGguvDcCuqj0HNKVfNWQ3xviTMCo02Noi00ZzQ3qSm5'
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
       );
 
       await stripe.redirectToCheckout({
