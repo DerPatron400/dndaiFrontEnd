@@ -35,7 +35,7 @@ export default function Product({ data }) {
       );
 
       const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        'pk_live_51OEHaIC3pOodH4oaf8j7izh1o6WnLnIrfb7gw2C1MGRpIEvf0gwcs35eGguvDcCuqj0HNKVfNWQ3xviTMCo02Noi00ZzQ3qSm5'
       );
 
       await stripe.redirectToCheckout({

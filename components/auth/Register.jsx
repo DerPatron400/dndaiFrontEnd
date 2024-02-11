@@ -152,7 +152,7 @@ export default function Register() {
                 type="password"
                 id="password"
                 name="password"
-                placeholder="YourSecurePassword123"
+                placeholder="********"
                 required
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
