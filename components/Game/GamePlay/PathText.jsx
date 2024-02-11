@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text } from "@react-three/drei";
 import Button from "./button";
 import { fadeOnBeforeCompileFlat } from "../../../utils/fadeShader";
 
 export default function PathText({ object, setType, setOpen }) {
-  const isMobile = window.innerWidth < 756;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 756);
+  }, []);
+
   const anchorX = object?.position[0] < 0 ? "right" : "left";
 
   const subTextPos = object?.heading
