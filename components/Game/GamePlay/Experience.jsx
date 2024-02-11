@@ -19,7 +19,7 @@ let speed = 0;
 const maxSpeed = 5;
 const TEXT_GAP = 90;
 const INITIAL_TEXT_GAP = 200;
-const textPositionOnPath = window.innerWidth > 768 ? 0.5 : 0;
+
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
   new THREE.Vector3(0, 0, -CURVE_DISTANCE),
@@ -54,6 +54,7 @@ export default function Experience({
   const dragonModel = useRef();
   const [curvesData, setCurvesData] = useState(initialCurves);
   const [pathObjects, setPathObjects] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   const curve = useMemo(() => {
     return new THREE.CatmullRomCurve3(curvesData, false, "catmullrom", 0.5);
@@ -172,9 +173,11 @@ export default function Experience({
             position: [
               i === 0
                 ? 1
+                : isMobile
+                ? 0
                 : prevObjects[prevObjects.length - 1].position[0] < 0
-                ? textPositionOnPath
-                : -1 * textPositionOnPath,
+                ? 0.5
+                : -0.5,
               -1.7,
               i === 0
                 ? pathObjects.length * -TEXT_GAP - INITIAL_TEXT_GAP
@@ -193,9 +196,11 @@ export default function Experience({
             position: [
               i === 0
                 ? 1
+                : isMobile
+                ? 0
                 : prevObjects[prevObjects.length - 1].position[0] < 0
-                ? textPositionOnPath
-                : -1 * textPositionOnPath,
+                ? 0.5
+                : -0.5,
               -1.7,
               i === 0
                 ? pathObjects.length * -TEXT_GAP - INITIAL_TEXT_GAP
@@ -240,6 +245,7 @@ export default function Experience({
   };
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 756);
     if (!cameraGroup.current) return;
 
     // Use keys to translate
