@@ -19,7 +19,7 @@ const Images = ({ data }) => {
       </div>
       <div className='flex flex-wrap justify-center mb-10'>
         {data.map((image, index) => (
-          <ImageComponent key={index} image={image} />
+          <ImageComponent index={index} image={image} />
         ))}
       </div>
     </div>

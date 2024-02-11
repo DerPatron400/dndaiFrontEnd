@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='en'>
-      {BASE_URL !== "http://localhost:3000" && (
+      {BASE_URL !== "http://localhost:3000" && path === "/" && (
         <Script
           id='CookieDeclaration'
           src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'

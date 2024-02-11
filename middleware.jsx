@@ -9,7 +9,9 @@ export default async function middleware(req) {
   if (
     !token &&
     !url.includes("/login") &&
-    !url.endsWith("/") && url !== baseURL && !url.includes("/register")
+    !url.endsWith("/") &&
+    url !== baseURL &&
+    !url.includes("/register")
   ) {
     console.log("here");
     return NextResponse.redirect(`${baseURL}/`);
@@ -31,6 +33,6 @@ export const config = {
      * - public (public files)
      * - images (image files)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|public|images|models|fonts|Audio|Logo|env|privacy|cookies|faq|imprint|instructions|terms|shop).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|public|images|models|fonts|Audio|Logo|env|privacy|cookies|faq|imprint|instructions|terms|shop|auth).*)",
   ],
 };

@@ -2,9 +2,14 @@ import { Text, RoundedBox } from "@react-three/drei";
 import { fadeOnBeforeCompile } from "@/utils/fadeShader";
 
 const Button = ({ onClick, xPosition }) => {
-  console.log(xPosition)
   return (
-    <group position={[xPosition < 0 ? -1 : 1, -1.4, -0.1]}>
+    <group
+      position={[
+        window.innerWidth < 756 ? 0 : xPosition < 0 ? -1 : 1,
+        -1.4,
+        -0.1,
+      ]}
+    >
       <mesh
         position={[0, 0, -0.3]}
         onPointerOver={() => {

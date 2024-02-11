@@ -1,26 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Cookies from "js-cookie"; // Import js-cookie for client-side cookie handling
+
 import SaveGame from "@/components/Game/savegame/SaveGame";
 
 import { fetchSavedGames } from "@/api/user";
+import useUserStore from "@/utils/store/userStore";
 
 export default function Page() {
   const [savedGames, setSavedGames] = useState([]);
+  const user = useUserStore((state) => state.user);
 
   useEffect(() => {
     const getSavedGames = async () => {
-      const uid = Cookies.get("uid"); // Use js-cookie to get the cookie
-
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/savedGames`, {
-          params: {
-            _id: uid,
-          },
-        });
-
-        setSavedGames(response.data);
+        const data = await fetchSavedGames(user.token);
+        setSavedGames(data);
       } catch (error) {
         console.error("Failed to fetch saved games:", error);
         setSavedGames([]);

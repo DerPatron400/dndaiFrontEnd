@@ -392,17 +392,7 @@ export default function Form() {
     }
 
     try {
-<<<<<<< HEAD
       const data = await newGame(bodyData, user.token);
-=======
-      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const { data } = await axios.post(BACKEND_URL + "/gpt4/chat", bodyData, {
-        params: {
-          _id: user._id
-        },
-      });
-
->>>>>>> 0d6951040b977d8fd2f3a92850a6779741a307e7
       setIntroText(data.responseText);
       setCredits(data.credits);
       router.push("/game/play?conversationIndex=" + data.conversationIndex);

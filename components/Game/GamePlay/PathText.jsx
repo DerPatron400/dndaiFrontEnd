@@ -4,6 +4,7 @@ import Button from "./button";
 import { fadeOnBeforeCompileFlat } from "../../../utils/fadeShader";
 
 export default function PathText({ object, setType, setOpen }) {
+  const isMobile = window.innerWidth < 756;
   const anchorX = object?.position[0] < 0 ? "right" : "left";
 
   const subTextPos = object?.heading
@@ -17,10 +18,10 @@ export default function PathText({ object, setType, setOpen }) {
     <group position={object.position}>
       <Text
         color='white'
-        anchorX={anchorX}
+        anchorX={isMobile ? "center" : anchorX}
         anchorY='center'
         fontSize={0.6}
-        textAlign={anchorX}
+        textAlign={isMobile ? "center" : anchorX}
         position-y={titlePos}
         maxWidth={5}
         font={"/fonts/DMSerifDisplay-Regular.ttf"}
@@ -33,9 +34,9 @@ export default function PathText({ object, setType, setOpen }) {
       </Text>
       <Text
         color='white'
-        anchorX={anchorX}
+        anchorX={isMobile ? "center" : anchorX}
         anchorY='top'
-        textAlign={anchorX}
+        textAlign={isMobile ? "center" : anchorX}
         position-y={subTextPos}
         fontSize={0.3}
         maxWidth={5}
