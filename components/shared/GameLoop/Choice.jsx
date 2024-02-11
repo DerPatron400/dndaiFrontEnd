@@ -5,18 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 const Input = ({ input, setInput }) => {
   const textAreaRef = useRef(null);
-  // useEffect(() => {
-  //   if (textAreaRef.current)
-  //     textAreaRef.current.addEventListener("input", function () {
-  //       if (this.value.length < 20) {
-  //         this.style.height = "1px !important";
-  //         return;
-  //       }
-  //       this.style.height = "auto"; // Reset height
-  //       this.style.height = this.scrollHeight + "px"; // Set new height
-  //       this.style.overflowY = "hidden";
-  //     });
-  // }, [textAreaRef.current]);
+
   return (
     <div className='flex flex-col items-end'>
       <textarea
@@ -92,7 +81,7 @@ const Choice = ({
       setInput("");
       return;
     } else {
-      setInput(path.content);
+      setInput(path.content?.slice(0, 100));
     }
   };
   return (

@@ -17,7 +17,7 @@ export default function Footer() {
             </div>
             {/* Second Column: Shop */}
 
-            <div className='col-span-1  flex md:block flex-col  md:items-center  items-start justify-center z-[40]'>
+            <div className='col-span-2 md:col-span-1  w-auto lg:col-span-1  flex md:block flex-col  md:items-center  items-start justify-center z-[40]'>
               <h3 className='text-md mb-2 font-medium text-green-500'>
                 NAVIGATION
               </h3>
@@ -71,7 +71,7 @@ export default function Footer() {
             </div>
 
             {/* Fourth Column: External Links */}
-            <div className='col-span-1 flex md:block flex-col items-start md:items-center justify-center z-[40]'>
+            <div className='col-span-2 md:col-span-1 lg:col-span-1 flex md:block flex-col items-start md:items-center justify-center z-[40]'>
               <h3 className='text-md mb-2 font-medium text-green-500'>
                 HELP AND SUPPORT
               </h3>
@@ -125,7 +125,7 @@ export default function Footer() {
               </ul>
             </div>
             {/* Third Column: Social Media */}
-            <div className='col-span-1 flex md:block flex-col items-start md:items-center justify-center z-[40] '>
+            <div className='col-span-2 md:col-span-1 lg:col-span-1 flex md:block flex-col items-start md:items-center justify-center z-[40] '>
               <h3 className='text-md mb-2 font-medium text-green-500'>
                 Languages
               </h3>

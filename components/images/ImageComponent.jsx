@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import { MdFullscreen, MdClose } from "react-icons/md";
-const ImageComponent = ({ image, key }) => {
-  // State
+const ImageComponent = ({ image, index }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -26,8 +25,8 @@ const ImageComponent = ({ image, key }) => {
 
   return (
     <div
-      key={key}
-      className='relative rounded-lg overflow-hidden p-4 '
+      key={index}
+      className='relative min-h-[60vh] rounded-lg overflow-hidden p-4 '
       data-aos='fade-left'
     >
       <img

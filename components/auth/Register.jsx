@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaHome } from "react-icons/fa";
-import axios from "axios";
+import { Home } from "lucide-react";
 import toast from "react-hot-toast";
 import Cookie from "universal-cookie";
 import useUserStore from "@/utils/store/userStore";
+import { register } from "@/api/auth";
+import SocialAuths from "./SocialAuths";
 
 const initialState = {
   email: "",
@@ -19,41 +20,82 @@ export default function Register() {
   const cookies = new Cookie();
   const setUserStore = useUserStore((state) => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
+  const [valid, setValid] = useState({
+    username: true / false,
+    password: true / false,
+    email: true / false,
+  });
 
-  const handleSigninClick = () => {
-    router.push("/signup");
+  const handleSigninRedirect = () => {
+    router.push("/auth/login");
   };
 
   const handleHomeClick = () => {
     router.push("/");
   };
 
+  const isValidEmailValid = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return emailPattern.test(email);
+  };
+  const isValidPassword = (password) => {
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return passwordPattern.test(password);
+  };
+
   const isValid = () => {
     if (
-      user.email.trim().length === 0 ||
-      user.username.trim().length === 0 ||
-      user.password.trim().length === 0
+      user.username.length === 0 ||
+      user.username.length > 25 ||
+      user.username.length < 3
     ) {
-      return false;
+      setValid({ ...valid, username: false });
+    } else {
+      setValid({ ...valid, username: true });
     }
-    return true;
+    if (!isValidEmailValid(user.email)) {
+      setValid((prev) => {
+        return { ...prev, email: false };
+      });
+    } else {
+      setValid((prev) => {
+        return { ...prev, email: true };
+      });
+    }
+    if (!isValidPassword(user.password)) {
+      setValid((prev) => {
+        return { ...prev, password: false };
+      });
+    } else {
+      setValid((prev) => {
+        return { ...prev, password: true };
+      });
+    }
+
+    return valid.username && valid.email && valid.password;
   };
-  const handleSignup = async () => {
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
     if (!isValid()) {
-      console.log("here now");
-      toast.error("Please fill all the fields");
+      toast.error("Please fill all the fields with valid data");
       return;
     }
     setIsLoading(true);
 
     try {
-      const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const { data } = await axios.post(baseURL + "/api/auth/signup", user);
-      console.log(data);
-      setUserStore(data);
-      cookies.set("uid", data._id, { path: "/" });
-      toast.success("Signup Successful");
-      router.push("/");
+      const data = await register({
+        email: user.email,
+        username: user.username,
+        password: user.password,
+      });
+
+      toast.success(
+        "An Email has been sent to your email address for verification. Please verify your email to continue."
+      );
+      handleSigninRedirect();
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
@@ -75,13 +117,13 @@ export default function Register() {
         <div className='w-96'>
           <div className='flex flex-col justify-center items-center'>
             <h2 className='text-3xl font-bold mb-2'>Sign Up</h2>
-            <p className='text-white text-sm mb-6 text-center'>
+            <p className='text-white text-sm mb-5 text-center'>
               Create a new account to get started
             </p>
           </div>
-          <form id='registerForm' className='space-y-6'>
+          <form id='registerForm' className='space-y-2' onSubmit={handleSignup}>
             <div>
-              <label htmlFor='email' className='mb-2 block text-md text-white'>
+              <label htmlFor='email' className='mb-1 block text-md text-white'>
                 Enter your email
               </label>
               <input
@@ -94,11 +136,16 @@ export default function Register() {
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                 className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
+              {!valid.email && (
+                <p className='text-red-500 text-xs mt-1'>
+                  Please enter a valid email
+                </p>
+              )}
             </div>
             <div>
               <label
                 htmlFor='username'
-                className='mb-2 block text-md text-white'
+                className='mb-1 block text-md text-white'
               >
                 Choose a username
               </label>
@@ -112,11 +159,16 @@ export default function Register() {
                 onChange={(e) => setUser({ ...user, username: e.target.value })}
                 className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
+              {!valid.username && (
+                <p className='text-red-500 text-xs mt-1'>
+                  Please enter a valid username
+                </p>
+              )}
             </div>
             <div>
               <label
                 htmlFor='password'
-                className='mb-2 block text-md text-white'
+                className='mb-1 block text-md text-white'
               >
                 Enter your password
               </label>
@@ -124,37 +176,49 @@ export default function Register() {
                 type='password'
                 id='password'
                 name='password'
-                placeholder='YourSecurePassword123'
+                placeholder='********'
                 required
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
+              {!valid.password && (
+                <p className='text-red-500 text-xs mt-1'>
+                  Atleast 8 characters including uppercase, lowercase and digit
+                </p>
+              )}
             </div>
             <button
               disabled={isLoading}
-              type='button'
-              onClick={handleSignup}
-              className='w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none transition-colors duration-300'
+              type='submit'
+              // onClick={handleSignup}
+              className='w-full  bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400  focus:outline-none transition-colors duration-300'
             >
-              {isLoading ? "Loading..." : "Sign up"}
+              {isLoading ? "Loading..." : "Register"}
             </button>
-            <p className='text-sm mt-4'>
-              If you already have an account, please{" "}
-              <span
-                className='w-full  disabled:opacity-60 disabled:cursor-not-allowed  bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400  focus:outline-none transition-colors duration-300'
-                onClick={handleSigninClick}
-              >
-                Sign in
-              </span>
-            </p>
+            <div className='justify-center flex w-full opacity-60 text-lg'>
+              Or
+            </div>
+
+            <SocialAuths isSignup />
           </form>
           <button
             onClick={handleHomeClick}
             className='absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300'
           >
-            <FaHome size={24} />
+            <Home />
           </button>
+          <div className=' w-full absolute bottom-5 right-0 flex items-center justify-center'>
+            <p className='text-sm '>
+              If you already have an account, please{" "}
+              <span
+                className=' text-green-300 cursor-pointer transition-colors duration-300'
+                onClick={handleSigninRedirect}
+              >
+                Login
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

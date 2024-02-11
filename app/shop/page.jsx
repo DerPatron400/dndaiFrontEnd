@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import Shop from "@/components/shop/Shop";
 import axios from "axios";

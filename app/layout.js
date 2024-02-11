@@ -19,6 +19,7 @@ const Navbar = dynamic(() => import("@/components/shared/navigation/Navbar"), {
 
 export default function RootLayout({ children }) {
   const path = usePathname();
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   const hideNavs = path.includes("/login") || path.includes("/register");
 
@@ -26,12 +27,14 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='en'>
-      <Script
-        id='CookieDeclaration'
-        src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
-        type='text/javascript'
-        async
-      ></Script>
+      {BASE_URL !== "http://localhost:3000" && path === "/" && (
+        <Script
+          id='CookieDeclaration'
+          src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
+          type='text/javascript'
+          async
+        ></Script>
+      )}
 
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>

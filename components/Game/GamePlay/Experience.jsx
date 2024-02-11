@@ -19,7 +19,7 @@ let speed = 0;
 const maxSpeed = 10;
 const TEXT_GAP = 90;
 const INITIAL_TEXT_GAP = 200;
-
+const textPositionOnPath = window.innerWidth > 768 ? 0.5 : 0;
 const initialCurves = [
   new THREE.Vector3(0, 0, 0),
   new THREE.Vector3(0, 0, -CURVE_DISTANCE),
@@ -173,8 +173,8 @@ export default function Experience({
               i === 0
                 ? 1
                 : prevObjects[prevObjects.length - 1].position[0] < 0
-                ? 0.5
-                : -0.5,
+                ? textPositionOnPath
+                : -1 * textPositionOnPath,
               -1.7,
               i === 0
                 ? pathObjects.length * -TEXT_GAP - INITIAL_TEXT_GAP
@@ -194,8 +194,8 @@ export default function Experience({
               i === 0
                 ? 1
                 : prevObjects[prevObjects.length - 1].position[0] < 0
-                ? 0.5
-                : -0.5,
+                ? textPositionOnPath
+                : -1 * textPositionOnPath,
               -1.7,
               i === 0
                 ? pathObjects.length * -TEXT_GAP - INITIAL_TEXT_GAP

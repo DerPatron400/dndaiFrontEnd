@@ -42,7 +42,6 @@ export default function Product({ data }) {
         sessionId: response.data.id,
       });
 
-      console.log("Selected product:", response.data.id);
       router.replace(response.data.redirect);
       //redirect user
     } catch (error) {

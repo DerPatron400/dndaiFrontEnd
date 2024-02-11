@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaHome } from "react-icons/fa";
+import { Home } from "lucide-react";
 import Cookie from "universal-cookie";
 import useUserStore from "@/utils/store/userStore";
 import toast from "react-hot-toast";
-import axios from "axios";
+import Link from "next/link";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { login } from "@/api/auth";
+import SocialAuths from "./SocialAuths";
 
 export default function Login() {
   const cookies = new Cookie();
@@ -14,7 +15,7 @@ export default function Login() {
   const setUser = useUserStore((state) => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignupClick = () => {
+  const handleSignupRedirect = () => {
     router.push("/auth/register");
   };
 
@@ -27,22 +28,19 @@ export default function Login() {
     const password = formData.password.value;
     try {
       setIsLoading(true);
-      const response = await axios.post(BACKEND_URL + "/api/auth/login", {
-        username,
-        password,
-      });
-
-      console.log(response);
-      const data = response.data;
+      const data = await login(username, password);
+      console.log(data);
 
       setUser(data);
       cookies.set("uid", data._id, { path: "/" });
+      cookies.set("token", data.token, { path: "/" });
+
       toast.success("Login Successful");
       router.push("/");
 
       // Handle errors, such as displaying a message to the user
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "Some error occurred");
       console.log("An error occurred:", error.status);
       // Handle network errors, such as displaying a message to the user
     } finally {
@@ -55,7 +53,12 @@ export default function Login() {
   };
 
   return (
-    <div className='flex h-screen w-screen relative'>
+    <div
+      style={{
+        fontFamily: "Poppins, sans-serif !important",
+      }}
+      className='flex h-screen w-screen relative'
+    >
       <div className='w-1/2 h-full hidden md:block relative'>
         <img
           src='/images/auth.png'
@@ -65,34 +68,34 @@ export default function Login() {
         <div className='absolute top-0 left-0 w-full h-full bg-black opacity-30'></div>
       </div>
       <div className='md:w-1/2 w-[100vw] flex items-center justify-center p-8 text-white bg-black'>
-        <div className='w-96'>
+        <div className='w-96 '>
           <div className='flex flex-col justify-center items-center'>
             <h2 className='text-3xl font-bold mb-2'>Login</h2>
-            <p className='text-white text-sm mb-6 flex justify-center items-center'>
+            <p className='text-white text-sm mb-5 flex justify-center items-center'>
               Log in to your account to continue
             </p>
           </div>
-          <form id='loginForm' className='space-y-6' onSubmit={submitForm}>
-            <div className='mb-4'>
+          <form id='loginForm' className='space-y-2 ' onSubmit={submitForm}>
+            <div>
               <label
                 htmlFor='username'
-                className='mb-2 block text-md text-white'
+                className='mb-1 block text-md text-white'
               >
-                Enter your username
+                Enter your Email or Username
               </label>
               <input
                 type='text'
                 id='username'
                 name='username'
-                placeholder='john_doe123'
+                placeholder='john_doe123@gmail.com'
                 required
                 className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
             </div>
-            <div className='mb-4'>
+            <div>
               <label
                 htmlFor='password'
-                className='mb-2 block text-md text-white'
+                className='mb-1 block text-md text-white'
               >
                 Enter your password
               </label>
@@ -100,10 +103,15 @@ export default function Login() {
                 type='password'
                 id='password'
                 name='password'
-                placeholder='YourSecurePassword123'
+                placeholder='********'
                 required
                 className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
+            </div>
+            <div className=' flex justify-end'>
+              <Link href={"/auth/request-reset"} className='text-sm'>
+                Forgot Password?
+              </Link>
             </div>
             <button
               type='submit'
@@ -112,22 +120,30 @@ export default function Login() {
             >
               {isLoading ? "Logging In" : "Login"}
             </button>
-            <p className='text-sm mt-4'>
-              No account yet?{" "}
-              <span
-                className='text-white hover:text-green-300 cursor-pointer transition-colors duration-300'
-                onClick={handleSignupClick}
-              >
-                Sign Up
-              </span>
-            </p>
+
+            <div className='justify-center flex w-full opacity-60 text-lg'>
+              Or
+            </div>
+
+            <SocialAuths />
           </form>
           <button
             onClick={handleHomeClick}
             className='absolute top-4 right-4 text-white hover:text-green-500 transition-colors duration-300'
           >
-            <FaHome size={24} />
+            <Home />
           </button>
+          <div className=' w-full md:w-1/2 absolute bottom-16 right-0 flex items-center justify-center'>
+            <p className='text-sm '>
+              No account yet?{" "}
+              <span
+                className=' text-green-300 cursor-pointer transition-colors duration-300'
+                onClick={handleSignupRedirect}
+              >
+                Register
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

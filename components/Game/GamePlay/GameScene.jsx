@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { Tooltip } from "@radix-ui/themes";
 import HowToPlay from "./HowToPlay";
 import Loader from "../StartGame/Loader";
+import { saveGame } from "@/api/game";
 
 export default function AtmosScene() {
   const searchParams = useSearchParams();
@@ -42,22 +43,12 @@ export default function AtmosScene() {
         return;
       }
 
-      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const bodyData = {
         conversationIndex,
       };
 
       setIsLoading(true);
-      const { data } = await axios.post(
-        BACKEND_URL + "/api/savedGames/save-game",
-        bodyData,
-        {
-          params: {
-            _id: user._id,
-          },
-        }
-      );
-
+      const data = await saveGame(bodyData, user.token);
       setCredits(data.credits);
       toast.success("Game saved successfully!");
     } catch (error) {

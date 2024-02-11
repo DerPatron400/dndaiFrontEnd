@@ -9,6 +9,7 @@ import useUserStore from "@/utils/store/userStore";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/shared/DragonLoader";
+import { newGame } from "@/api/game";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,10 +47,10 @@ const DropDown = ({
           >
             {data.placeholder}
           </option>
-          {data.options.map((option) => (
+          {data.options.map((option, index) => (
             <option
               className='cursor-pointer bg-black'
-              key={option}
+              key={index}
               value={option}
               disabled={Object.values(formdata).includes(option)}
             >
@@ -197,62 +198,61 @@ const getRandomName = () => {
     "Fedra",
     "Bulkensar",
     "Comia",
-    "Tyul"
-        ];
+    "Tyul",
+  ];
 
   const suffixes = [
-        "Mintz",
-        "Ashbluff",
-        "Marblemaw",
-        "Bozzelli",
-        "Fellowes",
-        "Windward",
-        "Yarrow",
-        "Yearwood",
-        "Wixx",
-        "Humblecut",
-        "Dustfinger",
-        "Biddercombe",
-        "Kicklighter",
-        "Vespertine",
-        "October",
-        "Gannon",
-        "Truthbelly",
-        "Woodgrip",
-        "Gorestriker",
-        "Caskcut",
-        "Oatrun",
-        "Sagespark",
-        "Strongblossom",
-        "Hydrafist",
-        "Snakeleaf",
-        "Barlowe",
-        "Caddel",
-        "Hart",
-        "Katz",
-        "Laurier",
-        "Madden",
-        "Elrod",
-        "Whitlock",
-        "Ashford",
-        "Amos",
-        "Fleet",
-        "Moses",
-        "Singh",
-        "Remington",
-        "Sharpe",
-        "Beam",
-        "Spade",
-        "Driscoll",
-        "Undergrove",
-        "Finch",
-        "Crawford",
-        "Finch",
-        "Cyprus",
-        "Dagon",
-        "Lightfoot"
-        ];
-
+    "Mintz",
+    "Ashbluff",
+    "Marblemaw",
+    "Bozzelli",
+    "Fellowes",
+    "Windward",
+    "Yarrow",
+    "Yearwood",
+    "Wixx",
+    "Humblecut",
+    "Dustfinger",
+    "Biddercombe",
+    "Kicklighter",
+    "Vespertine",
+    "October",
+    "Gannon",
+    "Truthbelly",
+    "Woodgrip",
+    "Gorestriker",
+    "Caskcut",
+    "Oatrun",
+    "Sagespark",
+    "Strongblossom",
+    "Hydrafist",
+    "Snakeleaf",
+    "Barlowe",
+    "Caddel",
+    "Hart",
+    "Katz",
+    "Laurier",
+    "Madden",
+    "Elrod",
+    "Whitlock",
+    "Ashford",
+    "Amos",
+    "Fleet",
+    "Moses",
+    "Singh",
+    "Remington",
+    "Sharpe",
+    "Beam",
+    "Spade",
+    "Driscoll",
+    "Undergrove",
+    "Finch",
+    "Crawford",
+    "Finch",
+    "Cyprus",
+    "Dagon",
+    "Lightfoot",
+  ];
 
   const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
   const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
@@ -331,7 +331,6 @@ export default function Form() {
     // Generate random values and update the form data
     let optionsToChoose = ["15", "14", "13", "12", "10", "8"];
 
-    console.log(formData);
     setFormData({
       name: formData.name || getRandomName(),
       class: getRandomDropdownOption(dropdowns[0].options),
@@ -393,13 +392,7 @@ export default function Form() {
     }
 
     try {
-      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const { data } = await axios.post(BACKEND_URL + "/gpt4/chat", bodyData, {
-        params: {
-          _id: user._id
-        },
-      });
-
+      const data = await newGame(bodyData, user.token);
       setIntroText(data.responseText);
       setCredits(data.credits);
       router.push("/game/play?conversationIndex=" + data.conversationIndex);
