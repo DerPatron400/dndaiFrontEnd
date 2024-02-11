@@ -15,7 +15,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignupClick = () => {
-    router.push("/register");
+    router.push("/auth/register");
   };
 
   const submitForm = async (e) => {

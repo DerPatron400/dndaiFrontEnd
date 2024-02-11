@@ -42,16 +42,25 @@ const Selection = ({ selection, setSelection }) => {
         placeholder='Pick a Style'
       />
       <Select.Content className='z-[50] !bg-black !text-white h-full overflow-scroll '>
-        <Select.Item value='Art Nouveau'>Art Nouveau</Select.Item>
+        <Select.Item value='Airbrush Art'>Airbrush Art</Select.Item>
         <Select.Item value='Anime'>Anime</Select.Item>
+        <Select.Item value='Chalk drawing'>Cartoon</Select.Item>
+        <Select.Item value='Chalk drawing'>Chalk drawing</Select.Item>
+        <Select.Item value='Crayon drawing'>Charcoal drawing</Select.Item>
+        <Select.Item value='Crayon drawing'>Crayon drawing</Select.Item>
+        <Select.Item value='Art Nouveau'>Art Nouveau</Select.Item>
+        <Select.Item value='80s miami colours'>GTA</Select.Item>
+        <Select.Item value='Graffiti'>Graffiti</Select.Item>
+        <Select.Item value='Pop Art'>Pop Art</Select.Item>
+        <Select.Item value='Photorealism'>Photorealism</Select.Item>
         <Select.Item value='Pixel Art'>Pixel Art</Select.Item>
         <Select.Item value='Line Art'>Line Art</Select.Item>
+        <Select.Item value='Ink drawing'>Ink drawing</Select.Item>
         <Select.Item value='Steam Punk'>Steam Punk</Select.Item>
         <Select.Item value='Blender Render'>Blender Render</Select.Item>
         <Select.Item value='Low-Poly Art'>Low-Poly Art</Select.Item>
         <Select.Item value='Psychedelic Art'>Psychedelic Art</Select.Item>
         <Select.Item value='Neon Art'>Neon Art</Select.Item>
-        <Select.Item value='Airbrush Art'>Airbrush Art</Select.Item>
         <Select.Item value='Origami'>Origami</Select.Item>
         <Select.Item value='Wood carving'>Wood carving</Select.Item>
         <Select.Item value='Oil Painting'>Oil Painting</Select.Item>

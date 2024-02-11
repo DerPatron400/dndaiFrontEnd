@@ -16,7 +16,7 @@ let anim = 0;
 let directionFactor = 0.1;
 
 let speed = 0;
-const maxSpeed = 5;
+const maxSpeed = 10;
 const TEXT_GAP = 90;
 const INITIAL_TEXT_GAP = 200;
 
@@ -104,7 +104,7 @@ export default function Experience({
         )
       );
 
-      speed += delta * (isForwardPressed ? -1.5 : 1.5);
+      speed += delta * (isForwardPressed ? -1.5 : 4);
       speed = speed > maxSpeed ? maxSpeed : speed;
       speed = speed < maxSpeed * -1 ? maxSpeed * -1 : speed;
 
@@ -244,19 +244,19 @@ export default function Experience({
 
     // Use keys to translate
     const handleKeyDown = (e) => {
-      if (e.key === "ArrowUp") {
+      if (e.key === "ArrowUp" || e.key === "w" ) {
         setIsForwardPressed(true);
       }
-      if (e.key === "ArrowDown") {
+      if (e.key === "ArrowDown" || e.key === "s") {
         setIsBackwardPressed(true);
       }
     };
 
     const handleKeyUp = (e) => {
-      if (e.key === "ArrowUp") {
+      if (e.key === "ArrowUp" || e.key === "w") {
         setIsForwardPressed(false);
       }
-      if (e.key === "ArrowDown") {
+      if (e.key === "ArrowDown" || e.key === "s") {
         setIsBackwardPressed(false);
       }
     };
