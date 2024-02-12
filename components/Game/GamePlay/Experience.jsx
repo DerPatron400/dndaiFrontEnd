@@ -258,13 +258,19 @@ export default function Experience({
     setIsMobile(window.innerWidth < 756);
   
     const handleTouchStart = (event) => {
+      // Check if the touch is on an interactive element
+      if (event.target.matches('button, input, textarea, [role="button"], a')) {
+        // Allow default behavior for interactive elements
+        return;
+      }
+    
+      event.preventDefault();
       const touchY = event.touches[0].clientY;
       const screenHeight = window.innerHeight;
-  
+    
       if (isMobile) {
-        // Adjust the threshold as needed
-        const threshold = 0.3;
-  
+        const threshold = 0.69;
+    
         if (touchY / screenHeight < threshold) {
           setIsBackwardPressed(false);
           setIsForwardPressed(true);
