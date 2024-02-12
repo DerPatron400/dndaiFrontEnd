@@ -101,37 +101,9 @@ export default function AtmosScene() {
         paths={paths}
       />
 
-      <div className='fixed bottom-20 left-0 w-screen h-[10vh] flex-col gap-y-2 items-start px-4 flex md:hidden'>
-        <button
-          tabIndex={0}
-          onTouchStart={() => {
-            setIsForwardPressed(true);
-            setIsBackwardPressed(false);
-          }}
-          onTouchEnd={() => {
-            setIsForwardPressed(false);
-            setIsBackwardPressed(false);
-          }}
-          className='bg-white text-black px-4 py-2 rounded-md'
-        >
-          <FaChevronUp size={20} />
-        </button>
-        <button
-          onTouchStart={() => {
-            setIsForwardPressed(false);
-            setIsBackwardPressed(true);
-          }}
-          onTouchEnd={() => {
-            setIsForwardPressed(false);
-            setIsBackwardPressed(false);
-          }}
-          className='bg-white text-black px-4 py-2 rounded-md'
-        >
-          <FaChevronDown size={20} />
-        </button>
-      </div>
+      
       <HowToPlay />
-      <div className='fixed bottom-[11%] right-4 flex flex-col gap-y-2'>
+      <div className='fixed bottom-[3%] right-4 flex flex-col gap-y-2'>
         <Tooltip content='Spend one credits to save your game' side='left'>
           <button
             onClick={handleSaveGame}

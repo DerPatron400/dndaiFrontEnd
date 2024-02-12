@@ -48,8 +48,8 @@ const HowToPlay = () => {
             Use Up And Down Arrow Key to move
           </span>
           <span className='md:hidden text-white text-sm  w-[80vw]'>
-            Use Buttons at bottom left to move dragon forward or backwards
-          </span>
+          Touch Top or bottom of the screen to move.
+                    </span>
         </div>
       )}
     </>
