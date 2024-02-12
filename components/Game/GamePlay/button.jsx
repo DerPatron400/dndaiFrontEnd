@@ -10,7 +10,7 @@ const Button = ({ onClick, xPosition }) => {
   }, []);
 
   return (
-    <group position={[isMobile ? 0 : xPosition < 0 ? -1 : 1, -1.4, -0.1]}>
+    <group position={[isMobile ? 0 : xPosition < 0 ? -1 : 1, -0, -0.1]}>
       <mesh
         position={[0, 0, -0.3]}
         onPointerOver={() => {

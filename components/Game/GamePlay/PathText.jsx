@@ -26,8 +26,8 @@ export default function PathText({ object, setType, setOpen }) {
         anchorX={isMobile ? "center" : anchorX}
         anchorY='center'
         fontSize={0.6}
-        textAlign={isMobile ? "center" : anchorX}
-        position-y={titlePos}
+        //textAlign={isMobile ? "center" : anchorX}
+        position-y={titlePos+1}
         maxWidth={5}
         font={"/fonts/DMSerifDisplay-Regular.ttf"}
       >
@@ -42,7 +42,7 @@ export default function PathText({ object, setType, setOpen }) {
         anchorX={isMobile ? "center" : anchorX}
         anchorY='top'
         textAlign={isMobile ? "center" : anchorX}
-        position-y={subTextPos}
+        position-y={subTextPos+1}
         fontSize={0.3}
         maxWidth={5}
         font={"/fonts/Inter-Regular.ttf"}
