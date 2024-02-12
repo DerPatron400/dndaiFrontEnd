@@ -258,6 +258,17 @@ export default function Experience({
     setIsMobile(window.innerWidth < 756);
     if (!cameraGroup.current) return;
 
+    const handleTouchStart = (event) => {
+      // Check if the target element is a button or any other element you want to allow clicks on
+      const isButtonOrClickable = event.target.tagName === 'BUTTON' || event.target.classList.contains('clickable-element');
+    
+      // If it's not a button or a clickable element, prevent the default behavior
+      if (!isButtonOrClickable) {
+        event.preventDefault();
+      }
+    };
+    
+
     // Use keys to translate
     const handleKeyDown = (e) => {
       if (e.key === "ArrowUp" || e.key === "w" ) {
@@ -283,11 +294,13 @@ export default function Experience({
     };
 
     // Add event listeners here
+    document.addEventListener("touchstart", handleTouchStart, { passive: false });
     document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("visibilitychange", handleSwitch);
 
     return () => {
+      document.addEventListener("touchstart", handleTouchStart, { passive: false });
       document.removeEventListener("keyup", handleKeyUp);
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("visibilitychange", handleSwitch);
