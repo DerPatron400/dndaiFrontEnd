@@ -33,9 +33,9 @@ const Selection = ({ selection, setSelection }) => {
       <Select.Content className='z-[50] !bg-black !text-white h-full overflow-scroll '>
         <Select.Item value='Airbrush Art'>Airbrush Art</Select.Item>
         <Select.Item value='Anime'>Anime</Select.Item>
-        <Select.Item value='Chalk drawing'>Cartoon</Select.Item>
+        <Select.Item value='Cartoon'>Cartoon</Select.Item>
         <Select.Item value='Chalk drawing'>Chalk drawing</Select.Item>
-        <Select.Item value='Crayon drawing'>Charcoal drawing</Select.Item>
+        <Select.Item value='Charcoal drawing'>Charcoal drawing</Select.Item>
         <Select.Item value='Crayon drawing'>Crayon drawing</Select.Item>
         <Select.Item value='Art Nouveau'>Art Nouveau</Select.Item>
         <Select.Item value='80s miami colours'>GTA</Select.Item>
