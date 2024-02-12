@@ -16,7 +16,11 @@ let anim = 0;
 let directionFactor = 0.1;
 
 let speed = 0;
-const maxSpeed = 10;
+const maxSpeed = 30;
+const maxBackwardSpeed = -10; // Slower max speed for backward movement
+const acceleration = 6; // Acceleration rate when moving forward
+const backwardAcceleration = 4; // Acceleration rate when moving backward
+const deceleration = 9; // Deceleration rate when stopping
 const TEXT_GAP = 90;
 const INITIAL_TEXT_GAP = 200;
 
@@ -69,56 +73,62 @@ export default function Experience({
 
   useFrame((_state, delta) => {
     if (!isForwardPressed && !isBackwardPressed) {
-      if (speed > 0) {
-        speed -= delta;
-      } else if (speed < 0) {
-        speed += delta;
-      }
+        if (speed > 0) {
+            speed -= deceleration * delta;
+        } else if (speed < 0) {
+            speed += deceleration * delta;
+        }
 
-      if (Math.abs(speed) < 0.01) {
-        speed = 0;
-      }
+        if (Math.abs(speed) < 0.01) {
+            speed = 0;
+        }
     }
 
     if (isForwardPressed && (open || pathObjects.length === 0)) return;
 
     if (isForwardPressed || isBackwardPressed) {
-      if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
-      switchBackground();
-      const curPointIndex = Math.min(
-        Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
-        curvesData.length - 1
-      );
-      const curPoint = curvesData[curPointIndex];
-      const nextPoint = curvesData[curPointIndex + 1];
+        if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
+        switchBackground();
+        const curPointIndex = Math.min(
+            Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
+            curvesData.length - 1
+        );
+        const curPoint = curvesData[curPointIndex];
+        const nextPoint = curvesData[curPointIndex + 1];
 
-      const xDisplacement = (nextPoint.x - curPoint.x) * 40;
-      const angleRotation =
-        (xDisplacement < 0 ? 1 : -1) *
-        Math.min(Math.abs(xDisplacement), Math.PI / 3);
+        const xDisplacement = (nextPoint.x - curPoint.x) * 40;
+        const angleRotation =
+            (xDisplacement < 0 ? 1 : -1) *
+            Math.min(Math.abs(xDisplacement), Math.PI / 3);
 
-      const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(
-          dragonModel.current.rotation.x,
-          dragonModel.current.rotation.y,
-          angleRotation * 0.15
-        )
-      );
+        const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
+            new THREE.Euler(
+                dragonModel.current.rotation.x,
+                dragonModel.current.rotation.y,
+                angleRotation * 0.15
+            )
+        );
 
-      speed += delta * (isForwardPressed ? -1.5 : 4);
-      speed = speed > maxSpeed ? maxSpeed : speed;
-      speed = speed < maxSpeed * -1 ? maxSpeed * -1 : speed;
+        if (isForwardPressed) {
+            speed -= acceleration * delta;
+        } else if (isBackwardPressed) {
+            speed += backwardAcceleration * delta;
+        }
 
-      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
+        // Clamp speed to maxSpeed and maxBackwardSpeed
+        speed = Math.max(Math.min(speed, maxSpeed), maxBackwardSpeed);
+
+        dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
     }
+
     cameraGroup.current.position.z = THREE.MathUtils.lerp(
-      cameraGroup.current.position.z,
-      cameraGroup.current.position.z + speed,
-      0.1
+        cameraGroup.current.position.z,
+        cameraGroup.current.position.z + speed,
+        0.1
     );
 
     handleText();
-  });
+});
 
   useEffect(() => {
     if (type === "image") {
