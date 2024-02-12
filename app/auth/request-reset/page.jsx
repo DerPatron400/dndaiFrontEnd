@@ -26,7 +26,7 @@ const PasswordResetPage = () => {
     }
     try {
       setIsLoading(true);
-      const redirectURL = "https://dndai.app/api/auth/password-reset";
+      const redirectURL = "https://dndai.app/auth/password-reset";
       // Send the reset link
       await requestPasswordReset(email, redirectURL);
       toast.success("Reset link sent successfully");
