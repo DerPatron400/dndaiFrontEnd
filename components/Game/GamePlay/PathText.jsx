@@ -26,10 +26,11 @@ export default function PathText({ object, setType, setOpen }) {
         anchorX={isMobile ? "center" : anchorX}
         anchorY='center'
         fontSize={0.6}
-        //textAlign={isMobile ? "center" : anchorX}
+        textAlign={isMobile ? "center" : anchorX}
         position-y={titlePos+1}
         maxWidth={5}
         font={"/fonts/DMSerifDisplay-Regular.ttf"}
+        letterSpacing={-0.03} // 3%
       >
         {object.heading?.trim()}
         <meshStandardMaterial
