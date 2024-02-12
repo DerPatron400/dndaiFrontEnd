@@ -12,7 +12,7 @@ function Cookies() {
     <div className='w-screen h-full flex flex-col justify-center items-center bg-black'>
       <div className='relative w-full h-[35vh]'>
         <img
-          src='/cookie.jpeg'
+          src='/cookie.png'
           alt='image here'
           className='w-full h-full object-cover'
         />
