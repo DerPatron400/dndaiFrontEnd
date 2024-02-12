@@ -296,12 +296,18 @@ export default function Experience({
       event.preventDefault();
     };
 
+    const handleSelectStart = (event) => {
+      // Prevent text selection behavior
+      event.preventDefault();
+    };
+
     // Add event listeners here
     document.addEventListener("touchstart", handleTouchStart, { passive: false });
     document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("visibilitychange", handleSwitch);
     document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("selectstart", handleSelectStart);
 
     return () => {
       document.addEventListener("touchstart", handleTouchStart, { passive: false });
@@ -309,6 +315,8 @@ export default function Experience({
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("visibilitychange", handleSwitch);
       document.removeEventListener("contextmenu", handleContextMenu);
+      document.addEventListener("selectstart", handleSelectStart);
+
     };
   }, []);
 
