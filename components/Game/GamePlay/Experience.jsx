@@ -258,19 +258,13 @@ export default function Experience({
     setIsMobile(window.innerWidth < 756);
   
     const handleTouchStart = (event) => {
-      // Check if the touch is on an interactive element
-      if (event.target.matches('button, input, textarea, [role="button"], a')) {
-        // Allow default behavior for interactive elements
-        return;
-      }
-    
-      event.preventDefault();
       const touchY = event.touches[0].clientY;
       const screenHeight = window.innerHeight;
-    
+  
       if (isMobile) {
-        const threshold = 0.69;
-    
+        const threshold = 0.69; // Adjust this threshold based on your needs
+  
+        // Determine if the touch is in the upper or lower part of the screen
         if (touchY / screenHeight < threshold) {
           setIsBackwardPressed(false);
           setIsForwardPressed(true);
@@ -304,26 +298,21 @@ export default function Experience({
       }
     };
   
-    const handleSwitch = (e) => {
-      setIsForwardPressed(false);
-      setIsBackwardPressed(false);
-    };
-  
+    // Preventing context menu globally
     const handleContextMenu = (event) => {
       event.preventDefault();
     };
   
+    // Preventing text selection globally
     const handleSelectStart = (event) => {
-      // Prevent text selection behavior
       event.preventDefault();
     };
   
-    // Add event listeners here
+    // Add event listeners
     document.addEventListener("touchstart", handleTouchStart, { passive: false });
     document.addEventListener("touchend", handleTouchEnd);
-    document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("visibilitychange", handleSwitch);
+    document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("selectstart", handleSelectStart);
   
@@ -331,13 +320,12 @@ export default function Experience({
     return () => {
       document.removeEventListener("touchstart", handleTouchStart);
       document.removeEventListener("touchend", handleTouchEnd);
-      document.removeEventListener("keyup", handleKeyUp);
       document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("visibilitychange", handleSwitch);
+      document.removeEventListener("keyup", handleKeyUp);
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("selectstart", handleSelectStart);
     };
-  }, [isMobile]);
+  }, [isMobile]); 
 
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
