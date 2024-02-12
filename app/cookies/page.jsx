@@ -2,11 +2,17 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { usePathname } from "next/navigation";
+import Script from 'next/script'; // Import Script from Next.js
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 function Cookies() {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const path = usePathname();
 
   return (
     <div className='w-screen h-full flex flex-col justify-center items-center bg-black'>
@@ -28,20 +34,14 @@ function Cookies() {
           <section>
             <h3 className='text-xl mb-2 font-medium'>Cookies Policy</h3>
             <hr className='border border-green-500  w-1/3 mb-2' />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              eget consectetur libero. Integer convallis, lacus vel interdum
-              lobortis, massa enim ullamcorper eros, eget ultrices ex tortor eu
-              odio. Nulla at quam risus. Sed euismod, magna nec suscipit
-              pellentesque, dolor lorem consectetur odio, vel ultricies turpis
-              sapien sit amet lacus. In dapibus nisi at sem pulvinar suscipit.
-              Morbi nec tellus sem. Phasellus sollicitudin, mauris non vehicula
-              efficitur, tortor magna facilisis libero, sit amet fermentum elit
-              sapien nec ipsum. Cras eget commodo massa. Sed ut ex bibendum,
-              tristique nisi et, vehicula urna. Quisque fringilla turpis velit,
-              ut pharetra nulla iaculis sit amet. Nulla facilisi. Morbi a ante
-              vel eros tempor aliquet.
-            </p>
+            {BASE_URL !== "http://localhost:3000" && path === "/" && (
+              <Script
+                id='CookieDeclaration'
+                src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
+                type='text/javascript'
+                async
+              ></Script>
+            )}
           </section>
         </div>
       </div>
