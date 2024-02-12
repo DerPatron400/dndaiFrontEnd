@@ -256,28 +256,39 @@ export default function Experience({
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 756);
-    if (!cameraGroup.current) return;
-
+  
     const handleTouchStart = (event) => {
-      // Check if the target element is a button or any other element you want to allow clicks on
-      const isButtonOrClickable = event.target.tagName === 'BUTTON' || event.target.classList.contains('clickable-element');
-    
-      // If it's not a button or a clickable element, prevent the default behavior
-      if (!isButtonOrClickable) {
-        event.preventDefault();
+      const touchY = event.touches[0].clientY;
+      const screenHeight = window.innerHeight;
+  
+      if (isMobile) {
+        // Adjust the threshold as needed
+        const threshold = 0.3;
+  
+        if (touchY / screenHeight < threshold) {
+          setIsBackwardPressed(false);
+          setIsForwardPressed(true);
+        } else {
+          setIsForwardPressed(false);
+          setIsBackwardPressed(true);
+        }
       }
     };
-
-    // Use keys to translate
+  
+    const handleTouchEnd = () => {
+      setIsForwardPressed(false);
+      setIsBackwardPressed(false);
+    };
+  
     const handleKeyDown = (e) => {
-      if (e.key === "ArrowUp" || e.key === "w" ) {
+      if (e.key === "ArrowUp" || e.key === "w") {
         setIsForwardPressed(true);
       }
       if (e.key === "ArrowDown" || e.key === "s") {
         setIsBackwardPressed(true);
       }
     };
-
+  
     const handleKeyUp = (e) => {
       if (e.key === "ArrowUp" || e.key === "w") {
         setIsForwardPressed(false);
@@ -286,39 +297,41 @@ export default function Experience({
         setIsBackwardPressed(false);
       }
     };
-
+  
     const handleSwitch = (e) => {
       setIsForwardPressed(false);
       setIsBackwardPressed(false);
     };
-
+  
     const handleContextMenu = (event) => {
       event.preventDefault();
     };
-
+  
     const handleSelectStart = (event) => {
       // Prevent text selection behavior
       event.preventDefault();
     };
-
+  
     // Add event listeners here
     document.addEventListener("touchstart", handleTouchStart, { passive: false });
+    document.addEventListener("touchend", handleTouchEnd);
     document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("visibilitychange", handleSwitch);
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("selectstart", handleSelectStart);
-
+  
+    // Cleanup function
     return () => {
-      document.addEventListener("touchstart", handleTouchStart, { passive: false });
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchend", handleTouchEnd);
       document.removeEventListener("keyup", handleKeyUp);
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("visibilitychange", handleSwitch);
       document.removeEventListener("contextmenu", handleContextMenu);
-      document.addEventListener("selectstart", handleSelectStart);
-
+      document.removeEventListener("selectstart", handleSelectStart);
     };
-  }, []);
+  }, [isMobile]);
 
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
