@@ -267,7 +267,6 @@ export default function Experience({
         event.preventDefault();
       }
     };
-    
 
     // Use keys to translate
     const handleKeyDown = (e) => {
@@ -293,17 +292,23 @@ export default function Experience({
       setIsBackwardPressed(false);
     };
 
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
+
     // Add event listeners here
     document.addEventListener("touchstart", handleTouchStart, { passive: false });
     document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("visibilitychange", handleSwitch);
+    document.addEventListener("contextmenu", handleContextMenu);
 
     return () => {
       document.addEventListener("touchstart", handleTouchStart, { passive: false });
       document.removeEventListener("keyup", handleKeyUp);
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("visibilitychange", handleSwitch);
+      document.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
 
