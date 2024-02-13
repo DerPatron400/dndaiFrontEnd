@@ -1,28 +1,15 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "@radix-ui/themes/styles.css";
-import { usePathname } from "next/navigation";
-import Script from "next/script";
-
-// Set the BASE_URL
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 function Cookies() {
   useEffect(() => {
     AOS.init();
   }, []);
 
-  const path = usePathname();
-
-  useEffect(() => {
-    console.log("BASE_URL:", BASE_URL);
-    console.log("path:", path);
-  }, [BASE_URL, path]);
-
   return (
-    <div className="w-screen h-full flex flex-col justify-center items-center bg-black">
+    <div className='w-screen h-full flex flex-col justify-center items-center bg-black'>
       <div className='relative w-full h-[35vh]'>
         <img
           src='/cookie.png'
@@ -39,17 +26,8 @@ function Cookies() {
           </h2>
 
           <section>
-            <h3 className="text-xl mb-2 font-medium">Cookies Policy</h3>
-            <hr className="border border-green-500 w-1/3 mb-2" />
-            {(BASE_URL !== "http://localhost:3000" || process.env.NEXT_PUBLIC_BASE_URL === "production") && path === "/" && (
-              <Script
-                id="CookieDeclaration"
-                src="https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js"
-                type="text/javascript"
-                async
-                onLoad={() => console.log("Script loaded successfully")}
-              ></Script>
-            )}
+            <h3 className='text-xl mb-2 font-medium'>Cookies Policy</h3>
+            <hr className='border border-green-500  w-1/3 mb-2' />
           </section>
         </div>
       </div>
