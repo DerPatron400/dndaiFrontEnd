@@ -48,11 +48,11 @@ const SaveGame = ({ data }) => {
         <img
           src='/dragonbaby.png'
           alt='Header Image Alt Text'
-          className='w-full h-[70vh] object-cover mb-4 rounded-md'
+          className='w-full h-[77vh] object-cover mb-4 rounded-md'
         />
 
         {/* Overlay */}
-        <div className='absolute inset-0 bg-black opacity-60 rounded-md'></div>
+        <div className='absolute inset-0 bg-black opacity-50 rounded-md'></div>
 
         <h1 className='text-[2rem] sm:text-[3rem] text-center font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10'>
           Your Quest Awaits,{" "}
