@@ -48,7 +48,7 @@ const SaveGame = ({ data }) => {
         <img
           src='/dragonbaby.png'
           alt='Header Image Alt Text'
-          className='w-full h-[30vh] object-cover mb-4 rounded-md'
+          className='w-full h-[70vh] object-cover mb-4 rounded-md'
         />
 
         {/* Overlay */}
