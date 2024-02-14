@@ -6,7 +6,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { usePathname } from "next/navigation";
 import { GoogleTagManager } from "@next/third-parties/google";
-
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
 import Script from "next/script";
@@ -38,14 +38,16 @@ export default function RootLayout({ children }) {
 
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
-        <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
-          <Theme>
-            {!hideNavs && <Navbar />}
-            {children}
-            {!hideNavs && !hideFooter && <Footer />}
-            <Toaster />
-          </Theme>
-        </div>
+        <GoogleOAuthProvider>
+          <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
+            <Theme>
+              {!hideNavs && <Navbar />}
+              {children}
+              {!hideNavs && !hideFooter && <Footer />}
+              <Toaster />
+            </Theme>
+          </div>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
