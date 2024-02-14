@@ -35,15 +35,26 @@ function WindShape() {
       }
     }
   });
+
+  const randomColor = () => {
+    return new THREE.Color(Math.random(), Math.random(), Math.random());
+  };
+
+  const randomSize = () => {
+    return MathUtils.randFloat(0.2, 1.0); // Adjust min and max size values
+  };
+
   return (
     <Instance
       ref={ref}
-      color='white'
+      color={randomColor()}
       position={[randomPosition.x, randomPosition.y, randomPosition.z]}
       rotation-y={Math.PI / 2}
+      scale={[randomSize(), randomSize(), randomSize()]}
     />
   );
 }
+
 const WindEffect = ({ isMoving }) => {
   const materialRef = useRef();
   const INSTANCE = {
@@ -53,7 +64,7 @@ const WindEffect = ({ isMoving }) => {
   useEffect(() => {
     if (isMoving) {
       gsap.to(materialRef.current, {
-        opacity: 0.12,
+        opacity: MathUtils.randFloat(0.1, 0.5), // Adjust min and max opacity values
         duration: 0.5,
       });
     } else {
@@ -63,6 +74,7 @@ const WindEffect = ({ isMoving }) => {
       });
     }
   }, [isMoving]);
+
   return (
     <group>
       <Instances>
