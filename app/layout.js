@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
-        <GoogleOAuthProvider clientId='1050215644240-kj42c2098li86a3d8fbip61tr9icjala.apps.googleusercontent.com'>
+        <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
           <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
             <Theme>
               {!hideNavs && <Navbar />}
