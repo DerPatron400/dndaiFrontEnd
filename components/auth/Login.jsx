@@ -7,7 +7,9 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 
 import { login } from "@/api/auth";
-import SocialAuths from "./SocialAuths";
+import dynamic from "next/dynamic";
+
+const SocialAuths = dynamic(() => import("./SocialAuths"), { ssr: true });
 
 export default function Login() {
   const cookies = new Cookie();
@@ -52,6 +54,7 @@ export default function Login() {
     router.push("/");
   };
 
+  //4702036467-4Kom9AGtXF1ynmUFr7u7na3dYgnhvCU4gK2LUG1
   return (
     <div
       style={{
@@ -125,7 +128,7 @@ export default function Login() {
               Or
             </div>
 
-            <SocialAuths />
+            <SocialAuths isLoading={isLoading} setIsLoading={setIsLoading} />
           </form>
           <button
             onClick={handleHomeClick}

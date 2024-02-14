@@ -9,7 +9,6 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
-import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,40 +23,11 @@ export default function RootLayout({ children }) {
   const hideNavs = path.includes("/login") || path.includes("/register");
   const hideFooter = path.includes("/game/play") || path.includes("/game/new");
 
-  const handleCookiebotLoadStart = () => {
-    console.log("Cookiebot script loading started");
-  };
-
-  const handleCookiebotLoad = () => {
-    console.log("Cookiebot script loaded successfully");
-  };
-
-  const handleCookiebotError = (error) => {
-    console.error("Error loading Cookiebot script:", error);
-  };
-
-  // Move the conditional check here
-  const cookiebotScript = path === "/cookies" && (
-    <Script
-      id='CookieDeclaration'
-      src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
-      type='text/javascript'
-      async
-      onLoad={handleCookiebotLoad}
-      onError={handleCookiebotError}
-      dangerouslySetInnerHTML={{
-        __html: `this.onloadstart = ${handleCookiebotLoadStart.toString()};`,
-      }}
-    ></Script>
-  );
-
   return (
     <html lang='en'>
-      {cookiebotScript}
-
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
-        <GoogleOAuthProvider>
+        <GoogleOAuthProvider clientId='1050215644240-kj42c2098li86a3d8fbip61tr9icjala.apps.googleusercontent.com'>
           <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
             <Theme>
               {!hideNavs && <Navbar />}

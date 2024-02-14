@@ -200,7 +200,7 @@ export default function Register() {
               Or
             </div>
 
-            <SocialAuths isSignup />
+            <SocialAuths isLoading={isLoading} setIsLoading={setIsLoading} />
           </form>
           <button
             onClick={handleHomeClick}

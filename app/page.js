@@ -17,8 +17,8 @@ export default function Home() {
   const cookies = new Cookies();
 
   useEffect(() => {
-    const fetchCredts = async (id) => {
-      const credits = await getCredits(id);
+    const fetchCredts = async (token) => {
+      const credits = await getCredits(token);
 
       setCredits(credits);
     };
@@ -46,6 +46,17 @@ export default function Home() {
 
     router.push("/game/new");
   };
+
+  useEffect(() => {
+    //if not loaded, scroll null
+    if (!loaded) {
+      document.body.style.height = "100vh";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.height = "auto";
+      document.body.style.overflow = "auto";
+    }
+  }, [loaded]);
 
   return (
     <div className='relative h-[85vh] bg-black z-[1]'>

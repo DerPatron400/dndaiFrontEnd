@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ekaruz/react-social-auth": "^0.0.3",
     "@headlessui/react": "^1.7.17",
     "@next/third-parties": "^14.0.4",
     "@radix-ui/themes": "^2.0.3",
@@ -28,12 +29,15 @@
     "leva": "^0.9.35",
     "lucide-react": "^0.294.0",
     "next": "14.0.3",
+    "next-auth": "^4.24.6",
     "react": "^18",
     "react-dom": "^18",
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.12.0",
+    "react-twitter-login": "^1.5.0",
     "react-use-audio-player": "^2.2.0",
+    "reactjs-social-login": "^2.6.3",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.159.0",

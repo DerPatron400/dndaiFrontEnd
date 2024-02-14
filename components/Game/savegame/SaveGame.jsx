@@ -28,7 +28,7 @@ const SaveGame = ({ data }) => {
       return;
     }
 
-    router.push("/input");
+    router.push("/game/new");
   };
 
   const handleClick = async (savedGame) => {

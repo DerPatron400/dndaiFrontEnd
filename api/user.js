@@ -1,6 +1,7 @@
 import api from "./index";
 
 export const getCredits = async (token) => {
+  console.log(token);
   try {
     const response = await api.get("/user/credits", {
       headers: {
