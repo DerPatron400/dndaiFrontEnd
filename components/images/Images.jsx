@@ -8,7 +8,7 @@ const Images = ({ data }) => {
         <img
           src='/dice2.png'
           alt='Header Image Alt Text'
-          className='w-full h-[30vh] object-cover mb-4 rounded-md'
+          className='w-full h-[70vh] object-cover mb-4 rounded-md'
         />
 
         <div className='absolute inset-0 bg-black opacity-40 rounded-md'></div>

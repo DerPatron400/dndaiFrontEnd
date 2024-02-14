@@ -22,19 +22,38 @@ export default function RootLayout({ children }) {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   const hideNavs = path.includes("/login") || path.includes("/register");
-
   const hideFooter = path.includes("/game/play") || path.includes("/game/new");
+
+  const handleCookiebotLoadStart = () => {
+    console.log("Cookiebot script loading started");
+  };
+
+  const handleCookiebotLoad = () => {
+    console.log("Cookiebot script loaded successfully");
+  };
+
+  const handleCookiebotError = (error) => {
+    console.error("Error loading Cookiebot script:", error);
+  };
+
+  // Move the conditional check here
+  const cookiebotScript = path === "/cookies" && (
+    <Script
+      id='CookieDeclaration'
+      src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
+      type='text/javascript'
+      async
+      onLoad={handleCookiebotLoad}
+      onError={handleCookiebotError}
+      dangerouslySetInnerHTML={{
+        __html: `this.onloadstart = ${handleCookiebotLoadStart.toString()};`,
+      }}
+    ></Script>
+  );
 
   return (
     <html lang='en'>
-      {BASE_URL !== "http://localhost:3000" && path === "/" && (
-        <Script
-          id='CookieDeclaration'
-          src='https://consent.cookiebot.com/27dc0d94-2824-4194-9303-e668151380fa/cd.js'
-          type='text/javascript'
-          async
-        ></Script>
-      )}
+      {cookiebotScript}
 
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
