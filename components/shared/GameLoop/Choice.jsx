@@ -15,9 +15,9 @@ const Input = ({ input, setInput }) => {
         placeholder='Enter your choice'
         className='bg-transparent border  px-3 h-14 w-full md:w-64 placeholder:text-[#d3d3d3] text-white py-2 rounded'
         ref={textAreaRef}
-        maxLength={100}
+        maxLength={420}
       />
-      <p className='text-xs text-white mt-1 opacity-60'>{input.length}/100</p>
+      <p className='text-xs text-white mt-1 opacity-60'>{input.length}/420</p>
     </div>
   );
 };
