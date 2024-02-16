@@ -39,7 +39,7 @@ const Images = ({ data }) => {
         return;
       }
   
-      router.push("/game/new");
+      router.push("/");
     };
 
   return (
@@ -60,8 +60,8 @@ const Images = ({ data }) => {
       <div className='flex flex-wrap justify-center mb-10'>
         {data.length === 0 ? (
           <div className="flex flex-col w-full items-center pt-[0%] gap-y-2">
-            <span className="opacity-60">
-              No Images saved yet, start your adventure{" "}
+            <span className="opacity-60">  
+            No images have been saved yet; however, all images generated within your games will be stored here, allowing you to effortlessly view, save, or utilize them in any manner without concerns about copyright restrictions.{" "}
             </span>
             <button
               onClick={startGame}

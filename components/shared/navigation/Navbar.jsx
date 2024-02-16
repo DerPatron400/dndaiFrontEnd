@@ -50,7 +50,7 @@ const Navbar = () => {
         </Link>
   
         <div className='flex  items-center space-x-2 pr-2 z-[20]'>
-          <TextToSpeech />
+        <TextToSpeech />
   
           <div
             onClick={() => {
@@ -71,7 +71,7 @@ const Navbar = () => {
               <Tooltip content='Your Credits'>
                 <Link href={"/shop"}>
                   {!isMobile && (
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center '>
                       <span>{user?.credits}</span>
                       <img
                         src='/images/CreditsDndAi.png'
@@ -86,7 +86,7 @@ const Navbar = () => {
               {!isMobile && (
                 <Tooltip content='Your Images'>
                   <Link href={"/gallery"}>
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center space-x-1 '>
                       <span>Images</span>
                     </div>
                   </Link>
@@ -94,7 +94,7 @@ const Navbar = () => {
               )}
 
               {!isMobile && (
-                <Tooltip content='Your Images'>
+                <Tooltip content='Your saved Characters'>
                   <Link href={"/game/saved"}>
                     <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
                       <span>Saves</span>
@@ -104,9 +104,9 @@ const Navbar = () => {
               )}
 
               {!isMobile && (
-                <Tooltip content='Your Images'>
+                <Tooltip content='The dndai Shop'>
                   <Link href={"/shop"}>
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center space-x-2 '>
                       <span>Shop</span>
                     </div>
                   </Link>
@@ -123,13 +123,13 @@ const Navbar = () => {
             <div className='flex gap-x-2'>
               <Link
                 href='/auth/login'
-                className='cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out'
+                className='cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-outitems-center justify-center'
               >
                 Login
               </Link>
               <Link
                 href='/auth/register'
-                className='cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+                className='cursor-pointer text-md bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all items-center justify-center'
               >
                 Sign Up
               </Link>
