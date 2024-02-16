@@ -66,7 +66,7 @@ const Navbar = () => {
           </div>
   
           {/* Display Account-related content in the Navbar */}
-          {user && (
+          
             <>
               <Tooltip content='Your Credits'>
                 <Link href={"/shop"}>
@@ -113,7 +113,7 @@ const Navbar = () => {
                 </Tooltip>
               )}
             </>
-          )}
+        
 
 
           {isLoggedIn ? (
