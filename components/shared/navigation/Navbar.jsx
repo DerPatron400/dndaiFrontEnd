@@ -43,15 +43,15 @@ const Navbar = () => {
   return (
     <div className='flex py-8 md:p-4 z-[20] fixed  top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
       <EnableSound setPlaying={setPlaying} />
-
+  
       <div className='flex flex-row items-center justify-between w-full z-[20]'>
         <Link href='/' className='cursor-pointer hover:bg-transparent z-[20]'>
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16 z-[20]' />
         </Link>
-
+  
         <div className='flex  items-center space-x-2 pr-2 z-[20]'>
           <TextToSpeech />
-
+  
           <div
             onClick={() => {
               setPlaying(!playing);
@@ -64,26 +64,63 @@ const Navbar = () => {
               <Volume2 size={20} />
             )}
           </div>
+  
+          {/* Display Account-related content in the Navbar */}
           {user && (
-            <Tooltip content='Your Credits'>
-              <Link href={"/shop"}>
-                <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
-                  <span>{user?.credits}</span>
-                  <img
-                    src='/images/CreditsDndAi.png'
-                    alt=''
-                    className='w-4 h-6 bg-transparent'
-                  />
-                </div>
-              </Link>
-            </Tooltip>
+            <>
+              <Tooltip content='Your Credits'>
+                <Link href={"/shop"}>
+                  {!isMobile && (
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                      <span>{user?.credits}</span>
+                      <img
+                        src='/images/CreditsDndAi.png'
+                        alt=''
+                        className='w-4 h-6 bg-transparent'
+                      />
+                    </div>
+                  )}
+                </Link>
+              </Tooltip>
+
+              {!isMobile && (
+                <Tooltip content='Your Images'>
+                  <Link href={"/gallery"}>
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                      <span>Images</span>
+                    </div>
+                  </Link>
+                </Tooltip>
+              )}
+
+              {!isMobile && (
+                <Tooltip content='Your Images'>
+                  <Link href={"/game/saved"}>
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                      <span>Saves</span>
+                    </div>
+                  </Link>
+                </Tooltip>
+              )}
+
+              {!isMobile && (
+                <Tooltip content='Your Images'>
+                  <Link href={"/shop"}>
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
+                      <span>Shop</span>
+                    </div>
+                  </Link>
+                </Tooltip>
+              )}
+            </>
           )}
+
 
           {isLoggedIn ? (
             <Accounts />
           ) : (
+            
             <div className='flex gap-x-2'>
-              {" "}
               <Link
                 href='/auth/login'
                 className='cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-out'
@@ -102,6 +139,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-};
+          }
 
 export default Navbar;
