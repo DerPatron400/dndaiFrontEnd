@@ -5,9 +5,7 @@ import Experience from "./Experience";
 import GameLoop from "@/components/shared/GameLoop";
 import { parseGameText } from "@/utils/parseText";
 import useIntroTextStore from "@/utils/store/introTextStore";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import useUserStore from "@/utils/store/userStore";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -30,8 +28,8 @@ export default function AtmosScene() {
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { visualText, resultArray, paths } = parseGameText(introText);
-  //console.log(introText);
+  const { visualText, resultArray, paths, stats } = parseGameText(introText);
+  console.log(stats);
 
   const conversationIndex = searchParams.get("conversationIndex");
 
@@ -62,7 +60,7 @@ export default function AtmosScene() {
     setPlayAudio(true);
   };
 
-  const addToScene = (type) => {
+  const addToScene = () => {
     setPages((prev) => prev + 1);
   };
   useEffect(() => {
@@ -101,7 +99,6 @@ export default function AtmosScene() {
         paths={paths}
       />
 
-      
       <HowToPlay />
       <div className='fixed bottom-[3%] right-4 flex flex-col gap-y-2'>
         <Tooltip content='Spend one credits to save your game' side='left'>

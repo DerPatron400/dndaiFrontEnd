@@ -298,13 +298,14 @@ const InitialState = {
 export default function Form() {
   const formRef = useRef(null);
   const [formData, setFormData] = useState(InitialState);
+  const [allowRandom, setAllowRandom] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Set this to true when the form is being submitted
   const { user, setCredits } = useUserStore((state) => state);
   const setIntroText = useIntroTextStore((state) => state.setIntroText);
   const router = useRouter();
 
   const smoothScrollTo = (targetPosition, duration) => {
-    const startPosition = window.pageYOffset;
+    const startPosition = window.scrollY;
     const distance = targetPosition - startPosition;
     let startTime = null;
 
@@ -369,8 +370,6 @@ export default function Form() {
     }
 
     setIsLoading(true);
-
-    let currentPrompt = `${formData.name}${formData.class}${formData.race} ${formData.strength}${formData.dexterity}${formData.constitution}${formData.intelligence}${formData.wisdom}${formData.charisma}`;
 
     const bodyData = {
       strength: formData.strength,
@@ -526,6 +525,11 @@ export default function Form() {
       end: "bottom bottom",
       scrub: true,
     });
+
+    //wait for animation to load
+    setTimeout(() => {
+      setAllowRandom(true);
+    }, 3000);
   }, []);
 
   return (
@@ -546,8 +550,9 @@ export default function Form() {
             />
             <button
               type='button'
+              disabled={!allowRandom}
               onClick={handleClick}
-              className='bg-gradient-to-t from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+              className='bg-gradient-to-t disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
             >
               Random Character
             </button>

@@ -31,7 +31,6 @@ export default function Login() {
     try {
       setIsLoading(true);
       const data = await login(username, password);
-      console.log(data);
 
       setUser(data);
       cookies.set("uid", data._id, { path: "/" });
@@ -111,7 +110,7 @@ export default function Login() {
                 className='w-full px-3 py-2 rounded-md bg-white text-black focus:outline-none focus:border-blue-500'
               />
             </div>
-            <div className=' flex justify-end'>
+            <div className=' flex justify-end  '>
               <Link href={"/auth/request-reset"} className='text-sm'>
                 Forgot Password?
               </Link>
@@ -119,7 +118,7 @@ export default function Login() {
             <button
               type='submit'
               disabled={isLoading}
-              className='w-full  disabled:opacity-60 disabled:cursor-not-allowed  bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400  focus:outline-none transition-colors duration-300'
+              className='w-full  disabled:opacity-60 !mt-5 disabled:cursor-not-allowed  bg-gradient-to-t from-green-950 to-green-500 text-white px-4 py-2  rounded-md hover:to-green-700 hover:from-green-400  focus:outline-none transition-colors duration-300'
             >
               {isLoading ? "Logging In" : "Login"}
             </button>
