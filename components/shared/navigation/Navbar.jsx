@@ -68,13 +68,28 @@ const Navbar = () => {
           {/* Display Account-related content in the Navbar */}
           
             <>
-              <Tooltip content='Your Credits'>
+              <Tooltip content='Your Purple Credits'>
                 <Link href={"/shop"}>
                   {!isMobile && (
                     <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center '>
                       <span>{user?.credits}</span>
                       <img
                         src='/images/CreditsDndAi.png'
+                        alt=''
+                        className='w-4 h-6 bg-transparent'
+                      />
+                    </div>
+                  )}
+                </Link>
+              </Tooltip>
+
+              <Tooltip content='Your Green Credits'>
+                <Link href={"/shop"}>
+                  {!isMobile && (
+                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center '>
+                      <span>{user?.greenCredits}</span>
+                      <img
+                        src='/images/GreenCreditsDndAi.png'
                         alt=''
                         className='w-4 h-6 bg-transparent'
                       />

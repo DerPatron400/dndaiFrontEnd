@@ -86,6 +86,14 @@ const Accounts = () => {
               className='w-4 h-6 bg-transparent'
             />
           </div>
+          <div className='py-2 z-[50] px-4 rounded-md text-sm flex items-center justify-center gap-x-2'>
+            <div> {user?.greenCredits || 0}</div>
+            <img
+              src='/images/GreenCreditsDndAi.png'
+              alt=''
+              className='w-4 h-6 bg-transparent'
+            />
+          </div>
           <Link
             href='/game/saved'
             className='cursor-pointer rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'

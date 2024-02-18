@@ -7,20 +7,23 @@ import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 
 import { getCredits } from "@/api/user";
+import { getGreenCredits  } from "@/api/user";
 import { useSearchParams } from "next/navigation";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
 
-  const { user, setCredits } = useUserStore((state) => state);
+  const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const cookies = new Cookies();
 
   useEffect(() => {
     const fetchCredts = async (token) => {
       const credits = await getCredits(token);
+      const greenCredits = await getGreenCredits (token);
 
       setCredits(credits);
+      setGreenCredits(greenCredits); // Use setGreenCredits for greenCredits
     };
     if (user) {
       fetchCredts(user.token);

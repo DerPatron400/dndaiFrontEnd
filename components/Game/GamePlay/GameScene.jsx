@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { Tooltip } from "@radix-ui/themes";
 import HowToPlay from "./HowToPlay";
 import Loader from "../StartGame/Loader";
-import { saveGame } from "@/api/game";
+import { saveGame,saveGameGreen } from "@/api/game";
 
 export default function AtmosScene() {
   const searchParams = useSearchParams();
@@ -22,7 +22,7 @@ export default function AtmosScene() {
   const { introText, image, setPlayAudio, playAudio } = useIntroTextStore(
     (state) => state
   );
-  const { user, setCredits } = useUserStore((state) => state);
+  const { user, setCredits, setgreenCredits } = useUserStore((state) => state);
   const [pages, setPages] = useState(1);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
@@ -38,7 +38,7 @@ export default function AtmosScene() {
   const handleSaveGame = async () => {
     try {
       if (user.credits <= 0) {
-        toast.error("You don't have enough credits to play");
+        toast.error("You don't have enough Purple credits to play");
         router.push("/shop");
         return;
       }
@@ -50,6 +50,29 @@ export default function AtmosScene() {
       setIsLoading(true);
       const data = await saveGame(bodyData, user.token);
       setCredits(data.credits);
+      toast.success("Game saved successfully!");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSaveGameGreen = async () => {
+    try {
+      if (user.greenCredits <= 0) {
+        toast.error("You don't have enough Green credits to play");
+        router.push("/shop");
+        return;
+      }
+
+      const bodyData = {
+        conversationIndex,
+      };
+
+      setIsLoading(true);
+      const data = await saveGameGreen(bodyData, user.token);
+      setgreenCredits(data.greenCredits);
       toast.success("Game saved successfully!");
     } catch (error) {
       console.log(error);
@@ -104,16 +127,25 @@ export default function AtmosScene() {
       
       <HowToPlay />
       <div className='fixed bottom-[3%] right-4 flex flex-col gap-y-2'>
-        <Tooltip content='Spend one credits to save your game' side='left'>
+        <Tooltip content='Spend one purple credit to save your game' side='left'>
           <button
             onClick={handleSaveGame}
+            disabled={isLoading}
+            className='bg-gradient-to-t from-purple-950 disabled:pointer-events-none to-purple-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-purple-700 hover:from-purple-400 transition-all'
+          >
+            {isLoading ? "Saving..." : "Save Game"}
+          </button>
+        </Tooltip>
+        <Tooltip content='Spend one green credit to save your game' side='left'>
+          <button
+            onClick={handleSaveGameGreen}
             disabled={isLoading}
             className='bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all'
           >
             {isLoading ? "Saving..." : "Save Game"}
           </button>
         </Tooltip>
-        <Tooltip content='Narrates your Game' side='left'>
+        <Tooltip content='Spend one green credit, to narrate your game' side='left'>
           <button
             onClick={handlePlayAudio}
             disabled={playAudio}
