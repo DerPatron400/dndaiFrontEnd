@@ -90,7 +90,8 @@ function parseAdventureText(text) {
         line = line.replaceAll("*", "").replaceAll("^", "");
         paths.push({
           heading:
-            line.replace(/Path\s*\d+/g, "") || "Path " + paths.length + 1,
+            line.replace(/Path\s*\d+/g, "") ||
+            "Path " + parseInt(paths.length + 1),
           content: lines[index + 1],
         });
       }
@@ -113,7 +114,7 @@ function parseAdventureText(text) {
       if (startsWithSpecialCharacter(heading)) {
         heading = heading.replaceAll("^", "");
         paths.push({
-          heading: heading || "Path " + paths.length + 1,
+          heading: heading || "Path " + parseInt(paths.length + 1),
           content,
         });
       }
@@ -127,7 +128,8 @@ function parseAdventureText(text) {
       if (line.length < 40) {
         paths.push({
           heading:
-            line.replace(/Path\s*\d+/g, "") || "Path " + paths.length + 1,
+            line.replace(/Path\s*\d+/g, "") ||
+            "Path " + parseInt(paths.length + 1),
           content: lines[index + 1],
         });
 
@@ -145,7 +147,7 @@ function parseAdventureText(text) {
           .trim();
 
         paths.push({
-          heading: heading || "Path " + paths.length + 1,
+          heading: heading || "Path " + parseInt(paths.length + 1),
           content,
         });
         choices.push({
@@ -200,7 +202,7 @@ function parseAdventureText(text) {
   return { choices, paths };
 }
 export const parseGameText = (text) => {
-  const wordsPerElement = 50;
+  const wordsPerElement = 17;
 
   // Use a regular expression to extract the line labeled as VISUAL
   const visualMatch =
@@ -214,7 +216,23 @@ export const parseGameText = (text) => {
         .trim()
     : null;
 
-  let pathText = text
+  const statLines = text.split("\n").filter((line) => line.startsWith("@"));
+  const originalTextWithoutAtLines = text
+    .split("\n")
+    .filter((line) => !line.startsWith("@"))
+    .join("\n");
+
+  const stats = statLines.map((line) => {
+    const [name, rest] = line.split(":");
+    const [value, lastMessage] = rest.trim().split("(");
+    return {
+      name: name.substring(1),
+      value: value.trim(),
+      lastMessage: lastMessage ? lastMessage.trim().replace(")", "") : "",
+    };
+  });
+
+  let pathText = originalTextWithoutAtLines
     .replace(visualText, "")
     .replaceAll(":", "")
     .replaceAll("VISUAL", "");
@@ -239,5 +257,5 @@ export const parseGameText = (text) => {
     }
   });
 
-  return { visualText, resultArray, paths };
+  return { visualText, resultArray, paths, stats };
 };

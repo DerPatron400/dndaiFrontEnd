@@ -72,13 +72,13 @@ const Accounts = () => {
         >
           <Link
             href='/game/new'
-            className='cursor-pointer z-[50] rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
+            className='cursor-pointer   rounded-md block px-4 py-2 text-sm duration-300 transition-colors hover:text-green-500 focus:text-green'
             role='menuitem'
           >
             New Game
           </Link>
 
-          <div className='py-2 z-[50] px-4 rounded-md text-sm flex items-center justify-center gap-x-2'>
+          <div className='py-2   px-4 rounded-md text-sm flex items-center justify-center gap-x-2'>
             <div> {user?.credits || 0}</div>
             <img
               src='/images/CreditsDndAi.png'

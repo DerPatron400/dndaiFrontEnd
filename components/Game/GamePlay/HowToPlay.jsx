@@ -16,13 +16,13 @@ const HowToPlay = () => {
       y: 0,
     });
 
-    // // Hide the component after 10 seconds
-    // const timeoutId = setTimeout(() => {
-    //   setIsVisible(false);
-    // }, 10000);
+    // Hide the component after 10 seconds
+    const timeoutId = setTimeout(() => {
+      setIsVisible(false);
+    }, 10000);
 
-    // Cleanup the timeout when the component is unmounted
-    // return () => clearTimeout(timeoutId);
+    //Cleanup the timeout when the component is unmounted
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (
@@ -48,8 +48,8 @@ const HowToPlay = () => {
             Use Up And Down Arrow Key to move
           </span>
           <span className='md:hidden text-white text-sm  w-[80vw]'>
-          Touch Top or bottom of the screen to move.
-                    </span>
+            Touch Top or bottom of the screen to move.
+          </span>
         </div>
       )}
     </>

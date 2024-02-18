@@ -5,6 +5,7 @@ import { BackgroundScene } from "../../shared/BackgroundScene";
 
 export default function Scene() {
   const [loaded, setLoaded] = useState(false);
+  
   return (
     <div className='z-[1] relative'>
       <BackgroundScene setLoaded={setLoaded} loaded={loaded} />
