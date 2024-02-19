@@ -347,7 +347,7 @@ export default function Form() {
 
     // Scroll to the form with smooth animation
     const targetPosition = formRef.current.offsetTop;
-    const duration = 8000; // Adjust the duration to control the scroll speed
+    const duration = 24000; // Adjust the duration to control the scroll speed
     smoothScrollTo(targetPosition, duration);
   };
 
