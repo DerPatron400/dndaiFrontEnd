@@ -42,7 +42,7 @@ export default function Home() {
       return;
     }
     // console.log(user.credits);
-    if (user.credits <= 0) {
+    if (user.credits > 0 && user.greenCredits > 0) {
       router.push("/shop");
       return;
     }

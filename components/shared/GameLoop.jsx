@@ -71,7 +71,7 @@ export default function GameLoop({
   useEffect(() => {
     if (rollDice) {
       console.log(user.credits);
-      if (user.credits <= 0) {
+      if (user.credits > 0 && user.greenCredits > 0) {
         toast.error("You don't have enough credits to play");
         router.push("/shop");
         return;
@@ -125,8 +125,7 @@ export default function GameLoop({
     setLoading(true);
     try {
       if (user.credits <= 0) {
-        toast.error("You don't have enough credits to play");
-        router.push("/shop");
+        toast.error("You don't have enough Purple credits to generate an Image");
         
         return;
       }

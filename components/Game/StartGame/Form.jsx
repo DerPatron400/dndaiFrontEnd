@@ -388,7 +388,7 @@ export default function Form() {
       dndRace: formData.race,
     };
 
-    if (user.credits <= 0) {
+    if (user.credits > 0 && user.greenCredits > 0) {
       toast.error("You don't have enough credits to play");
       router.push("/shop");
       return;
