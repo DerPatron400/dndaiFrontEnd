@@ -104,7 +104,7 @@ export default function GameLoop({
       setTimeout(async () => {
         setRollDice(false);
         setLoading(true);
-      }, 8500);
+      }, 3500);
     }
   }, [selectedFace]);
 
