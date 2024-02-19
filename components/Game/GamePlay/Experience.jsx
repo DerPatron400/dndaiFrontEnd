@@ -73,62 +73,62 @@ export default function Experience({
 
   useFrame((_state, delta) => {
     if (!isForwardPressed && !isBackwardPressed) {
-        if (speed > 0) {
-            speed -= deceleration * delta;
-        } else if (speed < 0) {
-            speed += deceleration * delta;
-        }
+      if (speed > 0) {
+        speed -= deceleration * delta;
+      } else if (speed < 0) {
+        speed += deceleration * delta;
+      }
 
-        if (Math.abs(speed) < 0.01) {
-            speed = 0;
-        }
+      if (Math.abs(speed) < 0.01) {
+        speed = 0;
+      }
     }
 
     if (isForwardPressed && (open || pathObjects.length === 0)) return;
 
     if (isForwardPressed || isBackwardPressed) {
-        if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
-        switchBackground();
-        const curPointIndex = Math.min(
-            Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
-            curvesData.length - 1
-        );
-        const curPoint = curvesData[curPointIndex];
-        const nextPoint = curvesData[curPointIndex + 1];
+      if (isBackwardPressed && cameraGroup.current.position.z >= 0) return;
+      switchBackground();
+      const curPointIndex = Math.min(
+        Math.round(-cameraGroup.current.position.z / CURVE_DISTANCE),
+        curvesData.length - 1
+      );
+      const curPoint = curvesData[curPointIndex];
+      const nextPoint = curvesData[curPointIndex + 1];
 
-        const xDisplacement = (nextPoint.x - curPoint.x) * 40;
-        const angleRotation =
-            (xDisplacement < 0 ? 1 : -1) *
-            Math.min(Math.abs(xDisplacement), Math.PI / 3);
+      const xDisplacement = (nextPoint.x - curPoint.x) * 40;
+      const angleRotation =
+        (xDisplacement < 0 ? 1 : -1) *
+        Math.min(Math.abs(xDisplacement), Math.PI / 3);
 
-        const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
-            new THREE.Euler(
-                dragonModel.current.rotation.x,
-                dragonModel.current.rotation.y,
-                angleRotation * 0.15
-            )
-        );
+      const targetDragonQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(
+          dragonModel.current.rotation.x,
+          dragonModel.current.rotation.y,
+          angleRotation * 0.15
+        )
+      );
 
-        if (isForwardPressed) {
-            speed -= acceleration * delta;
-        } else if (isBackwardPressed) {
-            speed += backwardAcceleration * delta;
-        }
+      if (isForwardPressed) {
+        speed -= acceleration * delta;
+      } else if (isBackwardPressed) {
+        speed += backwardAcceleration * delta;
+      }
 
-        // Clamp speed to maxSpeed and maxBackwardSpeed
-        speed = Math.max(Math.min(speed, maxSpeed), maxBackwardSpeed);
+      // Clamp speed to maxSpeed and maxBackwardSpeed
+      speed = Math.max(Math.min(speed, maxSpeed), maxBackwardSpeed);
 
-        dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
+      dragonModel.current.quaternion.slerp(targetDragonQuaternion, delta);
     }
 
     cameraGroup.current.position.z = THREE.MathUtils.lerp(
-        cameraGroup.current.position.z,
-        cameraGroup.current.position.z + speed,
-        0.1
+      cameraGroup.current.position.z,
+      cameraGroup.current.position.z + speed,
+      0.1
     );
 
     handleText();
-});
+  });
 
   useEffect(() => {
     if (type === "image") {
@@ -256,14 +256,14 @@ export default function Experience({
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 756);
-  
+
     const handleTouchStart = (event) => {
       const touchY = event.touches[0].clientY;
       const screenHeight = window.innerHeight;
-  
+
       if (isMobile) {
         const threshold = 0.69; // Adjust this threshold based on your needs
-  
+
         // Determine if the touch is in the upper or lower part of the screen
         if (touchY / screenHeight < threshold) {
           setIsBackwardPressed(false);
@@ -274,12 +274,12 @@ export default function Experience({
         }
       }
     };
-  
+
     const handleTouchEnd = () => {
       setIsForwardPressed(false);
       setIsBackwardPressed(false);
     };
-  
+
     const handleKeyDown = (e) => {
       if (e.key === "ArrowUp" || e.key === "w") {
         setIsForwardPressed(true);
@@ -288,7 +288,7 @@ export default function Experience({
         setIsBackwardPressed(true);
       }
     };
-  
+
     const handleKeyUp = (e) => {
       if (e.key === "ArrowUp" || e.key === "w") {
         setIsForwardPressed(false);
@@ -297,25 +297,27 @@ export default function Experience({
         setIsBackwardPressed(false);
       }
     };
-  
+
     // Preventing context menu globally
     const handleContextMenu = (event) => {
       event.preventDefault();
     };
-  
+
     // Preventing text selection globally
     const handleSelectStart = (event) => {
       event.preventDefault();
     };
-  
+
     // Add event listeners
-    document.addEventListener("touchstart", handleTouchStart, { passive: false });
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
     document.addEventListener("touchend", handleTouchEnd);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("selectstart", handleSelectStart);
-  
+
     // Cleanup function
     return () => {
       document.removeEventListener("touchstart", handleTouchStart);
@@ -325,7 +327,7 @@ export default function Experience({
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("selectstart", handleSelectStart);
     };
-  }, [isMobile]); 
+  }, [isMobile]);
 
   const switchBackground = () => {
     tl.current.seek(anim * tl.current.duration());
@@ -359,7 +361,7 @@ export default function Experience({
         ease: "power1.easeInOut",
         duration: 2,
         colorA: "#000000",
-        colorB: '#7B3F00',
+        colorB: "#7B3F00",
       })
       .to(backgroundColorRef.current, {
         ease: "power1.easeInOut",

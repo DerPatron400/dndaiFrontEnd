@@ -3,11 +3,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "DragonHunter";
+  src: url("/Knight.otf") format("opentype");
+}
+
+.dragon-hunter {
+  font-family: "DragonHunter", sans-serif;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Poppins", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,7 +36,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Poppins", sans-serif;
   color: rgb(var(--foreground-rgb));
   background: black;
   /* width: 100vw; */
@@ -63,12 +72,12 @@ div::-webkit-scrollbar-corner {
   /* Color of the bottom corner */
 }
 
-p,
+/* p,
 span,
 h1,
 h2 {
-  font-family: "Poppins", sans-serif !important;
-}
+  font-family: "Poppins", sans-serif;
+} */
 
 .neon-text {
   color: #00ff00;
@@ -80,10 +89,10 @@ h2 {
   border: 1px solid white !important;
 }
 
-.rt-SelectTrigger:where(.rt-variant-surface):where([data-placeholder]) :where(.rt-SelectTriggerInner) {
+.rt-SelectTrigger:where(.rt-variant-surface):where([data-placeholder])
+  :where(.rt-SelectTriggerInner) {
   color: #d3d3d3 !important;
 }
-
 
 audio {
   width: 100%;
@@ -92,19 +101,17 @@ audio {
   border: 1px solid #ccc;
   border-radius: 30px;
   outline: none;
-  color: #4ade80
+  color: #4ade80;
 }
 
 /* Style the controls */
 audio::-webkit-media-controls-panel {
   background-color: #ffffff;
   border-radius: 5px;
-
 }
 
 audio::-webkit-media-controls-timeline {
   color: greenyellow;
-
 
   /* Add more styles as needed */
 }
