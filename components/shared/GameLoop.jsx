@@ -13,6 +13,8 @@ import DragonHead from "@/components/shared/GameLoop/DragonHead";
 import { useRouter } from "next/navigation";
 import Choice from "@/components/shared/GameLoop/Choice";
 import { generateImage, sendUserInput } from "@/api/game";
+import { getCredits } from "@/api/user";
+import { getGreenCredits  } from "@/api/user";
 
 function Scene({ children }) {
   return (
@@ -46,8 +48,24 @@ export default function GameLoop({
   const { setIntroText, setImage } = useIntroTextStore((state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
+  
 
   const conversationIndex = searchParams.get("conversationIndex");
+
+
+  useEffect(() => {
+    const fetchCredts = async (token) => {
+      const credits = await getCredits(token);
+      const greenCredits = await getGreenCredits (token);
+
+      setCredits(credits);
+      setGreenCredits(greenCredits); // Use setGreenCredits for greenCredits
+    };
+    if (user) {
+      fetchCredts(user.token);
+    }
+  }, []);
+
 
   //this is for rolling dice
   useEffect(() => {
