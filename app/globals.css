@@ -12,6 +12,10 @@
   font-family: "DragonHunter", sans-serif;
 }
 
+.poppins {
+  font-family: "Poppins", sans-serif !important;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -29,10 +33,14 @@
 
 /* Disable copy text*/
 * {
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
 }
 
 body {
@@ -89,8 +97,7 @@ h2 {
   border: 1px solid white !important;
 }
 
-.rt-SelectTrigger:where(.rt-variant-surface):where([data-placeholder])
-  :where(.rt-SelectTriggerInner) {
+.rt-SelectTrigger:where(.rt-variant-surface):where([data-placeholder]) :where(.rt-SelectTriggerInner) {
   color: #d3d3d3 !important;
 }
 

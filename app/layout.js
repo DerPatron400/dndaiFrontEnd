@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
       <GoogleTagManager gtmId='G-BTHMYX7TZ9' />
       <body className={inter.className}>
         <GoogleOAuthProvider clientId='1050215644240-kj42c2098li86a3d8fbip61tr9icjala.apps.googleusercontent.com'>
-          <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
+          <div className='max-w-screen poppins !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
             <Theme>
               {!hideNavs && <Navbar />}
               {children}

@@ -42,7 +42,9 @@ export default function GameLoop({
   const [input, setInput] = useState("");
   const [selection, setSelection] = useState("");
   const { user, setCredits } = useUserStore((state) => state);
-  const { setIntroText, setImage } = useIntroTextStore((state) => state);
+  const { setIntroText, setImage, setCharacter } = useIntroTextStore(
+    (state) => state
+  );
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -66,10 +68,10 @@ export default function GameLoop({
           };
 
           const data = await sendUserInput(bodyData, user.token);
-
+          console.log(data);
           setIntroText(data.responseText);
+          setCharacter(data.character);
           setCredits(data.credits);
-
           addToScene("text");
           setInput("");
           setOpen(false);
@@ -106,7 +108,7 @@ export default function GameLoop({
       if (user.credits <= 0) {
         toast.error("You don't have enough credits to play");
         router.push("/shop");
-        
+
         return;
       }
 

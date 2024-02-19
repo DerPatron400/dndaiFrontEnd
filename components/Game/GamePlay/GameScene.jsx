@@ -14,6 +14,7 @@ import HowToPlay from "./HowToPlay";
 import Loader from "../StartGame/Loader";
 import { saveGame } from "@/api/game";
 import Stats from "./Stats";
+import { LineChart, AudioLines, Save } from "lucide-react";
 
 export default function AtmosScene() {
   const searchParams = useSearchParams();
@@ -28,10 +29,9 @@ export default function AtmosScene() {
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [showStats, setShowStats] = useState(false);
 
   const { visualText, resultArray, paths, stats } = parseGameText(introText);
-  console.log(stats);
 
   const conversationIndex = searchParams.get("conversationIndex");
 
@@ -71,17 +71,14 @@ export default function AtmosScene() {
   }, [introText]);
 
   const handleModal = () => {
-    setModal(!modal);
-    if (modal) {
-      console.log("modal is open");
-    }
+    setShowStats(true);
   };
 
   return (
-    <div className="relative">
-      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
-        <Canvas className="z-[1]">
-          <color attach="background" args={["#ececec"]} />
+    <div className='relative poppins'>
+      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
+        <Canvas className='z-[1]'>
+          <color attach='background' args={["#ececec"]} />
 
           <Suspense fallback={<Loader />}>
             <Experience
@@ -111,35 +108,38 @@ export default function AtmosScene() {
       />
 
       <HowToPlay />
-      <div className="fixed bottom-[3%] right-4 flex flex-col gap-y-2">
-        <Tooltip content="Spend one credits to save your game" side="left">
+      <div className='fixed bottom-[3%] right-4 flex flex-col gap-y-2'>
+        <Tooltip content='Spend one credits to save your game' side='left'>
           <button
             onClick={handleSaveGame}
             disabled={isLoading}
-            className="bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+            className=' bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
           >
-            {isLoading ? "Saving..." : "Save Game"}
+            <Save size={18} />
           </button>
         </Tooltip>
-        <Tooltip content="Narrates your Game" side="left">
+        <Tooltip content='Narrates your Game' side='left'>
           <button
             onClick={handlePlayAudio}
-            disabled={playAudio}
-            className="bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all"
+            disabled={playAudio || isLoading}
+            className=' bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
           >
-            {"Play Audio"}
-          </button>
-        </Tooltip>
-        <Tooltip content="view details of your game" side="left">
-          <button
-            onClick={handleModal}
-            className="bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all"
-          >
-            Stats
+            <AudioLines size={18} />
           </button>
         </Tooltip>
       </div>
-      {modal && <Stats stats={stats} />}
+      <div className='fixed bottom-[3%] left-4 flex flex-col gap-y-2'>
+        <Tooltip content='view details of your game' side='left'>
+          <button
+            onClick={handleModal}
+            className=' bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full '
+          >
+            <LineChart size={18} />
+          </button>
+        </Tooltip>
+      </div>
+
+      <Stats stats={stats} show={showStats} setShow={setShowStats} />
     </div>
   );
 }

@@ -6,11 +6,13 @@ const useIntroTextStore = create(
     (set, get) => ({
       introText: "",
       image: "",
+      character: "",
       playAudio: false,
 
       setPlayAudio: (playAudio) => set({ playAudio }),
       setIntroText: (introText) => set({ introText }),
       setImage: (image) => set({ image }),
+      setCharacter: (character) => set({ character }),
     }),
     {
       name: "into-text-storage", // name of the item in the storage (must be unique)

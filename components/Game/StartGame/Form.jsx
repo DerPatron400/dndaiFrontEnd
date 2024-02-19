@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useUserStore from "@/utils/store/userStore";
-import useIntroTextStore from "@/utils/store/introTextStore";
+import useGameStore from "@/utils/store/introTextStore";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/shared/DragonLoader";
 import { newGame } from "@/api/game";
@@ -301,7 +301,7 @@ export default function Form() {
   const [allowRandom, setAllowRandom] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Set this to true when the form is being submitted
   const { user, setCredits } = useUserStore((state) => state);
-  const setIntroText = useIntroTextStore((state) => state.setIntroText);
+  const { setIntroText, setCharacter } = useGameStore((state) => state);
   const router = useRouter();
 
   const smoothScrollTo = (targetPosition, duration) => {
@@ -393,6 +393,7 @@ export default function Form() {
     try {
       const data = await newGame(bodyData, user.token);
       setIntroText(data.responseText);
+      setCharacter(data.character);
       setCredits(data.credits);
       router.push("/game/play?conversationIndex=" + data.conversationIndex);
     } catch (error) {
