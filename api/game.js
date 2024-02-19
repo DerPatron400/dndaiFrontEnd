@@ -47,7 +47,7 @@ export const sendUserInput = async (userInput, token) => {
 
 export const sendUserInputGreen = async (userInput, token) => {
   try {
-    const response = await api.post("/gpt4/user-inputGreen", userInput, {
+    const response = await api.post("/gpt4/user-input", userInput, {
       headers: {
         Authorization: token,
       },

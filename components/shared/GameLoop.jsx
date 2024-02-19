@@ -71,7 +71,7 @@ export default function GameLoop({
 
           setIntroText(data.responseText);
           setCredits(data.credits);
-          setGreenCredits(data.greenCredits);
+          await setGreenCredits(data.greenCredits);
 
           addToScene("text");
           setInput("");

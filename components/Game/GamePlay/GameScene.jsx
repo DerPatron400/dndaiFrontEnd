@@ -22,7 +22,7 @@ export default function AtmosScene() {
   const { introText, image, setPlayAudio, playAudio } = useIntroTextStore(
     (state) => state
   );
-  const { user, setCredits, setgreenCredits } = useUserStore((state) => state);
+  const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const [pages, setPages] = useState(1);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("text");
@@ -52,6 +52,7 @@ export default function AtmosScene() {
       setGameType("premium"); // Set gameType for premium game
       const data = await saveGame(bodyData, user.token, gameType);
       setCredits(data.credits);
+      await setGreenCredits(data.greenCredits);
       toast.success("Game saved successfully!");
     } catch (error) {
       console.log(error);
@@ -75,7 +76,7 @@ export default function AtmosScene() {
       setIsLoading(true);
       setGameType("standard"); // Set gameType for standard game
       const data = await saveGameGreen(bodyData, user.token, gameType);
-      setgreenCredits(data.greenCredits);
+      await setGreenCredits(data.greenCredits);
       toast.success("Game saved successfully!");
     } catch (error) {
       console.log(error);
@@ -132,7 +133,7 @@ export default function AtmosScene() {
       
       <HowToPlay />
       <div className='fixed bottom-[3%] right-4 flex flex-col gap-y-2'>
-        <Tooltip content='Spend one purple credit to save your game' side='left'>
+        <Tooltip content='Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple credit to save your game' side='left'>
           <button
             onClick={handleSaveGame}
             disabled={isLoading}
@@ -141,16 +142,7 @@ export default function AtmosScene() {
             {isLoading ? "Saving..." : "Save Game"}
           </button>
         </Tooltip>
-        <Tooltip content='Spend one green credit to save your game' side='left'>
-          <button
-            onClick={handleSaveGameGreen}
-            disabled={isLoading}
-            className='bg-gradient-to-t from-green-950 disabled:pointer-events-none to-green-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-green-700 hover:from-green-400 transition-all'
-          >
-            {isLoading ? "Saving..." : "Save Game"}
-          </button>
-        </Tooltip>
-        <Tooltip content='Spend one green credit, to narrate your game' side='left'>
+        <Tooltip content='Let AI Narrate your Game' side='left'>
           <button
             onClick={handlePlayAudio}
             disabled={playAudio}
