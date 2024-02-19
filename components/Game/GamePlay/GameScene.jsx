@@ -29,6 +29,7 @@ export default function AtmosScene() {
   const [isForwardPressed, setIsForwardPressed] = useState(false);
   const [isBackwardPressed, setIsBackwardPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [gameType, setGameType] = useState(null);
 
   const { visualText, resultArray, paths } = parseGameText(introText);
   //console.log(introText);
@@ -42,13 +43,14 @@ export default function AtmosScene() {
         router.push("/shop");
         return;
       }
-
+  
       const bodyData = {
         conversationIndex,
       };
-
+  
       setIsLoading(true);
-      const data = await saveGame(bodyData, user.token);
+      setGameType("premium"); // Set gameType for premium game
+      const data = await saveGame(bodyData, user.token, gameType);
       setCredits(data.credits);
       toast.success("Game saved successfully!");
     } catch (error) {
@@ -57,7 +59,7 @@ export default function AtmosScene() {
       setIsLoading(false);
     }
   };
-
+  
   const handleSaveGameGreen = async () => {
     try {
       if (user.greenCredits <= 0) {
@@ -65,13 +67,14 @@ export default function AtmosScene() {
         router.push("/shop");
         return;
       }
-
+  
       const bodyData = {
         conversationIndex,
       };
-
+  
       setIsLoading(true);
-      const data = await saveGameGreen(bodyData, user.token);
+      setGameType("standard"); // Set gameType for standard game
+      const data = await saveGameGreen(bodyData, user.token, gameType);
       setgreenCredits(data.greenCredits);
       toast.success("Game saved successfully!");
     } catch (error) {
@@ -80,6 +83,7 @@ export default function AtmosScene() {
       setIsLoading(false);
     }
   };
+  
 
   const handlePlayAudio = () => {
     setPlayAudio(true);
@@ -122,6 +126,7 @@ export default function AtmosScene() {
         type={type}
         visualText={visualText}
         paths={paths}
+        gameType={gameType}
       />
 
       

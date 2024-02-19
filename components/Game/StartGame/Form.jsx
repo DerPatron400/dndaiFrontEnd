@@ -299,7 +299,8 @@ const InitialState = {
 export default function Form() {
   const formRef = useRef(null);
   const [formData, setFormData] = useState(InitialState);
-  const [isLoading, setIsLoading] = useState(false); // Set this to true when the form is being submitted
+  const [isLoading, setIsLoading] = useState(false);// Set this to true when the form is being submitted
+  const [gameType, setGameType] = useState(null); 
   const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const setIntroText = useIntroTextStore((state) => state.setIntroText);
   const router = useRouter();
@@ -370,6 +371,7 @@ export default function Form() {
     }
 
     setIsLoading(true);
+    setGameType('premium');
 
     let currentPrompt = `${formData.name}${formData.class}${formData.race} ${formData.strength}${formData.dexterity}${formData.constitution}${formData.intelligence}${formData.wisdom}${formData.charisma}`;
 
@@ -413,6 +415,7 @@ export default function Form() {
     }
 
     setIsLoading(true);
+    setGameType('standard');
 
     let currentPrompt = `${formData.name}${formData.class}${formData.race} ${formData.strength}${formData.dexterity}${formData.constitution}${formData.intelligence}${formData.wisdom}${formData.charisma}`;
 
@@ -674,28 +677,28 @@ export default function Form() {
             className='h-screen flex justify-center flex-col items-center '
             ref={formRef}
           >
-          <div className="flex flex-col space-y-4">
-          <Tooltip content='Pressing this button costs a Purple Gem: Access the smartest AI gaming for an exclusive experience.'>
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              type="button"
-              style={{ boxShadow: "0 0 10px rgba(238, 130, 238, 0.5)" }}
-              className="bg-gradient-to-t from-purple-950 to-purple-500 text-white px-12 z-[4] py-6 rounded-md hover:to-purple-700 hover:from-purple-400 transition-colors duration-300 ease-in-out anim-9"
-            >
-              {isLoading ? "Loading... " : " Start Premium Game"}
-            </button>
+        <div className="flex flex-col space-y-4">
+            <Tooltip content='Pressing this button costs a Purple Gem: Access the smartest AI gaming for an exclusive experience.'>
+              <button
+                onClick={handleSubmit}
+                disabled={isLoading}
+                type="button"
+                style={{ boxShadow: "0 0 10px rgba(238, 130, 238, 0.5)" }}
+                className="bg-gradient-to-t from-purple-950 to-purple-500 text-white px-12 z-[4] py-6 rounded-md hover:to-purple-700 hover:from-purple-400 transition-colors duration-300 ease-in-out anim-9"
+              >
+                {isLoading ? "Loading... " : " Start Premium Game"}
+              </button>
             </Tooltip>
             <Tooltip content='Pressing this button costs a Green Gem: Dive into instant play with standard AI, budget-friendly and ready for action.'>
-            <button
-              onClick={handleSubmitGreen}
-              disabled={isLoading}
-              type="button"
-              style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
-              className="bg-gradient-to-t from-green-950 to-green-500 text-white px-12 z-[4] py-6 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9"
-            >
-              {isLoading ? "Loading... " : " Start Game"}
-            </button>
+              <button
+                onClick={handleSubmitGreen}
+                disabled={isLoading}
+                type="button"
+                style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
+                className="bg-gradient-to-t from-green-950 to-green-500 text-white px-12 z-[4] py-6 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9"
+              >
+                {isLoading ? "Loading... " : " Start Game"}
+              </button>
             </Tooltip>
           </div>
             {isLoading && (

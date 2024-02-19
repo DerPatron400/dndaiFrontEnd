@@ -34,6 +34,7 @@ export default function GameLoop({
   type,
   visualText,
   paths,
+  gameType,
 }) {
   const cancelButtonRef = useRef(null);
   const [rollDice, setRollDice] = useState(false);
@@ -41,7 +42,7 @@ export default function GameLoop({
   const [selectedFace, setSelectedFace] = useState(null);
   const [input, setInput] = useState("");
   const [selection, setSelection] = useState("");
-  const { user, setCredits } = useUserStore((state) => state);
+  const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const { setIntroText, setImage } = useIntroTextStore((state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -63,12 +64,14 @@ export default function GameLoop({
             userInput: input,
             randomNumber: selectedFace,
             conversationIndex,
+            gameType
           };
 
           const data = await sendUserInput(bodyData, user.token);
 
           setIntroText(data.responseText);
           setCredits(data.credits);
+          setGreenCredits(data.greenCredits);
 
           addToScene("text");
           setInput("");
