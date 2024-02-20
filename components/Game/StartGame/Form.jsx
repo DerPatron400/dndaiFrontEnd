@@ -14,6 +14,19 @@ import { Tooltip } from "@radix-ui/themes";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
+// Limit the subtext to a maximum of 12 words per line
+function limitWordsPerLine(subtext, maxWordsPerLine) {
+  const words = subtext.split(' ');
+  const lines = [];
+
+  while (words.length > 0) {
+    lines.push(words.splice(0, maxWordsPerLine).join(' '));
+  }
+
+  return lines;
+}
+
 const DropDown = ({
   data,
   className,
@@ -22,6 +35,9 @@ const DropDown = ({
   onChange,
   formdata,
 }) => {
+  // Check if data.subtext exists and is not an empty string
+  const truncatedSubtext = data.subtext ? limitWordsPerLine(data.subtext, 12) : null;
+
   return (
     <div
       className={twMerge(
@@ -33,7 +49,13 @@ const DropDown = ({
         <label className='text-white mb-1 font-bold text-3xl'>
           {data.label}
         </label>
-
+        {truncatedSubtext && (
+          <div className='text-gray-400 text-sm text-3xl'>
+            {truncatedSubtext.map((line, index) => (
+              <div key={index}>{line}</div>
+            ))}
+          </div>
+        )}
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -582,6 +604,12 @@ export default function Form() {
           <div className='flex flex-col items-start j z-[5] w-[20rem] md:w-full'>
             <label className='text-white font-bold text-xl'>
               Character Name
+            </label>
+            <label className='text-gray-400 text-sm mt-1'>
+           <p> Choose a name that resonates with your imagination,</p>
+           <p>  or let fate decide with our random character button. </p>
+           <p>   Dive into the adventure with personalized</p>
+           <p>    attributes that shape your unique story.</p>
             </label>
             <input
               type='text'

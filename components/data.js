@@ -1,6 +1,7 @@
 export const dropdowns = [
   {
     label: "Class",
+    subtext: "Explore a diverse selection of classes from the expansive world of DND5 expansions and beyond. Whether you wield the arcane powers of a wizard or the brute strength of a barbarian, the choice is yours. Craft a hero that reflects your strategic prowess and venture forth into a realm where every class brings its own flavor to the unfolding saga. Choose wisely, for your class shapes the destiny that awaits you.",
     placeholder: "Select a class",
     options: ["Artificer", "Barbarian", "Blood Hunter", "Bard", "Cleric", "Druid", "Monk", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard", "Rogue", "Cleric", "Fighter"],
   },
