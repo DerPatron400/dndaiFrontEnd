@@ -10,6 +10,7 @@ import Cookies from "universal-cookie";
 import TextToSpeech from "@/components/shared/TextToSpeech";
 import { Tooltip } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
+import { switchMode } from "@/api/switchMode";
 
 const Navbar = () => {
   const cookie = new Cookies();
@@ -20,6 +21,31 @@ const Navbar = () => {
   const isNewGame = usePathname().includes("newgame");
 
   const [playing, setPlaying] = useState(false);
+
+
+  const handleSwitchMode = async () => {
+    console.log("Calling Switched mode .....");
+    try {
+      // Assuming 'user' object has a property 'token'
+      const token = user?.token;
+
+      if (!token) {
+        console.error("Authentication token is missing.");
+        // Handle the case where the token is missing
+        return;
+      }
+
+      // Call the switchMode function from your API with the authentication token
+      await switchMode(token);
+
+      // Optionally, you can perform additional actions after switching mode if needed
+      console.log("Switched mode successfully");
+    } catch (error) {
+      console.error("Error switching mode:", error);
+      // Handle errors as needed
+    }
+  };
+
 
   useEffect(() => {
     if (user) {
@@ -48,7 +74,13 @@ const Navbar = () => {
         <Link href='/' className='cursor-pointer hover:bg-transparent z-[20]'>
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16 z-[20]' />
         </Link>
-  
+        <div
+        onClick={handleSwitchMode}
+        className='cursor-pointer rounded-full bg-white p-2'
+      >
+        {/* You can use an icon or text here */}
+        <Info size={20} color='black' />
+      </div>
         <div className='flex  items-center space-x-2 pr-2 z-[20]'>
         <TextToSpeech />
   
