@@ -22,6 +22,7 @@ const Navbar = () => {
 
   const [playing, setPlaying] = useState(false);
 
+  const [isPurple, setIsPurple] = useState(true);
 
   const handleSwitchMode = async () => {
     console.log("Calling Switched mode .....");
@@ -37,6 +38,7 @@ const Navbar = () => {
 
       // Call the switchMode function from your API with the authentication token
       await switchMode(token);
+      setIsPurple((prevState) => !prevState);
 
       // Optionally, you can perform additional actions after switching mode if needed
       console.log("Switched mode successfully");
@@ -75,12 +77,15 @@ const Navbar = () => {
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16 z-[20]' />
         </Link>
         <div
-        onClick={handleSwitchMode}
-        className='cursor-pointer rounded-full bg-white p-2'
-      >
-        {/* You can use an icon or text here */}
-        <Info size={20} color='black' />
-      </div>
+      onClick={handleSwitchMode}
+      className='cursor-pointer rounded-full p-2'
+      style={{
+        background: isPurple ? 'purple' : 'green',
+        border: '1px solid #fff', // Optional: Add a border for better visibility
+        transition: 'background-color 0.3s ease', // Optional: Add a smooth transition effect
+      }}
+    >
+    </div>
         <div className='flex  items-center space-x-2 pr-2 z-[20]'>
         <TextToSpeech />
   
