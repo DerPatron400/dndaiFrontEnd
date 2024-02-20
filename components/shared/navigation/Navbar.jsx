@@ -24,9 +24,16 @@ const Navbar = () => {
 
   const [isPurple, setIsPurple] = useState(true);
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const handleSwitchMode = async () => {
+
+    if (isButtonDisabled) {
+      return; // Do nothing if the button is disabled
+    }
     console.log("Calling Switched mode .....");
     try {
+      setIsButtonDisabled(true); // Disable the button
       // Assuming 'user' object has a property 'token'
       const token = user?.token;
 
@@ -42,6 +49,10 @@ const Navbar = () => {
 
       // Optionally, you can perform additional actions after switching mode if needed
       console.log("Switched mode successfully");
+       // Enable the button after a delay (e.g., 2 seconds)
+       setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 4000);
     } catch (error) {
       console.error("Error switching mode:", error);
       // Handle errors as needed
