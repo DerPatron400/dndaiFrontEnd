@@ -87,18 +87,9 @@ const Navbar = () => {
         <Link href='/' className='cursor-pointer hover:bg-transparent z-[20]'>
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16 z-[20]' />
         </Link>
-        <div
-      onClick={handleSwitchMode}
-      className='cursor-pointer rounded-full p-2'
-      style={{
-        background: isPurple ? 'purple' : 'green',
-        border: '1px solid #fff', // Optional: Add a border for better visibility
-        transition: 'background-color 0.3s ease', // Optional: Add a smooth transition effect
-      }}
-    >
-    </div>
         <div className='flex  items-center space-x-2 pr-2 z-[20]'>
         <TextToSpeech />
+        
   
           <div
             onClick={() => {
@@ -114,7 +105,18 @@ const Navbar = () => {
           </div>
   
           {/* Display Account-related content in the Navbar */}
-          
+          <Tooltip content='Switch between Use of Green and Purple Crystals'>
+          <div
+      onClick={handleSwitchMode}
+      className='cursor-pointer rounded-full p-4'
+      style={{
+        background: isPurple ? 'green' : 'purple',
+        border: '2px solid #39170D', // Optional: Add a border for better visibility
+        transition: 'background-color 0.3s ease', // Optional: Add a smooth transition effect
+      }}
+    >
+    </div>
+    </Tooltip>
             <>
               <Tooltip content='Your Purple Credits'>
                 <Link href={"/shop"}>
