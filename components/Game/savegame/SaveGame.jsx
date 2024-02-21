@@ -29,7 +29,7 @@ const SaveGame = ({ data }) => {
       return;
     }
 
-    router.push("/game/new");
+    router.push("/");
   };
 
   const handleClick = async (savedGame) => {
@@ -53,10 +53,10 @@ const SaveGame = ({ data }) => {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
+        <div className="absolute inset-0 bg-black opacity-30 rounded-md"></div>
 
-        <h1 className="text-[2rem] sm:text-[3rem] text-center font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-          Your Quest Awaits,{" "}
+        <h1 className="text-[2rem] sm:text-[3rem] text-center font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pt-[10%]">
+          Your <span className="text-green-500 capitalize">Saved</span> Characters{" "}
           <span className="text-green-500 capitalize">{userName}</span>!
         </h1>
       </div>
@@ -83,9 +83,9 @@ const SaveGame = ({ data }) => {
               );
             })
           ) : (
-            <div className="flex flex-col w-full items-center pt-[20%] gap-y-2">
+            <div className="flex flex-col w-full items-center pt-[0%] gap-y-2">
               <span className="opacity-60">
-                No Saved Games yet, start your adventure{" "}
+                No Saved Characters yet, Create one!{" "}
               </span>
               <button
                 onClick={startGame}

@@ -56,10 +56,10 @@ const Accounts = () => {
         id='options-menu'
         aria-haspopup='true'
         aria-expanded='true'
-        className='bg-gradient-to-t capitalize z-[50] flex from-green-950 items-end gap-x-1 to-green-500 text-white px-6 py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+        className='w-14 h-9 bg-gradient-to-t capitalize z-[50] flex from-green-950 items-end gap-x-1 to-green-500 text-white px-6 py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all items-center justify-center'
       >
-        {user?.username?.length > 7
-          ? user?.username?.slice(0, 7) + "..."
+        {user?.username?.length > 4
+          ? user?.username?.slice(0, 4) + "..."
           : user?.username}
       </button>
 
@@ -82,6 +82,14 @@ const Accounts = () => {
             <div> {user?.credits || 0}</div>
             <img
               src='/images/CreditsDndAi.png'
+              alt=''
+              className='w-4 h-6 bg-transparent'
+            />
+          </div>
+          <div className='py-2 z-[50] px-4 rounded-md text-sm flex items-center justify-center gap-x-2'>
+            <div> {user?.greenCredits || 0}</div>
+            <img
+              src='/images/GreenCreditsDndAi.png'
               alt=''
               className='w-4 h-6 bg-transparent'
             />

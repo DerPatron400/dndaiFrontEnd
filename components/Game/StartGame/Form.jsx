@@ -9,9 +9,22 @@ import useUserStore from "@/utils/store/userStore";
 import useGameStore from "@/utils/store/introTextStore";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/shared/DragonLoader";
-import { newGame } from "@/api/game";
+import { newGame, newGameGreen } from "@/api/game";
+import { Tooltip } from "@radix-ui/themes";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Limit the subtext to a maximum of 12 words per line
+function limitWordsPerLine(subtext, maxWordsPerLine) {
+  const words = subtext.split(" ");
+  const lines = [];
+
+  while (words.length > 0) {
+    lines.push(words.splice(0, maxWordsPerLine).join(" "));
+  }
+
+  return lines;
+}
 
 const DropDown = ({
   data,
@@ -21,6 +34,11 @@ const DropDown = ({
   onChange,
   formdata,
 }) => {
+  // Check if data.subtext exists and is not an empty string
+  const truncatedSubtext = data.subtext
+    ? limitWordsPerLine(data.subtext, 12)
+    : null;
+
   return (
     <div
       className={twMerge(
@@ -29,27 +47,33 @@ const DropDown = ({
       )}
     >
       <div className={`flex flex-col items-start z-[4] ${animName} `}>
-        <label className='text-white mb-1 font-bold text-3xl'>
+        <label className="text-white mb-1 font-bold text-3xl">
           {data.label}
         </label>
-
+        {truncatedSubtext && (
+          <div className="text-gray-400 text-sm text-3xl">
+            {truncatedSubtext.map((line, index) => (
+              <div key={index}>{line}</div>
+            ))}
+          </div>
+        )}
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className='bg-transparent border-[1px] cursor-pointer border-green-500 my-4 p-3  text-white rounded-md md:w-[40vw] w-[70vw] focus:outline-none focus:ring focus:border-green-500 dropdown-custom'
+          className="bg-transparent border-[1px] cursor-pointer border-green-500 my-4 p-3  text-white rounded-md md:w-[40vw] w-[70vw] focus:outline-none focus:ring focus:border-green-500 dropdown-custom"
           style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
         >
           <option
-            value=''
+            value=""
             disabled
             hidden
-            className='disabled:bg-black disabled:text-white'
+            className="disabled:bg-black disabled:text-white"
           >
             {data.placeholder}
           </option>
           {data.options.map((option, index) => (
             <option
-              className='cursor-pointer bg-black'
+              className="cursor-pointer bg-black"
               key={index}
               value={option}
               disabled={Object.values(formdata).includes(option)}
@@ -300,8 +324,12 @@ export default function Form() {
   const [formData, setFormData] = useState(InitialState);
   const [allowRandom, setAllowRandom] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Set this to true when the form is being submitted
-  const { user, setCredits } = useUserStore((state) => state);
+
   const { setIntroText, setCharacter } = useGameStore((state) => state);
+
+  const [gameType, setGameType] = useState(null);
+  const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
+
   const router = useRouter();
 
   const smoothScrollTo = (targetPosition, duration) => {
@@ -346,7 +374,7 @@ export default function Form() {
 
     // Scroll to the form with smooth animation
     const targetPosition = formRef.current.offsetTop;
-    const duration = 8000; // Adjust the duration to control the scroll speed
+    const duration = 24000; // Adjust the duration to control the scroll speed
     smoothScrollTo(targetPosition, duration);
   };
 
@@ -370,6 +398,7 @@ export default function Form() {
     }
 
     setIsLoading(true);
+    setGameType("premium");
 
     const bodyData = {
       strength: formData.strength,
@@ -384,7 +413,7 @@ export default function Form() {
       dndRace: formData.race,
     };
 
-    if (user.credits <= 0) {
+    if (user.credits <= 0 && user.greenCredits <= 0) {
       toast.error("You don't have enough credits to play");
       router.push("/shop");
       return;
@@ -395,6 +424,50 @@ export default function Form() {
       setIntroText(data.responseText);
       setCharacter(data.character);
       setCredits(data.credits);
+      router.push("/game/play?conversationIndex=" + data.conversationIndex);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmitGreen = async () => {
+    if (!validateData()) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+    if (isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
+    setGameType("standard");
+
+    let currentPrompt = `${formData.name}${formData.class}${formData.race} ${formData.strength}${formData.dexterity}${formData.constitution}${formData.intelligence}${formData.wisdom}${formData.charisma}`;
+
+    const bodyData = {
+      strength: formData.strength,
+      who: formData.name,
+      constitution: formData.constitution,
+      intelligence: formData.intelligence,
+      wisdom: formData.wisdom,
+      charisma: formData.charisma,
+      dexterity: formData.dexterity,
+      styleArt: "dnd",
+      dndClasses: formData.class,
+      dndRace: formData.race,
+    };
+
+    if (user.greenCredits <= 0) {
+      toast.error("You don't have enough credits to play");
+      router.push("/shop");
+      return;
+    }
+
+    try {
+      const data = await newGameGreen(bodyData, user.token);
+      setIntroText(data.responseText);
+      setGreenCredits(data.greenCredits);
       router.push("/game/play?conversationIndex=" + data.conversationIndex);
     } catch (error) {
       console.log(error);
@@ -534,26 +607,32 @@ export default function Form() {
   }, []);
 
   return (
-    <div className='form z-[-1] w-screen h-full bg-transparent '>
-      <form className='flex flex-col w-full items-center h-full '>
-        <div className='mb-4 h-screen md:w-2/4 md:me-auto flex flex-col items-center md:ps-10 ps-[25%] justify-center '>
-          <div className='flex flex-col items-start j z-[5] w-[20rem] md:w-full'>
-            <label className='text-white font-bold text-xl'>
-              Main Protagonist
+    <div className="form z-[-1] w-screen h-full bg-transparent ">
+      <form className="flex flex-col w-full items-center h-full ">
+        <div className="mb-4 h-screen md:w-2/4 md:me-auto flex flex-col items-center md:ps-10 ps-[25%] justify-center ">
+          <div className="flex flex-col items-start j z-[5] w-[20rem] md:w-full">
+            <label className="text-white font-bold text-xl">
+              Character Name
+            </label>
+            <label className="text-gray-400 text-sm mt-1">
+              <p> Choose a name that resonates with your imagination,</p>
+              <p> or let fate decide with our random character button. </p>
+              <p> Dive into the adventure with personalized</p>
+              <p> attributes that shape your unique story.</p>
             </label>
             <input
-              type='text'
+              type="text"
               value={formData.name}
               onChange={(e) => handleChange("name", e.target.value)}
-              placeholder='Enter Name'
-              className='bg-transparent border-[1px] border-green-500 my-4 p-3 text-white rounded-md md:w-[30rem]  focus:outline-none focus:ring focus:border-green-500'
+              placeholder="Enter Name"
+              className="bg-transparent border-[1px] border-green-500 my-4 p-3 text-white rounded-md md:w-[30rem]  focus:outline-none focus:ring focus:border-green-500"
               style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
             />
             <button
-              type='button'
+              type="button"
               disabled={!allowRandom}
               onClick={handleClick}
-              className='bg-gradient-to-t disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
+              className="bg-gradient-to-t disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all"
             >
               Random Character
             </button>
@@ -561,7 +640,7 @@ export default function Form() {
         </div>
         <DropDown
           data={dropdowns[0]}
-          className='ms-auto md:w-2/4'
+          className="ms-auto md:w-2/4"
           animName={"anim-1"}
           value={formData.class}
           formdata={formData}
@@ -569,7 +648,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[1]}
-          className='me-auto w-2/4'
+          className="me-auto w-2/4"
           animName={"anim-2"}
           value={formData.race}
           formdata={formData}
@@ -583,16 +662,16 @@ export default function Form() {
         >
           <DropDown
             data={dropdowns[2]}
-            className='h-full'
-            animName='anim-3'
+            className="h-full"
+            animName="anim-3"
             value={formData.strength}
             formdata={formData}
             onChange={(value) => handleChange("strength", value)}
           />
           <DropDown
             data={dropdowns[3]}
-            className='h-full'
-            animName='anim-3'
+            className="h-full"
+            animName="anim-3"
             value={formData.dexterity}
             formdata={formData}
             onChange={(value) => handleChange("dexterity", value)}
@@ -600,7 +679,7 @@ export default function Form() {
         </div>
         <DropDown
           data={dropdowns[4]}
-          className=' w-2/4 me-auto'
+          className=" w-2/4 me-auto"
           animName={"anim-5"}
           value={formData.intelligence}
           formdata={formData}
@@ -608,7 +687,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[5]}
-          className='w-2/4 ms-auto'
+          className="w-2/4 ms-auto"
           animName={"anim-6"}
           value={formData.constitution}
           formdata={formData}
@@ -616,7 +695,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[6]}
-          className=' w-full'
+          className=" w-full"
           animName={"anim-7"}
           value={formData.wisdom}
           formdata={formData}
@@ -624,29 +703,44 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[7]}
-          className=' w-full'
+          className=" w-full"
           animName={"anim-8"}
           value={formData.charisma}
           formdata={formData}
           onChange={(value) => handleChange("charisma", value)}
         />
 
-        <div className='h-[150vh] z-[4] flex items-end'>
+        <div className="h-[150vh] z-[4] flex items-end">
           <div
-            className='h-screen flex justify-center flex-col items-center '
+            className="h-screen flex justify-center flex-col items-center "
             ref={formRef}
           >
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              type='button'
-              style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
-              className='bg-gradient-to-t from-green-950 to-green-500 text-white px-12 z-[4] py-6 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9'
-            >
-              {isLoading ? "Loading... " : " Start Game"}
-            </button>
+            <div className="flex flex-col space-y-4">
+              <Tooltip content="Pressing this button costs a Purple Gem: Access the smartest AI gaming for an exclusive experience.">
+                <button
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                  type="button"
+                  style={{ boxShadow: "0 0 10px rgba(238, 130, 238, 0.5)" }}
+                  className="bg-gradient-to-t from-purple-950 to-purple-500 text-white px-12 z-[4] py-6 rounded-md hover:to-purple-700 hover:from-purple-400 transition-colors duration-300 ease-in-out anim-9"
+                >
+                  {isLoading ? "Loading... " : " Start Premium Game"}
+                </button>
+              </Tooltip>
+              <Tooltip content="Pressing this button costs a Green Gem: Dive into instant play with standard AI, budget-friendly and ready for action.">
+                <button
+                  onClick={handleSubmitGreen}
+                  disabled={isLoading}
+                  type="button"
+                  style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
+                  className="bg-gradient-to-t from-green-950 to-green-500 text-white px-12 z-[4] py-6 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9"
+                >
+                  {isLoading ? "Loading... " : " Start Game"}
+                </button>
+              </Tooltip>
+            </div>
             {isLoading && (
-              <Loader text='it may take a few minutes to generate your character..' />
+              <Loader text="it may take a few minutes to generate your character.." />
             )}
           </div>
         </div>
