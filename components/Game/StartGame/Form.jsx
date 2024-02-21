@@ -39,16 +39,20 @@ const DropDown = ({
   return (
     <div
       className={twMerge(
-        "mb-4 h-[100vh] flex items-center  justify-center bg-black",
+        "mb-4 h-screen flex items-center  justify-center bg-black",
         className
       )}
     >
-      <div className={`flex flex-col  items-start z-[4] ${animName} `}>
-        <label className='text-white mb-1 font-bold text-3xl'>
+      <div
+        className={`flex flex-col  items-center md:!items-start z-[4] mx-auto w-[95%] ${animName} `}
+      >
+        <label className='text-white mb-1 font-bold text-3xl '>
           {data.label}
         </label>
         {data.subtext && (
-          <div className='text-gray-400 text-sm '>{data.subtext}</div>
+          <div className='text-gray-400 text-sm text-center md:text-left md:w-4/5'>
+            {data.subtext}
+          </div>
         )}
         <select
           value={value}
@@ -494,7 +498,7 @@ export default function Form() {
         },
         {
           opacity: 1,
-          x: window.innerWidth < 768 ? 90 : 0,
+          x: window.innerWidth < 768 ? 0 : 0,
           delay: 0.5,
           ease: "power4.inOut",
           duration: 2,
@@ -504,7 +508,7 @@ export default function Form() {
         ".anim-3",
         {
           opacity: 0,
-          scaleY: window.innerWidth < 768 ? 1 : 0,
+          scaleY: window.innerWidth < 768 ? 0 : 0,
         },
         {
           opacity: 1,
@@ -522,7 +526,7 @@ export default function Form() {
         },
         {
           opacity: 1,
-          x: window.innerWidth < 768 ? 90 : 0,
+          x: window.innerWidth < 768 ? 0 : 0,
           delay: 0.5,
           ease: "power4.inOut",
           duration: 2,
@@ -536,7 +540,7 @@ export default function Form() {
         },
         {
           opacity: 1,
-          x: window.innerWidth < 768 ? -90 : 0,
+          x: window.innerWidth < 768 ? 0 : 0,
           ease: "power4.inOut",
           duration: 2,
         }
@@ -602,12 +606,12 @@ export default function Form() {
   return (
     <div className='form z-[-1] w-screen h-full bg-transparent '>
       <form className='flex flex-col w-full items-center h-full '>
-        <div className='mb-4 h-screen w-full md:w-2/4 md:me-auto flex flex-col items-center md:ps-10 mx-auto justify-center '>
+        <div className='mb-4 h-screen w-full md:me-auto flex flex-col items-center md:ps-10 mx-auto justify-center '>
           <div className='flex flex-col items-center md:items-start j z-[5] w-[20rem] md:w-full'>
             <label className='text-white font-bold text-xl'>
               Character Name
             </label>
-            <label className='text-gray-400 text-sm mt-1 text-center md:text-left w-full md:w-3/5'>
+            <label className='text-gray-400 text-sm mt-1 text-center md:text-left w-full md:w-1/4'>
               Choose a name that resonates with your imagination, or let fate
               decide with our random character button. Dive into the adventure
               with personalized attributes that shape your unique story.
@@ -632,7 +636,7 @@ export default function Form() {
         </div>
         <DropDown
           data={dropdowns[0]}
-          className='md:ms-auto w-2/4 md:w-2/4 '
+          className='w-full md:ms-auto md:w-2/4  '
           animName={"anim-1"}
           value={formData.class}
           formdata={formData}
@@ -640,7 +644,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[1]}
-          className='me-auto w-2/4'
+          className='w-screen md:w-2/4  md:ms-auto'
           animName={"anim-2"}
           value={formData.race}
           formdata={formData}
@@ -649,7 +653,7 @@ export default function Form() {
 
         <div
           className={
-            "mb-4 w-2/4 md:w-full h-[120vh] flex md:flex-row flex-col items-center justify-around "
+            "mb-4 w-2/4 md:!w-full h-[120vh] flex md:flex-row flex-col items-center justify-around  "
           }
         >
           <DropDown
@@ -671,7 +675,7 @@ export default function Form() {
         </div>
         <DropDown
           data={dropdowns[4]}
-          className=' w-2/4 me-auto'
+          className=' w-full md:w-2/4 md:me-auto md:ms-10'
           animName={"anim-5"}
           value={formData.intelligence}
           formdata={formData}
@@ -679,7 +683,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[5]}
-          className='w-2/4 ms-auto'
+          className='w-screen md:w-2/4  md:ms-auto'
           animName={"anim-6"}
           value={formData.constitution}
           formdata={formData}
@@ -687,7 +691,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[6]}
-          className=' w-2/4 md:w-full'
+          className=' w-full md:w-2/4 '
           animName={"anim-7"}
           value={formData.wisdom}
           formdata={formData}
@@ -695,7 +699,7 @@ export default function Form() {
         />
         <DropDown
           data={dropdowns[7]}
-          className='w-2/4 md:w-full'
+          className='w-full md:w-2/4 '
           animName={"anim-8"}
           value={formData.charisma}
           formdata={formData}
