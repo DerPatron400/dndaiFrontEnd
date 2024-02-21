@@ -26,40 +26,6 @@ const Navbar = () => {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const handleSwitchMode = async () => {
-
-    if (isButtonDisabled) {
-      return; // Do nothing if the button is disabled
-    }
-    console.log("Calling Switched mode .....");
-    try {
-      setIsButtonDisabled(true); // Disable the button
-      // Assuming 'user' object has a property 'token'
-      const token = user?.token;
-
-      if (!token) {
-        console.error("Authentication token is missing.");
-        // Handle the case where the token is missing
-        return;
-      }
-
-      // Call the switchMode function from your API with the authentication token
-      await switchMode(token);
-      setIsPurple((prevState) => !prevState);
-
-      // Optionally, you can perform additional actions after switching mode if needed
-      console.log("Switched mode successfully");
-       // Enable the button after a delay (e.g., 2 seconds)
-       setTimeout(() => {
-        setIsButtonDisabled(false);
-      }, 4000);
-    } catch (error) {
-      console.error("Error switching mode:", error);
-      // Handle errors as needed
-    }
-  };
-
-
   useEffect(() => {
     if (user) {
       setIsLoggedIn(true);
@@ -82,15 +48,13 @@ const Navbar = () => {
   return (
     <div className='flex py-8 md:p-4 z-[20] fixed  top-0 left-0 w-[100%] h-[8vh] bg-black items-center justify-between'>
       <EnableSound setPlaying={setPlaying} />
-  
+
       <div className='flex flex-row items-center justify-between w-full z-[20]'>
         <Link href='/' className='cursor-pointer hover:bg-transparent z-[20]'>
           <img src='/Logo/white.png' alt='Logo' className='h-16 w-16 z-[20]' />
         </Link>
-        <div className='flex  items-center space-x-2 pr-2 z-[20]'>
-        <TextToSpeech />
-        
-  
+        <div className='flex  items-center space-x-4 pr-2 z-[20]'>
+          <TextToSpeech />
           <div
             onClick={() => {
               setPlaying(!playing);
@@ -103,92 +67,61 @@ const Navbar = () => {
               <Volume2 size={20} />
             )}
           </div>
-  
-          {/* Display Account-related content in the Navbar */}
-          <Tooltip content='Switch between Use of Green and Purple Crystals'>
-          <div
-      onClick={handleSwitchMode}
-      className='cursor-pointer rounded-full p-4'
-      style={{
-        background: isPurple ? 'green' : 'purple',
-        border: '2px solid #39170D', // Optional: Add a border for better visibility
-        transition: 'background-color 0.3s ease', // Optional: Add a smooth transition effect
-      }}
-    >
-    </div>
-    </Tooltip>
-            <>
-              <Tooltip content='Your Purple Credits'>
-                <Link href={"/shop"}>
-                  {!isMobile && (
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center '>
-                      <span>{user?.credits}</span>
-                      <img
-                        src='/images/CreditsDndAi.png'
-                        alt=''
-                        className='w-4 h-6 bg-transparent'
-                      />
-                    </div>
-                  )}
-                </Link>
-              </Tooltip>
-
-              <Tooltip content='Your Green Credits'>
-                <Link href={"/shop"}>
-                  {!isMobile && (
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center '>
-                      <span>{user?.greenCredits}</span>
-                      <img
-                        src='/images/GreenCreditsDndAi.png'
-                        alt=''
-                        className='w-4 h-6 bg-transparent'
-                      />
-                    </div>
-                  )}
-                </Link>
-              </Tooltip>
-
-              {!isMobile && (
-                <Tooltip content='Your Images'>
-                  <Link href={"/gallery"}>
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center space-x-1 '>
-                      <span>Images</span>
-                    </div>
-                  </Link>
-                </Tooltip>
-              )}
-
-              {!isMobile && (
-                <Tooltip content='Your saved Characters'>
-                  <Link href={"/game/saved"}>
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center justify-center'>
-                      <span>Saves</span>
-                    </div>
-                  </Link>
-                </Tooltip>
-              )}
-
-              {!isMobile && (
-                <Tooltip content='The dndai Shop'>
-                  <Link href={"/shop"}>
-                    <div className='w-14 h-9 rounded-full text-white text-sm font-semibold flex gap-x-1 items-center space-x-2 '>
-                      <span>Shop</span>
-                    </div>
-                  </Link>
-                </Tooltip>
-              )}
-            </>
-        
-
+          <div className='hidden md:flex items-center gap-x-4'>
+            <Tooltip content='Your Purple Credits'>
+              <Link href={"/shop"}>
+                <div className=' h-9 rounded-full text-white flex gap-x-1 items-center justify-center '>
+                  <span>{user?.credits}</span>
+                  <img
+                    src='/images/CreditsDndAi.png'
+                    alt=''
+                    className='w-4 h-6 bg-transparent'
+                  />
+                </div>
+              </Link>
+            </Tooltip>
+            <Tooltip content='Your Green Credits'>
+              <Link href={"/shop"}>
+                <div className='h-9 rounded-full text-white   flex gap-x-1 items-center justify-center '>
+                  <span>{user?.greenCredits}</span>
+                  <img
+                    src='/images/GreenCreditsDndAi.png'
+                    alt=''
+                    className='w-4 h-6 bg-transparent'
+                  />
+                </div>
+              </Link>
+            </Tooltip>
+            <Tooltip content='Your Images'>
+              <Link href={"/gallery"}>
+                <div className=' h-9  rounded-full text-white   flex gap-x-1 items-center space-x-1 '>
+                  <span>Images</span>
+                </div>
+              </Link>
+            </Tooltip>
+            <Tooltip content='Your saved Characters'>
+              <Link href={"/game/saved"}>
+                <div className=' h-9 rounded-full text-white   flex gap-x-1 items-center justify-center'>
+                  <span>Saves</span>
+                </div>
+              </Link>
+            </Tooltip>
+            <Tooltip content='The dndai Shop'>
+              <Link href={"/shop"}>
+                <div className='h-9 rounded-full text-white   flex gap-x-1 items-center '>
+                  <span>Shop</span>
+                </div>
+              </Link>
+            </Tooltip>
+          </div>
 
           {isLoggedIn ? (
             <Accounts />
           ) : (
-            
             <div className='flex gap-x-2'>
               <Link
                 href='/auth/login'
-                className='cursor-pointer text-md flex items-center justify-center text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-outitems-center justify-center'
+                className='cursor-pointer text-md flex items-center  text-black bg-white hover:bg-white hover:text-black px-4 py-1 rounded-md focus:outline-none transition-all duration-300 ease-in-outitems-center justify-center'
               >
                 Login
               </Link>
@@ -204,6 +137,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-          }
+};
 
 export default Navbar;
