@@ -29,7 +29,7 @@ const calculatePercentage = (value, maxValue) => {
   return (value / maxValue) * 100 + "%";
 };
 
-const ProgressBarStat = ({ name, value, maxValue = 100 }) => {
+const ProgressBarStat = ({ name, value, maxValue = 25 }) => {
   return (
     <div className='flex items-center gap-x-4 '>
       <div className='flex gap-x-2 w-24'>
@@ -49,7 +49,6 @@ const ProgressBarStat = ({ name, value, maxValue = 100 }) => {
           {value}
         </div>
       </div>
-      <div>{maxValue}</div>
     </div>
   );
 };
