@@ -5,10 +5,12 @@ import Footer from "@/components/shared/navigation/Footer";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { usePathname } from "next/navigation";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
+import ReactGA from 'react-ga';
+import React, { useEffect } from 'react';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +25,16 @@ export default function RootLayout({ children }) {
   const hideNavs = path.includes("/login") || path.includes("/register");
   const hideFooter = path.includes("/game/play") || path.includes("/game/new");
 
+  // Initialize Google Analytics
+  ReactGA.initialize('G-BTHMYX7TZ9');
+
+  useEffect(() => {
+    // Track page view when component mounts
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="G-BTHMYX7TZ9" />
       <body className={inter.className}>
         <GoogleOAuthProvider clientId="1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com">
           <div className="max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden">
