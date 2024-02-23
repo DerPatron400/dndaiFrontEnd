@@ -202,7 +202,7 @@ function parseAdventureText(text) {
   return { choices, paths };
 }
 export const parseGameText = (text) => {
-  const wordsPerElement = 17;
+  const wordsPerElement = 250;
 
   // Use a regular expression to extract the line labeled as VISUAL
   const visualMatch =
