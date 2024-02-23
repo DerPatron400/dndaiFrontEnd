@@ -25,7 +25,6 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="G-BTHMYX7TZ9" />
       <body className={inter.className}>
         <GoogleOAuthProvider clientId="1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com">
           <div className="max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden">
