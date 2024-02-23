@@ -9,6 +9,8 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
+import { logPageView } from './../utils/analytics';
+import React, { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +19,12 @@ const Navbar = dynamic(() => import("@/components/shared/navigation/Navbar"), {
 });
 
 export default function RootLayout({ children }) {
+
+  useEffect(() => {
+    // Initialize and log page view for Google Analytics
+    logPageView();
+  }, []);
+
   const path = usePathname();
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
