@@ -420,7 +420,7 @@ export default function Form() {
       setIntroText(data.responseText);
       setCharacter(data.character);
       setCredits(data.credits);
-      router.push("/game/play?conversationIndex=" + data.conversationIndex);
+      router.push("/game/classic?conversationIndex=" + data.conversationIndex);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -464,7 +464,7 @@ export default function Form() {
       const data = await newGameGreen(bodyData, user.token);
       setIntroText(data.responseText);
       setGreenCredits(data.greenCredits);
-      router.push("/game/play?conversationIndex=" + data.conversationIndex);
+      router.push("/game/classic?conversationIndex=" + data.conversationIndex);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
