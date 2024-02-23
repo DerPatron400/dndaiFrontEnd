@@ -5,12 +5,12 @@ import Footer from "@/components/shared/navigation/Footer";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { usePathname } from "next/navigation";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
-import ReactGA from 'react-ga';
-import React, { useEffect } from 'react';
-
+import { logPageView } from './../utils/analytics';
+import React, { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,19 +19,17 @@ const Navbar = dynamic(() => import("@/components/shared/navigation/Navbar"), {
 });
 
 export default function RootLayout({ children }) {
+
+  useEffect(() => {
+    // Initialize and log page view for Google Analytics
+    logPageView();
+  }, []);
+
   const path = usePathname();
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   const hideNavs = path.includes("/login") || path.includes("/register");
   const hideFooter = path.includes("/game/play") || path.includes("/game/new");
-
-  // Initialize Google Analytics
-  ReactGA.initialize('G-BTHMYX7TZ9');
-
-  useEffect(() => {
-    // Track page view when component mounts
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, []);
 
   return (
     <html lang="en">
