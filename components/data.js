@@ -1,16 +1,16 @@
 export const dropdowns = [
   {
-    label: "Class",
-    subtext: "Explore a diverse selection of classes from the expansive world of DND5 expansions and beyond. Whether you wield the arcane powers of a wizard or the brute strength of a barbarian, the choice is yours. Craft a hero that reflects your strategic prowess and venture forth into a realm where every class brings its own flavor to the unfolding saga. Choose wisely, for your class shapes the destiny that awaits you.",
-    placeholder: "Select a class",
-    options: ["Artificer", "Barbarian", "Blood Hunter", "Bard", "Cleric", "Druid", "Monk", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard", "Rogue", "Cleric", "Fighter"],
-  },
-  {
     label: "Race/Species",
     subtext: "Unleash your imagination and choose from a plethora of races and species, each with its own unique traits and abilities. From the mythical elves to the fierce dragonborn, the options are boundless. Dive into a world where diversity is celebrated, and your character's race adds a rich layer to the unfolding narrative. Select the one that resonates with your vision and embark on a journey where every race brings its own allure to the tapestry of your adventure. The choice is yours, and the possibilities are endless.",
     placeholder: "Select a race/species",
-    options: ["Dragonborn", "Dwarf", "Elf", "Gnome", "Half-Elf","Halfling", "Half-Orc", "Human", "Tiefling", "Aarakocra", "Aasimar", "Air Genasi", "Bugbear", "Centaur", "Changeling", "Deep Gnome", "Duergar", "Earth Genasi", "Eladrin", "Fairy", "Firbolg", "Fire Genasi", "Githyanki", "Githzerai", "Goblin", "Goliath", "Harengon", "Hobgoblin", "Kenku", "Kobold", "Lizardfolk", "Minotaur", "Orc", "Satyr", "Sea Elf", "Shadar-kai", "Shifter", "Tabaxi", "Tortle", "Triton", "Water Genasi", "Yuan-ti", "Kender", "Astral Elf", "Autognome", "Giff", "Hadozee", "Plasmoid", "Thri-keen", "Owlin", "Leonin", "Kalashtar", "Warforgerd", "Verdan", "Loxodon", "Centaur", "Simic Hybrid", "Vedalken", "Feral Tiefling", "Locathah", "Grung", "Gith", "Hobgoblin", "Goliath"],
-  },
+    options: ["Aarakocra", "Aasimar", "Air Genasi", "Autognome", "Astral Elf", "Bugbear", "Centaur", "Changeling", "Deep Gnome", "Dragonborn", "Duergar", "Dwarf", "Elf", "Eladrin", "Fairy", "Feral Tiefling", "Firbolg", "Fire Genasi", "Giff", "Gith", "Githyanki", "Githzerai", "Gnome", "Goblin", "Goliath", "Grung", "Hadozee", "Halfling", "Harengon", "Hobgoblin", "Human", "Kalashtar", "Kenku", "Kender", "Kobold", "Leonin", "Loxodon", "Locathah", "Lizardfolk", "Minotaur", "Orc", "Owlin", "Plasmoid", "Satyr", "Sea Elf", "Shadar-kai", "Shifter", "Simic Hybrid", "Tabaxi", "Thri-keen", "Tiefling", "Tortle", "Triton", "Verdan", "Vedalken", "Warforged", "Water Genasi", "Yuan-ti"],
+    },
+  {
+    label: "Class",
+    subtext: "Explore a diverse selection of classes from the expansive world of DND5 expansions and beyond. Whether you wield the arcane powers of a wizard or the brute strength of a barbarian, the choice is yours. Craft a hero that reflects your strategic prowess and venture forth into a realm where every class brings its own flavor to the unfolding saga. Choose wisely, for your class shapes the destiny that awaits you.",
+    placeholder: "Select a class",
+    options: ["Artificer", "Barbarian", "Bard", "Blood Hunter", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"],
+    },  
   {
     label: "Strength",
     subtext: "Your muscle power! It determines how hard you hit, how much you can carry, and if you can smash through doors. Perfect for those who want to crush foes up close!",
