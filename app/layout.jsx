@@ -18,6 +18,7 @@ const Navbar = dynamic(() => import("@/components/shared/navigation/Navbar"), {
   ssr: false,
 });
 
+// layout for the entire app
 export default function RootLayout({ children }) {
   useEffect(() => {
     // Initialize and log page view for Google Analytics
@@ -34,10 +35,10 @@ export default function RootLayout({ children }) {
     path.includes("/game/classic");
 
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={inter.className}>
-        <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
-          <div className='max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden'>
+        <GoogleOAuthProvider clientId="1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com">
+          <div className="max-w-screen !overflow-hidden relative bg-black min-h-screen overflow-x-hidden">
             <Theme>
               {!hideNavs && <Navbar />}
               {children}
