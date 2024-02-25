@@ -17,7 +17,7 @@ const DropDown = ({
       )}
     >
       <div
-        className={`flex flex-col  items-center md:!items-start z-[4] mx-auto w-[95%] ${animName} `}
+        className={`flex flex-col  items-center md:!items-start z-[4] mx-auto w-[95%] ${animName}  `}
       >
         <label className='text-white mb-1 font-bold text-3xl '>
           {data.label}
@@ -56,6 +56,5 @@ const DropDown = ({
     </div>
   );
 };
-
 
 export default DropDown;

@@ -93,9 +93,7 @@ h2 {
   text-shadow: 0 0 1px #00ff00, 0 0 2px #00ff00, 0 0 2px #00ff00;
 }
 
-.rt-SelectTrigger:where(.rt-variant-surface) {
-  border: 1px solid white !important;
-}
+
 
 .rt-SelectTrigger:where(.rt-variant-surface):where([data-placeholder]) :where(.rt-SelectTriggerInner) {
   color: #d3d3d3 !important;
@@ -141,4 +139,9 @@ audio::-webkit-media-controls-seek-back-button {
 audio::-webkit-media-controls-seek-forward-button {
   display: none;
   /* Add more styles as needed */
+}
+
+.rt-reset:where(button) {
+  /* allow border */
+  border: 1px solid #f1f1f1 !important;
 }

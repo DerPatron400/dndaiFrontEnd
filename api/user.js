@@ -1,7 +1,6 @@
 import api from "./index";
 
 export const getCredits = async (token) => {
-  console.log(token);
   try {
     const response = await api.get("/user/credits", {
       headers: {
@@ -15,23 +14,6 @@ export const getCredits = async (token) => {
     throw error;
   }
 };
-
-export const getGreenCredits = async (token) => {
-  console.log(token);
-  try {
-    const response = await api.get("/user/credits", {
-      headers: {
-        Authorization: token,
-      },
-    });
-
-    return response.data.greenCredits;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-};
-
 
 export const fetchImages = async (token) => {
   try {

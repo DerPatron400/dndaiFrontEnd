@@ -1,31 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import { dropdowns } from "../../../data";
-import { twMerge } from "tailwind-merge";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import toast from "react-hot-toast";
-import axios from "axios";
 import useUserStore from "@/utils/store/userStore";
 import useGameStore from "@/utils/store/introTextStore";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/shared/DragonLoader";
-import { newGame, newGameGreen } from "@/api/game";
-import { Tooltip } from "@radix-ui/themes";
+import { newGameGreen } from "@/api/game";
 import DropDown from "./DropDown";
 import Configurations from "./Configurations";
 
 gsap.registerPlugin(ScrollTrigger);
-
-function limitWordsPerLine(subtext, maxWordsPerLine) {
-  const words = subtext.split(" ");
-  const lines = [];
-
-  while (words.length > 0) {
-    lines.push(words.splice(0, maxWordsPerLine).join(" "));
-  }
-
-  return lines;
-}
 
 const getRandomName = () => {
   const prefixes = [
@@ -333,85 +319,10 @@ export default function Form() {
       toast.error("Please fill all the fields");
       return;
     }
+
+    setOpen(true);
     if (isLoading) {
       return;
-    }
-
-    setIsLoading(true);
-    setGameType("premium");
-
-    const bodyData = {
-      strength: formData.strength,
-      who: formData.name,
-      constitution: formData.constitution,
-      intelligence: formData.intelligence,
-      wisdom: formData.wisdom,
-      charisma: formData.charisma,
-      dexterity: formData.dexterity,
-      styleArt: "dnd",
-      dndClasses: formData.class,
-      dndRace: formData.race,
-    };
-
-    if (user.credits <= 0 && user.greenCredits <= 0) {
-      toast.error("You don't have enough credits to play");
-      router.push("/shop");
-      return;
-    }
-
-    try {
-      const data = await newGame(bodyData, user.token);
-      setIntroText(data.responseText);
-      setCharacter(data.character);
-      setCredits(data.credits);
-      router.push("/game/classic?conversationIndex=" + data.conversationIndex);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
-
-  const handleSubmitGreen = async () => {
-    if (!validateData()) {
-      toast.error("Please fill all the fields");
-      return;
-    }
-    if (isLoading) {
-      return;
-    }
-
-    setIsLoading(true);
-    setGameType("standard");
-
-    let currentPrompt = `${formData.name}${formData.class}${formData.race} ${formData.strength}${formData.dexterity}${formData.constitution}${formData.intelligence}${formData.wisdom}${formData.charisma}`;
-
-    const bodyData = {
-      strength: formData.strength,
-      who: formData.name,
-      constitution: formData.constitution,
-      intelligence: formData.intelligence,
-      wisdom: formData.wisdom,
-      charisma: formData.charisma,
-      dexterity: formData.dexterity,
-      styleArt: "dnd",
-      dndClasses: formData.class,
-      dndRace: formData.race,
-    };
-
-    if (user.greenCredits <= 0) {
-      toast.error("You don't have enough credits to play");
-      router.push("/shop");
-      return;
-    }
-
-    try {
-      const data = await newGameGreen(bodyData, user.token);
-      setIntroText(data.responseText);
-      setGreenCredits(data.greenCredits);
-      router.push("/game/classic?conversationIndex=" + data.conversationIndex);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
     }
   };
 
@@ -666,22 +577,25 @@ export default function Form() {
                   {isLoading ? "Loading... " : " Start Premium Game"}
                 </button>
               </Tooltip> */}
-              <Tooltip content='Pressing this button costs a Green Gem: Dive into instant play with standard AI, budget-friendly and ready for action.'>
-                <button
-                  onClick={() => setOpen(true)}
-                  disabled={isLoading}
-                  type='button'
-                  style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
-                  className='bg-gradient-to-t from-green-950 to-green-500 text-white px-12 z-[4] py-6 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9'
-                >
-                  {isLoading ? "Loading... " : " Start Game"}
-                </button>
-              </Tooltip>
+              <button
+                onClick={handleSubmit}
+                disabled={isLoading}
+                type='button'
+                style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
+                className='bg-gradient-to-t from-green-950 to-green-500 text-white px-12 z-[4] py-6 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9'
+              >
+                {isLoading ? "Loading... " : " Start Game"}
+              </button>
             </div>
             {isLoading && (
               <Loader text='it may take a few minutes to generate your character..' />
             )}
-            <Configurations open={open} setOpen={setOpen} />
+            <Configurations
+              open={open}
+              setOpen={setOpen}
+              formData={formData}
+              setIsLoading={setIsLoading}
+            />
           </div>
         </div>
       </form>

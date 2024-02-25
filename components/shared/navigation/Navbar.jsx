@@ -11,11 +11,12 @@ import TextToSpeech from "@/components/shared/TextToSpeech";
 import { Tooltip } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 import { switchMode } from "@/api/switchMode";
+import { getCredits, getGreenCredits } from "@/api/user";
 
 const Navbar = () => {
   const cookie = new Cookies();
   const { audio, setAudio } = useSoundStore((state) => state);
-  const { user } = useUserStore((state) => state);
+  const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const isNewGame = usePathname().includes("newgame");
@@ -32,6 +33,18 @@ const Navbar = () => {
     } else {
       setIsLoggedIn(false);
       cookie.set("uid", "", { path: "/" });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const fetchCredits = async (token) => {
+      const credits = await getCredits(token);
+
+      setCredits(credits.purple);
+      setGreenCredits(credits.green);
+    };
+    if (user) {
+      fetchCredits(user.token);
     }
   }, [user]);
 
