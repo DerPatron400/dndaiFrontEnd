@@ -30,10 +30,10 @@ export default function index() {
         isUser: false,
       })),
     ]);
-  }, [resultArray]);
+  }, [introText]);
 
   return (
-    <div className='text-white px-5 pb-20 w-[100%]  poppins chat-container'>
+    <div className="text-white px-5 pb-20 w-[100%]  poppins chat-container">
       {messages?.map((message, index) => (
         <div
           className={twMerge(
@@ -43,7 +43,7 @@ export default function index() {
         >
           <img
             src={message.isUser ? chatAvatar : "/Logo/white.png"}
-            className='w-8 h-8  rounded-full'
+            className="w-8 h-8  rounded-full"
           />
           <div
             key={index}
@@ -53,7 +53,7 @@ export default function index() {
             )}
           >
             {message.heading && (
-              <span className='text-lg text-green-200'>
+              <span className="text-lg text-green-200">
                 {message.heading.replaceAll("*", "")}
               </span>
             )}
