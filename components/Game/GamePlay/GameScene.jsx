@@ -103,10 +103,10 @@ export default function AtmosScene() {
   };
 
   return (
-    <div className='relative poppins'>
-      <div className='fixed top-0 border left-0 h-[100vh] w-screen'>
-        <Canvas className='z-[1]'>
-          <color attach='background' args={["#ececec"]} />
+    <div className="relative poppins">
+      <div className="fixed top-0 border left-0 h-[100vh] w-screen">
+        <Canvas className="z-[1]">
+          <color attach="background" args={["#ececec"]} />
 
           <Suspense fallback={<Loader />}>
             <Experience
@@ -137,34 +137,34 @@ export default function AtmosScene() {
       />
 
       <HowToPlay />
-      <div className='fixed bottom-[3%] right-4 flex flex-col gap-y-2'>
+      <div className="fixed bottom-[3%] right-4 flex flex-col gap-y-2">
         <Tooltip
-          content='Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple credit to save your game'
-          side='left'
+          content="Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple credit to save your game"
+          side="left"
         >
           <button
             onClick={handleSaveGame}
             disabled={isLoading}
-            className='bg-gradient-to-t from-purple-950 disabled:pointer-events-none to-purple-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-purple-700 hover:from-purple-400 transition-all'
+            className="bg-gradient-to-t from-purple-950 disabled:pointer-events-none to-purple-500 text-white disabled:cursor-not-allowed disabled:opacity-50 px-6 py-2  rounded-md hover:to-purple-700 hover:from-purple-400 transition-all"
           >
             <Save size={18} />
           </button>
         </Tooltip>
-        <Tooltip content='Let AI Narrate your Game' side='left'>
+        <Tooltip content="Let AI Narrate your Game" side="left">
           <button
             onClick={handlePlayAudio}
             disabled={playAudio || isLoading}
-            className=' bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+            className=" bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed "
           >
             <AudioLines size={18} />
           </button>
         </Tooltip>
       </div>
-      <div className='fixed bottom-[3%] left-4 flex flex-col gap-y-2'>
-        <Tooltip content='view details of your game' side='left'>
+      <div className="fixed bottom-[3%] left-4 flex flex-col gap-y-2">
+        <Tooltip content="view details of your game" side="left">
           <button
             onClick={handleModal}
-            className=' bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full '
+            className=" bg-white h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full "
           >
             <LineChart size={18} />
           </button>

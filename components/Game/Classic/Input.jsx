@@ -11,7 +11,7 @@ export default function Input({ query, setQuery, setMessages }) {
   const conversationIndex = searchParams.get("conversationIndex");
   const [crystal, setCrystal] = useState("purple");
   const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
-  const { setIntroText, setImage, setCharacter } = useGameStore(
+  const { setIntroText, setImage, setCharacter, character } = useGameStore(
     (state) => state
   );
   const handleSubmit = async (e) => {
@@ -54,7 +54,7 @@ export default function Input({ query, setQuery, setMessages }) {
     }
   };
   return (
-    <div className='text-white grid grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0'>
+    <div className="text-white grid grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0">
       <Tooltip
         content={
           crystal === "green"
@@ -62,18 +62,18 @@ export default function Input({ query, setQuery, setMessages }) {
             : "Purple Gem: Access the smartest AI gaming for an exclusive experience."
         }
       >
-        <div className='flex col-span-2  items-center gap-x-2  me-auto'>
+        <div className="flex col-span-2  items-center gap-x-2  me-auto">
           <Switch
             defaultChecked
-            variant='classic'
-            color='violet'
-            className='bg-green-500 !cursor-pointer '
+            variant="classic"
+            color="violet"
+            className="bg-green-500 !cursor-pointer "
             onCheckedChange={(e) => {
               setCrystal(e ? "purple" : "green");
             }}
           />
 
-          <span className='capitalize'>{crystal} gem</span>
+          <span className="capitalize">{crystal} gem</span>
         </div>
       </Tooltip>
       <input
@@ -81,18 +81,18 @@ export default function Input({ query, setQuery, setMessages }) {
         onChange={(e) => {
           setQuery(e.target.value);
         }}
-        type='text'
+        type="text"
         maxLength={420}
-        className='border p-2 w-full col-span-6  bg-transparent rounded-lg'
-        placeholder='What will you do'
+        className="border p-2 w-full col-span-6  bg-transparent rounded-lg"
+        placeholder="What will you do"
       />
-      <p className='text-xs text-white   mt-1 col-span-1 opacity-60'>
+      <p className="text-xs text-white   mt-1 col-span-1 opacity-60">
         {query.length}/420
       </p>
       <button
         onClick={handleSubmit}
         disabled={isLoading || query.trim() === ""}
-        className=' bg-gradient-to-t me-auto  col col-span-3 from-green-950 to-green-500 text-white px-3 z-[4] p-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
+        className=" bg-gradient-to-t me-auto  col col-span-3 from-green-950 to-green-500 text-white px-3 z-[4] p-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none"
       >
         {isLoading ? "Generating..." : " Roll Dice"}
       </button>
