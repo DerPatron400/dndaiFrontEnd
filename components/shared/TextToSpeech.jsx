@@ -12,12 +12,13 @@ export default function TextToSpeech() {
   const [audio, setAudio] = useState(null);
   const audioRef = useRef();
 
-  const isNewGame = pathname.includes("/game/play");
+  const isNewGame = pathname.includes("/game/classic");
   useEffect(() => {
     if (!isNewGame) return;
 
     const getSpeech = async () => {
       const BASELINK = process.env.NEXT_PUBLIC_BACKEND_URL;
+      console.log(BASELINK);
       audio?.pause();
       setAudio(null);
       setIsTalking(false);
@@ -40,7 +41,7 @@ export default function TextToSpeech() {
         })
         .catch((error) => console.error("Error:", error));
     };
-
+    console.log("here");
     if (playAudio) {
       getSpeech();
     } else {
@@ -54,9 +55,9 @@ export default function TextToSpeech() {
   return (
     <div className={` flex justify-end items-end z-[50]`}>
       {isNewGame && audio && (
-        <audio controls className="hidden md:block h-9 !w-60 ms-auto ">
-          <source src={audio?.src} type="audio/ogg" />
-          <source src={audio?.src} type="audio/mpeg" />
+        <audio controls className='hidden md:block h-9 !w-60 ms-auto '>
+          <source src={audio?.src} type='audio/ogg' />
+          <source src={audio?.src} type='audio/mpeg' />
           Your browser does not support the audio element.
         </audio>
       )}
@@ -66,7 +67,7 @@ export default function TextToSpeech() {
           onClick={() => {
             setIsTalking(!isTalking);
           }}
-          className="bg-white relative md:hidden  cursor-pointer p-2 rounded-full"
+          className='bg-white relative md:hidden  cursor-pointer p-2 rounded-full'
         >
           {isTalking ? <XCircle size={20} /> : <Speech size={20} />}
         </div>

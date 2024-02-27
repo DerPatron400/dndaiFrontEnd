@@ -1,19 +1,14 @@
-import { Fragment, useRef, useState, useEffect, Suspense } from "react";
+import { Fragment, useRef, useState, Suspense } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Image } from "lucide-react";
 import { Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Model as RollDice } from "@/components/shared/D20";
 import toast from "react-hot-toast";
 import useUserStore from "@/utils/store/userStore";
-import { useSearchParams } from "next/navigation";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import DragonHead from "@/components/shared/GameLoop/DragonHead";
-import { useRouter } from "next/navigation";
 import Choice from "@/components/shared/GameLoop/Choice";
-import { generateImage, sendUserInput } from "@/api/game";
-import { getCredits } from "@/api/user";
-import { getGreenCredits } from "@/api/user";
+import { generateImage } from "@/api/game";
 
 function Scene({ children }) {
   return (
@@ -28,93 +23,12 @@ function Scene({ children }) {
   );
 }
 
-export default function GameLoop({
-  open,
-  setOpen,
-  addToScene,
-  type,
-  visualText,
-  paths,
-  gameType,
-}) {
+export default function GameLoop({ open, setOpen, visualText }) {
   const cancelButtonRef = useRef(null);
-  const [rollDice, setRollDice] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedFace, setSelectedFace] = useState(null);
-  const [input, setInput] = useState("");
   const [selection, setSelection] = useState("");
-  const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
-  const { setIntroText, setImage, setCharacter } = useIntroTextStore(
-    (state) => state
-  );
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const conversationIndex = searchParams.get("conversationIndex");
-
-  useEffect(() => {
-    const fetchCredts = async (token) => {
-      const credits = await getCredits(token);
-      const greenCredits = await getGreenCredits(token);
-
-      setCredits(credits);
-      setGreenCredits(greenCredits); // Use setGreenCredits for greenCredits
-    };
-    if (user) {
-      fetchCredts(user.token);
-    }
-  }, []);
-
-  //this is for rolling dice
-  useEffect(() => {
-    if (rollDice) {
-      console.log(user.credits);
-      if (user.credits <= 0 && user.greenCredits <= 0) {
-        toast.error("You don't have enough credits to play");
-        router.push("/shop");
-        return;
-      }
-      const fetchResponse = async () => {
-        try {
-          const bodyData = {
-            userInput: input,
-            randomNumber: selectedFace,
-            conversationIndex,
-            gameType,
-          };
-
-          const data = await sendUserInput(bodyData, user.token);
-          console.log(data);
-          setIntroText(data.responseText);
-          setCharacter(data.character);
-          setCredits(data.credits);
-          await setGreenCredits(data.greenCredits);
-
-          addToScene("text");
-          setInput("");
-          setOpen(false);
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchResponse();
-      setTimeout(async () => {
-        setRollDice(false);
-        setLoading(true);
-      }, 3500);
-    }
-  }, [selectedFace]);
-
-  const handleRollDice = () => {
-    if (input.trim() === "") {
-      toast.error("Please add your choice");
-      return;
-    }
-    //this starts rolling dice
-    setRollDice(true);
-  };
+  const { user, setCredits } = useUserStore((state) => state);
+  const { setImage } = useIntroTextStore((state) => state);
 
   const handleImageGeneration = async () => {
     if (selection.trim() === "") {
@@ -141,23 +55,12 @@ export default function GameLoop({
       setImage(data.image);
       setCredits(data.credits);
 
-      addToScene("image");
       setSelection("");
       setOpen(false);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      if (type === "text") {
-        handleRollDice();
-      } else {
-        handleImageGeneration();
-      }
     }
   };
 
@@ -168,9 +71,7 @@ export default function GameLoop({
         className='relative z-1 w-full '
         initialFocus={cancelButtonRef}
         onClose={() => {
-          if (type === "image") {
-            setOpen(false);
-          }
+          if (!loading) setOpen(false);
         }}
       >
         <Transition.Child
@@ -207,13 +108,6 @@ export default function GameLoop({
                         Please wait while we load your journey
                       </div>
                     </>
-                  ) : rollDice ? (
-                    <Scene>
-                      <RollDice
-                        selectedFace={selectedFace}
-                        setSelectedFace={setSelectedFace}
-                      />
-                    </Scene>
                   ) : (
                     <div className='sm:flex w-fui sm:items-start w-full h-full'>
                       <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-center w-full h-full'>
@@ -221,30 +115,16 @@ export default function GameLoop({
                           as='h3'
                           className='text-xl font-semibold leading-6 text-white '
                         >
-                          Player's Menu
+                          Generate Image
                         </Dialog.Title>
-                        <div
-                          onKeyDown={handleKeyDown}
-                          className='flex relative  w-full items-center h-full justify-between'
-                        >
-                          {type === "text" ? (
-                            <Choice
-                              buttonText={"Roll Dice"}
-                              isInput
-                              paths={paths}
-                              savedGame
-                              input={input}
-                              setInput={setInput}
-                              onClick={handleRollDice}
-                            />
-                          ) : (
-                            <Choice
-                              buttonText={<Image />}
-                              input={selection}
-                              setInput={setSelection}
-                              onClick={handleImageGeneration}
-                            />
-                          )}
+                        <div className='flex flex-col text-white  justify-center relative  w-full items-center h-full '>
+                          {visualText}
+                          <Choice
+                            buttonText={<Image />}
+                            input={selection}
+                            setInput={setSelection}
+                            onClick={handleImageGeneration}
+                          />
                         </div>
                       </div>
                     </div>

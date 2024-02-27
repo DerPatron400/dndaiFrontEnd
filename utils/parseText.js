@@ -257,5 +257,5 @@ export const parseGameText = (text) => {
     }
   });
 
-  return { visualText, resultArray, paths, stats };
+  return { originalTextWithoutAtLines, visualText, resultArray, paths, stats };
 };

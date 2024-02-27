@@ -7,7 +7,7 @@ const GamePlay = dynamic(() => import("@/components/Game/Classic"), {
 });
 export default function page() {
   return (
-    <div className="min-h-[80vh] mt-12">
+    <div className='min-h-[80vh] mt-12'>
       <GamePlay />
     </div>
   );
