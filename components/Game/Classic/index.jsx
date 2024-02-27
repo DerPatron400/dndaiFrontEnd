@@ -7,7 +7,6 @@ import Input from "./Input";
 import { twMerge } from "tailwind-merge";
 import { Tooltip } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
-
 export default function index() {
   const searchParams = useSearchParams();
   const [messages, setMessages] = useState([]);
@@ -34,15 +33,14 @@ export default function index() {
     const allResponseText = resultArray
       .map((message) => {
         if (message.heading) {
-          return message.heading + "<br/>" + message.content;
+          return message.heading + "\n\n" + message.content;
         }
       })
-      .join("<br/>");
+      .join("\n\n");
     setMessages((prev) => [
       ...prev,
       {
-        heading: "Visual",
-        text: allResponseText,
+        text: introText.split("\n").join("\n\n\n"),
         isUser: false,
       },
     ]);
@@ -51,38 +49,38 @@ export default function index() {
   console.log("messages", messages);
 
   return (
-    <div className="text-white flex pb-20 poppins chat-container">
-      <div className="w-[30%] flex justify-center">
-        <div className=" w-1/2 h-[35vh] mt-10 flex flex-col justify-center items-center">
-          <div className="relative">
+    <div className='text-white flex pb-20 poppins chat-container'>
+      <div className='w-[30%] flex justify-center'>
+        <div className=' w-1/2 h-[35vh] mt-10 flex flex-col justify-center items-center'>
+          <div className='relative'>
             <img
-              src="/images/frameCharacter.png"
-              alt=""
-              className="w-full h-full"
+              src='/images/frameCharacter.png'
+              alt=''
+              className='w-full h-full'
             />
-            <div className="absolute w-[54%] h-[54%] top-[15%] left-[22%]">
-              <img src={chatAvatar} alt="" className="w-full " />
+            <div className='absolute w-[54%] h-[54%] top-[15%] left-[22%]'>
+              <img src={chatAvatar} alt='' className='w-full ' />
             </div>
             <Tooltip
-              content="Open up stats"
-              side="top"
-              className="absolute top-0 right-0"
+              content='Open up stats'
+              side='top'
+              className='absolute top-0 right-0'
             >
-              <div className="cursor-pointer h-[8%] w-[10%] rounded-full bg-gradient-to-r from-violet-200 to-purple-900 absolute bottom-[13%] left-[45%]"></div>
+              <div className='cursor-pointer h-[8%] w-[10%] rounded-full bg-gradient-to-r from-violet-200 to-purple-900 absolute bottom-[13%] left-[45%]'></div>
             </Tooltip>
           </div>
-          <span className="text-center mt-2 text-xl font-bold ">
+          <span className='text-center mt-2 text-xl font-bold '>
             {character}
           </span>
         </div>
         {/* <ReactMarkdown>{markdownText}</ReactMarkdown> */}
       </div>
-      <div className="w-[70%] px-5 h-[80vh] overflow-y-auto">
+      <div className='w-[70%] px-5 h-[80vh] overflow-y-auto'>
         {messages.map((message, index) => (
           <div
             key={index}
             className={twMerge(
-              "w-full flex flex-col items-start gap-y-3  mt-3"
+              "w-full flex flex-col items-start gap-y-3  mt-8"
             )}
           >
             <div
@@ -90,7 +88,7 @@ export default function index() {
             >
               <img
                 src={message.isUser ? chatAvatar : "/Logo/white.png"}
-                className="w-8 h-8 rounded-full"
+                className='w-8 h-8 rounded-full'
               />
               <span>
                 {message.isUser ? `${character}` : "DnDAi Dungeon Master"}
@@ -101,11 +99,13 @@ export default function index() {
                 "max-w-[80%] w-fit  gap-y-2 border  border-green-200 p-5 py-3  rounded-lg flex flex-col"
               )}
             >
-              <div key={index} className="flex flex-col gap-y-2">
-                <span className="text-lg font-light text-green-500">
+              <div key={index} className='flex flex-col gap-y-2'>
+                <span className='text-lg font-light text-green-500'>
                   {message.heading}
                 </span>
-                <span className="text-sm">{message.text}</span>
+                <ReactMarkdown className='text-sm'>
+                  {message.text}
+                </ReactMarkdown>
               </div>
             </div>
           </div>
