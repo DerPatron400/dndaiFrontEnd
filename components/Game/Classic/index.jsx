@@ -13,20 +13,9 @@ export default function index() {
   const [query, setQuery] = useState("");
   const { introText, image, setPlayAudio, playAudio, chatAvatar, character } =
     useGameStore((state) => state);
-  const { visualText, resultArray, paths, stats } = parseGameText(introText);
+  const { visualText, resultArray, paths, stats, originalTextWithoutAtLines } =
+    parseGameText(introText);
 
-  const markdownText = `
-    **This is a bold heading**
-    
-    This is a paragraph with *italic* text.
-    
-    Another paragraph with some code:
-
-    \`\`\`javascript
-    const greeting = 'Hello, world!';
-    console.log(greeting);
-    \`\`\`
-  `;
   const conversationIndex = searchParams.get("conversationIndex");
 
   useEffect(() => {
@@ -37,30 +26,68 @@ export default function index() {
         }
       })
       .join("\n\n");
+
+    if (visualText) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          heading: "Visual",
+          text: visualText.split("\n").join("\n\n\n"),
+          isUser: false,
+        },
+      ]);
+    }
     setMessages((prev) => [
       ...prev,
       {
-        text: introText.split("\n").join("\n\n\n"),
+        text: originalTextWithoutAtLines.split("\n").join("\n\n\n"),
         isUser: false,
       },
     ]);
+
+    setPlayAudio(false);
+    //scroll to end of screen
+    setTimeout(() => {
+      const element = document.querySelector(".chat-container");
+      element.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 500);
   }, [introText]);
 
-  console.log("messages", messages);
+  useEffect(() => {
+    if (image) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          image: image,
+          isUser: false,
+          isImage: true,
+        },
+      ]);
+      //scroll to end of screen
+      setTimeout(() => {
+        const element = document.querySelector(".chat-container");
+        element.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 500);
+    }
+  }, [image]);
 
   return (
-    <div className='text-white  pb-20 poppins grid grid-cols-12 border chat-container'>
-      <div className='col-span-12 md:col-span-3 flex justify-center gap-y-10'>
-        <div className=' w-1/2 h-[20vh] md:h-[35vh]  mt-8  flex flex-col justify-center items-center'>
-          <div className='relative h-full'>
+    <div className='text-white  pb-20 poppins grid grid-cols-12  chat-container'>
+      <div className='col-span-12 md:col-span-3  flex justify-center gap-y-10'>
+        <div className=' w-1/2 md:fixed  md:w-full h-[20vh] md:h-[35vh] mt-8  flex flex-col justify-center items-center'>
+          <div className='relative h-full '>
             <img
               src='/images/frameCharacter.png'
               alt=''
-              className=' h-[70%] border md:w-full md:h-full'
+              className=' h-[70%]  relative md:w-full md:h-full !z-[10]'
             />
-            <div className='absolute w-[54%] h-[54%] top-[15%] left-[22%]'>
-              <img src={chatAvatar} alt='' className=' w-full ' />
-            </div>
+
+            <img
+              src={chatAvatar}
+              alt=''
+              className=' absolute w-[60%] h-[60%] top-[15%] left-[20%] !z-[3] object-cover rounded-md '
+            />
+
             <Tooltip
               content='Open up stats'
               side='top'
@@ -69,11 +96,10 @@ export default function index() {
               <div className='cursor-pointer h-[8%] w-[10%] rounded-full bg-gradient-to-r opacity-0 from-violet-200 to-purple-900 absolute bottom-[13%] left-[45%]'></div>
             </Tooltip>
           </div>
-          <span className='text-center -mt-8 '>{character}</span>
+          <span className='text-center -mt-8 md:mt-2 '>{character}</span>
         </div>
-        {/* <ReactMarkdown>{markdownText}</ReactMarkdown> */}
       </div>
-      <div className='col-span-12 md:col-span-9 px-5 h-[80vh] overflow-y-auto'>
+      <div className='col-span-12 md:col-span-9 px-5 h-[80vh] md:full overflow-y-auto'>
         {messages.map((message, index) => (
           <div
             key={index}
@@ -92,24 +118,37 @@ export default function index() {
                 {message.isUser ? `${character}` : "DnDAi Dungeon Master"}
               </span>
             </div>
-            <div
-              className={twMerge(
-                "max-w-[80%] w-fit  gap-y-2 border  border-green-200 p-5 py-3  rounded-lg flex flex-col"
-              )}
-            >
-              <div key={index} className='flex flex-col gap-y-2'>
-                <span className='text-lg font-light text-green-500'>
-                  {message.heading}
-                </span>
-                <ReactMarkdown className='text-sm'>
-                  {message.text}
-                </ReactMarkdown>
+            {message.isImage ? (
+              <img
+                src={message.image}
+                alt=''
+                className='w-[90%] h-[30vh] md:h-[40vh]  rounded-lg'
+              />
+            ) : (
+              <div
+                className={twMerge(
+                  "max-w-[90%] w-fit  gap-y-2 border  border-green-200 p-5 py-3  rounded-lg flex flex-col"
+                )}
+              >
+                <div key={index} className='flex flex-col gap-y-1'>
+                  <span className='text-lg font-light text-green-500'>
+                    {message.heading}
+                  </span>
+                  <ReactMarkdown className='text-sm'>
+                    {message.text}
+                  </ReactMarkdown>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ))}
       </div>
-      <Input query={query} setQuery={setQuery} setMessages={setMessages} />
+      <Input
+        visualText={visualText}
+        query={query}
+        setQuery={setQuery}
+        setMessages={setMessages}
+      />
     </div>
   );
 }

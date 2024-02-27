@@ -85,7 +85,7 @@ const Choice = ({
     }
   };
   return (
-    <div className='flex flex-col items-center flex-1 h-full'>
+    <div className='flex flex-col items-center '>
       <div
         className={twMerge(
           "flex items-center w-[43vw] md:w-full justify-between h-full py-10 flex-1 flex-col ",
