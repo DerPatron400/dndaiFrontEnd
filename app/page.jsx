@@ -9,7 +9,7 @@ import { logPageView } from "./../utils/analytics";
 import { getCredits } from "@/api/user";
 import { getGreenCredits } from "@/api/user";
 import { useSearchParams } from "next/navigation";
-import { initGA } from "./../utils/analytics"; // Adjust the import path as necessary
+import { initGA } from "./../utils/analytics";
 export default function Home() {
   useEffect(() => {
     initGA(); // Initialize Google Analytics
