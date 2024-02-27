@@ -49,33 +49,31 @@ export default function index() {
   console.log("messages", messages);
 
   return (
-    <div className='text-white flex pb-20 poppins chat-container'>
-      <div className='w-[30%] flex justify-center'>
-        <div className=' w-1/2 h-[35vh] mt-10 flex flex-col justify-center items-center'>
-          <div className='relative'>
+    <div className='text-white  pb-20 poppins grid grid-cols-12 border chat-container'>
+      <div className='col-span-12 md:col-span-3 flex justify-center gap-y-10'>
+        <div className=' w-1/2 h-[20vh] md:h-[35vh]  mt-8  flex flex-col justify-center items-center'>
+          <div className='relative h-full'>
             <img
               src='/images/frameCharacter.png'
               alt=''
-              className='w-full h-full'
+              className=' h-[70%] border md:w-full md:h-full'
             />
             <div className='absolute w-[54%] h-[54%] top-[15%] left-[22%]'>
-              <img src={chatAvatar} alt='' className='w-full ' />
+              <img src={chatAvatar} alt='' className=' w-full ' />
             </div>
             <Tooltip
               content='Open up stats'
               side='top'
               className='absolute top-0 right-0'
             >
-              <div className='cursor-pointer h-[8%] w-[10%] rounded-full bg-gradient-to-r from-violet-200 to-purple-900 absolute bottom-[13%] left-[45%]'></div>
+              <div className='cursor-pointer h-[8%] w-[10%] rounded-full bg-gradient-to-r opacity-0 from-violet-200 to-purple-900 absolute bottom-[13%] left-[45%]'></div>
             </Tooltip>
           </div>
-          <span className='text-center mt-2 text-xl font-bold '>
-            {character}
-          </span>
+          <span className='text-center -mt-8 '>{character}</span>
         </div>
         {/* <ReactMarkdown>{markdownText}</ReactMarkdown> */}
       </div>
-      <div className='w-[70%] px-5 h-[80vh] overflow-y-auto'>
+      <div className='col-span-12 md:col-span-9 px-5 h-[80vh] overflow-y-auto'>
         {messages.map((message, index) => (
           <div
             key={index}
