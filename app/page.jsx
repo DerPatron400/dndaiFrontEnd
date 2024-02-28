@@ -28,7 +28,7 @@ export default function Home() {
       cookies.set("uid", user._id, { path: "/" });
       cookies.set("token", user.token, { path: "/" });
     }
-  }, [user]);
+  }, []);
 
   const startGame = () => {
     if (!user) {
