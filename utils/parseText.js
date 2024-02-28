@@ -227,7 +227,7 @@ export const parseGameText = (text) => {
         .trim()
     : null;
 
-  if (!visualText) {
+  if (!visualText && visualLine) {
     visualText = visualLine
       .replace(/[*:|#]/g, "")
       .replace("VISUAL", "")
