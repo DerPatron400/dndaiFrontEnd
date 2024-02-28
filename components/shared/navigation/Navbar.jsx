@@ -46,7 +46,7 @@ const Navbar = () => {
     if (user) {
       fetchCredits(user.token);
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (!audio) return;
