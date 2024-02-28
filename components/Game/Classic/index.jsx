@@ -17,16 +17,8 @@ export default function index() {
     parseGameText(introText);
 
   const conversationIndex = searchParams.get("conversationIndex");
-
+  console.log(introText);
   useEffect(() => {
-    const allResponseText = resultArray
-      .map((message) => {
-        if (message.heading) {
-          return message.heading + "\n\n" + message.content;
-        }
-      })
-      .join("\n\n");
-
     if (visualText) {
       setMessages((prev) => [
         ...prev,
@@ -40,7 +32,7 @@ export default function index() {
     setMessages((prev) => [
       ...prev,
       {
-        text: originalTextWithoutAtLines.split("\n").join("\n\n\n"),
+        text: originalTextWithoutAtLines.split("\n").join("\n"),
         isUser: false,
       },
     ]);
@@ -66,23 +58,23 @@ export default function index() {
   // Scroll to bottom of chat-container
   useEffect(() => {
     if (chatContainerRef.current) {
-      const chatContainer = chatContainerRef.current;
-      chatContainer.scrollTo({
-        top: chatContainer.scrollHeight,
-        behavior: "smooth",
-      });
+      const lastMessage =
+        chatContainerRef.current.querySelector("#lastMessage");
+      if (lastMessage) {
+        lastMessage.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }, [messages]); // Trigger scroll adjustment when messages change
 
   return (
-    <div className='text-white  pb-20 poppins grid grid-cols-12  '>
-      <div className='col-span-12 md:col-span-3  flex justify-center gap-y-10'>
-        <div className=' w-1/2 md:fixed  md:w-full h-[20vh] md:h-[35vh] mt-8  flex flex-col justify-center items-center'>
+    <div className='text-white  pb-20 poppins grid grid-cols-12 max-h-[85vh] md:max-h-full  overflow-hidden md:overflow-scroll '>
+      <div className='col-span-12 md:col-span-3 flex justify-center gap-y-10'>
+        <div className=' w-1/2 md:fixed  md:w-[80%] lg:w-full h-[20vh]  lg:h-[35vh] mt-8  flex flex-col justify-center items-center'>
           <div className='relative h-full '>
             <img
               src='/images/frameCharacter.png'
               alt=''
-              className=' h-[70%]  relative md:w-full md:h-full !z-[10]'
+              className=' h-[70%]  relative  lg:w-full md:h-full !z-[10]'
             />
 
             <img
@@ -102,13 +94,15 @@ export default function index() {
           <span className='text-center -mt-8 md:mt-2 '>{character}</span>
         </div>
       </div>
+
       <div
         ref={chatContainerRef}
-        className='col-span-12 md:col-span-9 px-5 h-[80vh] md:full overflow-y-auto chat-container'
+        className='col-span-12  md:col-span-9 px-5 h-[99vh] pb-[40vh] md:pb-0 md:h-full overflow-y-auto chat-container'
       >
         {messages.map((message, index) => (
           <div
             key={index}
+            id={index === messages.length - 1 ? "lastMessage" : ""}
             className={twMerge("w-full flex flex-col items-start gap-y-3 mt-8")}
           >
             <div
@@ -126,19 +120,19 @@ export default function index() {
               <img
                 src={message.image}
                 alt=''
-                className='h-[75vh] object-contain rounded-lg'
+                className='h-[50vh] md:h-[75vh] object-contain rounded-lg'
               />
             ) : (
               <div
                 className={twMerge(
-                  "max-w-[90%] w-fit  gap-y-2 border  border-green-200 p-5 py-3  rounded-lg flex flex-col"
+                  "max-w-[80%] md:max-w-[65%] w-fit gap-y-2 rounded-lg flex flex-col"
                 )}
               >
-                <div key={index} className='flex flex-col gap-y-1'>
-                  <span className='text-lg font-light text-green-500'>
+                <div key={index} className='flex flex-col gap-y-1 '>
+                  <span className=' text-[#4ade80] mb-3'>
                     {message.heading}
                   </span>
-                  <ReactMarkdown className='text-sm'>
+                  <ReactMarkdown className='markdown-text'>
                     {message.text}
                   </ReactMarkdown>
                 </div>

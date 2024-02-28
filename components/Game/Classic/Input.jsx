@@ -3,8 +3,8 @@ import { useSearchParams } from "next/navigation";
 import { sendUserInput, saveGame } from "@/api/game";
 import useUserStore from "@/utils/store/userStore";
 import useGameStore from "@/utils/store/introTextStore";
-import { Switch, Tooltip } from "@radix-ui/themes";
-import { AudioLines, Save, Image } from "lucide-react";
+import { Switch, Tooltip, Popover } from "@radix-ui/themes";
+import { AudioLines, Save, Image, MoreVertical } from "lucide-react";
 import toast from "react-hot-toast";
 
 import GameLoop from "@/components/shared/GameLoop";
@@ -17,6 +17,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingAnimation, setIsLoadingAnimation] = useState(false);
   const [rollDice, setRollDice] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const [selectedFace, setSelectedFace] = useState(null);
 
@@ -38,6 +39,8 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           isGreen: crystal === "green",
         };
 
+        setQuery("");
+
         try {
           setIsLoading(true);
           const data = await sendUserInput(bodyData, user.token);
@@ -45,7 +48,6 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           setCharacter(data.character);
           setCredits(data.credits);
           setGreenCredits(data.greenCredits);
-          setQuery("");
         } catch (error) {
           console.log(error);
         } finally {
@@ -79,10 +81,12 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
     setOpen(true);
   };
   const handlePlayAudio = () => {
+    setShowMenu(false);
     setPlayAudio(true);
   };
 
   const handleSaveGame = async () => {
+    setShowMenu(false);
     try {
       if (crystal === "purple" ? user.credits <= 0 : user.greenCredits <= 0) {
         toast.error(`You don't have enough ${crystal} credits to play`);
@@ -108,6 +112,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
   };
 
   const handleGenerateImage = () => {
+    setShowMenu(false);
     setOpen(true);
   };
   return (
@@ -118,7 +123,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           handleSubmit();
         }
       }}
-      className='text-white grid grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0'
+      className='text-white grid   grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0'
     >
       <Tooltip
         content={
@@ -127,7 +132,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
             : "Purple Gem: Access the smartest AI gaming for an exclusive experience."
         }
       >
-        <div className='flex col-span-2 items-center gap-x-2  me-auto'>
+        <div className='flex col-span-2  sm:col-span-3 md:col-span-2 items-center gap-x-3  me-auto'>
           <Switch
             defaultChecked
             variant='classic'
@@ -138,58 +143,75 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
             }}
           />
 
-          <span className='capitalize'>{crystal} gem</span>
+          <span className='capitalize hidden sm:block md:text-base'>
+            {crystal} gem
+          </span>
         </div>
       </Tooltip>
-      <input
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-        type='text'
-        maxLength={420}
-        className='border p-2 w-full col-span-6  bg-transparent rounded-lg'
-        placeholder='What will you do'
-      />
-      <p className='text-xs text-white   mt-1 col-span-1 opacity-60'>
-        {query.length}/420
-      </p>
+      <div className='col-span-7 sm:col-span-6 md:col-span-8 flex items-center gap-x-2'>
+        <input
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+          type='text'
+          maxLength={420}
+          className='border p-2 w-full flex-1  bg-transparent rounded-lg'
+          placeholder='What will you do'
+        />
+        <p className='text-xs text-white   mt-1  opacity-60'>
+          {query.length}/420
+        </p>
+      </div>
       <button
         onClick={handleSubmit}
         disabled={isLoading || query.trim() === ""}
-        className=' bg-gradient-to-t me-auto  col col-span-1 from-green-950 to-green-500 text-white px-3 z-[4] p-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
+        className=' bg-gradient-to-t me-auto  col col-span-2 md:col-span-1 from-green-950 to-green-500 text-white px-3 z-[4] p-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
       >
-        {isLoading ? "Generating..." : " Roll Dice"}
+        <span className='hidden md:block'>
+          {isLoading ? "Generating..." : " Roll Dice"}
+        </span>
+        <img src='/Icons/d20.png' alt='dice' className='w-6 h-6 md:hidden' />
       </button>
-      <div className=' col-span-2 flex items-center justify-end gap-x-2'>
-        <Tooltip content='Let AI Narrate your Game'>
-          <button
-            onClick={handlePlayAudio}
-            disabled={playAudio || isLoading}
-            className='cursor-pointer bg-white text-black h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
-          >
-            <AudioLines size={18} />
-          </button>
-        </Tooltip>
-        <Tooltip content='Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple gem to save your game'>
-          <button
-            onClick={handleSaveGame}
-            disabled={isLoading}
-            className='cursor-pointer bg-white text-black h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
-          >
-            <Save size={18} />
-          </button>
-        </Tooltip>
-        <Tooltip content={"Use a purple gem to visualize your adventure"}>
-          <button
-            onClick={handleGenerateImage}
-            disabled={isLoading}
-            className='cursor-pointer bg-white text-black h-10 w-10 flex items-center justify-center  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
-          >
-            <Image size={18} />
-          </button>
-        </Tooltip>
+      <div className=' col-span-1 flex items-center justify-end gap-x-2'>
+        <Popover.Root open={showMenu} onOpenChange={(e) => setShowMenu(e)}>
+          <Popover.Trigger>
+            <MoreVertical className='cursor-pointer' />
+          </Popover.Trigger>
+          <Popover.Content style={{ width: 150, padding: 0 }}>
+            <div>
+              <Tooltip content='Let AI Narrate your Game'>
+                <button
+                  onClick={handlePlayAudio}
+                  disabled={playAudio || isLoading}
+                  className='cursor-pointer w-full bg-white  focus:border-0  focus:!outline-none focus-within:border-0 text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+                >
+                  <AudioLines size={20} strokeWidth={1.3} /> Narrate
+                </button>
+              </Tooltip>
+              <Tooltip content='Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple gem to save your game'>
+                <button
+                  onClick={handleSaveGame}
+                  disabled={isLoading}
+                  className='focus:border-0  focus:!outline-none focus-within:border-0 cursor-pointer w-full bg-white text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+                >
+                  <Save size={20} strokeWidth={1.3} /> Save
+                </button>
+              </Tooltip>
+              <Tooltip content={"Use a purple gem to visualize your adventure"}>
+                <button
+                  onClick={handleGenerateImage}
+                  disabled={isLoading}
+                  className='focus:border-0  focus:!outline-none focus-within:border-0 cursor-pointer w-full bg-white text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+                >
+                  <Image size={20} strokeWidth={1.3} /> Generate
+                </button>
+              </Tooltip>
+            </div>
+          </Popover.Content>
+        </Popover.Root>
       </div>
+
       <GameLoop
         open={open}
         setOpen={setOpen}

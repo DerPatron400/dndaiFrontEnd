@@ -51,18 +51,18 @@ body {
 }
 
 /* For WebKit (Chrome, Safari) */
-div::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 6px;
   background-color: #000000;
   /* Width of the entire scrollbar */
 }
 
-div::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: #000
     /* Color of the tracking area */
 }
 
-div::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: #888;
   /* Color of the scrollbar handle */
   border-radius: 3px;
@@ -71,12 +71,12 @@ div::-webkit-scrollbar-thumb {
     /* Border around the scrollbar handle */
 }
 
-div::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background-color: #555;
   /* Color of the scrollbar handle on hover */
 }
 
-div::-webkit-scrollbar-corner {
+::-webkit-scrollbar-corner {
   background: rgb(var(--background-start-rgb));
   /* Color of the bottom corner */
 }
@@ -145,4 +145,18 @@ audio::-webkit-media-controls-seek-forward-button {
 .rt-reset:where(button) {
   /* allow border */
   border: 1px solid #f1f1f1 !important;
+}
+
+.markdown-text>p {
+  margin-bottom: 1rem;
+}
+
+.markdown-text>p>strong {
+  color: #4ade80;
+  font-weight: 400;
+
+}
+
+.markdown-text>hr {
+  display: none;
 }

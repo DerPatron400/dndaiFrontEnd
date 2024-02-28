@@ -27,7 +27,7 @@ const Selection = ({ selection, setSelection }) => {
   return (
     <Select.Root onValueChange={(value) => setSelection(value)}>
       <Select.Trigger
-        className='z-[50] w-32 md:!w-[20rem]  placeholder:!text-white !text-white !border !py-1 !px-2 !border-white !rounded-md'
+        className='z-[50] w-64 md:!w-[20rem]  placeholder:!text-white !text-white !border !py-1 !px-2 !border-white !rounded-md'
         placeholder='Pick a Style'
       />
       <Select.Content className='z-[50] !bg-black !text-white h-full overflow-scroll '>
@@ -111,16 +111,12 @@ const Choice = ({
               </Tooltip>
             ))}
           </div>
-          <div className='flex md:flex-row flex-col items-center gap-x-2'>
-            {isInput ? (
-              <Input input={input} setInput={setInput} />
-            ) : (
-              <Selection selection={input} setSelection={setInput} />
-            )}
+          <div className='flex items-center gap-x-2'>
+            <Selection selection={input} setSelection={setInput} />
 
             <button
               type='button'
-              className='justify-center mt-2 w-32 items-center flex  md:mt-0 h-10 text-sm bg-gradient-to-t from-green-950 to-green-500 text-white px-2 z-[4] py-3 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out  '
+              className='justify-center  w-14 items-center flex   h-9 md:h-10 text-sm bg-gradient-to-t from-green-950 to-green-500 text-white px-2 z-[4] py-3 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out  '
               onClick={onClick}
             >
               {buttonText}
