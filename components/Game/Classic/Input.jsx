@@ -178,9 +178,9 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
         <button
           onClick={handleGenerateImage}
           disabled={isLoading}
-          className='cursor-pointer bg-white text-black h-10 w-10 flex items-center justify-center border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
-        >
-          <Image color="#612F92" size={20} />
+          className='cursor-pointer bg-purple-500 text-black h-10 w-10 flex items-center justify-center border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
+          >
+          <Image color="#fff" size={20} />
         </button>
       </Tooltip>
       <div className=' col-span-1 flex items-center justify-end gap-x-2'>
