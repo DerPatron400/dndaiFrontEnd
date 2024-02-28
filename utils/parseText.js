@@ -204,23 +204,38 @@ function parseAdventureText(text) {
 export const parseGameText = (text) => {
   const wordsPerElement = 250;
 
-  // Use a regular expression to extract the line labeled as VISUAL
-  const visualMatch =
+  // // Use a regular expression to extract the line labeled as VISUAL
+  let visualMatch =
     text.match(/VISUAL:.*?(?=\n|$)/) || text.match(/^\*\*VISUAL:/);
 
+  console.log(visualMatch, "visualMatch");
+
   // Extracted visual line
-  const visualText = visualMatch
+  let visualText = visualMatch
     ? visualMatch[0]
         .replace(/[*:|#]/g, "")
         .replace("VISUAL", "")
         .trim()
     : null;
 
+  if (!visualText) {
+    // Use a regular expression to extract the line labeled as VISUAL
+    visualMatch = text.match(/(?<=\*\*Current Scene VISUAL:\*\*).+?(?=\n|$)/s);
+
+    // Extracted visual line
+    visualText = visualMatch ? visualMatch[0].trim() : null;
+  }
+
+  console.log(visualText);
+
   const statLines = text.split("\n").filter((line) => line.startsWith("@"));
   const originalTextWithoutAtLines = text
     .split("\n")
     .filter((line) => !line.startsWith("@"))
-    .join("\n");
+    .join("\n")
+    .replaceAll("VISUAL", "")
+    .replaceAll(visualText, "")
+    .replace("**Current Scene :**", "");
 
   const stats = statLines.map((line) => {
     const [name, rest] = line.split(":");
@@ -234,8 +249,7 @@ export const parseGameText = (text) => {
 
   let pathText = originalTextWithoutAtLines
     .replace(visualText, "")
-    .replaceAll(":", "")
-    .replaceAll("VISUAL", "");
+    .replaceAll(":", "");
 
   const { paths, choices } = parseAdventureText(pathText);
 

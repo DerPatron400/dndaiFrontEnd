@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useGameStore from "@/utils/store/introTextStore";
 import { useSearchParams } from "next/navigation";
 import { parseGameText } from "@/utils/parseText";
@@ -46,11 +46,6 @@ export default function index() {
     ]);
 
     setPlayAudio(false);
-    //scroll to end of screen
-    setTimeout(() => {
-      const element = document.querySelector(".chat-container");
-      element.scrollIntoView({ behavior: "smooth", block: "end" });
-    }, 500);
   }, [introText]);
 
   useEffect(() => {
@@ -63,16 +58,24 @@ export default function index() {
           isImage: true,
         },
       ]);
-      //scroll to end of screen
-      setTimeout(() => {
-        const element = document.querySelector(".chat-container");
-        element.scrollIntoView({ behavior: "smooth", block: "end" });
-      }, 500);
     }
   }, [image]);
 
+  const chatContainerRef = useRef();
+
+  // Scroll to bottom of chat-container
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      const chatContainer = chatContainerRef.current;
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]); // Trigger scroll adjustment when messages change
+
   return (
-    <div className='text-white  pb-20 poppins grid grid-cols-12  chat-container'>
+    <div className='text-white  pb-20 poppins grid grid-cols-12  '>
       <div className='col-span-12 md:col-span-3  flex justify-center gap-y-10'>
         <div className=' w-1/2 md:fixed  md:w-full h-[20vh] md:h-[35vh] mt-8  flex flex-col justify-center items-center'>
           <div className='relative h-full '>
@@ -99,13 +102,14 @@ export default function index() {
           <span className='text-center -mt-8 md:mt-2 '>{character}</span>
         </div>
       </div>
-      <div className='col-span-12 md:col-span-9 px-5 h-[80vh] md:full overflow-y-auto'>
+      <div
+        ref={chatContainerRef}
+        className='col-span-12 md:col-span-9 px-5 h-[80vh] md:full overflow-y-auto chat-container'
+      >
         {messages.map((message, index) => (
           <div
             key={index}
-            className={twMerge(
-              "w-full flex flex-col items-start gap-y-3  mt-8"
-            )}
+            className={twMerge("w-full flex flex-col items-start gap-y-3 mt-8")}
           >
             <div
               className={twMerge("flex gap-x-3 justify-center items-center")}
@@ -122,7 +126,7 @@ export default function index() {
               <img
                 src={message.image}
                 alt=''
-                className='w-[90%] h-[30vh] md:h-[40vh]  rounded-lg'
+                className='h-[75vh] object-contain rounded-lg'
               />
             ) : (
               <div

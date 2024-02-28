@@ -8,6 +8,7 @@ import useUserStore from "@/utils/store/userStore";
 import useIntroTextStore from "@/utils/store/introTextStore";
 import DragonHead from "@/components/shared/GameLoop/DragonHead";
 import Choice from "@/components/shared/GameLoop/Choice";
+import { Model as RollDice } from "@/components/shared/D20";
 import { generateImage } from "@/api/game";
 
 function Scene({ children }) {
@@ -23,9 +24,18 @@ function Scene({ children }) {
   );
 }
 
-export default function GameLoop({ open, setOpen, visualText }) {
+export default function GameLoop({
+  open,
+  setOpen,
+  visualText,
+  rollDice,
+  setSelectedFace,
+  selectedFace,
+  loading,
+  setLoading,
+}) {
   const cancelButtonRef = useRef(null);
-  const [loading, setLoading] = useState(false);
+
   const [selection, setSelection] = useState("");
   const { user, setCredits } = useUserStore((state) => state);
   const { setImage } = useIntroTextStore((state) => state);
@@ -108,6 +118,13 @@ export default function GameLoop({ open, setOpen, visualText }) {
                         Please wait while we load your journey
                       </div>
                     </>
+                  ) : rollDice ? (
+                    <Scene>
+                      <RollDice
+                        selectedFace={selectedFace}
+                        setSelectedFace={setSelectedFace}
+                      />
+                    </Scene>
                   ) : (
                     <div className='sm:flex w-fui sm:items-start w-full h-full'>
                       <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-center w-full h-full'>
