@@ -12,7 +12,7 @@ import { useSearchParams } from "next/navigation";
 import { initGA } from "./../utils/analytics";
 export default function Home() {
   useEffect(() => {
-    initGA();
+    initGA(); // Initialize Google Analytics
     // Initialize and log page view for Google Analytics
     logPageView();
   }, []);

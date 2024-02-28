@@ -12,7 +12,9 @@ const SaveGame = ({ data }) => {
   //states
   const [userName, setUserName] = useState("");
   const { user } = useUserStore((state) => state);
-  const { setIntroText, setChatAvatar } = useIntroTextStore((state) => state);
+  const { setIntroText, setChatAvatar, setImage } = useIntroTextStore(
+    (state) => state
+  );
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -36,7 +38,7 @@ const SaveGame = ({ data }) => {
   const handleClick = async (savedGame) => {
     console.log(savedGame);
     setIsLoading(true);
-
+    setImage(null);
     setIntroText(savedGame.summary);
     setChatAvatar(savedGame.avatar);
     router.push(
