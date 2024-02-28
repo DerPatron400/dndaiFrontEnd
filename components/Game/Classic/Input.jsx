@@ -133,6 +133,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
         }
       >
         <div className='flex col-span-2  sm:col-span-3 md:col-span-2 items-center gap-x-3  me-auto'>
+      {/*
           <Switch
             defaultChecked
             variant='classic'
@@ -142,10 +143,10 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
               setCrystal(e ? "purple" : "green");
             }}
           />
-
           <span className='capitalize hidden sm:block md:text-base'>
             {crystal} gem
           </span>
+           */}
         </div>
       </Tooltip>
       <div className='col-span-7 sm:col-span-6 md:col-span-8 flex items-center gap-x-2'>
