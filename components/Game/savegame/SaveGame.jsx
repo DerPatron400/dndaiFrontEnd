@@ -8,10 +8,11 @@ import { useRouter } from "next/navigation";
 import Loader from "@/components/shared/DragonLoader";
 
 const SaveGame = ({ data }) => {
+  console.log(data);
   //states
   const [userName, setUserName] = useState("");
   const { user } = useUserStore((state) => state);
-  const { setIntroText } = useIntroTextStore((state) => state);
+  const { setIntroText, setChatAvatar } = useIntroTextStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -33,10 +34,11 @@ const SaveGame = ({ data }) => {
   };
 
   const handleClick = async (savedGame) => {
+    console.log(savedGame);
     setIsLoading(true);
 
     setIntroText(savedGame.summary);
-
+    setChatAvatar(savedGame.avatar);
     router.push(
       "/game/classic?conversationIndex=" + savedGame.id + "&savedGame=true"
     );
@@ -72,12 +74,19 @@ const SaveGame = ({ data }) => {
                   data-aos='fade-right'
                   className='mb-4 border-l-4 border-green-500 pl-4'
                 >
-                  <h2
-                    onClick={() => handleClick(savedGame)}
-                    className='cursor-pointer hover:text-green-500 duration-300 transition-colors text-lg sm:text-xl font-bold mb-2'
-                  >
-                    {savedGame.title}
-                  </h2>
+                  <div className='flex items-center gap-x-2'>
+                    <img
+                      src={savedGame.avatar}
+                      alt='avatar'
+                      className='w-12 h-12 rounded-full'
+                    />
+                    <h2
+                      onClick={() => handleClick(savedGame)}
+                      className='cursor-pointer hover:text-green-500 duration-300 transition-colors text-lg sm:text-xl font-bold mb-2'
+                    >
+                      {savedGame.title}
+                    </h2>
+                  </div>
                   {isLoading && <Loader text={"Resuming your quest.."} />}
                   <p>{savedGame.summary?.replaceAll("*", "")}</p>
                 </div>

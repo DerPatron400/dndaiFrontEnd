@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { sendUserInput, saveGame } from "@/api/game";
 import useUserStore from "@/utils/store/userStore";
@@ -6,6 +6,7 @@ import useGameStore from "@/utils/store/introTextStore";
 import { Switch, Tooltip } from "@radix-ui/themes";
 import { AudioLines, Save, Image } from "lucide-react";
 import toast from "react-hot-toast";
+
 import GameLoop from "@/components/shared/GameLoop";
 
 export default function Input({ query, setQuery, setMessages, visualText }) {
@@ -14,10 +15,52 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
   const [open, setOpen] = useState(false);
   const [crystal, setCrystal] = useState("purple");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAnimation, setIsLoadingAnimation] = useState(false);
+  const [rollDice, setRollDice] = useState(false);
+
+  const [selectedFace, setSelectedFace] = useState(null);
+
   const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const { setIntroText, setCharacter, setPlayAudio, playAudio } = useGameStore(
     (state) => state
   );
+
+  //this is for rolling dice
+  useEffect(() => {
+    if (rollDice) {
+      const fetchResponse = async () => {
+        //generate random number between 1 to 20
+        const randomNumber = selectedFace;
+        const bodyData = {
+          userInput: query,
+          randomNumber,
+          conversationIndex,
+          isGreen: crystal === "green",
+        };
+
+        try {
+          setIsLoading(true);
+          const data = await sendUserInput(bodyData, user.token);
+          setIntroText(data.responseText);
+          setCharacter(data.character);
+          setCredits(data.credits);
+          setGreenCredits(data.greenCredits);
+          setQuery("");
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+          setIsLoadingAnimation(false);
+          setOpen(false);
+        }
+      };
+      fetchResponse();
+      setTimeout(async () => {
+        setRollDice(false);
+        setIsLoadingAnimation(true);
+      }, 8500);
+    }
+  }, [selectedFace]);
   const handleSubmit = async (e) => {
     if (crystal === "purple" ? user.credits <= 0 : user.greenCredits <= 0) {
       toast.error(`You don't have enough ${crystal} credits to play`);
@@ -32,34 +75,8 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
       },
     ]);
 
-    //scroll to end of screen
-    setTimeout(() => {
-      const element = document.querySelector(".chat-container");
-      element.scrollIntoView({ behavior: "smooth", block: "end" });
-    }, 500);
-
-    //generate random number between 1 to 20
-    const randomNumber = Math.floor(Math.random() * 20) + 1;
-    const bodyData = {
-      userInput: query,
-      randomNumber,
-      conversationIndex,
-      isGreen: crystal === "green",
-    };
-
-    try {
-      setIsLoading(true);
-      const data = await sendUserInput(bodyData, user.token);
-      setIntroText(data.responseText);
-      setCharacter(data.character);
-      setCredits(data.credits);
-      setGreenCredits(data.greenCredits);
-      setQuery("");
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+    setRollDice(true);
+    setOpen(true);
   };
   const handlePlayAudio = () => {
     setPlayAudio(true);
@@ -90,11 +107,19 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
     }
   };
 
-  const handleGenerateImage = async () => {
+  const handleGenerateImage = () => {
     setOpen(true);
   };
   return (
-    <div className='text-white grid grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0'>
+    <div
+      onKeyDown={(e) => {
+        if (isLoading || query.trim() === "") return;
+        if (e.key === "Enter") {
+          handleSubmit();
+        }
+      }}
+      className='text-white grid grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0'
+    >
       <Tooltip
         content={
           crystal === "green"
@@ -165,7 +190,16 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           </button>
         </Tooltip>
       </div>
-      <GameLoop open={open} setOpen={setOpen} visualText={visualText} />
+      <GameLoop
+        open={open}
+        setOpen={setOpen}
+        visualText={visualText}
+        rollDice={rollDice}
+        selectedFace={selectedFace}
+        setSelectedFace={setSelectedFace}
+        loading={isLoadingAnimation}
+        setLoading={setIsLoadingAnimation}
+      />
     </div>
   );
 }
