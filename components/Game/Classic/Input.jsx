@@ -132,7 +132,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
             : "Purple Gem: Access the smartest AI gaming for an exclusive experience."
         }
       >
-        <div className='flex col-span-2  sm:col-span-3 md:col-span-2 items-center gap-x-3  me-auto'>
+<div className='hidden sm:block col-span-2 sm:col-span-3 md:col-span-2 items-center gap-x-3 me-auto'>
       {/*
           <Switch
             defaultChecked
