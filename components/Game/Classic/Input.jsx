@@ -133,6 +133,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
         }
       >
         <div className='flex col-span-2  sm:col-span-3 md:col-span-2 items-center gap-x-3  me-auto'>
+      {/*
           <Switch
             defaultChecked
             variant='classic'
@@ -142,10 +143,10 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
               setCrystal(e ? "purple" : "green");
             }}
           />
-
           <span className='capitalize hidden sm:block md:text-base'>
             {crystal} gem
           </span>
+           */}
         </div>
       </Tooltip>
       <div className='col-span-7 sm:col-span-6 md:col-span-8 flex items-center gap-x-2'>
@@ -173,6 +174,16 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
         </span>
         <img src='/Icons/d20.png' alt='dice' className='w-6 h-6 md:hidden' />
       </button>
+      <div className='col-span-2 md:col-span-1 flex items-center justify-end gap-x-2'>
+      <Tooltip content={"Use a purple gem to visualize your adventure"}>
+        <button
+          onClick={handleGenerateImage}
+          disabled={isLoading}
+          className='cursor-pointer bg-purple-500 text-black h-10 w-10 flex items-center justify-center border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
+          >
+          <Image color="#fff" size={20} />
+        </button>
+      </Tooltip>
       <div className=' col-span-1 flex items-center justify-end gap-x-2'>
         <Popover.Root open={showMenu} onOpenChange={(e) => setShowMenu(e)}>
           <Popover.Trigger>
@@ -211,7 +222,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           </Popover.Content>
         </Popover.Root>
       </div>
-
+      </div>
       <GameLoop
         open={open}
         setOpen={setOpen}
