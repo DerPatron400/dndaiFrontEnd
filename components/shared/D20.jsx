@@ -71,7 +71,7 @@ export function Model({ selectedFace, setSelectedFace }) {
 
   useEffect(() => {
     const rollDice = async (randomFace) => {
-      await new Promise((resolve) => setTimeout(resolve, 6000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       setRolling(false);
       toast.success(`You rolled a ${randomFace}!`);

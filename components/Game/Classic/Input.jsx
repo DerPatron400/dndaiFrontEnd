@@ -59,7 +59,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
       setTimeout(async () => {
         setRollDice(false);
         setIsLoadingAnimation(true);
-      }, 8500);
+      }, 4500);
     }
   }, [selectedFace]);
   const handleSubmit = async (e) => {
