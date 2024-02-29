@@ -21,7 +21,7 @@ export default function Configurations({
   setIsLoading,
 }) {
   const router = useRouter();
-  const [selectedCrystal, setSelectedCrystal] = useState("purple");
+  const [selectedCrystal, setSelectedCrystal] = useState("green");
   const [avatar, setAvatar] = useState("unique");
   const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
   const { setIntroText, setCharacter, setChatAvatar, setImage, setIsGreen } =
@@ -105,10 +105,14 @@ export default function Configurations({
 
                   className='w-[90%] !h-12 !border-green-500 !border  !text-white  !bg-transparent'
                 />
-                <Select.Content className='!text-white  !bg-black'>
-                  <Select.Item value='purple'>Purple</Select.Item>
-                  <Select.Item value='green'>Green</Select.Item>
-                </Select.Content>
+            <Select.Content className='!text-white !bg-black'>
+              <Select.Item value='green'>
+                <img src='../images/GreenCreditsDndAi.png' alt='Green Gem' className='w-6 h-6 mr-2' />
+              </Select.Item>
+              <Select.Item value='purple'>
+                <img src='../images/CreditsDndAi.png' alt='Purple Gem' className='w-6 h-6 mr-2' />
+              </Select.Item>
+            </Select.Content>
               </Select.Root>
               <Tooltip
                 content={
