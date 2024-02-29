@@ -12,9 +12,8 @@ const SaveGame = ({ data }) => {
   //states
   const [userName, setUserName] = useState("");
   const { user } = useUserStore((state) => state);
-  const { setIntroText, setChatAvatar, setImage } = useIntroTextStore(
-    (state) => state
-  );
+  const { setIntroText, setChatAvatar, setImage, setIsGreen } =
+    useIntroTextStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -40,6 +39,7 @@ const SaveGame = ({ data }) => {
     setIsLoading(true);
     setImage(null);
     setIntroText(savedGame.summary);
+    setIsGreen(savedGame.isGreen);
     setChatAvatar(savedGame.avatar);
     router.push(
       "/game/classic?conversationIndex=" + savedGame.id + "&savedGame=true"

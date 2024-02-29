@@ -24,9 +24,8 @@ export default function Configurations({
   const [selectedCrystal, setSelectedCrystal] = useState("purple");
   const [avatar, setAvatar] = useState("unique");
   const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
-  const { setIntroText, setCharacter, setChatAvatar, setImage } = useGameStore(
-    (state) => state
-  );
+  const { setIntroText, setCharacter, setChatAvatar, setImage, setIsGreen } =
+    useGameStore((state) => state);
 
   const handleStart = async () => {
     setIsLoading(true);
@@ -66,6 +65,7 @@ export default function Configurations({
       setCredits(data.credits.purple);
       setGreenCredits(data.credits.green);
       setChatAvatar(data.avatar);
+      setIsGreen(data.isGreen);
       setImage(null);
 
       console.log(data.avatar);

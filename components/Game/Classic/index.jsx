@@ -67,10 +67,10 @@ export default function index() {
   }, [messages]); // Trigger scroll adjustment when messages change
 
   return (
-    <div className='text-white  pb-20 poppins grid grid-cols-12 max-h-[85vh] md:max-h-full  overflow-hidden md:overflow-scroll '>
-      <div className='col-span-12 md:col-span-3 flex justify-center gap-y-10'>
-        <div className=' w-1/2 md:fixed  md:w-[80%] lg:w-full h-[20vh]  lg:h-[35vh] mt-8  flex flex-col justify-center items-center'>
-          <div className='relative h-full '>
+    <div className='text-white pb-0 md:pb-20 poppins grid grid-cols-12  max-h-screen mt-[9vh]  md:max-h-full md:h-full !overflow-hidden md:overflow-scroll '>
+      <div className='col-span-12  md:col-span-3 flex justify-center  '>
+        <div className=' w-1/2 relative md:fixed  md:w-[80%]  lg:w-full h-[25vh]  lg:h-[35vh] mt-1 md:mt-8  flex flex-col justify-center items-center'>
+          <div className='relative mt-10 flex flex-col items-center gap-y-3 h-full py-3 md:py-3  '>
             <img
               src='/images/frameCharacter.png'
               alt=''
@@ -80,7 +80,7 @@ export default function index() {
             <img
               src={chatAvatar}
               alt=''
-              className=' absolute w-[60%] h-[60%] top-[15%] left-[20%] !z-[3] object-cover rounded-md '
+              className=' absolute w-[60%] h-[50%] md:h-[60%] top-[15%] left-[20%] !z-[3] object-cover rounded-md '
             />
 
             <Tooltip
@@ -90,14 +90,14 @@ export default function index() {
             >
               <div className='cursor-pointer h-[8%] w-[10%] rounded-full bg-gradient-to-r opacity-0 from-violet-200 to-purple-900 absolute bottom-[13%] left-[45%]'></div>
             </Tooltip>
+            <span className='text-center  '>{character}</span>
           </div>
-          <span className='text-center -mt-8 md:mt-2 '>{character}</span>
         </div>
       </div>
 
       <div
         ref={chatContainerRef}
-        className='col-span-12  md:col-span-9 px-5 h-[99vh] pb-[40vh] md:pb-0 md:h-full overflow-y-auto chat-container'
+        className='col-span-12  md:col-span-9 px-5 h-[60vh]  pb-5 md:pb-0 md:h-full overflow-y-auto chat-container'
       >
         {messages.map((message, index) => (
           <div

@@ -13,7 +13,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
   const searchParams = useSearchParams();
   const conversationIndex = searchParams.get("conversationIndex");
   const [open, setOpen] = useState(false);
-  const [crystal, setCrystal] = useState("purple");
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingAnimation, setIsLoadingAnimation] = useState(false);
   const [rollDice, setRollDice] = useState(false);
@@ -22,9 +22,8 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
   const [selectedFace, setSelectedFace] = useState(null);
 
   const { user, setCredits, setGreenCredits } = useUserStore((state) => state);
-  const { setIntroText, setCharacter, setPlayAudio, playAudio } = useGameStore(
-    (state) => state
-  );
+  const { setIntroText, setCharacter, setPlayAudio, playAudio, isGreen } =
+    useGameStore((state) => state);
 
   //this is for rolling dice
   useEffect(() => {
@@ -36,7 +35,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           userInput: query,
           randomNumber,
           conversationIndex,
-          isGreen: crystal === "green",
+          isGreen,
         };
 
         setQuery("");
@@ -64,8 +63,10 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
     }
   }, [selectedFace]);
   const handleSubmit = async (e) => {
-    if (crystal === "purple" ? user.credits <= 0 : user.greenCredits <= 0) {
-      toast.error(`You don't have enough ${crystal} credits to play`);
+    if (!isGreen ? user.credits <= 0 : user.greenCredits <= 0) {
+      toast.error(
+        `You don't have enough ${isGreen ? "green" : "purple"} credits to play`
+      );
       router.push("/shop");
       return;
     }
@@ -88,15 +89,18 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
   const handleSaveGame = async () => {
     setShowMenu(false);
     try {
-      if (crystal === "purple" ? user.credits <= 0 : user.greenCredits <= 0) {
-        toast.error(`You don't have enough ${crystal} credits to play`);
+      if (!isGreen ? user.credits <= 0 : user.greenCredits <= 0) {
+        toast.error(
+          `You don't have enough ${
+            isGreen ? "green" : "purple"
+          } credits to play`
+        );
         router.push("/shop");
         return;
       }
-
       const bodyData = {
         conversationIndex,
-        isGreen: crystal === "green",
+        isGreen,
       };
 
       setIsLoading(true);
@@ -125,7 +129,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
       }}
       className='text-white grid   grid-cols-12 gap-x-3  items-center  p-4 left-0 fixed bg-black w-full bottom-0'
     >
-      <Tooltip
+      {/* <Tooltip
         content={
           crystal === "green"
             ? "Green Gem: Use standard AI, budget-friendly and ready for action."
@@ -133,7 +137,7 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
         }
       >
         <div className='hidden sm:block col-span-2 sm:col-span-3 md:col-span-2 items-center gap-x-3 me-auto'>
-          {/*
+          
           <Switch
             defaultChecked
             variant='classic'
@@ -146,10 +150,10 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           <span className='capitalize hidden sm:block md:text-base'>
             {crystal} gem
           </span>
-           */}
+          
         </div>
-      </Tooltip>
-      <div className='col-span-7 sm:col-span-6 md:col-span-8 flex items-center gap-x-2'>
+      </Tooltip> */}
+      <div className='col-span-9 sm:col-span-8 md:col-span-9 lg:col-span-10 flex items-center gap-x-2'>
         <input
           value={query}
           onChange={(e) => {
@@ -164,27 +168,29 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           {query.length}/420
         </p>
       </div>
+
       <button
         onClick={handleSubmit}
         disabled={isLoading || query.trim() === ""}
-        className=' bg-gradient-to-t me-auto  col col-span-2 md:col-span-1 from-green-950 to-green-500 text-white px-3 z-[4] p-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
+        className=' bg-gradient-to-t mx-auto  col col-span-2 md:col-span-1 from-green-950 to-green-500 text-white px-3 z-[4] p-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
       >
         <span className='hidden md:block'>
           {isLoading ? "Generating..." : " Roll Dice"}
         </span>
         <img src='/Icons/d20.png' alt='dice' className='w-6 h-6 md:hidden' />
       </button>
-      <div className='col-span-2 md:col-span-1 flex items-center justify-end gap-x-2'>
+
+      <div className=' col-span-1 sm:col-span-2 lg:col-span-1 flex items-center justify-end gap-x-2'>
         <Tooltip content={"Use a purple gem to visualize your adventure"}>
           <button
             onClick={handleGenerateImage}
             disabled={isLoading || !visualText}
-            className='cursor-pointer bg-purple-500 text-black h-10 w-10 flex items-center justify-center border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
+            className='cursor-pointer bg-purple-500 text-black h-10 w-10  border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
           >
             <Image color='#fff' size={20} />
           </button>
         </Tooltip>
-        <div className=' col-span-1 flex items-center justify-end gap-x-2'>
+        <div className='  flex items-center justify-end gap-x-2'>
           <Popover.Root open={showMenu} onOpenChange={(e) => setShowMenu(e)}>
             <Popover.Trigger>
               <MoreVertical className='cursor-pointer' />
