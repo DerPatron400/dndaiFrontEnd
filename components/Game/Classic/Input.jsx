@@ -79,8 +79,11 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
     ]);
 
     setRollDice(true);
-    setOpen(true);
   };
+
+  useEffect(() => {
+    if (rollDice) setOpen(true);
+  }, [rollDice]);
   const handlePlayAudio = () => {
     setShowMenu(false);
     setPlayAudio(true);
