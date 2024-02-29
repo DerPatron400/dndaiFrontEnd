@@ -46,8 +46,8 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
           const data = await sendUserInput(bodyData, user.token);
           setIntroText(data.responseText);
           setCharacter(data.character);
-          setCredits(data.credits);
-          setGreenCredits(data.greenCredits);
+          setCredits(data.credits.purple);
+          setGreenCredits(data.credits.green);
         } catch (error) {
           console.log(error);
         } finally {
@@ -132,8 +132,8 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
             : "Purple Gem: Access the smartest AI gaming for an exclusive experience."
         }
       >
-<div className='hidden sm:block col-span-2 sm:col-span-3 md:col-span-2 items-center gap-x-3 me-auto'>
-      {/*
+        <div className='hidden sm:block col-span-2 sm:col-span-3 md:col-span-2 items-center gap-x-3 me-auto'>
+          {/*
           <Switch
             defaultChecked
             variant='classic'
@@ -175,53 +175,55 @@ export default function Input({ query, setQuery, setMessages, visualText }) {
         <img src='/Icons/d20.png' alt='dice' className='w-6 h-6 md:hidden' />
       </button>
       <div className='col-span-2 md:col-span-1 flex items-center justify-end gap-x-2'>
-      <Tooltip content={"Use a purple gem to visualize your adventure"}>
-        <button
-          onClick={handleGenerateImage}
-          disabled={isLoading}
-          className='cursor-pointer bg-purple-500 text-black h-10 w-10 flex items-center justify-center border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
+        <Tooltip content={"Use a purple gem to visualize your adventure"}>
+          <button
+            onClick={handleGenerateImage}
+            disabled={isLoading || !visualText}
+            className='cursor-pointer bg-purple-500 text-black h-10 w-10 flex items-center justify-center border-0 transition-all rounded-full disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed hidden sm:inline-flex items-center justify-center'
           >
-          <Image color="#fff" size={20} />
-        </button>
-      </Tooltip>
-      <div className=' col-span-1 flex items-center justify-end gap-x-2'>
-        <Popover.Root open={showMenu} onOpenChange={(e) => setShowMenu(e)}>
-          <Popover.Trigger>
-            <MoreVertical className='cursor-pointer' />
-          </Popover.Trigger>
-          <Popover.Content style={{ width: 150, padding: 0 }}>
-            <div>
-              <Tooltip content='Let AI Narrate your Game'>
-                <button
-                  onClick={handlePlayAudio}
-                  disabled={playAudio || isLoading}
-                  className='cursor-pointer w-full bg-white  focus:border-0  focus:!outline-none focus-within:border-0 text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+            <Image color='#fff' size={20} />
+          </button>
+        </Tooltip>
+        <div className=' col-span-1 flex items-center justify-end gap-x-2'>
+          <Popover.Root open={showMenu} onOpenChange={(e) => setShowMenu(e)}>
+            <Popover.Trigger>
+              <MoreVertical className='cursor-pointer' />
+            </Popover.Trigger>
+            <Popover.Content style={{ width: 150, padding: 0 }}>
+              <div>
+                <Tooltip content='Let AI Narrate your Game'>
+                  <button
+                    onClick={handlePlayAudio}
+                    disabled={playAudio || isLoading}
+                    className='cursor-pointer w-full bg-white  focus:border-0  focus:!outline-none focus-within:border-0 text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+                  >
+                    <AudioLines size={20} strokeWidth={1.3} /> Narrate
+                  </button>
+                </Tooltip>
+                <Tooltip content='Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple gem to save your game'>
+                  <button
+                    onClick={handleSaveGame}
+                    disabled={isLoading}
+                    className='focus:border-0  focus:!outline-none focus-within:border-0 cursor-pointer w-full bg-white text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+                  >
+                    <Save size={20} strokeWidth={1.3} /> Save
+                  </button>
+                </Tooltip>
+                <Tooltip
+                  content={"Use a purple gem to visualize your adventure"}
                 >
-                  <AudioLines size={20} strokeWidth={1.3} /> Narrate
-                </button>
-              </Tooltip>
-              <Tooltip content='Be cautious, as the game will automatically save your progress every 4-5 turns. You can use one purple gem to save your game'>
-                <button
-                  onClick={handleSaveGame}
-                  disabled={isLoading}
-                  className='focus:border-0  focus:!outline-none focus-within:border-0 cursor-pointer w-full bg-white text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
-                >
-                  <Save size={20} strokeWidth={1.3} /> Save
-                </button>
-              </Tooltip>
-              <Tooltip content={"Use a purple gem to visualize your adventure"}>
-                <button
-                  onClick={handleGenerateImage}
-                  disabled={isLoading}
-                  className='focus:border-0  focus:!outline-none focus-within:border-0 cursor-pointer w-full bg-white text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
-                >
-                  <Image size={20} strokeWidth={1.3} /> Generate
-                </button>
-              </Tooltip>
-            </div>
-          </Popover.Content>
-        </Popover.Root>
-      </div>
+                  <button
+                    onClick={handleGenerateImage}
+                    disabled={isLoading || !visualText}
+                    className='focus:border-0  focus:!outline-none focus-within:border-0 cursor-pointer w-full bg-white text-black flex items-center justify-center  gap-x-2 transition-all py-3 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed '
+                  >
+                    <Image size={20} strokeWidth={1.3} /> Generate
+                  </button>
+                </Tooltip>
+              </div>
+            </Popover.Content>
+          </Popover.Root>
+        </div>
       </div>
       <GameLoop
         open={open}
