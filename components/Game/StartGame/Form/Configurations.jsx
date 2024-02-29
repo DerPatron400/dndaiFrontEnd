@@ -88,8 +88,7 @@ export default function Configurations({
         className='!bg-black !py-10 !border-green-500 !border text-white'
         style={{ maxWidth: 500, backgroundColor: "#000" }}
       >
-        <Dialog.Title>Game Configurations</Dialog.Title>
-
+      <Dialog.Title style={{ textAlign: 'center' }}>Game Configurations</Dialog.Title>
         <Flex direction='column' gap='5' className='mt-9'>
           <label className='grid grid-cols-8  items-center '>
             <span className='col-span-2 text-lg'>Game Gem</span>
@@ -152,17 +151,16 @@ export default function Configurations({
             </div>
           </label>
         </Flex>
-
-        <Flex gap='3' mt='4' justify='end'>
-          <Dialog.Close>
-            <button
-              onClick={handleStart}
-              className='bg-gradient-to-t from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9'
-            >
-              Start
-            </button>
-          </Dialog.Close>
-        </Flex>
+        <Flex gap='3' mt='4' justify='center'>
+        <Dialog.Close>
+          <button
+            onClick={handleStart}
+            className='bg-gradient-to-t from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-colors duration-300 ease-in-out anim-9'
+          >
+            Start
+          </button>
+        </Dialog.Close>
+      </Flex>
       </Dialog.Content>
     </Dialog.Root>
   );
