@@ -300,7 +300,7 @@ export default function Form() {
 
     // Scroll to the form with smooth animation
     const targetPosition = formRef.current.offsetTop;
-    const duration = 24000; // Adjust the duration to control the scroll speed
+    const duration = 8400; // Adjust the duration to control the scroll speed
     smoothScrollTo(targetPosition, duration);
   };
 
@@ -458,18 +458,26 @@ export default function Form() {
   }, []);
 
   return (
-    <div className='form z-[-1] w-screen h-full bg-transparent '>
-      <form className='flex flex-col w-full items-center h-full '>
-        <div className='mb-4 h-screen w-full md:me-auto flex flex-col items-center md:ps-10 mx-auto justify-center '>
-          <div className='flex flex-col items-center md:items-start j z-[5] w-[20rem] md:w-full'>
-            <label className='text-white font-bold text-xl'>
-              Character Name
-            </label>
-            <label className='text-gray-400 text-sm mt-1 text-center md:text-left w-full md:w-1/4'>
-              Choose a name that resonates with your imagination, or let fate
-              decide with our random character button. Dive into the adventure
-              with personalized attributes that shape your unique story.
-            </label>
+<div className='form z-[-1] w-screen h-full bg-transparent'>
+  <form className='flex flex-col w-full items-center h-full'>
+    <div className='mb-4 h-screen w-full md:me-auto flex flex-col items-center md:ps-10 mx-auto justify-center'>
+      <div className='flex flex-col items-center md:items-start j z-[5] w-[20rem] md:w-full'>
+        <button
+          type='button'
+          disabled={!allowRandom}
+          onClick={handleClick}
+          className='bg-gradient-to-t disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all md:self-end md:mt-2 md:mr-60 mb-20' 
+        >
+          Random Character
+        </button>
+        <label className='text-white font-bold text-xl'>
+          Character Name
+        </label>
+        <label className='text-gray-400 text-sm mt-1 text-center md:text-left w-full md:w-1/4'>
+          Choose a name that resonates with your imagination, or let fate
+          decide with our random character button. Dive into the adventure
+          with personalized attributes that shape your unique story.
+        </label>
             <input
               type='text'
               value={formData.name}
@@ -478,14 +486,6 @@ export default function Form() {
               className='bg-transparent border-[1px] border-green-500 my-4 p-3 text-white rounded-md md:w-[30rem]  focus:outline-none focus:ring focus:border-green-500'
               style={{ boxShadow: "0 0 10px rgba(0, 255, 0, 0.5)" }}
             />
-            <button
-              type='button'
-              disabled={!allowRandom}
-              onClick={handleClick}
-              className='bg-gradient-to-t disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed from-green-950 to-green-500 text-white px-4 z-[4] py-2 rounded-md hover:to-green-700 hover:from-green-400 transition-all'
-            >
-              Random Character
-            </button>
           </div>
         </div>
         <DropDown
