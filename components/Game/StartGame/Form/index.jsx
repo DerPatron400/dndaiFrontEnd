@@ -588,7 +588,7 @@ export default function Form() {
               </button>
             </div>
             {isLoading && (
-              <Loader text='it may take a few minutes to generate your character..' />
+              <Loader text='it may take 5 to 90 Seconds to generate your character..' />
             )}
             <Configurations
               open={open}
