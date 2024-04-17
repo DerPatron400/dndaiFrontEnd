@@ -3,6 +3,8 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Helvetica+Now+Display:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
 
 @layer base {
   :root {
@@ -77,6 +79,50 @@
   }
 }
 
+@layer components {
+  /* Headline 1 */
+  .headline-1 {
+    @apply font-helvetica-now-display font-medium uppercase text-xl leading-tight tracking-wider;
+  }
+
+  /* Headline 2 */
+  .headline-2 {
+    @apply font-mono font-medium uppercase text-lg tracking-wider;
+    font-family: "Roboto Mono", monospace; /* Specify font family */
+  }
+
+  /* Headline 3 */
+  .headline-3 {
+    @apply font-helvetica-now-display font-medium text-lg tracking-normal;
+  }
+
+  /* Headline 4 */
+  .headline-4 {
+    @apply font-mono font-medium uppercase text-base leading-tight tracking-wider;
+    font-family: "Roboto Mono", monospace; /* Specify font family */
+  }
+
+  /* Running text (Large) */
+  .running-text-large {
+    @apply font-helvetica-now-display font-medium text-xl  tracking-wide;
+  }
+
+  /* Running text */
+  .running-text {
+    @apply font-helvetica-now-display font-medium text-base tracking-normal;
+  }
+
+  /* Running text (Small) */
+  .running-text-small {
+    @apply font-helvetica-now-display font-medium text-sm tracking-normal;
+  }
+
+  /* Running text (Mono) */
+  .running-text-mono {
+    @apply font-helvetica-now-display font-medium text-xs leading-snug tracking-wide;
+  }
+}
+
 .dm-mono {
   font-family: "DM Mono", monospace;
 }
@@ -86,6 +132,11 @@
 }
 
 .bg-blur {
-  backdrop-filter: blur(2px);
-  background-color: rgba(41, 40, 40, 0.445);
+  backdrop-filter: blur(14px);
+  background-color: rgba(209, 207, 207, 0.212);
+}
+
+.bg-blur-1 {
+  backdrop-filter: blur(5px);
+  background-color: rgba(209, 207, 207, 0.014);
 }

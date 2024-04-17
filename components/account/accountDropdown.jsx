@@ -6,14 +6,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { IconButton } from "@/components/ui/iconButton";
 
 export default function accountDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="outline-none">
-        <button className="bg-transparent text-iconColor font-bold p-2 rounded-full border border-iconColor">
+        <IconButton>
           <User />
-        </button>
+        </IconButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-transparent flex flex-col gap-2 py-4 mt-4 bg-blur text-white dm-mono px-6 rounded-3xl border-none">
         <button className="bg-white py-3 px-10 text-black rounded-xl">

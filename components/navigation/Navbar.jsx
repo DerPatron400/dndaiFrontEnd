@@ -9,9 +9,10 @@ export default function Navbar() {
           <a href="#" className="text-white hover:text-gray-300">
             <img src="/images/logo.png" alt="logo" className="h-10" />
           </a>
-          <a href="#" className="text-white hover:text-gray-300">
+          <a href="#" className="text-white hover:text-gray-300 ">
             HOW TO PLAY
           </a>
+
           <a href="#" className="text-white hover:text-gray-300">
             GALLERY
           </a>

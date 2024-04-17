@@ -17,6 +17,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        "helvetica-now-display": ['"Helvetica Now Display"', "sans-serif"],
+        "roboto-mono": ['"Roboto Mono"', "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -29,6 +33,17 @@ module.exports = {
         },
         customColor: "#7E7DFC",
         iconColor: "#978DA3",
+        irisPurple: "#4F4ED8",
+        irisPurpleLight: "#8F91FF",
+        sandyOrange: "#FFB371",
+        white: "#FFFFFF",
+        black: "#000000",
+        gray1: "#E6E6F5",
+        gray2: "#9A9AC1",
+        gray3: "#363651",
+        russianViolet: "#0A0A21",
+        successGreen: "#05D381",
+        errorRed: "#F33B46",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
