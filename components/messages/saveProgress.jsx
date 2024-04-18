@@ -29,7 +29,9 @@ export default function saveProgress() {
             <div className="w-full flex justify-between items-center ">
               <DialogClose className="text-white"></DialogClose>
               <Button className="text-white bg-errorRed">DON'T SAVE</Button>
-              <Button className="text-black bg-white">SAVE (1)</Button>
+              <Button className="text-black bg-white hover:text-white">
+                SAVE (1)
+              </Button>
             </div>
           </DialogHeader>
         </DialogContent>

@@ -22,7 +22,7 @@ export default function Home() {
         backgroundSize: "cover",
       }}
     >
-      <SaveProgress />
+      {/* <SaveProgress /> */}
 
       {/* <DropdownMenu>
         <DropdownMenuTrigger>OPEN</DropdownMenuTrigger>
