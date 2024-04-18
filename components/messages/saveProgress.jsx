@@ -14,22 +14,22 @@ export default function saveProgress() {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
-          <Button variant="outline">Share</Button>
+        <DialogTrigger className='px-4 py-2  rounded-md bg-white text-black'>
+          Share
         </DialogTrigger>
-        <DialogContent className="bg-blur border-none">
+        <DialogContent className='bg-russianViolet border-none '>
           <DialogHeader>
-            <DialogTitle className="headline-3 text-2xl text-white ">
+            <DialogTitle className=' text-2xl font-medium text-white font-helvetica-now-display '>
               Character progress not saved!
             </DialogTitle>
-            <DialogDescription className="text-white opacity-75 py-4">
+            <DialogDescription className='text-white opacity-75 py-4 font-helvetica-now-display '>
               It seems that you haven’t saved your character progress. Would you
               like to save?
             </DialogDescription>
-            <div className="w-full flex justify-between items-center ">
-              <DialogClose className="text-white"></DialogClose>
-              <Button className="text-white bg-errorRed">DON'T SAVE</Button>
-              <Button className="text-black bg-white hover:text-white">
+            <div className='w-full flex justify-between items-center font-roboto-mono '>
+              <DialogClose className='text-white bg-white/10'></DialogClose>
+              <Button className='text-white bg-errorRed'>DON'T SAVE</Button>
+              <Button className='text-black bg-white hover:text-white'>
                 SAVE (1)
               </Button>
             </div>

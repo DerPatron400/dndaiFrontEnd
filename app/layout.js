@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navigation/Navbar";
-
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -12,10 +12,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang='en' suppressHydrationWarning={true}>
+      <body className={"max-w-screen overflow-x-hidden"}>
         <Navbar />
         {children}
+        <Toaster />
       </body>
     </html>
   );
