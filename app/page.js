@@ -19,6 +19,7 @@ import { MessageCircle, ArrowUp, Undo2, ShieldX } from "lucide-react";
 import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CommentBox from "@/components/ui/comment-box";
 import ToastWithAction from "@/components/ui/custom-toast";
+import CustomDropdown from "@/components/ui/custom-dropdown";
 export default function Home() {
   return (
     <div
@@ -69,6 +70,10 @@ export default function Home() {
           <DropdownMenuItem>Subscription</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <CustomDropdown
+        placeholder={"dropdown"}
+        options={["option1", "option2", "option3"]}
+      />
 
       <ToastWithAction
         message='Error'
