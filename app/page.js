@@ -20,16 +20,25 @@ import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CommentBox from "@/components/ui/comment-box";
 import ToastWithAction from "@/components/ui/custom-toast";
 import CustomDropdown from "@/components/ui/custom-dropdown";
+import Step from "@/components/landingPage/step";
+import ImagesVisual from "@/components/landingPage/imagesVisual";
 export default function Home() {
   return (
-    <div
-      className='w-screen h-screen pt-40 flex gap-x-3 flex-wrap justify-center items-center'
-      style={{
-        backgroundImage: "url(/images/Header.png)",
-        backgroundSize: "cover",
-      }}
-    >
-      <SearchInput />
+    <div className="w-full h-full flex flex-col items-center ">
+      <div
+        className="w-screen h-screen flex gap-x-3 justify-center items-center relative"
+        style={{
+          backgroundImage: "url(/images/Header.png)",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="absolute bottom-10 left-10 w-2/5">
+          <span className="w-full headline-1 text-white text-4xl">
+            EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
+            IMAGINATION IS THE ONLY LIMIT.
+          </span>
+        </div>
+        {/* <SearchInput />
 
       <CustomInputIcon
         placeholder='What Would You Do?'
@@ -88,7 +97,37 @@ export default function Home() {
         actionIcon={<Undo2 size={15} />}
       />
       <Card />
-      <CommentBox />
+      <CommentBox /> */}
+      </div>
+      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
+        <Step
+          number={1}
+          title={"CRAFT YOUR OWN CHARACTER"}
+          description={
+            "You can easily create your own character by selecting from a wide range of races, classes, backgrounds, starting gear, and more. This allows you to venture into your own unique stories, shaping your character's journey as you progress and level up!"
+          }
+          image={"/images/step1.png"}
+        />
+        <Step
+          number={2}
+          title={"DESIGN YOUR OWN CAMPAIGNS"}
+          description={
+            "Unleash your creativity and effortlessly craft your own campaign. You have the freedom to set the main plot, establish the setting, create a timeline, and add a special hook. There are no limits to what you can create!"
+          }
+          image={"/images/step2.png"}
+        />
+        <Step
+          number={3}
+          title={"EXPERIENCE EPIC CHARACTER PROGRESSION"}
+          description={
+            "Whether playing solo or with friends in multiplayer mode, immerse yourself in the journey of your character's growth. Progress through your own campaigns or those created by others, both privately and publicly, for an unforgettable gaming experience!"
+          }
+          image={"/images/step3.png"}
+        />
+      </div>
+      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
+        <ImagesVisual />
+      </div>
     </div>
   );
 }

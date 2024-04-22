@@ -3,8 +3,8 @@ import AccountDropdown from "@/components/account/accountDropdown";
 
 export default function Navbar() {
   return (
-    <div className="w-screen absolute top-0 flex justify-center py-5 dm-mono">
-      <div className="w-[90%] rounded-lg text-white p-3 bg-blur flex justify-between items-center">
+    <div className="w-full absolute top-0 flex justify-center py-5 dm-mono z-10">
+      <div className="w-[95%] rounded-lg text-white p-3 bg-blur flex justify-between items-center">
         <div className="flex justify-center items-center gap-5">
           <a href="#" className="text-white hover:text-gray-300">
             <img src="/images/logo.png" alt="logo" className="h-10" />
