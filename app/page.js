@@ -1,3 +1,5 @@
+"use client";
+import { ParallaxProvider } from "react-scroll-parallax";
 import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -22,7 +24,11 @@ import ToastWithAction from "@/components/ui/custom-toast";
 import CustomDropdown from "@/components/ui/custom-dropdown";
 import Step from "@/components/landingPage/step";
 import ImagesVisual from "@/components/landingPage/imagesVisual";
+import CampaignSection from "@/components/landingPage/campaignSection";
+import ImageParallax from "@/components/landingPage/ImageParallax";
+import useDeviceDetect from "@/hooks/useDviceDetect";
 export default function Home() {
+  const { isMobile } = useDeviceDetect();
   return (
     <div className="w-full h-full flex flex-col items-center ">
       <div
@@ -32,11 +38,20 @@ export default function Home() {
           backgroundSize: "cover",
         }}
       >
-        <div className="absolute bottom-10 left-10 w-2/5">
-          <span className="w-full headline-1 text-white text-4xl">
+        <div className="absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5">
+          <span className="w-full headline-1 text-white md:text-4xl text-2xl">
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
+        </div>
+        <div
+          className={`absolute bottom-5 right-5 ${
+            isMobile ? "visible" : "hidden"
+          }`}
+        >
+          <button className="bg-white py-3 px-4 text-black rounded-xl">
+            PLAY FOR FREE
+          </button>
         </div>
         {/* <SearchInput />
 
@@ -99,7 +114,13 @@ export default function Home() {
       <Card />
       <CommentBox /> */}
       </div>
-      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
+      <ParallaxProvider>
+        <div className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-gradient-to-b from-russianViolet via-russianViolet to-[#262658]">
+          <ImageParallax />
+        </div>
+      </ParallaxProvider>
+
+      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet py-10">
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}
@@ -127,6 +148,9 @@ export default function Home() {
       </div>
       <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
         <ImagesVisual />
+      </div>
+      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
+        <CampaignSection />
       </div>
     </div>
   );
