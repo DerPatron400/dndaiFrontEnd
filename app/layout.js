@@ -14,9 +14,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang='en' suppressHydrationWarning={true}>
       <body className={"w-screen overflow-x-hidden"}>
-        <Navbar />
+        <Navbar variant='glass' />
         {children}
         <Toaster />
         <Footer />

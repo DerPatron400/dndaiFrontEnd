@@ -1,19 +1,18 @@
 import React from "react";
 import Images from "./images";
-import { Button } from "../ui/button";
+import Button from "../ui/custom-button";
 
 export default function imagesVisual() {
   return (
-    <div className=" w-full flex flex-col justify-center items-center py-20 text-white">
-      <h1 className="headline-1 md:text-[90px] text-[34px] text-center">
+    <div className=' w-full h-full flex flex-col justify-center items-center  text-white py-64'>
+      <h1 className='headline-1 text-center mb-16'>
         AN INFINITE WORLD OF VISUALIZATION.
       </h1>
-      <div className="flex justify-center items-center w-full">
-        <Images />
+      <div className='flex flex-col gap-6 mb-12 justify-center items-center w-full'>
+        <Images speed={0.8} />
+        <Images speed={0.6} />
       </div>
-      <Button className="mt-10 py-2 px-10 font-roboto-mono font-semibold">
-        MORE IMAGES
-      </Button>
+      <Button>MORE IMAGES</Button>
     </div>
   );
 }

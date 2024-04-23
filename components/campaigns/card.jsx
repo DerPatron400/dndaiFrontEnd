@@ -8,58 +8,67 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ThumbsUp, Play, SquareArrowOutUpRight, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { IconButton } from "@/components/ui/iconButton";
+import Button from "@/components/ui/custom-button";
+import IconButton from "@/components/ui/custom-iconbutton";
+import { cn } from "@/lib/utils";
 
 // Card component
-export default function card() {
+export default function card({ carousel }) {
   return (
-    <div className="rounded-xl h-auto w-[345px] border border-russianViolet">
-      <Card className="w-full h-full shadow-md shadow-[#6E6DFF26]/10 rounded-2xl border-none bg-russianViolet">
-        <CardHeader className="h-full relative">
+    <div className='rounded-xl h-full  w-[345px]  border-white/10 border running-text-mono '>
+      <Card className='w-full h-full hover:shadow-custom-1 rounded-2xl border-none bg-russianViolet transition-all duration-200 ease-in-out '>
+        <CardHeader className='relative '>
           <img
-            src="/images/Header.png"
-            alt=""
-            className="h-full w-full rounded-tl-xl rounded-tr-xl object-cover"
+            src='/images/Header.png'
+            alt=''
+            className='h-[248px] w-full rounded-tl-xl rounded-tr-xl object-cover'
           />
-          <div className="absolute text-xs text-white p-4 flex w-full justify-between items-center">
-            <div className="flex justify-center items-center !text-sm gap-2 font-roboto-mono">
-              <IconButton className="bg-white  font-roboto-mono hover:bg-white h-6 w-6"></IconButton>
+          <div
+            className={cn(
+              "absolute text-xs text-white p-4 flex w-full justify-between items-center",
+              carousel && "hidden"
+            )}
+          >
+            <div className='flex justify-center items-center !text-sm gap-2 font-roboto-mono'>
+              <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
               PLAYERS NAME
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <IconButton className="bg-blur transition-all duration-300 ease-in-out group hover:bg-white border border-iconColor">
+            <div className='flex justify-center items-center gap-2'>
+              <IconButton className='bg-blur ease-animate group hover:bg-white border border-iconColor'>
                 <SquareArrowOutUpRight
                   size={15}
-                  className="group-hover:text-iconColor"
+                  className='group-hover:text-iconColor'
                 />
               </IconButton>
-              <IconButton className="bg-blur group hover:bg-white border border-iconColor">
-                <Star size={15} className="group-hover:text-iconColor" />
+              <IconButton className='bg-blur group hover:bg-white border border-iconColor'>
+                <Star size={15} className='group-hover:text-iconColor' />
               </IconButton>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="h-full rounded-bl-2xl rounded-br-2xl running-text-mono flex flex-col justify-around p-5 ">
-          <CardTitle className="font-roboto-mono mb-4 text-white text-xl font-light">
+        <CardContent className=' rounded-bl-2xl rounded-br-2xl flex flex-col justify-around p-5 '>
+          <CardTitle className='mb-4 headline-4 text-white '>
             CAMPAIGNS NAME
           </CardTitle>
-          <CardDescription className="text-iconColor truncate  text-wrap !text-sm !tracking-[0.01em] max-h-16">
+          <CardDescription className='text-iconColor running-text-small truncate  text-wrap  max-h-16'>
             Lorem ipsum dolor sit amet consectetur. Libero morbi facilisi velit
             facilisis ipsum. Lacus suspendisse quam adipiscing risus pr
           </CardDescription>
-          <div className="flex justify-between items-center gap-5 mt-4 text-white">
-            <div className="flex items-center gap-x-3 ">
-              <div className="flex justify-between items-center gap-2 ">
-                <ThumbsUp size={16} opacity={0.5} />{" "}
-                <span className="running-text-small">1.7K</span>
+          <div
+            className={cn(
+              "flex justify-between items-center gap-5 mt-4 text-white",
+              carousel && "hidden"
+            )}
+          >
+            <div className='flex items-center gap-x-3 running-text-mono '>
+              <div className='flex justify-between items-center gap-2 '>
+                <ThumbsUp size={16} opacity={0.5} /> <span>1.7K</span>
               </div>
-              <div className="flex justify-between items-center gap-2">
-                <Play size={16} opacity={0.5} />{" "}
-                <span className="running-text-small">1.7K</span>
+              <div className='flex justify-between items-center gap-2'>
+                <Play size={16} opacity={0.5} /> <span>4.7K</span>
               </div>
             </div>
-            <Button className="gap-2 bg-white/10 hover:bg-white/[12%] w-auto">
+            <Button withIcon>
               <Play size={14} /> <span>Play</span>
             </Button>
           </div>

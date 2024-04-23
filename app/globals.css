@@ -74,52 +74,60 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @layer components {
+
   /* Headline 1 */
   .headline-1 {
-    @apply font-helvetica-now-display font-medium uppercase text-xl leading-tight tracking-wider;
+    @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em];
   }
 
   /* Headline 2 */
   .headline-2 {
-    @apply font-mono font-medium uppercase text-lg tracking-wider;
-    font-family: "Roboto Mono", monospace; /* Specify font family */
+    @apply font-helvetica-now-display font-medium uppercase md:text-[44px] md:leading-[42px] text-[22px] leading-[42px] !tracking-[0.03em];
+
+    /* Specify font family */
   }
 
   /* Headline 3 */
   .headline-3 {
-    @apply font-helvetica-now-display font-medium text-lg tracking-normal;
+    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] md:text-[44px] md:leading-[45px] tracking-[0.02em] !md:tracking-[0.01em];
   }
 
   /* Headline 4 */
   .headline-4 {
-    @apply font-mono font-medium uppercase text-base leading-tight tracking-wider;
-    font-family: "Roboto Mono", monospace; /* Specify font family */
+    @apply font-roboto-mono font-medium uppercase !tracking-[0.03em] md:text-[22px] md:leading-6 text-[16px] leading-[18px];
+
+    /* Specify font family */
   }
 
   /* Running text (Large) */
   .running-text-large {
-    @apply font-helvetica-now-display font-medium text-xl  tracking-wide;
+    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] tracking-[0.02em];
   }
 
   /* Running text */
   .running-text {
-    @apply font-helvetica-now-display font-medium text-base tracking-normal;
+    @apply font-helvetica-now-display font-medium text-[16px] leading-5 tracking-[0.02em] md:text-[17px] md:leading-6 md:tracking-[0.01em];
   }
 
   /* Running text (Small) */
   .running-text-small {
-    @apply font-helvetica-now-display font-medium text-sm tracking-normal;
+    @apply font-helvetica-now-display font-medium text-[15px] leading-5 tracking-[0.01em];
   }
 
   /* Running text (Mono) */
   .running-text-mono {
-    @apply font-helvetica-now-display font-medium text-xs leading-snug tracking-wide;
+    @apply font-roboto-mono font-medium text-sm leading-4 tracking-[0.02em];
+  }
+
+  .ease-animate {
+    @apply transition-all duration-300 ease-in-out;
   }
 }
 
@@ -144,4 +152,8 @@
 .bg-blur-2 {
   backdrop-filter: blur(5px);
   background-color: rgba(209, 207, 207, 0.068);
+}
+
+.blur-shadow {
+  box-shadow: 0px 0px 60px 0px rgba(110, 109, 255, 0.149);
 }

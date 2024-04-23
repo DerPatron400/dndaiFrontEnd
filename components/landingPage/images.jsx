@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import debounce from "lodash/debounce";
 
-const Images = () => {
+const Images = ({ speed }) => {
   const [images, setImages] = useState(Array.from({ length: 10 }));
   const [scrollDirection, setScrollDirection] = useState(1); // 1 for right, -1 for left
   const containerRef = useRef(null);
@@ -46,7 +46,7 @@ const Images = () => {
     const container = containerRef.current;
     if (container) {
       // Adjust the speed by changing the value added to scrollLeft
-      container.scrollLeft += 1 * scrollDirection; // Smaller value for smoother scrolling
+      container.scrollLeft += 1 * scrollDirection * speed; // Smaller value for smoother scrolling
 
       // Use requestAnimationFrame for smoother animations
       requestAnimationFrame(autoScroll);
@@ -66,19 +66,17 @@ const Images = () => {
 
   return (
     <div
+      key={speed}
       ref={containerRef}
-      className="grid grid-rows-2 gap-5 w-full overflow-x-hidden py-10"
+      className='grid grid-rows-1 gap-6 w-full overflow-x-hidden '
       style={{ gridAutoFlow: "column" }}
     >
       {images.map((_, index) => (
-        <div
-          key={index}
-          className="w-[300px] h-[300px] bg-irisPurpleLight rounded-md"
-        >
-          <img
+        <div key={index} className='w-64 h-64 bg-irisPurpleLight rounded-md '>
+          <div
             src={"/images/Header1.png"}
             alt={`Image ${index}`}
-            className="w-full h-full object-cover bg-irisPurpleLight rounded-md"
+            className='w-full h-full object-cover bg-irisPurpleLight rounded-md'
           />
         </div>
       ))}

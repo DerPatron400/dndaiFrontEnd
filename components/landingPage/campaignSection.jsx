@@ -6,34 +6,22 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import CampaignCard from "./campaignCard";
+import CampaignCard from "@/components/campaigns/card";
 
 export default function CampaignSection() {
   return (
-    <div className="w-full flex flex-col justify-center items-center py-20 text-white gap-10">
-      <h1 className="headline-1 md:text-[90px] text-[34px] text-center w-full">
-        EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES.
-      </h1>
-      <div className="flex justify-center items-center w-full h-full">
-        <Carousel>
-          <CarouselPrevious />
-          <CarouselContent>
-            <CarouselItem>
-              <CampaignCard />
-            </CarouselItem>
-            <CarouselItem>
-              <CampaignCard />
-            </CarouselItem>
-            {/* <CarouselItem>
-              <CampaignCard />
-            </CarouselItem>
-            <CarouselItem>
-              <CampaignCard />
-            </CarouselItem> */}
-          </CarouselContent>
-          <CarouselNext />
-        </Carousel>
+    <>
+      <div className='w-screen flex flex-col justify-center items-center pb-32 text-white gap-10'>
+        <h1 className='headline-1 text-center w-full '>
+          EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES.
+        </h1>
+        <div className=' flex w-auto gap-x-5 items-center overflow-hidden'>
+          {" "}
+          {Array.from({ length: 5 }).map((_, index) => (
+            <CampaignCard carousel />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

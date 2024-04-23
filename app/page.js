@@ -30,16 +30,82 @@ import useDeviceDetect from "@/hooks/useDviceDetect";
 export default function Home() {
   const { isMobile } = useDeviceDetect();
   return (
-    <div className="w-full h-full flex flex-col items-center ">
+    <div className='w-full h-full flex flex-col items-center bg-russianViolet  '>
+      {/* <div className='flex gap-x-10 mt-40 flex-wrap'>
+        <SearchInput />
+
+        <CustomInputIcon
+          placeholder='What Would You Do?'
+          icon={<ArrowUp size={16} />}
+        />
+        <CustomTab
+          icon={<MessageCircle size={16} />}
+          text={"comments"}
+          number={258}
+        />
+
+        <CustomInput placeholder='Input Control' />
+
+        <Switch />
+        <RadioGroup defaultValue='option-one'>
+          <div className='flex items-center space-x-2'>
+            <RadioGroupItem value='option-one' id='option-one' />
+            <Label htmlFor='option-one'>Option One</Label>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <RadioGroupItem value='option-two' id='option-two' />
+            <Label htmlFor='option-two'>Option Two</Label>
+          </div>
+        </RadioGroup>
+
+        <SaveProgress />
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className='transition-all duration-300 hover:bg-russianViolet'>
+            Dropdown
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <CustomDropdown
+          placeholder={"dropdown"}
+          options={["option1", "option2", "option3"]}
+        />
+
+        <ToastWithAction
+          message='Error'
+          title='Error message'
+          actionText={"Retry"}
+          actionIcon={<ShieldX size={15} />}
+        />
+        <ToastWithAction
+          message='Success'
+          title='Information Message'
+          actionText={"Undo"}
+          actionIcon={<Undo2 size={15} />}
+        />
+        <Card />
+        <CommentBox />
+      </div> */}
       <div
-        className="w-screen h-screen flex gap-x-3 justify-center items-center relative"
+        className='w-screen h-screen flex gap-x-3 justify-center items-center relative'
         style={{
-          backgroundImage: "url(/images/Header.png)",
+          backgroundImage: isMobile
+            ? "url(/images/Landing/Header-mobile.png)"
+            : "url(/images/Landing/Header.png)",
           backgroundSize: "cover",
+          //position
+          backgroundPosition: "center",
         }}
       >
-        <div className="absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5">
-          <span className="w-full headline-1 text-white md:text-4xl text-2xl">
+        <div className='absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5'>
+          <span className='w-full headline-2 text-white'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
@@ -49,78 +115,17 @@ export default function Home() {
             isMobile ? "visible" : "hidden"
           }`}
         >
-          <button className="bg-white py-3 px-4 text-black rounded-xl">
+          <button className='bg-white py-3 px-4 text-black rounded-xl'>
             PLAY FOR FREE
           </button>
         </div>
-        {/* <SearchInput />
-
-      <CustomInputIcon
-        placeholder='What Would You Do?'
-        icon={<ArrowUp size={16} />}
-      />
-      <CustomTab
-        icon={<MessageCircle size={16} />}
-        text={"comments"}
-        number={258}
-      />
-
-      <CustomInput placeholder='Input Control' />
-
-      <Switch />
-      <RadioGroup defaultValue='option-one'>
-        <div className='flex items-center space-x-2'>
-          <RadioGroupItem value='option-one' id='option-one' />
-          <Label htmlFor='option-one'>Option One</Label>
-        </div>
-        <div className='flex items-center space-x-2'>
-          <RadioGroupItem value='option-two' id='option-two' />
-          <Label htmlFor='option-two'>Option Two</Label>
-        </div>
-      </RadioGroup>
-
-      <SaveProgress />
-
-      <DropdownMenu>
-        <DropdownMenuTrigger className='transition-all duration-300 hover:bg-russianViolet'>
-          Dropdown
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <CustomDropdown
-        placeholder={"dropdown"}
-        options={["option1", "option2", "option3"]}
-      />
-
-      <ToastWithAction
-        message='Error'
-        title='Error message'
-        actionText={"Retry"}
-        actionIcon={<ShieldX size={15} />}
-      />
-      <ToastWithAction
-        message='Success'
-        title='Information Message'
-        actionText={"Undo"}
-        actionIcon={<Undo2 size={15} />}
-      />
-      <Card />
-      <CommentBox /> */}
       </div>
       <ParallaxProvider>
-        <div className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-gradient-to-b from-russianViolet via-russianViolet to-[#262658]">
+        <div className='w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-gradient-to-b from-russianViolet via-russianViolet to-[#262658]'>
           <ImageParallax />
         </div>
       </ParallaxProvider>
-
-      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet py-10">
+      <div className='w-full  h-full flex flex-col justify-center items-center bg-russianViolet py-32'>
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}
@@ -146,10 +151,9 @@ export default function Home() {
           image={"/images/step3.png"}
         />
       </div>
-      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
-        <ImagesVisual />
-      </div>
-      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
+      <ImagesVisual />
+
+      <div className='w-full h-full flex flex-col justify-center items-center bg-russianViolet'>
         <CampaignSection />
       </div>
     </div>

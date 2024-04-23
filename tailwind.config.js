@@ -21,6 +21,9 @@ module.exports = {
         "helvetica-now-display": ['"Helvetica Now Display"', "sans-serif"],
         "roboto-mono": ['"Roboto Mono"', "monospace"],
       },
+      boxShadow: {
+        "custom-1": "0px 0px 60px 0px rgba(110, 109, 255, 0.149)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
