@@ -2,6 +2,7 @@ import React from "react";
 import Images from "./images";
 import Button from "../ui/custom-button";
 
+//to display the images in the landing page
 export default function imagesVisual() {
   return (
     <div className=" w-full h-full flex flex-col justify-center items-center  text-white md:py-64 py-32">
