@@ -70,9 +70,7 @@ export default function Navbar({ variant }) {
           <div className='flex justify-center items-center gap-5'>
             <span className='running-text-mono uppercase'>Sign Up</span>
             <AccountDropdown />
-            <button className='bg-white py-3 px-4 text-black rounded-xl'>
-              PLAY FOR FREE
-            </button>
+            <CustomButton variant={"primary"}>PLAY FOR FREE</CustomButton>
           </div>
         </div>
       )}

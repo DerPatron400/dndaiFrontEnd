@@ -34,9 +34,9 @@ export default function DrawerMenu({ isOpen, setIsOpen }) {
         <div className='flex items-center gap-6 '>
           <Button withIcon>
             <img
-              src='/Icons/Menu.svg'
+              src='/Icons/Login.svg'
               alt='logo'
-              className='h-[15px] w-[15px] invert'
+              className='h-[15px] w-[15px] '
             />
             SIGN IN
           </Button>
