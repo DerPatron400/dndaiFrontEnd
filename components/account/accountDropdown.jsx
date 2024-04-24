@@ -18,7 +18,7 @@ export default function accountDropdown() {
       <DropdownMenuTrigger className="outline-none bg-white/10 h-9 w-9 border border-white/10 hover:border-gray1 transition-all duration-300  flex items-center justify-center rounded-full">
         <img src="/Icons/User.svg" className="h-5 w-5 invert" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-transparent uppercase flex flex-col gap-2 p-2 mt-4 border border-white/10 z-[10] bg-blur text-white running-text-mono rounded-[16px]">
+      <DropdownMenuContent className="bg-transparent uppercase flex flex-col mt-4 p-2 border border-white/10 z-[10] bg-blur text-white running-text-mono rounded-[16px]">
         <CustomButton withIcon variant="primary">
           <img
             src="/Icons/Login.svg"
@@ -28,19 +28,19 @@ export default function accountDropdown() {
           SIGN IN
         </CustomButton>
 
-        <DropdownMenuItem className="felx gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 py-[14px] transition-all duration-300 ease-linear cursor-pointer">
+        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
           <CustomMenuItem>
             <CircleUserRound size={15} className="text-iconColor" />
             <span>My characters</span>
           </CustomMenuItem>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 py-[14px] transition-all duration-300 ease-linear cursor-pointer">
+        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
           <CustomMenuItem>
             <Images size={15} className="text-iconColor" />
             <span>Saved images</span>
           </CustomMenuItem>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 py-[14px] transition-all duration-300 ease-linear cursor-pointer">
+        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
           <CustomMenuItem>
             <img src="/images/campaign.png" alt="" className="h-3 w-4" />
             <span>My campaigns</span>
