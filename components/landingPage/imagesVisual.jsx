@@ -10,8 +10,8 @@ export default function imagesVisual() {
         AN INFINITE WORLD OF VISUALIZATION.
       </h1>
       <div className="flex flex-col gap-6 mb-12 justify-center items-center w-full">
-        <Images speed={0.8} />
-        <Images speed={0.6} />
+        <Images speed={2} />
+        <Images speed={1} />
       </div>
       <Button>MORE IMAGES</Button>
     </div>

@@ -45,8 +45,10 @@ const Images = ({ speed }) => {
   const autoScroll = () => {
     const container = containerRef.current;
     if (container) {
+      console.log("scrolling");
       // Adjust the speed by changing the value added to scrollLeft
       container.scrollLeft += 1 * scrollDirection * speed; // Smaller value for smoother scrolling
+      console.log(container.scrollLeft);
 
       // Use requestAnimationFrame for smoother animations
       requestAnimationFrame(autoScroll);
