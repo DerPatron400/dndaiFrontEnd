@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 // Card component
 export default function card({ carousel }) {
   return (
-    <div className='rounded-xl h-full  w-[345px]  border-white/10 border running-text-mono '>
+    <div className='rounded-xl h-full  min-w-[345px]  border-white/10 border running-text-mono '>
       <Card className='w-full h-full hover:shadow-custom-1 rounded-2xl border-none bg-russianViolet transition-all duration-200 ease-in-out '>
         <CardHeader className='relative '>
           <img

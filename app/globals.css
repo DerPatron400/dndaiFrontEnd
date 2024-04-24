@@ -157,3 +157,23 @@
 .blur-shadow {
   box-shadow: 0px 0px 60px 0px rgba(110, 109, 255, 0.149);
 }
+
+.rtl-gradient {
+  background: linear-gradient(90deg, rgba(10, 10, 33, 0) 0%, rgba(10, 10, 33, 0.5) 40.5%, #0A0A21 80.5%);
+}
+
+.ltr-gradient {
+  background: linear-gradient(270deg, rgba(10, 10, 33, 0) 0%, rgba(10, 10, 33, 0.5) 40.5%, #0A0A21 80.5%);
+}
+
+/* hide scrollbar */
+
+/* width */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Track */
+.hide-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
