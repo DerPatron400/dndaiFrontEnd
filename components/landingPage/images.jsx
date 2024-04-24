@@ -68,15 +68,15 @@ const Images = ({ speed }) => {
     <div
       key={speed}
       ref={containerRef}
-      className='grid grid-rows-1 gap-6 w-full overflow-x-hidden '
+      className="grid grid-rows-1 gap-6 w-full overflow-x-hidden "
       style={{ gridAutoFlow: "column" }}
     >
       {images.map((_, index) => (
-        <div key={index} className='w-64 h-64 bg-irisPurpleLight rounded-md '>
+        <div key={index} className="w-64 h-64 bg-irisPurpleLight rounded-md ">
           <div
             src={"/images/Header1.png"}
             alt={`Image ${index}`}
-            className='w-full h-full object-cover bg-irisPurpleLight rounded-md'
+            className="w-full h-full object-cover bg-irisPurpleLight rounded-md"
           />
         </div>
       ))}
