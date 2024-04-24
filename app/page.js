@@ -27,10 +27,11 @@ import ImagesVisual from "@/components/landingPage/imagesVisual";
 import CampaignSection from "@/components/landingPage/campaignSection";
 import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDviceDetect";
+import Button from "@/components/ui/custom-button";
 export default function Home() {
   const { isMobile } = useDeviceDetect();
   return (
-    <div className='w-full h-full flex flex-col items-center bg-russianViolet  '>
+    <div className='w-screen h-full flex flex-col items-center bg-russianViolet  '>
       {/* <div className='flex gap-x-10 mt-40 flex-wrap'>
         <SearchInput />
 
@@ -105,7 +106,7 @@ export default function Home() {
         }}
       >
         <div className='absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5'>
-          <span className='w-full headline-2 text-white'>
+          <span className='w-full headline-1 md:headline-2 text-white'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
@@ -115,9 +116,7 @@ export default function Home() {
             isMobile ? "visible" : "hidden"
           }`}
         >
-          <button className='bg-white py-3 px-4 text-black rounded-xl'>
-            PLAY FOR FREE
-          </button>
+          <Button variant={"primary"}>PLAY FOR FREE</Button>
         </div>
       </div>
       <ParallaxProvider>

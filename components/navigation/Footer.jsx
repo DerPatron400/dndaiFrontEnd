@@ -2,8 +2,8 @@ import React from "react";
 
 const NavMenu = ({ menu }) => {
   return (
-    <div className='w-2/3 md:w-1/2 lg:w-1/4 p-2 flex flex-col gap-9'>
-      <h3 className='text-[14px] text-irisPurpleLight running-text-mono '>
+    <div className='w-auto md:w-1/2 lg:w-1/4 p-2 flex flex-col gap-9'>
+      <h3 className='  text-irisPurpleLight running-text-mono '>
         {menu.heading}
       </h3>
       <ul className='flex flex-col gap-4'>
@@ -23,9 +23,9 @@ const NavMenu = ({ menu }) => {
 };
 export default function Footer() {
   return (
-    <footer className='bg-russianViolet w-full  text-white px-12 py-16'>
+    <footer className='bg-russianViolet w-full  text-white pt-0 px-5 pb-16 md:px-12 md:py-16'>
       <div className=' w-full'>
-        <div className='w-1/2 flex flex-wrap md:gap-8 gap-0 justify-between '>
+        <div className='w-full md:w-1/2 flex flex-wrap md:gap-8 gap-3 gap-y-12 justify-between '>
           {/* Help and Support Section */}
           <NavMenu
             menu={{
@@ -47,7 +47,7 @@ export default function Footer() {
           />
         </div>
         {/* Copyright Notice */}
-        <div className='text-center md:text-left mt-14 running-text-mono '>
+        <div className='text-left mt-14 running-text-mono '>
           <p className=''>DND AI © 2024 All rights reserved</p>
         </div>
       </div>

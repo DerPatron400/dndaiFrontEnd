@@ -12,7 +12,7 @@ const useDeviceDetect = () => {
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         userAgent
       );
-    setIsMobile(mobile);
+    setIsMobile(window.innerWidth < 756 || mobile);
   }, []);
 
   return { isMobile };
