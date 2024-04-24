@@ -54,11 +54,11 @@ export default function CampaignSection() {
 
   return (
     <>
-      <div className='w-screen flex flex-col justify-center items-center pb-32 text-white gap-10'>
-        <h1 className='headline-1 text-center w-full '>
+      <div className="w-full flex flex-col justify-center items-center pb-32 text-white gap-10">
+        <h1 className="headline-1 text-center w-full ">
           EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES.
         </h1>
-        <div className=' flex w-screen  relative overflow-hidden '>
+        <div className=" flex w-screen  relative overflow-hidden ">
           <div
             className={cn(
               "absolute top-[50%] left-0 ease-animate opacity-100  translate-y-[-50%] z-10 h-full flex items-center justify-start px-10 w-[40vw] md:w-[20vw] ltr-gradient",
@@ -69,7 +69,7 @@ export default function CampaignSection() {
               onClick={scrollLeft}
               className={" bg-white hover:bg-white"}
             >
-              <img src='/Icons/ArrowLeft.svg' alt='' className='w-5 h-5' />
+              <img src="/Icons/ArrowLeft.svg" alt="" className="w-5 h-5" />
             </CustomIconbutton>
           </div>
           <div
@@ -82,12 +82,12 @@ export default function CampaignSection() {
               onClick={scrollRight}
               className={" bg-white hover:bg-white "}
             >
-              <img src='/Icons/ArrowRight.svg' alt='' className='w-5 h-5' />
+              <img src="/Icons/ArrowRight.svg" alt="" className="w-5 h-5" />
             </CustomIconbutton>
           </div>
           <div
             ref={containerRef}
-            className='flex w-full items-center gap-5 px-12  overflow-scroll hide-scrollbar '
+            className="flex w-full items-center gap-5 px-12  overflow-scroll hide-scrollbar "
           >
             {Array.from({ length: 7 }).map((_, index) => (
               <CampaignCard carousel />

@@ -1,10 +1,9 @@
-"use client";
 import React, { useState, useEffect, useRef } from "react";
 import debounce from "lodash/debounce";
 
-const Images = ({ speed }) => {
+const Images = ({ speed, direction }) => {
   const [images, setImages] = useState(Array.from({ length: 10 }));
-  const [scrollDirection, setScrollDirection] = useState(1); // 1 for right, -1 for left
+  const [scrollDirection, setScrollDirection] = useState(direction || 1); // Set initial direction
   const containerRef = useRef(null);
   const debouncedScroll = useRef(null);
 
@@ -42,39 +41,44 @@ const Images = ({ speed }) => {
   }, [debouncedScroll.current]);
 
   // Automatic scrolling using requestAnimationFrame
-  const autoScroll = () => {
-    const container = containerRef.current;
-    if (container) {
-      console.log("scrolling");
-      // Adjust the speed by changing the value added to scrollLeft
-      container.scrollLeft += 1 * scrollDirection * speed; // Smaller value for smoother scrolling
-      console.log(container.scrollLeft);
+  // const autoScroll = () => {
+  //   const container = containerRef.current;
+  //   if (container) {
+  //     // container.scrollLeft += 1 * speed; // Smaller value for smoother scrolling
+  //     // to reverse the direction
+  //     console.log("Speed:", speed, "Scroll Direction:", scrollDirection);
+  //     container.scrollLeft += 1 * speed * scrollDirection;
+  //     console.log(container.scrollLeft);
 
-      // Use requestAnimationFrame for smoother animations
-      requestAnimationFrame(autoScroll);
-    }
-  };
+  //     requestAnimationFrame(autoScroll);
+  //   }
+  // };
 
   useEffect(() => {
-    // Start the autoScroll function
-    autoScroll();
-
-    // Cleanup function to stop the animation when the component unmounts
-    return () => {
-      // Cancel the animation frame request
-      window.cancelAnimationFrame(autoScroll);
+    let animationId;
+    const autoScroll = () => {
+      const container = containerRef.current;
+      if (container) {
+        console.log("Speed:", speed, "Scroll Direction:", scrollDirection);
+        container.scrollLeft += 1 * speed * scrollDirection;
+        console.log(container.scrollLeft);
+        animationId = requestAnimationFrame(autoScroll);
+      }
     };
-  }, [scrollDirection]);
+    autoScroll();
+    return () => {
+      window.cancelAnimationFrame(animationId);
+    };
+  }, [scrollDirection, speed]);
 
   return (
     <div
-      key={speed}
       ref={containerRef}
-      className="grid grid-rows-1 gap-6 w-full overflow-x-hidden "
+      className="grid grid-rows-1 gap-6 w-full overflow-x-hidden"
       style={{ gridAutoFlow: "column" }}
     >
       {images.map((_, index) => (
-        <div key={index} className="w-64 h-64 bg-irisPurpleLight rounded-md ">
+        <div key={index} className="w-64 h-64 bg-irisPurpleLight rounded-md">
           <div
             src={"/images/Header1.png"}
             alt={`Image ${index}`}

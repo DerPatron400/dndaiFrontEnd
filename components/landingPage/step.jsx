@@ -3,7 +3,7 @@ import React from "react";
 export default function Step({ number, title, description, image }) {
   return (
     <div className="flex flex-col mb-8 md:px-10 px-4 md:!py-32 py-0 md:gap-10 gap-5">
-      <div className="flex md:flex-row flex-col md:gap-10 gap-5 items-left justify-start ">
+      <div className="flex md:flex-row flex-col md:gap-10 gap-5 items-left justify-start border">
         <span className=" uppercase text-irisPurpleLight running-text-mono">
           Step {number}
         </span>
