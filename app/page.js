@@ -24,15 +24,24 @@ import ToastWithAction from "@/components/ui/custom-toast";
 import CustomDropdown from "@/components/ui/custom-dropdown";
 import Step from "@/components/landingPage/step";
 import ImagesVisual from "@/components/landingPage/imagesVisual";
-import CampaignSection from "@/components/landingPage/campaignSection";
+
 import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDviceDetect";
 import Button from "@/components/ui/custom-button";
 import CustomRadioButton from "@/components/ui/custom-radio-button";
+import dynamic from "next/dynamic";
+
+const Campaigns = dynamic(
+  () => import("@/components/landingPage/campaignSection"),
+  {
+    ssr: false,
+  }
+);
+
 export default function Home() {
   const { isMobile } = useDeviceDetect();
   return (
-    <div className="w-screen h-full flex flex-col items-center bg-russianViolet  ">
+    <div className='w-screen h-full flex flex-col items-center bg-russianViolet  '>
       {/* <div className="flex gap-x-10 mt-40 flex-wrap">
         <SearchInput />
 
@@ -87,7 +96,7 @@ export default function Home() {
         <CommentBox />
       </div> */}
       <div
-        className="w-screen h-screen flex gap-x-3 justify-center items-center relative"
+        className='w-screen h-screen flex gap-x-3 justify-center items-center relative'
         style={{
           backgroundImage: isMobile
             ? "url(/images/Landing/Header-mobile.png)"
@@ -97,8 +106,8 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5">
-          <span className="w-full headline-1 md:headline-2 text-white">
+        <div className='absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5'>
+          <span className='w-full headline-1 md:headline-2 text-white'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
@@ -112,11 +121,11 @@ export default function Home() {
         </div>
       </div>
       <ParallaxProvider>
-        <div className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center md:bg-gradient-to-b from-russianViolet via-russianViolet to-[#262658] bg-russianViolet">
+        <div className='w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center md:bg-gradient-to-b from-russianViolet via-russianViolet to-[#262658] bg-russianViolet'>
           <ImageParallax />
         </div>
       </ParallaxProvider>
-      <div className="w-full  h-full flex flex-col justify-center items-center bg-russianViolet md:py-32 py-0">
+      <div className='w-full  h-full flex flex-col justify-center items-center bg-russianViolet md:py-32 py-0'>
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}
@@ -144,8 +153,8 @@ export default function Home() {
       </div>
       <ImagesVisual />
 
-      <div className="w-full h-full flex flex-col justify-center items-center bg-russianViolet">
-        <CampaignSection />
+      <div className='w-full h-full flex flex-col justify-center items-center bg-russianViolet'>
+        <Campaigns />
       </div>
     </div>
   );

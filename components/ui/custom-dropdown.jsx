@@ -48,7 +48,7 @@ export default function CustomDropdown({ className, placeholder, options }) {
           onPointerOver={() => setHover(true)}
           onPointerOut={() => setHover(false)}
           className={cn(
-            "bg-white/10 flex text-white rounded-2xl absolute w-full pointer-events-auto border border-white/10  flex-col gap-2 shadow-lg mt-2 p-2  uppercase opacity-100 transition-all duration-300 z-10 ",
+            "bg-white/10 flex text-white rounded-2xl absolute w-full pointer-events-none border border-white/10  flex-col gap-2 shadow-lg mt-2 p-2  uppercase opacity-0 transition-all duration-300 z-10 ",
             (show || hover) && " opacity-100 pointer-events-auto"
           )}
         >
