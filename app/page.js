@@ -84,12 +84,19 @@ export default function Home() {
         </div>
       </div>
       <ParallaxProvider>
-        <div className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet">
+        <div
+          style={{
+            backgroundImage: "url(/parallax/Race2.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet"
+        >
           <ImageParallax />
         </div>
       </ParallaxProvider>
 
-      <div className=" h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-4 md:px-8  py-0">
+      <div className="h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-4 md:px-8  py-0">
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}
