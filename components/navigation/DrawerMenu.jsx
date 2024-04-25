@@ -1,17 +1,21 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../ui/custom-button";
 import { User, CircleUserRound, Images } from "lucide-react";
 
 export default function DrawerMenu({ isOpen, setIsOpen }) {
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+  }, [isOpen]);
   return (
     <div
       className={cn(
-        "absolute -top-5 left-[50%] ease-animate md:hidden bg-white/80 translate-x-[-150%] bg-blur h-screen w-screen flex flex-col justify-start ",
-        isOpen && "translate-x-[-50%]"
+        "absolute !z-[100] -top-8 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden bg-white/80 translate-x-[-150%] bg-blur h-screen w-screen flex flex-col justify-start ",
+        isOpen && "translate-x-[-50%] opacity-100 pointer-events-auto"
       )}
     >
-      <div className='w-[90%] mt-10 mx-auto rounded-lg text-white  flex justify-between items-center'>
+      <div className='w-[90%] mt-10 mx-auto rounded-lg text-white  flex justify-between items-center z-[100]'>
         <a
           href='#'
           className='text-white hover:text-gray2 transition-all duration-300 ease-in-out'

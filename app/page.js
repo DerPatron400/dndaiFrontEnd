@@ -23,7 +23,6 @@ import CommentBox from "@/components/ui/comment-box";
 import ToastWithAction from "@/components/ui/custom-toast";
 import CustomDropdown from "@/components/ui/custom-dropdown";
 import Step from "@/components/landingPage/step";
-import ImagesVisual from "@/components/landingPage/imagesVisual";
 
 import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDviceDetect";
@@ -31,6 +30,12 @@ import Button from "@/components/ui/custom-button";
 import CustomRadioButton from "@/components/ui/custom-radio-button";
 import dynamic from "next/dynamic";
 
+const ImagesVisual = dynamic(
+  () => import("@/components/landingPage/imagesVisual"),
+  {
+    ssr: false,
+  }
+);
 const Campaigns = dynamic(
   () => import("@/components/landingPage/campaignSection"),
   {
@@ -41,62 +46,10 @@ const Campaigns = dynamic(
 export default function Home() {
   const { isMobile } = useDeviceDetect();
   return (
-    <div className="w-full h-full flex flex-col items-center bg-gradient-to-b from-russianViolet via-russianViolet to-[#262658]  ">
-      {/* <div className="flex gap-x-10 mt-40 flex-wrap">
-        <SearchInput />
-
-        <CustomInputIcon
-          placeholder="What Would You Do?"
-          icon={<ArrowUp size={16} />}
-        />
-        <CustomTab
-          icon={<MessageCircle size={16} />}
-          text={"comments"}
-          number={258}
-        />
-
-        <CustomInput placeholder="Input Control" />
-
-        <Switch />
-        <CustomRadioButton />
-
-        <SaveProgress />
-
-        <DropdownMenu>
-          <DropdownMenuTrigger className="transition-all duration-300 hover:bg-russianViolet">
-            Dropdown
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <CustomDropdown
-          placeholder={"dropdown"}
-          options={["option1", "option2", "option3"]}
-        />
-
-        <ToastWithAction
-          message="Error"
-          title="Error message"
-          actionText={"Retry"}
-          actionIcon={<ShieldX size={15} />}
-        />
-        <ToastWithAction
-          message="Success"
-          title="Information Message"
-          actionText={"Undo"}
-          actionIcon={<Undo2 size={15} />}
-        />
-        <Card />
-        <CommentBox />
-      </div> */}
+    // from-russianViolet via-russianViolet to-[#262658]
+    <div className='w-full md:w-[99%]  h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  '>
       <div
-        className="w-screen h-screen flex gap-x-3 justify-center items-center relative"
+        className=' w-full h-screen  relative '
         style={{
           backgroundImage: isMobile
             ? "url(/images/Landing/Header-mobile.png)"
@@ -106,8 +59,8 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute md:bottom-10 bottom-24 md:left-10 left-5 md:w-2/5 w-4/5">
-          <span className="w-full headline-1 md:headline-2 text-white">
+        <div className='absolute md:bottom-10 px-4 md:px-8  bottom-24 md:left-0 left-0 md:w-2/4 w-4/5'>
+          <span className='w-full headline-1 md:headline-2 text-white'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
@@ -121,11 +74,12 @@ export default function Home() {
         </div>
       </div>
       <ParallaxProvider>
-        <div className="w-full md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet">
+        <div className='w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet'>
           <ImageParallax />
         </div>
       </ParallaxProvider>
-      <div className="w-full h-full flex flex-col justify-center items-center bg-transparent md:py-32 py-0">
+
+      <div className=' h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-4 md:px-8  py-0'>
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}
@@ -151,9 +105,9 @@ export default function Home() {
           image={"/images/step3.png"}
         />
       </div>
-      <ImagesVisual />
 
-      <div className="w-full h-full flex flex-col justify-center items-center bg-transparent">
+      <ImagesVisual />
+      <div className='w-s h-full flex flex-col justify-center items-center bg-transparent'>
         <Campaigns />
       </div>
     </div>

@@ -14,11 +14,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body
-        className={"w-screen relative max-w-screen border-4 border-green-600"}
-      >
-        <Navbar variant="glass" />
+    <html lang='en' suppressHydrationWarning={true}>
+      <body className={"w-screen  relative max-w-screen overflow-x-hidden "}>
+        <Navbar variant='glass' />
         {children}
         <Toaster />
         <Footer />

@@ -15,34 +15,34 @@ export default function accountDropdown() {
   console.log(open);
   return (
     <DropdownMenu onOpenChange={(e) => setOpen(e)} open={open}>
-      <DropdownMenuTrigger className="outline-none bg-white/10 h-9 w-9 border border-white/10 hover:border-gray1 transition-all duration-300  flex items-center justify-center rounded-full">
-        <img src="/Icons/User.svg" className="h-5 w-5 invert" />
+      <DropdownMenuTrigger className='outline-none bg-white/10 h-9 w-9 border border-white/10 hover:border-white/20 active:border-white/40  transition-all duration-300  flex items-center justify-center rounded-full'>
+        <img src='/Icons/User.svg' className='h-5 w-5 invert' />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-transparent uppercase flex flex-col mt-4 p-2 border border-white/10 z-[10] bg-blur text-white running-text-mono rounded-[16px]">
-        <CustomButton withIcon variant="primary">
+      <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 border border-white/10 z-[10] bg-blur text-white running-text-mono rounded-[16px]'>
+        <CustomButton withIcon variant='primary'>
           <img
-            src="/Icons/Login.svg"
-            alt="logo"
-            className="h-[15px] w-[15px] "
+            src='/Icons/Login.svg'
+            alt='logo'
+            className='h-[15px] w-[15px] '
           />
           SIGN IN
         </CustomButton>
 
-        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
+        <DropdownMenuItem className='flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer'>
           <CustomMenuItem>
-            <CircleUserRound size={15} className="text-iconColor" />
+            <CircleUserRound size={15} className='text-iconColor' />
             <span>My characters</span>
           </CustomMenuItem>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
+        <DropdownMenuItem className='flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer'>
           <CustomMenuItem>
-            <Images size={15} className="text-iconColor" />
+            <Images size={15} className='text-iconColor' />
             <span>Saved images</span>
           </CustomMenuItem>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
+        <DropdownMenuItem className='flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer'>
           <CustomMenuItem>
-            <img src="/images/campaign.png" alt="" className="h-3 w-4" />
+            <img src='/images/campaign.png' alt='' className='h-3 w-4' />
             <span>My campaigns</span>
           </CustomMenuItem>
         </DropdownMenuItem>
