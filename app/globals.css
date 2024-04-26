@@ -145,7 +145,7 @@ body {
 
 .bg-blur {
   backdrop-filter: blur(14px);
-  background-color: rgba(209, 207, 207, 0.212);
+  background-color: rgba(209, 207, 207, 0.082);
 }
 
 .bg-blur-1 {
