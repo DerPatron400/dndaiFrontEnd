@@ -14,11 +14,11 @@ import CustomButton from "@/components/ui/custom-button";
 export default function saveProgress() {
   return (
     <div>
-      <Dialog open={true} className='bg-russianViolet'>
-        <DialogTrigger className='px-4 py-2  rounded-md bg-white text-black'>
-          Share
+      <Dialog className='bg-russianViolet'>
+        <DialogTrigger className='px-4 py-2 running-text-mono uppercase  rounded-md bg-white text-black'>
+          Open Modal
         </DialogTrigger>
-        <DialogContent className='bg-[#1b1b31] rounded-[16%] !p-0 flex-col gap-6 border border-white/10  '>
+        <DialogContent className='bg-[#1b1b31] !rounded-[16px] !p-0 flex-col gap-6 border border-white/10  '>
           <div className={"flex gap-3 flex-col px-6 pt-4"}>
             <span className='  text-white running-text-large '>
               Character progress not saved!
@@ -38,7 +38,15 @@ export default function saveProgress() {
               Cancel
             </CustomButton>
             <CustomButton variant='error'>DON'T SAVE</CustomButton>
-            <CustomButton variant='primary'>SAVE (1)</CustomButton>
+            <CustomButton variant='primary'>
+              <div className='text-russianViolet flex items-center gap-2.5 '>
+                SAVE
+                <div className='flex  items-center gap-1 '>
+                  (<img src='/gems/Legendary.png' className='p-0' />
+                  1)
+                </div>
+              </div>
+            </CustomButton>
           </div>
         </DialogContent>
       </Dialog>

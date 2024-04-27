@@ -30,10 +30,11 @@ import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import CustomMenuItem from "@/components/ui/custom-menu-item";
 import { User, CircleUserRound, Images } from "lucide-react";
 import { Toast } from "@radix-ui/react-toast";
+import CustomIconButtonText from "@/components/ui/custom-iconButtonText";
 export default function Page() {
   return (
-    <div className="bg-russianViolet w-screen h-full flex flex-col px-5 justify-center py-24 gap-2">
-      <div className="w-full  flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
+    <div className='bg-russianViolet w-screen h-full flex flex-col px-5 justify-center py-24 gap-2'>
+      <div className='w-full  flex flex-wrap px-5 py-5 items-center justify-center gap-x-5'>
         <CustomButton variant={"primary"}>Button</CustomButton>
         <CustomButton variant={"primary"} withIcon={true}>
           <ArrowUp size={15} />
@@ -44,33 +45,22 @@ export default function Page() {
           <ShieldX size={15} opacity={0.7} />
           Safe
         </CustomIcontext>
-        <CustomButton
-          withIcon={true}
-          className={
-            "bg-green-400 hover:bg-green-400  text-black p3-4 ps-6  active:opacity-80 hover:opacity-90"
-          }
-        >
+        <CustomButton withIcon={true} variant={"success"}>
           Finish And Start
           <ArrowUp size={15} />
         </CustomButton>
 
         <CustomIconbutton className={"w-6 h-6"}>
-          <X className="h-3 w-3 " color="white" />
+          <X className='h-3 w-3 ' color='white' />
         </CustomIconbutton>
 
         <CustomIconbutton>
-          <img src="/Icons/User.svg" alt="logo" className="h-5 w-5 invert " />
+          <img src='/Icons/User.svg' alt='logo' className='h-5 w-5 invert ' />
         </CustomIconbutton>
-
-        <div className={"flex justify-center items-center gap-2"}>
-          <CustomIconbutton>
-            <img src="/Icons/User.svg" alt="logo" className="h-5 w-5 invert " />
-          </CustomIconbutton>
-          <span className="text-white"> Text</span>
-        </div>
+        <CustomIconButtonText />
       </div>
-      <div className="w-full flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
-        <CustomInput placeholder="Input Control" />
+      <div className='w-full flex flex-wrap px-5 py-5 items-center justify-center gap-x-5'>
+        <CustomInput placeholder='Input Control' />
         <CustomDropdown
           placeholder={"dropdown"}
           options={["option1", "option2", "option3"]}
@@ -121,57 +111,27 @@ export default function Page() {
           number={5}
         /> */}
       </div>
-      <div className="w-full flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
-        <RadioGroup>
-          <RadioGroupItem value="1">Option 1</RadioGroupItem>
-          <RadioGroupItem value="2">Option 2</RadioGroupItem>
-          <RadioGroupItem value="3">Option 3</RadioGroupItem>
-        </RadioGroup>
-      </div>
-      <div className="w-full flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
-        {/* <SaveProgress /> */}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="outline-none bg-white/10 h-9 w-9 border border-white/10 hover:border-white/20 active:border-white/40  transition-all duration-300  flex items-center justify-center rounded-full">
-            <img src="/Icons/User.svg" className="h-5 w-5 invert" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-transparent uppercase flex flex-col mt-4 p-2 border border-white/10 z-[10] bg-blur text-white running-text-mono rounded-[16px]">
-            <CustomButton withIcon variant="primary">
-              <img
-                src="/Icons/Login.svg"
-                alt="logo"
-                className="h-[15px] w-[15px] "
-              />
-              SIGN IN
-            </CustomButton>
+      <CustomRadioButton />
+      <div className=' flex flex-wrap px-5 py-5 items-center justify-center gap-x-5'>
+        <SaveProgress />
 
-            <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
-              <CustomMenuItem>
-                <CircleUserRound size={15} className="text-iconColor" />
-                <span>My characters</span>
-              </CustomMenuItem>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
-              <CustomMenuItem>
-                <Images size={15} className="text-iconColor" />
-                <span>Saved images</span>
-              </CustomMenuItem>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 hover:bg-transparent focus:bg-transparent focus:text-white hover:scale-105 transition-all duration-300 ease-linear cursor-pointer">
-              <CustomMenuItem>
-                <img src="/images/campaign.png" alt="" className="h-3 w-4" />
-                <span>My campaigns</span>
-              </CustomMenuItem>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
         <Card />
         <CustomInputIcon
-          placeholder="What Would You Do?"
+          placeholder='What Would You Do?'
           icon={<ArrowUp size={16} />}
         />
         <CustomInputIcon
-          placeholder="Write a comment...."
-          icon={<ArrowUp size={16} />}
+          placeholder='Write a comment....'
+          icon={
+            <img
+              src='/Icons/Check.svg'
+              alt='logo'
+              className='h-4 w-4 invert '
+            />
+          }
+          isComment={true}
+          text={"Send"}
+          isSubtle={true}
         />
         {/* <CommentBox /> */}
       </div>

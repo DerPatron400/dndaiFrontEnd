@@ -12,11 +12,12 @@ import { ThumbsUp, Play, SquareArrowOutUpRight, Star } from "lucide-react";
 import Button from "@/components/ui/custom-button";
 import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
+import CustomIcontext from "../ui/custom-icontext";
 
 // Card component
 export default function card({ carousel }) {
   return (
-    <div className='rounded-xl h-auto   my-8  min-w-[345px] w-[345px]  border-white/10 border running-text-mono '>
+    <div className='rounded-xl h-auto group   my-14  min-w-[345px] w-[345px]  border-white/10 border running-text-mono '>
       <Card className='w-full h-full hover:!shadow-custom-1 rounded-2xl border-none bg-russianViolet transition-all duration-200 ease-in-out '>
         <CardHeader className='relative '>
           <img
@@ -34,14 +35,14 @@ export default function card({ carousel }) {
               <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
               PLAYERS NAME
             </div>
-            <div className='flex justify-center items-center gap-2'>
-              <IconButton className='bg-blur ease-animate group hover:bg-white border border-iconColor'>
+            <div className='flex justify-center items-center gap-2 '>
+              <IconButton className='bg-blur ease-animate group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500'>
                 <SquareArrowOutUpRight
                   size={15}
                   className='group-hover:text-iconColor'
                 />
               </IconButton>
-              <IconButton className='bg-blur group hover:bg-white border border-iconColor'>
+              <IconButton className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500'>
                 <Star size={15} className='group-hover:text-iconColor' />
               </IconButton>
             </div>
@@ -62,12 +63,12 @@ export default function card({ carousel }) {
             )}
           >
             <div className='flex items-center gap-x-3 running-text-mono '>
-              <div className='flex justify-between items-center gap-2 '>
+              <CustomIcontext>
                 <ThumbsUp size={16} opacity={0.5} /> <span>1.7K</span>
-              </div>
-              <div className='flex justify-between items-center gap-2'>
+              </CustomIcontext>
+              <CustomIcontext>
                 <Play size={16} opacity={0.5} /> <span>4.7K</span>
-              </div>
+              </CustomIcontext>
             </div>
             <Button withIcon>
               <Play size={14} /> <span>Play</span>
