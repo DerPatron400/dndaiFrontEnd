@@ -169,6 +169,10 @@ export default function Page() {
           placeholder="What Would You Do?"
           icon={<ArrowUp size={16} />}
         />
+        <CustomInputIcon
+          placeholder="Write a comment...."
+          icon={<ArrowUp size={16} />}
+        />
         {/* <CommentBox /> */}
       </div>
     </div>
