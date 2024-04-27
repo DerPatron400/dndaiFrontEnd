@@ -23,7 +23,7 @@ const NavMenu = ({ menu }) => {
 };
 export default function Footer() {
   return (
-    <footer className='bg-russianViolet w-full  text-white pt-0 pb-16 px-8 md:py-16'>
+    <footer className='bg-russianViolet w-full  text-white pt-0 pb-16 px-12  md:py-16'>
       <div className=' w-full'>
         <div className='w-full md:w-1/2 flex flex-wrap md:gap-8 gap-3 gap-y-12 justify-between '>
           {/* Help and Support Section */}

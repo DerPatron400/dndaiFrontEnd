@@ -1,34 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-import Image from "next/image";
-import { Switch } from "@/components/ui/switch";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import Card from "@/components/campaigns/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/context-menu";
-import SaveProgress from "@/components/messages/saveProgress";
-import CustomInput from "@/components/ui/custom-input";
-import SearchInput from "@/components/ui/search-input";
-import CustomTab from "@/components/ui/custom-tab";
-import { MessageCircle, ArrowUp, Undo2, ShieldX } from "lucide-react";
-import CustomInputIcon from "@/components/ui/custom-input-icon";
-import CommentBox from "@/components/ui/comment-box";
-import ToastWithAction from "@/components/ui/custom-toast";
-import CustomDropdown from "@/components/ui/custom-dropdown";
 import Step from "@/components/landingPage/step";
 
 import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDviceDetect";
 import Button from "@/components/ui/custom-button";
-import CustomRadioButton from "@/components/ui/custom-radio-button";
 import dynamic from "next/dynamic";
 
 const ImagesVisual = dynamic(
@@ -56,10 +34,10 @@ export default function Home() {
     // from-russianViolet via-russianViolet to-[#262658]
     <div
       data-scroll-container
-      className="w-full md:w-[99%]  h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  "
+      className='w-full md:w-[99%]  h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  '
     >
       <div
-        className=" w-full h-screen  relative "
+        className=' w-full h-screen  relative '
         style={{
           backgroundImage: isMobile
             ? "url(/images/Landing/Header-mobile.png)"
@@ -69,8 +47,8 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute md:bottom-10 px-4 md:px-8  bottom-24 md:left-0 left-0 md:w-2/4 w-4/5">
-          <span className="w-full headline-1 md:headline-2 text-white">
+        <div className='absolute md:bottom-10 px-4 md:px-12  bottom-24 md:left-0 left-0 md:w-2/4 w-4/5'>
+          <span className='w-full headline-1 md:headline-2 text-white'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
@@ -90,13 +68,13 @@ export default function Home() {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-          className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet"
+          className='w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet'
         >
           <ImageParallax />
         </div>
       </ParallaxProvider>
 
-      <div className="h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-4 md:px-8  py-0">
+      <div className='h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-4 md:px-12  py-0'>
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}
@@ -124,7 +102,7 @@ export default function Home() {
       </div>
 
       <ImagesVisual />
-      <div className="w-s h-full flex flex-col justify-center items-center bg-transparent">
+      <div className='w-s h-full flex flex-col justify-center items-center bg-transparent'>
         <Campaigns />
       </div>
     </div>

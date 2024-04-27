@@ -7,7 +7,7 @@ export default function ImageParallax() {
   const { isMobile } = useDeviceDetect();
 
   return (
-    <div className="h-full w-[99%] me-auto  relative flex flex-col gap-y-10  px-4 md:px-8 justify-center items-center">
+    <div className="h-full w-[99%] me-auto  relative flex flex-col gap-y-10  px-4 md:px-12 justify-center items-center">
       {!isMobile ? (
         <div className="relative  h-full flex items-center justify-center">
           <h1

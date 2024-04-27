@@ -48,19 +48,19 @@ export default function CampaignSection() {
 
   return (
     <>
-      <div className="max-w-screen flex flex-col border justify-center items-center pb-32 text-white gap-10">
-        <h1 className="headline-1 text-center w-full ">
+      <div className='max-w-screen flex flex-col border justify-center items-center pb-32 text-white gap-10'>
+        <h1 className='headline-1 text-center w-full px-12 '>
           EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES.
         </h1>
-        <div className=" flex w-screen   relative overflow-hidden ">
+        <div className=' flex w-screen   relative overflow-hidden '>
           <div
             className={cn(
               "absolute top-[50%] left-0 ease-animate opacity-100  translate-y-[-50%] z-10 h-full flex items-center justify-start px-10 w-[40vw] md:w-[20vw] ltr-gradient",
               !canScrollLeft && "pointer-events-none opacity-0"
             )}
           >
-            <CustomIconbutton onClick={scrollLeft} variant="primary">
-              <img src="/Icons/ArrowLeft.svg" alt="" className="w-5 h-5" />
+            <CustomIconbutton onClick={scrollLeft} variant='primary'>
+              <img src='/Icons/ArrowLeft.svg' alt='' className='w-5 h-5' />
             </CustomIconbutton>
           </div>
           <div
@@ -69,13 +69,13 @@ export default function CampaignSection() {
               !canScrollRight && "pointer-events-none opacity-0"
             )}
           >
-            <CustomIconbutton onClick={scrollRight} variant="primary">
-              <img src="/Icons/ArrowRight.svg" alt="" className="w-5 h-5" />
+            <CustomIconbutton onClick={scrollRight} variant='primary'>
+              <img src='/Icons/ArrowRight.svg' alt='' className='w-5 h-5' />
             </CustomIconbutton>
           </div>
           <div
             ref={containerRef}
-            className="flex w-full h-full items-center gap-5 px-12   overflow-x-scroll hide-scrollbar "
+            className='flex w-full h-full items-center gap-5 px-12   overflow-x-scroll hide-scrollbar '
           >
             {Array.from({ length: 7 }).map((_, index) => (
               <CampaignCard carousel />
