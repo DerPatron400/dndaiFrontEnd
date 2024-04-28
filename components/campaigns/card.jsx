@@ -15,9 +15,14 @@ import { cn } from "@/lib/utils";
 import CustomIcontext from "../ui/custom-icontext";
 
 // Card component
-export default function card({ carousel }) {
+export default function card({ carousel, className }) {
   return (
-    <div className='rounded-xl h-auto group   my-14  min-w-[345px] w-[345px]  border-white/10 border running-text-mono '>
+    <div
+      className={cn(
+        "rounded-xl h-auto group  my-10 min-w-[292px] md:min-w-[345px] md:w-[345px]  border-white/10 border running-text-mono ",
+        className
+      )}
+    >
       <Card className='w-full h-full hover:!shadow-custom-1 rounded-2xl border-none bg-russianViolet transition-all duration-200 ease-in-out '>
         <CardHeader className='relative '>
           <img

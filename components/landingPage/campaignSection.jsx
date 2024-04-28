@@ -10,6 +10,7 @@ import {
 import CampaignCard from "@/components/campaigns/card";
 import CustomIconbutton from "../ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
+import CustomButton from "../ui/custom-button";
 
 export default function CampaignSection() {
   const containerRef = useRef(null);
@@ -48,14 +49,14 @@ export default function CampaignSection() {
 
   return (
     <>
-      <div className='max-w-screen flex flex-col border justify-center items-center pb-32 text-white gap-10'>
-        <h1 className='headline-1 text-center w-full px-12 '>
-          EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES.
+      <div className='max-w-screen flex flex-col  justify-center items-center pb-32 text-white '>
+        <h1 className='headline-1 text-center w-full px-5 md:px-12 uppercase '>
+          Forge your destiny and choose your campaign!
         </h1>
         <div className=' flex w-screen   relative overflow-hidden '>
           <div
             className={cn(
-              "absolute top-[50%] left-0 ease-animate opacity-100  translate-y-[-50%] z-10 h-full flex items-center justify-start px-10 w-[40vw] md:w-[20vw] ltr-gradient",
+              "absolute top-[50%] left-0 ease-animate opacity-100   translate-y-[-50%] z-10  h-full hidden md:flex items-center justify-start px-10 w-[40vw] md:w-[20vw] ltr-gradient",
               !canScrollLeft && "pointer-events-none opacity-0"
             )}
           >
@@ -65,7 +66,7 @@ export default function CampaignSection() {
           </div>
           <div
             className={cn(
-              "absolute top-[50%] right-0 ease-animate opacity-100 translate-y-[-50%] z-10 h-full flex items-center justify-end px-10 w-[40vw] md:w-[20vw] rtl-gradient",
+              "absolute top-[50%] right-0 ease-animate opacity-100 translate-y-[-50%] z-10 h-full hidden md:flex  items-center justify-end px-10 w-[40vw] md:w-[20vw] rtl-gradient",
               !canScrollRight && "pointer-events-none opacity-0"
             )}
           >
@@ -75,13 +76,14 @@ export default function CampaignSection() {
           </div>
           <div
             ref={containerRef}
-            className='flex w-full h-full items-center gap-5 px-12   overflow-x-scroll hide-scrollbar '
+            className='flex w-full h-full items-center gap-5 px-5 md:px-12  snap-x snap-mandatory overflow-x-scroll hide-scrollbar '
           >
             {Array.from({ length: 7 }).map((_, index) => (
-              <CampaignCard carousel />
+              <CampaignCard carousel className='snap-center' />
             ))}
           </div>
         </div>
+        <CustomButton>All Campaigns</CustomButton>
       </div>
     </>
   );

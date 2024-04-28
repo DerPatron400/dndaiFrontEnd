@@ -8,6 +8,8 @@ import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDviceDetect";
 import Button from "@/components/ui/custom-button";
 import dynamic from "next/dynamic";
+import { cn } from "@/lib/utils";
+import CustomIconbutton from "@/components/ui/custom-iconbutton";
 
 const ImagesVisual = dynamic(
   () => import("@/components/landingPage/imagesVisual"),
@@ -47,18 +49,25 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className='absolute md:bottom-10 px-4 md:px-12  bottom-24 md:left-0 left-0 md:w-2/4 w-4/5'>
-          <span className='w-full headline-1 md:headline-2 text-white'>
+        <div className='absolute md:bottom-10 px-5 md:px-12  bottom-5 md:left-0 left-0 w-full'>
+          <span className=' headline-1 md:headline-2 text-white md:w-2/4 w-full'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.
           </span>
-        </div>
-        <div
-          className={`absolute bottom-5 right-5 ${
-            isMobile ? "visible" : "hidden"
-          }`}
-        >
-          <Button variant={"primary"}>PLAY FOR FREE</Button>
+          <div
+            className={cn(
+              `flex mt-12 w-full  justify-between items-center md:hidden`
+            )}
+          >
+            <CustomIconbutton>
+              <img
+                src='/Icons/SoundOff.svg'
+                alt='logo'
+                className='h-5 w-5 invert'
+              />
+            </CustomIconbutton>
+            <Button variant={"primary"}>PLAY FOR FREE</Button>
+          </div>
         </div>
       </div>
       <ParallaxProvider>
@@ -74,7 +83,7 @@ export default function Home() {
         </div>
       </ParallaxProvider>
 
-      <div className='h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-4 md:px-12  py-0'>
+      <div className='h-full flex flex-col justify-center items-center bg-transparent py-32 px-5 md:px-12  '>
         <Step
           number={1}
           title={"CRAFT YOUR OWN CHARACTER"}

@@ -17,7 +17,7 @@ export default function CustomButton({
         variant === "subtle" &&
           "!border-none bg-transparent hover:bg-transparent !px-0",
         variant === "primary" &&
-          "bg-white hover:bg-gray1 text-russianViolet active:bg-gray2",
+          "bg-white hover:bg-gray1 text-russianViolet active:bg-gray2 border-none",
         variant === "error" &&
           "bg-errorRed text-russianViolet hover:bg-[#D13942] active:hover:bg-[#C12D36] ",
         variant === "success" &&
