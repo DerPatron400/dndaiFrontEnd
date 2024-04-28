@@ -5,7 +5,7 @@ import useMeasure from "react-use-measure";
 import { animate, useMotionValue, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 const Images = ({ direction }) => {
-  const [images, setImages] = useState(Array.from({ length: 7 }));
+  const [images, setImages] = useState(Array.from({ length: 14 }));
   const [scrollDirection, setScrollDirection] = useState(1); // 1 for right, -1 for left
   const containerRef = useRef(null);
   const [ref, { width }] = useMeasure();
