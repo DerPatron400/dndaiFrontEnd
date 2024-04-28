@@ -80,18 +80,18 @@ const Images = ({ direction }) => {
           " flex absolute top-0 left-0 gap-6 w-auto overflow-x-hidden "
         )}
       >
-        {[...images, ...images].map((_, index) => (
-          <div
-            key={index}
-            className='min-w-64 w-64 h-64 bg-irisPurpleLight rounded-md '
-          >
-            <div
-              src={"/images/Header1.png"}
-              alt={`Image ${index}`}
-              className='w-full h-full object-cover bg-irisPurpleLight rounded-md'
-            />
-          </div>
-        ))}
+      {[...images, ...images].map((_, index) => (
+        <div
+          key={index}
+          className='min-w-64 w-64 h-64 bg-irisPurpleLight rounded-md'
+        >
+          <img
+            src={`/images/Marquee/rowUpper${index + 1}.png`} 
+            alt={`Image ${index}`}
+            className='w-full h-full object-cover bg-irisPurpleLight rounded-md'
+          />
+        </div>
+      ))}
       </motion.div>
       <motion.div
         style={{ x: _xTranslation }}
@@ -108,13 +108,16 @@ const Images = ({ direction }) => {
         // }}
       >
         {[...images, ...images].map((_, index) => (
-          <div key={index} className='w-64 h-64 bg-irisPurpleLight rounded-md '>
-            <div
-              src={"/images/Header1.png"}
-              alt={`Image ${index}`}
-              className='w-full h-full object-cover bg-irisPurpleLight rounded-md'
-            />
-          </div>
+        <div
+        key={index}
+        className='min-w-64 w-64 h-64 bg-irisPurpleLight rounded-md'
+      >
+        <img
+          src={`/images/Marquee/rowLower${index + 1}.png`} 
+          alt={`Image ${index}`}
+          className='w-full h-full object-cover bg-irisPurpleLight rounded-md'
+        />
+      </div>
         ))}
       </motion.div>
     </main>
