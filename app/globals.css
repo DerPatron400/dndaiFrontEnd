@@ -159,8 +159,17 @@ body {
   background-color: rgba(209, 207, 207, 0.068);
 }
 
+.bg-blur-drawer {
+  backdrop-filter: blur(20px);
+  background-color: rgba(10, 10, 33, 0.75);
+}
+
 .blur-shadow {
   box-shadow: 0px 0px 60px 0px rgba(110, 109, 255, 0.149);
+}
+
+.menu-shadow {
+  box-shadow: 0px 4px 44px 0px #0A0A211A;
 }
 
 .rtl-gradient {

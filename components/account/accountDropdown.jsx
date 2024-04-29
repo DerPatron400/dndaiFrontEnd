@@ -18,7 +18,7 @@ export default function accountDropdown() {
       <DropdownMenuTrigger className='outline-none bg-white/10 h-9 w-9 border border-white/10 hover:border-white/20 active:border-white/40  transition-all duration-300  flex items-center justify-center rounded-full'>
         <img src='/Icons/User.svg' className='h-5 w-5 invert' />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 border border-white/10 z-[10] bg-blur text-white running-text-mono rounded-[16px]'>
+      <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px]'>
         <CustomButton withIcon variant='primary'>
           <img
             src='/Icons/Login.svg'
