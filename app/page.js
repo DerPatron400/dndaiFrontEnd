@@ -5,7 +5,7 @@ import { ParallaxProvider } from "react-scroll-parallax";
 import Step from "@/components/landingPage/step";
 
 import ImageParallax from "@/components/landingPage/ImageParallax";
-import useDeviceDetect from "@/hooks/useDviceDetect";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
 import Button from "@/components/ui/custom-button";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";

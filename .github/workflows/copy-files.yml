@@ -1,0 +1,53 @@
+name: Copy Files to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Check out the repository code
+
+    - name: Set up SSH key
+      run: |
+        echo "$SSH_PRIVATE_KEY" > ssh_key.pem
+        chmod 600 ssh_key.pem
+        mkdir -p $HOME/.ssh
+        ssh-keyscan -H $EC2_HOSTNAME >> ~/.ssh/known_hosts
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        EC2_HOSTNAME: ${{ secrets.HOST }}
+
+    - name: Copy files via SSH
+      run: |
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd-Backup/* || true"
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cp -r ~/dndaiFrontEnd/* ~/dndaiFrontEnd-Backup || true"
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd/* || true"
+        scp -i ssh_key.pem -r ${GITHUB_WORKSPACE}/* ec2-user@$EC2_HOSTNAME:~/dndaiFrontEnd/
+      env:
+        EC2_HOSTNAME: ${{ secrets.HOST }}
+
+    - name: Npm install
+      run: |
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && npm install"
+      env:
+        EC2_HOSTNAME: ${{ secrets.HOST }}
+
+    - name: Build the project
+      run: |
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "export NEXT_PUBLIC_BACKEND_URL=https://dndai.app && cd ~/dndaiFrontEnd && npm run build"
+      env:
+        EC2_HOSTNAME: ${{ secrets.HOST }}
+
+    - name: Restarting server
+      run: |
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "pm2 delete frontend || true"  # Stop the existing process if it exists
+        ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && pm2 start npm --name frontend -- start"
+      env:
+        EC2_HOSTNAME: ${{ secrets.HOST }}
+  

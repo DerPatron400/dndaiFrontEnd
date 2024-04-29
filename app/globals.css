@@ -86,6 +86,7 @@ body {
 }
 
 @layer components {
+
   /* Headline 1 */
   .headline-1 {
     @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em];
@@ -100,7 +101,7 @@ body {
 
   /* Headline 3 */
   .headline-3 {
-    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] md:text-[44px] md:leading-[45px] tracking-[0.02em] !md:tracking-[0.01em];
+    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] md:text-[44px] md:leading-[45px] tracking-[0.02em] md:tracking-[0.01em];
   }
 
   /* Headline 4 */
@@ -172,21 +173,23 @@ body {
 }
 
 .rtl-gradient {
-  background: linear-gradient(
-    90deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(90deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
 }
 
 .ltr-gradient {
-  background: linear-gradient(
-    270deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(270deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
+}
+
+.bg-gradient {
+  background-image: url("../public/images/bg.png");
+  background-size: cover;
+  background-position: center;
 }
 
 /* hide scrollbar */

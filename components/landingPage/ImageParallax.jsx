@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Parallax } from "react-scroll-parallax";
-import useDeviceDetect from "@/hooks/useDviceDetect";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
 
 export default function ImageParallax() {
   const { isMobile } = useDeviceDetect();

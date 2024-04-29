@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import AccountDropdown from "@/components/account/accountDropdown";
-import useDeviceDetect from "@/hooks/useDviceDetect";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
 import { cn } from "@/lib/utils";
 import CustomButton from "../ui/custom-button";
 import DrawerMenu from "./DrawerMenu";
-
+import Link from "next/link";
 export default function Navbar({ variant }) {
   const { isMobile } = useDeviceDetect();
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +40,7 @@ export default function Navbar({ variant }) {
               "w-full h-full rounded-lg text-white  flex justify-between items-center"
             }
           >
-            <a
+            <Link
               href='#'
               className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
             >
@@ -49,7 +49,7 @@ export default function Navbar({ variant }) {
                 alt='logo'
                 className='h-8 object-contain'
               />
-            </a>
+            </Link>
             <img
               src='/Icons/Menu.svg'
               alt='logo'
@@ -61,35 +61,37 @@ export default function Navbar({ variant }) {
         ) : (
           <div className=' w-full h-full text-white  flex justify-between items-center'>
             <div className='flex justify-center items-center gap-6'>
-              <a
+              <Link
                 href='#'
                 className='text-white me-2 hover:text-gray1 transition-all duration-300 ease-in-out'
               >
                 <img src='/images/logo.png' alt='logo' className='h-10' />
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href='#'
                 className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
               >
                 HOW TO PLAY
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href='#'
                 className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
               >
                 GALLERY
-              </a>
-              <a
+              </Link>
+              <Link
                 href='#'
                 className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
               >
                 STORE
-              </a>
+              </Link>
             </div>
             <div className='flex justify-center items-center gap-5'>
-              <span className='running-text-mono uppercase'>Sign Up</span>
+              <span className='running-text-mono uppercase cursor-pointer'>
+                <Link href={"/auth/sign-up"}>Sign Up</Link>
+              </span>
               <AccountDropdown />
               <CustomButton variant={"primary"}>PLAY FOR FREE</CustomButton>
             </div>
