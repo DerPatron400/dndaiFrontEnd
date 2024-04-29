@@ -86,7 +86,6 @@ body {
 }
 
 @layer components {
-
   /* Headline 1 */
   .headline-1 {
     @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em];
@@ -169,21 +168,25 @@ body {
 }
 
 .menu-shadow {
-  box-shadow: 0px 4px 44px 0px #0A0A211A;
+  box-shadow: 0px 4px 44px 0px #0a0a211a;
 }
 
 .rtl-gradient {
-  background: linear-gradient(90deg,
-      rgba(10, 10, 33, 0) 0%,
-      rgba(10, 10, 33, 0.5) 40.5%,
-      #0a0a21 80.5%);
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 33, 0) 0%,
+    rgba(10, 10, 33, 0.5) 40.5%,
+    #0a0a21 80.5%
+  );
 }
 
 .ltr-gradient {
-  background: linear-gradient(270deg,
-      rgba(10, 10, 33, 0) 0%,
-      rgba(10, 10, 33, 0.5) 40.5%,
-      #0a0a21 80.5%);
+  background: linear-gradient(
+    270deg,
+    rgba(10, 10, 33, 0) 0%,
+    rgba(10, 10, 33, 0.5) 40.5%,
+    #0a0a21 80.5%
+  );
 }
 
 /* hide scrollbar */
