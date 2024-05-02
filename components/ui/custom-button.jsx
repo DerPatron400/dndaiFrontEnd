@@ -7,12 +7,14 @@ export default function CustomButton({
   withIcon,
   variant,
   disabled,
+  onClick,
 }) {
   return (
     <Button
+      onClick={onClick}
       disabled={disabled}
       className={cn(
-        "running-text-mono gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate",
+        "running-text-mono gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate disabled:pointer-events-none",
         withIcon && "flex items-center pe-5 ps-[14px]",
         variant === "subtle" &&
           "!border-none bg-transparent hover:bg-transparent !px-0",

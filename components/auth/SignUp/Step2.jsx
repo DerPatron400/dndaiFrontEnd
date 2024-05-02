@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../../ui/custom-input";
 import CustomButton from "../../ui/custom-button";
 import { Checkbox } from "../../ui/checkbox";
-export default function Step2() {
+
+export default function Step2({ setStep, user, setUser }) {
+  const onChange = (key, value) => {
+    setUser({ ...user, [key]: value });
+  };
+
   return (
     <div className='w-full flex flex-col gap-6'>
-      <CustomInput placeholder='USERNAME' className={"w-full"} />
-      <CustomInput placeholder='E-MAIL' className={"w-full"} />
-      <CustomInput placeholder='NAME' className={"w-full"} />
-      <CustomInput placeholder='SURNAME' className={"w-full"} />
-      <CustomInput placeholder='PASSWORD' className={"w-full"} />
+      <CustomInput
+        placeholder='USERNAME'
+        value={user.username}
+        onChange={(value) => onChange("username", value)}
+      />
+      <CustomInput
+        placeholder='E-MAIL'
+        value={user.email}
+        onChange={(value) => onChange("email", value)}
+      />
+      <CustomInput
+        placeholder='NAME'
+        value={user.name}
+        onChange={(value) => onChange("name", value)}
+      />
+      <CustomInput
+        placeholder='SURNAME'
+        value={user.surname}
+        onChange={(value) => onChange("surname", value)}
+      />
+      <CustomInput
+        placeholder='PASSWORD'
+        value={user.password}
+        onChange={(value) => onChange("password", value)}
+      />
       {/* <div>
         <ul>
           <li>At least 8 characters</li>

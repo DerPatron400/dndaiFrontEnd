@@ -1,10 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../../ui/custom-input";
 import CustomButton from "../../ui/custom-button";
 import { Checkbox } from "../../ui/checkbox";
 
 export default function signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div className='text-white w-[345px] h-auto mt-10 flex flex-col justify-between items-start  gap-6'>
       <div className='flex flex-col gap-4'>
@@ -14,9 +16,17 @@ export default function signin() {
         </span>
       </div>
       <div className='flex w-full flex-col gap-6'>
-        <CustomInput placeholder='E-MAIL OR USERNAME' />
+        <CustomInput
+          placeholder='E-MAIL OR USERNAME'
+          value={email}
+          onChange={(value) => setEmail(value)}
+        />
         <div className='gap-2.5 flex flex-col'>
-          <CustomInput placeholder='PASSWORD' />
+          <CustomInput
+            placeholder='PASSWORD'
+            value={password}
+            onChange={(value) => setPassword(value)}
+          />
           <span className='text-white running-text-small cursor-pointer'>
             Forgot password?
           </span>

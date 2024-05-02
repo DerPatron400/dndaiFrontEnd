@@ -1,8 +1,12 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 
-export default function CustomInput({ className, placeholder = "Label" }) {
-  const [input, setInput] = useState("");
+export default function CustomInput({
+  className,
+  placeholder = "Label",
+  value,
+  onChange,
+}) {
   return (
     <div
       className={cn(
@@ -12,17 +16,17 @@ export default function CustomInput({ className, placeholder = "Label" }) {
     >
       <input
         type='text'
-        value={input}
+        value={value}
         className='outline-none px-4 uppercase h-full w-full peer bg-transparent text-white '
         placeholder=' '
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
 
       <label
         className={cn(
           `absolute left-[9px] uppercase top-px !text-sm text-gray2 transition-all duration-300 px-1 transform -translate-y-1/2 pointer-events-none 
   peer-placeholder-shown:top-1/2 font-medium peer-placeholder-shown:text-xl group-focus-within:!top-px group-focus-within:!text-sm group-focus-within:!text-irisPurpleLight group-focus-within:!text-[10px]`,
-          input && "!text-[10px]"
+          value && "!text-[10px]"
         )}
       >
         {placeholder}
