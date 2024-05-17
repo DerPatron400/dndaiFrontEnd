@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Helvetica+Now+Display:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Headline 1 */
+  .headline-1 {
+    @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em];
+  }
+
+  /* Headline 2 */
+  .headline-2 {
+    @apply font-roboto-mono md:font-helvetica-now-display font-medium uppercase md:text-[44px] md:leading-[42px] text-[22px] leading-[18px] !tracking-[0.03em];
+
+    /* Specify font family */
+  }
+
+  .h2-mono {
+    @apply font-roboto-mono font-medium uppercase md:text-[44px] md:leading-[42px] text-[22px] leading-[18px] !tracking-[0.03em];
+  }
+
+  /* Headline 3 */
+  .headline-3 {
+    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] md:text-[44px] md:leading-[45px] tracking-[0.02em] md:tracking-[0.01em];
+  }
+
+  /* Headline 4 */
+  .headline-4 {
+    @apply font-roboto-mono font-medium uppercase !tracking-[0.03em] md:text-[22px] md:leading-6 text-[16px] leading-[18px];
+
+    /* Specify font family */
+  }
+
+  /* Running text (Large) */
+  .running-text-large {
+    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] tracking-[0.02em];
+  }
+
+  /* Running text */
+  .running-text {
+    @apply font-helvetica-now-display font-medium text-[16px] leading-5 tracking-[0.02em] md:text-[17px] md:leading-6 md:tracking-[0.01em];
+  }
+
+  /* Running text (Small) */
+  .running-text-small {
+    @apply font-helvetica-now-display font-medium text-[15px] leading-5 tracking-[0.01em];
+  }
+
+  /* Running text (Mono) */
+  .running-text-mono {
+    @apply font-roboto-mono font-medium text-sm leading-4 tracking-[0.02em];
+  }
+
+  .ease-animate {
+    @apply !transition-all !duration-300 !ease-in-out;
+  }
+}
+
+.dm-mono {
+  font-family: "DM Mono", monospace;
+}
+
+.instrument-sans {
+  font-family: "Instrument Sans", sans-serif;
+}
+
+.bg-blur {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background-color: rgba(209, 207, 207, 0.082);
+}
+
+.bg-blur-1 {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(209, 207, 207, 0.014);
+}
+
+.bg-blur-2 {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(209, 207, 207, 0.068);
+}
+
+.bg-blur-drawer {
+  backdrop-filter: blur(64px);
+  -webkit-backdrop-filter: blur(64px);
+  background-color: rgba(10, 10, 33, 0.75);
+}
+
+.bg-blur-shadow {
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  background-color: rgba(10, 10, 33, 0.75);
+}
+
+.bg-blur-bottom-menu {
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  background-color: #0A0A2166;
+}
+
+.blur-shadow {
+  box-shadow: 0px 0px 60px 0px rgba(110, 109, 255, 0.149);
+}
+
+.menu-shadow {
+  box-shadow: 0px 4px 44px 0px #0a0a211a;
+}
+
+.tooltip {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow: 0px 0px 20px 0px #0A0A2129;
+  background: #FFFFFF1A;
+  border-radius: 6px;
+  padding: 10px 12px 11px 12px;
+}
+
+
+
+.rtl-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 33, 0) 0%,
+    rgba(10, 10, 33, 0.5) 40.5%,
+    #0a0a21 80.5%
+  );
+}
+
+.ltr-gradient {
+  background: linear-gradient(
+    270deg,
+    rgba(10, 10, 33, 0) 0%,
+    rgba(10, 10, 33, 0.5) 40.5%,
+    #0a0a21 80.5%
+  );
+}
+
+.icon-glow {
+  filter: drop-shadow(0px -4px 54px #ffffff40);
+  /* box-shadow: 0px -4px 54px 0px #FFFFFF40; */
+}
+
+.bg-gradient {
+  background-image: url("../public/images/bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* hide scrollbar */
+
+/* width */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Track */
+.hide-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--input) inset !important;
+  -webkit-text-fill-color: var(--foreground) !important;
+} */
+
+/* styles.css */
+
+/* styles.css */
+
+.stepper.step::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  /* Adjust based on your circle size */
+  left: 50%;
+  /* Adjust based on your circle size */
+  width: 1px;
+  /* Thickness of the line */
+  height: 50%;
+  /* Height of the line */
+  background-color: white;
+  /* Color of the line */
+  transform: translate(-50%, -50%);
+}
