@@ -4,7 +4,7 @@ import Button from "../ui/custom-button";
 
 export default function imagesVisual() {
   return (
-    <div className=' h-full w-screen flex flex-col justify-center items-center text-white md:py-64 py-32'>
+    <div className=' h-full w-screen flex flex-col justify-center items-center text-white md:py-64 py-16 pb-32'>
       <h1 className='headline-1 text-center mb-16 px-12 z-10'>
         AN INFINITE WORLD OF VISUALIZATION.
       </h1>

@@ -94,3 +94,14 @@ export const verifyEmailExists = async (email) => {
     throw error;
   }
 };
+
+export const verifyUserNameExists = async (username) => {
+  try {
+    const response = await api.post("/auth/check-username", { username });
+
+    return response.data.exists;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

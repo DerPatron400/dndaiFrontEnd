@@ -13,6 +13,7 @@ body {
 
 @layer base {
   :root {
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -86,30 +87,28 @@ body {
 }
 
 @layer components {
+
   /* Headline 1 */
   .headline-1 {
-    @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em];
+    @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em] 2xl:text-[120px] 2xl:leading-[100px];
   }
 
   /* Headline 2 */
   .headline-2 {
-    @apply font-roboto-mono md:font-helvetica-now-display font-medium uppercase md:text-[44px] md:leading-[42px] text-[22px] leading-[18px] !tracking-[0.03em];
+    @apply font-roboto-mono md:font-helvetica-now-display font-medium uppercase md:text-[44px] md:leading-[42px] text-[22px] leading-[18px] tracking-[0.03em] 2xl:text-[60px] 2xl:leading-[60px];
 
     /* Specify font family */
   }
 
-  .h2-mono {
-    @apply font-roboto-mono font-medium uppercase md:text-[44px] md:leading-[42px] text-[22px] leading-[18px] !tracking-[0.03em];
-  }
 
   /* Headline 3 */
   .headline-3 {
-    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] md:text-[44px] md:leading-[45px] tracking-[0.02em] md:tracking-[0.01em];
+    @apply font-helvetica-now-display font-medium text-[28px] leading-[34px] md:text-[44px] md:leading-[45px] tracking-[0.02em] md:tracking-[0.01em] 2xl:text-[60px] 2xl:leading-[60px];
   }
 
   /* Headline 4 */
   .headline-4 {
-    @apply font-roboto-mono font-medium uppercase !tracking-[0.03em] md:text-[22px] md:leading-6 text-[16px] leading-[18px];
+    @apply font-roboto-mono font-medium uppercase tracking-[0.03em] md:text-[22px] leading-[18px] md:leading-6 text-[16px] 2xl:text-[28px] 2xl:leading-[34px];
 
     /* Specify font family */
   }
@@ -121,21 +120,21 @@ body {
 
   /* Running text */
   .running-text {
-    @apply font-helvetica-now-display font-medium text-[16px] leading-5 tracking-[0.02em] md:text-[17px] md:leading-6 md:tracking-[0.01em];
+    @apply font-helvetica-now-display font-medium text-[16px] leading-5 tracking-[0.02em] md:text-[17px] md:leading-6 md:tracking-[0.01em] 2xl:text-[20px] 2xl:leading-7 2xl:tracking-[0.02em];
   }
 
   /* Running text (Small) */
   .running-text-small {
-    @apply font-helvetica-now-display font-medium text-[15px] leading-5 tracking-[0.01em];
+    @apply font-helvetica-now-display font-medium text-[15px] leading-5 tracking-[0.01em] 2xl:text-[18px] 2xl:leading-7 2xl:tracking-[0.02em];
   }
 
   /* Running text (Mono) */
   .running-text-mono {
-    @apply font-roboto-mono font-medium text-sm leading-4 tracking-[0.02em];
+    @apply font-roboto-mono font-medium text-sm leading-4 tracking-[0.02em] 2xl:text-[18px] 2xl:leading-7 2xl:tracking-[0.02em];
   }
 
   .ease-animate {
-    @apply !transition-all !duration-300 !ease-in-out;
+    @apply !transition-all !duration-300 !ease-in-out active:duration-100 hover:duration-200;
   }
 }
 
@@ -203,21 +202,17 @@ body {
 
 
 .rtl-gradient {
-  background: linear-gradient(
-    90deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(90deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
 }
 
 .ltr-gradient {
-  background: linear-gradient(
-    270deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(270deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
 }
 
 .icon-glow {
@@ -243,13 +238,16 @@ body {
   background: transparent;
 }
 
-/* input:-webkit-autofill,
+
+input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--input) inset !important;
-  -webkit-text-fill-color: var(--foreground) !important;
-} */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #23232329;
+}
 
 /* styles.css */
 

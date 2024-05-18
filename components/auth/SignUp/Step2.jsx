@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../../ui/custom-input";
 import CustomButton from "../../ui/custom-button";
 import { Checkbox } from "../../ui/checkbox";
-import { register } from "@/actions/auth";
+import {
+  register,
+  verifyEmailExists,
+  verifyUserNameExists,
+} from "@/actions/auth";
 import useCustomToast from "@/hooks/useCustomToast";
 import { isPasswordValid } from "@/lib/Helpers/auth";
 import CustomValidationtext from "@/components/ui/custom-validationtext";
 import { useRouter } from "next/navigation";
+import { useDebounce } from "@/hooks/useDebounce";
 export default function Step2({ setStep, user, setUser, reset }) {
   const router = useRouter();
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
@@ -14,6 +19,25 @@ export default function Step2({ setStep, user, setUser, reset }) {
   const [agreeTOC, setAgreeTOC] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const debounceUsername = useDebounce(user.username, 150);
+  const [usernameExists, setUsernameExists] = useState(false);
+
+  useEffect(() => {
+    const checkUsername = async () => {
+      console.log("request");
+      try {
+        const exists = await verifyUserNameExists(debounceUsername);
+        console.log(exists);
+        setUsernameExists(exists);
+      } catch (error) {
+        invokeToast(
+          error?.response?.data?.message || "Something Went Wrong",
+          "error"
+        );
+      }
+    };
+    if (debounceUsername?.length > 2) checkUsername();
+  }, [debounceUsername]);
 
   const onChange = (key, value) => {
     setUser({ ...user, [key]: value });
@@ -58,51 +82,53 @@ export default function Step2({ setStep, user, setUser, reset }) {
   const passwordValidation = isPasswordValid(user.password);
 
   return (
-    <div className="w-full h-auto flex flex-col gap-6">
+    <div className='w-full h-auto flex flex-col gap-6'>
       <CustomInput
-        placeholder="USERNAME"
+        placeholder='USERNAME'
         value={user.username}
         onChange={(value) => onChange("username", value)}
+        error={usernameExists}
         icon={
-          user.username.length > 4 && (
-            <img src="/Icons/Success.png" alt="Success" className=" h-4 w-4" />
+          !usernameExists &&
+          user.username.length > 2 && (
+            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
           )
         }
       />
       <CustomInput
-        placeholder="E-MAIL"
+        placeholder='E-MAIL'
         value={user.email}
         disabled
         onChange={(value) => {}}
         icon={
           user.email && (
-            <img src="/Icons/Success.png" alt="Success" className=" h-4 w-4" />
+            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
           )
         }
       />
       <CustomInput
-        placeholder="NAME"
+        placeholder='NAME'
         value={user.name}
         onChange={(value) => onChange("name", value)}
         icon={
           user.name.length > 2 && (
-            <img src="/Icons/Success.png" alt="Success" className=" h-4 w-4" />
+            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
           )
         }
       />
       <CustomInput
-        placeholder="SURNAME"
+        placeholder='SURNAME'
         value={user.surname}
         onChange={(value) => onChange("surname", value)}
         icon={
           user.surname.length > 2 && (
-            <img src="/Icons/Success.png" alt="Success" className=" h-4 w-4" />
+            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
           )
         }
       />
-      <div className="flex flex-col gap-3">
+      <div className='flex flex-col gap-3'>
         <CustomInput
-          placeholder="PASSWORD"
+          placeholder='PASSWORD'
           value={user.password}
           type={showPassword ? "text" : "password"}
           onChange={(value) => onChange("password", value)}
@@ -112,17 +138,17 @@ export default function Step2({ setStep, user, setUser, reset }) {
           icon={
             showPassword ? (
               <img
-                src="/Icons/Eye.svg"
+                src='/Icons/Eye.svg'
                 onClick={() => setShowPassword(false)}
-                alt="Success"
-                className=" h-5 w-5 cursor-pointer invert"
+                alt='Success'
+                className=' h-5 w-5 cursor-pointer invert'
               />
             ) : (
               <img
-                src="/Icons/EyeClosed.svg"
+                src='/Icons/EyeClosed.svg'
                 onClick={() => setShowPassword(true)}
-                alt="Success"
-                className=" h-5 w-5 cursor-pointer invert"
+                alt='Success'
+                className=' h-5 w-5 cursor-pointer invert'
               />
             )
           }
@@ -146,20 +172,20 @@ export default function Step2({ setStep, user, setUser, reset }) {
           </div>
         )}
       </div>
-      <div className="flex w-full justify-center items-center gap-3">
+      <div className='flex w-full justify-center items-center gap-3'>
         <Checkbox
           checked={agreeTOC}
           onCheckedChange={(value) => setAgreeTOC(value)}
-          className="border border-irisPurpleLight h-[20px] w-[20px]"
+          className='border border-irisPurpleLight h-[20px] w-[20px]'
         />
-        <span className="text-white running-text-small  text-left">
+        <span className='text-white running-text-small  text-left'>
           By selecting I agree to the dndai{" "}
-          <span className="text-irisPurpleLight">terms and conditions. </span>
+          <span className='text-irisPurpleLight'>terms and conditions. </span>
           You can read how we use and protect your data in our{" "}
-          <span className="text-irisPurpleLight">privacy policy.</span>
+          <span className='text-irisPurpleLight'>privacy policy.</span>
         </span>
       </div>
-      <div className="w-full">
+      <div className='w-full'>
         <CustomButton
           variant={"primary"}
           disabled={invalidData() || isLoading}
@@ -171,7 +197,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
           ) : (
             <>
               CREATE ACCOUNT{" "}
-              <img src="/Icons/ArrowRight.svg" alt="" className="h-5 w-5" />
+              <img src='/Icons/ArrowRight.svg' alt='' className='h-5 w-5' />
             </>
           )}
         </CustomButton>
