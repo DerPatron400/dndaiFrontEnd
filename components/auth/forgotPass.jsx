@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import CustomInput from "@/components/ui/custom-input";
 import CustomButton from "@/components/ui/custom-button";
-import { validateEmail } from "@/lib/helpers";
+import { validateEmail } from "@/lib/Helpers/auth";
 import Link from "next/link";
 import { requestPasswordReset } from "@/actions/auth";
 import useCustomToast from "@/hooks/useCustomToast";
