@@ -98,7 +98,9 @@ export default function Home() {
           description={
             "You can easily create your own character by selecting from a wide range of races, classes, backgrounds, starting gear, and more. This allows you to venture into your own unique stories, shaping your character's journey as you progress and level up!"
           }
-          image={"/images/step1.png"}
+          image={
+            "https://dndai-images.s3.eu-central-1.amazonaws.com/tutorial/tutorial-1.webp"
+          }
         />
         <Step
           number={2}
@@ -106,7 +108,9 @@ export default function Home() {
           description={
             "Unleash your creativity and effortlessly craft your own campaign. You have the freedom to set the main plot, establish the setting, create a timeline, and add a special hook. There are no limits to what you can create!"
           }
-          image={"/images/step2.png"}
+          image={
+            "https://dndai-images.s3.eu-central-1.amazonaws.com/tutorial/tutorial-2.webp"
+          }
         />
         <Step
           number={3}
@@ -114,7 +118,9 @@ export default function Home() {
           description={
             "Whether playing solo or with friends in multiplayer mode, immerse yourself in the journey of your character's growth. Progress through your own campaigns or those created by others, both privately and publicly, for an unforgettable gaming experience!"
           }
-          image={"/images/step3.png"}
+          image={
+            "https://dndai-images.s3.eu-central-1.amazonaws.com/tutorial/tutorial-3.webp"
+          }
         />
       </div>
 

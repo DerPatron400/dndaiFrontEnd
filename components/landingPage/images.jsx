@@ -46,7 +46,7 @@ const Images = ({ direction }) => {
   }, [_xTranslation, _width]);
 
   return (
-    <main className="max-w-screen w-screen !overflow-x-hidden">
+    <main className='max-w-screen w-screen !overflow-x-hidden'>
       <motion.div
         style={{ x: xTranslation }}
         ref={ref}
@@ -57,12 +57,14 @@ const Images = ({ direction }) => {
         {[...images, ...images].map((_, index) => (
           <div
             key={index}
-            className="min-w-64 w-64 h-64 bg-transparent rounded-md"
+            className='min-w-64 w-64 h-64 bg-transparent rounded-md'
           >
             <img
-              src={`/images/Marquee/rowUpper${index + 1}.png`}
+              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/marquee/rowLower${
+                index + 1
+              }.webp`}
               alt={`Image ${index}`}
-              className="w-full h-full object-cover bg-transparent rounded-md"
+              className='w-full h-full object-cover bg-transparent rounded-md'
             />
           </div>
         ))}
@@ -77,12 +79,14 @@ const Images = ({ direction }) => {
         {[...images, ...images].map((_, index) => (
           <div
             key={index}
-            className="min-w-64 w-64 h-64 bg-transparent rounded-md"
+            className='min-w-64 w-64 h-64 bg-transparent rounded-md'
           >
             <img
-              src={`/images/Marquee/rowLower${index + 1}.png`}
+              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/marquee/rowUpper${
+                index + 1
+              }.webp`}
               alt={`Image ${index}`}
-              className="w-full h-full object-cover bg-transparent rounded-md"
+              className='w-full h-full object-cover bg-transparent rounded-md'
             />
           </div>
         ))}

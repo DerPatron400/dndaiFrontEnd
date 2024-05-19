@@ -28,9 +28,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image1.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-1.webp'
               alt='Parallax Image 1'
-              className='w-full object-contain '
+              className='w-full object-contain rounded-[10px]   '
             />
           </Parallax>
           <Parallax
@@ -42,9 +42,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image2.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-2.webp'
               alt='Parallax Image 2'
-              className='w-full object-contain'
+              className='w-full object-contain rounded-[10px]  '
             />
           </Parallax>
           <Parallax
@@ -56,9 +56,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image3.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-3.webp'
               alt='Parallax Image 3'
-              className='w-full object-contain'
+              className='w-full object-contain rounded-[10px] '
             />
           </Parallax>
           <Parallax
@@ -70,9 +70,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image4.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-6.webp'
               alt='Parallax Image 4'
-              className='w-full object-contain'
+              className='w-full object-contain rounded-[10px] '
             />
           </Parallax>
           <Parallax
@@ -84,9 +84,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image5.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-4.webp'
               alt='Parallax Image 5'
-              className='w-full object-contain z-10 translate-x-[-50%]'
+              className='w-full object-contain rounded-[10px]  z-10 translate-x-[-50%]'
             />
           </Parallax>
           <Parallax
@@ -98,9 +98,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image6.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-5.webp'
               alt='Parallax Image 6'
-              className='w-full object-contain'
+              className='w-full object-contain rounded-[10px] '
             />
           </Parallax>
         </div>
@@ -115,9 +115,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image2.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-2.webp'
               alt='Parallax Image 2'
-              className='w-2/3 object-contain z-10 '
+              className='w-2/3 object-contain rounded-[10px]  z-10 '
             />
           </Parallax>
           <Parallax
@@ -129,9 +129,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image1.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-1.webp'
               alt='Parallax Image 1'
-              className='w-1/3 object-contain z-10'
+              className='w-1/3 object-contain rounded-[10px]  z-10 '
             />
           </Parallax>
 
@@ -140,9 +140,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image3.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-3.webp'
               alt='Parallax Image 3'
-              className='w-full object-contain z-10'
+              className='w-full object-contain rounded-[10px]  z-10'
             />
           </Parallax>
           <h1
@@ -158,9 +158,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image5.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-4.webp'
               alt='Parallax Image 5'
-              className='w-1/2 object-contain  z-10'
+              className='w-1/2 object-contain rounded-[10px]   z-10'
             />
           </Parallax>
           <Parallax
@@ -172,9 +172,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image6.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-5.webp'
               alt='Parallax Image 6'
-              className='w-1/3 object-contain z-10'
+              className='w-1/3 object-contain rounded-[10px]  z-10'
             />
           </Parallax>
           <Parallax translateY={15} speed={-10} className='w-full  z-10'>
@@ -182,9 +182,9 @@ export default function ImageParallax() {
               style={{
                 mixBlendMode: "exclusion",
               }}
-              src='/parallax/Image4.png'
+              src='https://dndai-images.s3.eu-central-1.amazonaws.com/parallax/parallax-6.webp'
               alt='Parallax Image 4'
-              className='w-full object-contain z-10'
+              className='w-full object-contain rounded-[10px]  z-10'
             />
           </Parallax>
         </div>
