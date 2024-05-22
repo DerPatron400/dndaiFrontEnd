@@ -10,8 +10,8 @@ export default function Info({ alignment }) {
         !alignment && "opacity-0 pointer-events-none"
       )}
     >
-      <div className='flex h-full flex-col'>
-        <div className='w-full h-[440px]'>
+      <div className="flex h-full flex-col">
+        <div className="w-full h-[440px]">
           <img
             src={`https://dndai-images.s3.eu-central-1.amazonaws.com/alignments/${alignment
               ?.toLowerCase()
@@ -19,13 +19,13 @@ export default function Info({ alignment }) {
 
 `}
             alt={alignment}
-            className='h-full object-cover '
+            className="h-full object-cover "
           />
         </div>
 
-        <div className='p-4 flex flex-col justify-around gap-4 '>
-          <span className='headline-4'>{alignment}</span>
-          <span className='text-gray2 running-text '>
+        <div className="p-4 flex flex-col justify-around gap-4 ">
+          <span className="headline-4">{alignment}</span>
+          <span className="text-gray2 running-text ">
             Astral Elves, born of the Astral Plane and rooted in the Feywild,
             radiated with divine energy, embodying a celestial essence distinct
             from their terrestrial kin.

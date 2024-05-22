@@ -10,23 +10,33 @@ import {
 const _ABILITIES = [
   {
     name: "Strength",
+    description:
+      "Strength measures physical power and the ability to exert force.",
   },
   {
-    name: "dexterity",
+    name: "Dexterity",
+    description: "Dexterity gauges agility, reflexes, and coordination.",
   },
   {
     name: "Constitution",
+    description: "Constitution represents health, stamina, and vital force.",
   },
   {
     name: "Intelligence",
+    description:
+      "Intelligence assesses mental acuity, learning ability, and memory.",
   },
   {
     name: "Wisdom",
+    description: "Wisdom evaluates perceptiveness, intuition, and insight.",
   },
   {
     name: "Charisma",
+    description:
+      "Charisma quantifies charm, social influence, and leadership capability.",
   },
 ];
+
 const INITIAL_ABILITIES = {
   strength: 8,
   dexterity: 8,
@@ -73,16 +83,16 @@ export default function Choose({
   };
 
   return (
-    <div className='md:rounded-[16px] flex flex-col gap-6 w-full md:w-3/5 lg:w-2/5 h-full mb-auto md:p-5 md:pt-6 md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar'>
-      <h1 className='headline-4 hidden md:block'>Abilities</h1>
+    <div className="md:rounded-[16px] flex flex-col gap-6 w-full md:w-3/5 lg:w-2/5 h-full mb-auto md:p-5 md:pt-6 md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar">
+      <h1 className="headline-4 hidden md:block">Abilities</h1>
 
-      <div className='flex flex-col justify-start gap-5  w-full'>
+      <div className="flex flex-col justify-start gap-5  w-full">
         {_ABILITIES.map((ability, index) => {
           const abilityName = ability.name.toLowerCase();
           const score = abilities[abilityName];
           return (
             <div
-              className='flex items-center justify-between w-full'
+              className="flex items-center justify-between w-full"
               key={index}
             >
               <div
@@ -97,10 +107,9 @@ export default function Choose({
                         className={`w-12 h-12 ease-animate object-cover rounded-[10px] `}
                       />
                     </TooltipTrigger>
-                    <TooltipContent side='right'>
-                      <span className='!running-text-small '>
-                        Constitution measures a character's physical resilience
-                        and overall health
+                    <TooltipContent side="right">
+                      <span className="!running-text-small ">
+                        {ability.description}
                       </span>
                     </TooltipContent>
                   </Tooltip>
@@ -108,8 +117,8 @@ export default function Choose({
 
                 <span>{ability.name}</span>
               </div>
-              <div className='flex items-center gap-4'>
-                <div className='flex items-center gap-2'>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                   <CustomIconbutton
                     onClick={() =>
                       handleChangeAbilityScore(
@@ -123,12 +132,12 @@ export default function Choose({
                     className={"h-6 w-6"}
                   >
                     <img
-                      src='/Icons/Minus.svg'
-                      alt='logo'
-                      className='h-2 w-2'
+                      src="/Icons/Minus.svg"
+                      alt="logo"
+                      className="h-2 w-2"
                     />
                   </CustomIconbutton>
-                  <span className='running-text-mono'>{score}</span>
+                  <span className="running-text-mono">{score}</span>
                   <CustomIconbutton
                     onClick={() =>
                       handleChangeAbilityScore(
@@ -145,7 +154,7 @@ export default function Choose({
                     variant={"primary"}
                     className={"h-6 w-6"}
                   >
-                    <img src='/Icons/Add.svg' alt='logo' className='h-2 w-2' />
+                    <img src="/Icons/Add.svg" alt="logo" className="h-2 w-2" />
                   </CustomIconbutton>
                 </div>
               </div>
@@ -154,16 +163,16 @@ export default function Choose({
         })}
       </div>
 
-      <div className='flex justify-between items-center'>
+      <div className="flex justify-between items-center">
         <CustomButton onClick={resetAbilities} withIcon={true}>
           <img
-            src='/Icons/Reset.svg'
-            alt='logo'
-            className='h-5 w-5 invert opacity-70'
+            src="/Icons/Reset.svg"
+            alt="logo"
+            className="h-5 w-5 invert opacity-70"
           />
           Reset Points
         </CustomButton>
-        <span className='running-text-mono text-gray2 uppercase'>
+        <span className="running-text-mono text-gray2 uppercase">
           Points Total: {pointsToSpend}
         </span>
       </div>
