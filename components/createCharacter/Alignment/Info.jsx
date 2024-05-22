@@ -2,7 +2,7 @@ import React from "react";
 import CustomRadioButton from "@/components/ui/custom-radio-button";
 import { cn } from "@/lib/utils";
 
-export default function Info({ alignment }) {
+export default function Info({ alignment, description }) {
   return (
     <div
       className={cn(
@@ -25,11 +25,7 @@ export default function Info({ alignment }) {
 
         <div className="p-4 flex flex-col justify-around gap-4 ">
           <span className="headline-4">{alignment}</span>
-          <span className="text-gray2 running-text ">
-            Astral Elves, born of the Astral Plane and rooted in the Feywild,
-            radiated with divine energy, embodying a celestial essence distinct
-            from their terrestrial kin.
-          </span>
+          <span className="text-gray2 running-text ">{description}</span>
         </div>
       </div>
     </div>
