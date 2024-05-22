@@ -18,10 +18,10 @@ export default function Choose({ background, handleSelectBackground }) {
   } = useCharacterStore();
 
   useEffect(() => {
-    if (background && window.innerWidth > 768) {
+    if (background?.name && window.innerWidth > 768) {
       //focus div with id of this name
       document
-        .getElementById(background)
+        .getElementById(background.name)
         .scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [background]);
@@ -43,20 +43,20 @@ export default function Choose({ background, handleSelectBackground }) {
           }
 
           return true;
-        }).map(({ name }, index) => (
+        }).map(({ name, description }, index) => (
           <TooltipProvider key={index}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
                   id={name}
                   onClick={() => {
-                    handleSelectBackground(name);
+                    handleSelectBackground({ name, description });
                     setSelectedCharacteristic({
                       name,
                       image: `https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
                         .toLowerCase()
                         .replace(" ", "-")}.webp`,
-                      description: "",
+                      description,
                     });
                   }}
                   className={`flex cursor-pointer col-span-4 md:col-span-4  relative lg:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
@@ -66,7 +66,8 @@ export default function Choose({ background, handleSelectBackground }) {
                     src={`/Icons/InfoButton.svg`}
                     className={cn(
                       `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
-                      background !== name && "opacity-0 pointer-events-none"
+                      background?.name !== name &&
+                        "opacity-0 pointer-events-none"
                     )}
                   />
                   <img
@@ -75,7 +76,7 @@ export default function Choose({ background, handleSelectBackground }) {
                       .replaceAll(" ", "-")}.webp`}
                     alt={name}
                     className={` w-full h-[107px] md:h-[118px]  ease-animate object-cover rounded-[10px] ${
-                      background === name
+                      background?.name === name
                         ? "border-2 border-irisPurpleLight"
                         : ""
                     }`}

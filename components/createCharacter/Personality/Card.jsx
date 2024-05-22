@@ -6,12 +6,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
 export default function Card({
   optionArray,
   img,
   name,
   handlePersonalityChange,
   selectedOption,
+  tooltip,
 }) {
   const key = name.toLowerCase();
 
@@ -29,7 +31,7 @@ export default function Card({
             </div>
           </TooltipTrigger>
           <TooltipContent side='bottom'>
-            <span className='!running-text-small '>{name}</span>
+            <span className='!running-text-small '>{tooltip}</span>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
