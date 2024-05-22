@@ -268,3 +268,8 @@ input:-webkit-autofill:active {
   /* Color of the line */
   transform: translate(-50%, -50%);
 }
+
+
+.disable-dbl-tap-zoom {
+  touch-action: manipulation;
+}

@@ -63,7 +63,7 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className='absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-3/5  w-full'>
+        <div className='absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4  w-full'>
           <span className=' headline-1 md:headline-2 text-white    w-full'>
             EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
             IMAGINATION IS THE ONLY LIMIT.

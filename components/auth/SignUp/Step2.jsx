@@ -21,6 +21,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
   const [showPassword, setShowPassword] = useState(false);
   const debounceUsername = useDebounce(user.username, 150);
   const [usernameExists, setUsernameExists] = useState(false);
+  const [usernameFocused, setUsernameFocused] = useState(false);
 
   useEffect(() => {
     const checkUsername = async () => {
@@ -83,18 +84,32 @@ export default function Step2({ setStep, user, setUser, reset }) {
 
   return (
     <div className='w-full h-auto flex flex-col gap-6'>
-      <CustomInput
-        placeholder='USERNAME'
-        value={user.username}
-        onChange={(value) => onChange("username", value)}
-        error={usernameExists}
-        icon={
-          !usernameExists &&
-          user.username.length > 2 && (
-            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
-          )
-        }
-      />
+      <div>
+        <CustomInput
+          placeholder='USERNAME'
+          value={user.username}
+          onChange={(value) => onChange("username", value)}
+          error={usernameExists}
+          onFocus={() => setUsernameFocused(true)}
+          onBlur={() => setUsernameFocused(false)}
+          icon={
+            !usernameExists &&
+            user.username.length > 2 && (
+              <img
+                src='/Icons/Success.png'
+                alt='Success'
+                className=' h-4 w-4'
+              />
+            )
+          }
+        />
+        {usernameFocused && usernameExists && user.username.length > 2 && (
+          <CustomValidationtext
+            validator={!usernameExists}
+            text={"Username is already taken"}
+          />
+        )}
+      </div>
       <CustomInput
         placeholder='E-MAIL'
         value={user.email}
@@ -151,6 +166,11 @@ export default function Step2({ setStep, user, setUser, reset }) {
                 className=' h-5 w-5 cursor-pointer invert'
               />
             )
+          }
+          error={
+            !passwordValidation.hasMinLength ||
+            !passwordValidation.hasNumber ||
+            !passwordValidation.hasSpecialChar
           }
           onFocus={() => setIsPasswordFocused(true)}
           onBlur={() => setIsPasswordFocused(false)}

@@ -17,7 +17,7 @@ export default function CustomInput({
   return (
     <div
       className={cn(
-        "relative rounded-[10px] h-12 w-full  group bg-transparent running-text-mono ",
+        "relative disable-dbl-tap-zoom rounded-[10px] h-12 w-full  group bg-transparent running-text-mono ",
         disabled && "opacity-75 pointer-events-none",
         className
       )}

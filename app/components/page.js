@@ -32,6 +32,7 @@ import CustomMenuItem from "@/components/ui/custom-menu-item";
 import { User, CircleUserRound, Images } from "lucide-react";
 import { Toast } from "@radix-ui/react-toast";
 import CustomIconButtonText from "@/components/ui/custom-iconButtonText";
+import Check from "../Icons/Check";
 export default function Page() {
   const [value, setValue] = useState("");
 
@@ -41,8 +42,8 @@ export default function Page() {
   // invokeToast("Something Went Wrong", "error");
 
   return (
-    <div className="bg-russianViolet w-screen h-full flex flex-col px-5 justify-center py-24 gap-2">
-      <div className="w-full  flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
+    <div className='bg-russianViolet w-screen h-full flex flex-col px-5 justify-center py-24 gap-2'>
+      <div className='w-full  flex flex-wrap px-5 py-5 items-center justify-center gap-x-5'>
         <CustomButton variant={"primary"}>Button</CustomButton>
         <CustomButton variant={"primary"} withIcon={true}>
           <ArrowUp size={15} />
@@ -59,19 +60,19 @@ export default function Page() {
         </CustomButton>
 
         <CustomIconbutton className={"w-6 h-6"}>
-          <X className="h-3 w-3 " color="white" />
+          <X className='h-3 w-3 ' color='white' />
         </CustomIconbutton>
 
         <CustomIconbutton>
-          <img src="/Icons/User.svg" alt="logo" className="h-5 w-5 invert " />
+          <img src='/Icons/User.svg' alt='logo' className='h-5 w-5 invert ' />
         </CustomIconbutton>
         <CustomIconButtonText />
       </div>
-      <div className="w-full flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
+      <div className='w-full flex flex-wrap px-5 py-5 items-center justify-center gap-x-5'>
         <CustomInput
           value={value}
           onChange={(e) => setValue(e)}
-          placeholder="Input Control"
+          placeholder='Input Control'
         />
         <CustomDropdown
           placeholder={"dropdown"}
@@ -82,9 +83,9 @@ export default function Page() {
         <CustomTab
           icon={
             <img
-              src="/Icons/Comment.svg"
-              alt="logo"
-              className="h-5 w-5 invert opacity-70"
+              src='/Icons/Comment.svg'
+              alt='logo'
+              className='h-5 w-5 invert opacity-70'
             />
           }
           text={"comments"}
@@ -130,25 +131,21 @@ export default function Page() {
         /> */}
       </div>
       <CustomRadioButton />
-      <div className=" flex flex-wrap px-5 py-5 items-center justify-center gap-x-5">
+      <div className=' flex flex-wrap px-5 py-5 items-center justify-center gap-x-5'>
         <SaveProgress />
 
         <Card />
         <CustomInputIcon
-          placeholder="What Would You Do?"
+          placeholder='What Would You Do?'
           icon={<ArrowUp size={16} />}
         />
         <CustomInputIcon
-          placeholder="Write a comment...."
-          icon={
-            <img
-              src="/Icons/Check.svg"
-              alt="logo"
-              className="h-4 w-4 invert "
-            />
-          }
+          placeholder='Write a comment....'
+          icon={<Check className='h-4 w-4  opacity-70' />}
           isComment={true}
+          
           text={"Send"}
+
           isSubtle={true}
         />
         {/* <CommentBox /> */}
