@@ -1,5 +1,4 @@
 import api from "./index";
-import axios from "axios";
 
 export const createCharacter = async (characer, token) => {
   try {
@@ -9,6 +8,31 @@ export const createCharacter = async (characer, token) => {
       },
     });
 
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getCharacters = async (token) => {
+  try {
+    const response = await api.get("/user/characters", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getCharacter = async (slug) => {
+  try {
+    const response = await api.get(`/user/character/${slug}`);
     return response.data;
   } catch (error) {
     console.error("Error:", error);

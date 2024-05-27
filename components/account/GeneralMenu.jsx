@@ -6,7 +6,7 @@ import {
 import CustomButton from "../ui/custom-button";
 import CustomMenuItem from "../ui/custom-menu-item";
 import { useRouter } from "next/navigation";
-import Login from "@/app/Icons/Login";
+import Login from "@/components/ui/Icons/Login";
 export default function GeneralMenu({ setOpen }) {
   const router = useRouter();
 
