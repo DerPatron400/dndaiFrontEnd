@@ -59,7 +59,7 @@ export default function CustomInput({
 
       <fieldset
         className={cn(
-          "inset-0 absolute border border-gray2 rounded-lg pointer-events-none mt-[-6px] invisible peer-placeholder-shown:visible group-focus-within:!border-irisPurpleLight group-focus-within:border-1 group-focus-within:rounded-[10px] group-hover:border-white transition-all duration-300 ",
+          "inset-0 absolute border border-gray2 rounded-[10px] pointer-events-none mt-[-6px] invisible peer-placeholder-shown:visible group-focus-within:!border-irisPurpleLight group-focus-within:border-1 group-focus-within:rounded-[10px] group-hover:border-white transition-all duration-300 ",
           error &&
             "border-errorRed group-focus-within:!border-errorRed group-hover:!border-errorRed group-hover-within:text-[10px]"
         )}
@@ -71,7 +71,7 @@ export default function CustomInput({
 
       <fieldset
         className={cn(
-          "inset-0 absolute border uppercase border-gray-400 rounded-lg pointer-events-none mt-[-6px] visible peer-placeholder-shown:invisible group-focus-within:border-1 group-focus-within:!border-irisPurpleLight group-hover:border-irisPurpleLight group-hover-within:text-[10px]",
+          "inset-0 absolute border uppercase border-gray-400 rounded-[10px] pointer-events-none mt-[-6px] visible peer-placeholder-shown:invisible group-focus-within:border-1 group-focus-within:!border-irisPurpleLight group-hover:border-irisPurpleLight group-hover-within:text-[10px]",
           error &&
             "border-errorRed group-hover:!border-errorRed group-focus-within:!border-errorRed"
         )}

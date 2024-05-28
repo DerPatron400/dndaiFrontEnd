@@ -46,7 +46,6 @@ export default function ProfileButtons({ details }) {
     }));
   }, [details]);
 
-  console.log(generalInfo);
   return (
     <div className='absolute top-4 left-4 w-full flex justify-start gap-4 '>
       <TooltipProvider>

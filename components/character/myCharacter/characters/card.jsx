@@ -35,7 +35,10 @@ export default function card({ character, carousel, className }) {
       <div className='w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none bg-russianViolet transition-all duration-200 ease-in-out '>
         <CardHeader className='relative '>
           <img
-            src='/images/Header.png'
+            src={
+              character?.personal?.portraitUrl ||
+              "/images/CreateCharacter/CharacterName/CharacterName.png"
+            }
             alt=''
             className='h-[248px] w-full  object-cover'
           />
@@ -65,12 +68,17 @@ export default function card({ character, carousel, className }) {
             </DropdownMenu>
           </div>
         </CardHeader>
-        <CardContent className='  flex flex-col p-5 bg-white/[8%] group-hover:bg-white/10 gap-[20px]'>
+        <CardContent className='  flex flex-col p-5 bg-white/[8%] group-hover:bg-white/10 !gap-4'>
           <div className=' flex justify-between items-center'>
             <span className=' headline-4 text-white '>
               {character.personal.name}
             </span>
-            <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
+            <img
+              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${character?.personal?.class
+                .toLowerCase()
+                .replaceAll(" ", "-")}.webp`}
+              className='rounded-full h-[32px] w-[32px]'
+            />
           </div>
           <div className='flex flex-col running-text-mono'>
             <span className='text-white '>

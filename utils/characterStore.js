@@ -17,6 +17,7 @@ const useStepperStore = create((set) => ({
     set({ selectedCharacteristic }),
   showModal: false,
   setShowModal: (showModal) => set({ showModal }),
+  
 }));
 
 export default useStepperStore;

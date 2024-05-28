@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Search from "./Icons/Search";
+import { useState } from "react";
 
 export default function SearchInput({ query, setQuery, className }) {
   const [input, setInput] = useState("");
   return (
     <div className={cn("relative h-[40px]  running-text-mono", className)}>
       <div className='absolute inset-y-0 start-0 flex items-center  ps-3 pointer-events-none'>
-        <img
-          src='/Icons/Search.svg'
-          alt='search'
-          className='h-5 w-5  opacity-70'
-        />
+        <Search className='h-5 w-5 opacity-70 fill-gray2' />
       </div>
       <input
         type='text'

@@ -32,7 +32,8 @@ import CustomMenuItem from "@/components/ui/custom-menu-item";
 import { User, CircleUserRound, Images } from "lucide-react";
 import { Toast } from "@radix-ui/react-toast";
 import CustomIconButtonText from "@/components/ui/custom-iconButtonText";
-import Check from "../../components/ui/Icons/Check";
+import Check from "@/components/ui/Icons/Check";
+import Comment from "@/components/ui/Icons/Comment";
 export default function Page() {
   const [value, setValue] = useState("");
 
@@ -82,11 +83,7 @@ export default function Page() {
 
         <CustomTab
           icon={
-            <img
-              src='/Icons/Comment.svg'
-              alt='logo'
-              className='h-5 w-5 invert opacity-70'
-            />
+            <Comment className='h-4 w-4 opacity-70 fill-gray2 group-active:fill-white ease-animate group-active:!duration-100' />
           }
           text={"comments"}
           number={258}
@@ -141,7 +138,7 @@ export default function Page() {
         />
         <CustomInputIcon
           placeholder='Write a comment....'
-          icon={<Check className='h-4 w-4  opacity-70' />}
+          icon={<Check fill={"white"} className='h-4 w-4  opacity-70' />}
           isComment={true}
           text={"Send"}
           isSubtle={true}

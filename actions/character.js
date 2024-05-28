@@ -39,3 +39,33 @@ export const getCharacter = async (slug) => {
     throw error;
   }
 };
+
+export const handleGenerateAvatar = async (payload, token) => {
+  try {
+    const response = await api.post("/user/character/avatar", payload, {
+      headers: {
+        Authorization: token || null,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const handleUpdateAvatar = async (payload, token) => {
+  try {
+    const response = await api.post("/user/character/avatar/update", payload, {
+      headers: {
+        Authorization: token || null,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

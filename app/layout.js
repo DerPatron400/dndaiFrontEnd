@@ -18,7 +18,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning={true}>
       <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
-        <body className={"w-screen  relative max-w-screen overflow-x-hidden "}>
+        <body
+          className={
+            "w-screen hide-scrollbar  relative max-w-screen overflow-x-hidden "
+          }
+        >
           <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
           {children}
           {showFooter && <Footer />}

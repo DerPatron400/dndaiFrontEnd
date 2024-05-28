@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { IMAGE_STYLES } from "./constants";
+import { cn } from "@/lib/utils";
 
-export default function GenerateNew() {
+export default function GenerateNew({ style, setStyle }) {
   return (
     <div className={"flex gap-5 flex-col items-start p-6 pt-4 !pb-0"}>
       <div className='flex flex-col gap-3'>
@@ -18,7 +19,7 @@ export default function GenerateNew() {
             key={index}
             className='col-span-4 gap-3 text-white flex flex-col'
             onClick={() => {
-              console.log("avatar clicked", avatar);
+              setStyle(avatar);
             }}
           >
             <img
@@ -26,7 +27,10 @@ export default function GenerateNew() {
                 .toLowerCase()
                 .replaceAll(" ", "-")}.webp`}
               alt='avatar'
-              className='w-full h-[253px] rounded-[16px]'
+              className={cn(
+                "w-full h-[253px] cursor-pointer ease-animate rounded-[16px]",
+                style === avatar && "border-2 border-irisPurple"
+              )}
             />
             <span className='uppercase running-text-mono'>{avatar}</span>
           </div>

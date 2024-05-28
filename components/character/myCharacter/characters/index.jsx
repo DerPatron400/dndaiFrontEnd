@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./card";
 
-export default function characters({ characters }) {
+export default function characters({ characters = [] }) {
   return (
     <div className='h-full min-h-screen w-screen px-[48px] py-[128px] '>
       <div className=' flex flex-col gap-[20px] justify-start'>
@@ -15,6 +15,12 @@ export default function characters({ characters }) {
           {characters.map((_, index) => (
             <Card character={_} key={index} />
           ))}
+
+          {characters.length <= 0 && (
+            <span className='text-gray2 headline-4 h-96 flex items-center justify-center col-span-12 text-center'>
+              You have no characters yet
+            </span>
+          )}
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ export default function Home() {
               showMenu && "hidden"
             )}
           >
-            <CustomIconbutton onClick={toggleSound}>
+            <CustomIconbutton className={"bg-blur-1"} onClick={toggleSound}>
               <img
                 src={isSoundOn ? "/Icons/Sound.svg" : "/Icons/SoundOff.svg"}
                 alt='Sound Toggle'

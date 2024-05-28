@@ -20,7 +20,10 @@ export default function characterInfo({ character }) {
       <div>
         <div className='h-[345px] w-full relative'>
           <img
-            src='/images/CreateCharacter/CharacterName/CharacterName.png'
+            src={
+              character?.personal?.portraitUrl ||
+              "/images/CreateCharacter/CharacterName/CharacterName.png"
+            }
             alt=''
             className=' h-full w-full object-cover rounded-t-[10px] '
           />
@@ -41,7 +44,12 @@ export default function characterInfo({ character }) {
             <span className=' headline-4 text-white '>
               {character?.personal?.name}
             </span>
-            <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
+            <img
+              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${character?.personal?.class
+                .toLowerCase()
+                .replaceAll(" ", "-")}.webp`}
+              className='rounded-full h-[32px] w-[32px]'
+            />
           </div>
           <div className='flex flex-col running-text-mono'>
             <span className='text-white '>
