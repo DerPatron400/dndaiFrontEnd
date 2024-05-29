@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import useUserStore from "@/utils/userStore";
 import Info from "@/components/ui/Icons/Info";
 import { cn } from "@/lib/utils";
+import Loader from "@/components/ui/Loader";
 
 const ProfileButtons = dynamic(() =>
   import("@/components/character/myCharacter/character-sheet/profile-buttons", {
@@ -13,15 +14,26 @@ const ProfileButtons = dynamic(() =>
   })
 );
 
-export default function characterInfo({ character }) {
+export default function characterInfo({
+  character,
+  currentPortrait,
+  loadingAvatar,
+}) {
   const { user } = useUserStore();
+
   return (
     <div className=" className='w-full h-auto border border-white/10 bg-white/10 rounded-[16px] flex flex-col justify-start">
       <div>
         <div className='h-[345px] w-full relative'>
+          {loadingAvatar && (
+            <Loader
+              text='Loading Avatar...'
+              className='absolute top-0 left-0 w-full h-[345px] bg-blur flex items-center justify-center'
+            />
+          )}
           <img
             src={
-              character?.personal?.portraitUrl ||
+              currentPortrait ||
               "/images/CreateCharacter/CharacterName/CharacterName.png"
             }
             alt=''

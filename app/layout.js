@@ -23,8 +23,16 @@ export default function RootLayout({ children }) {
             "w-screen hide-scrollbar  relative max-w-screen overflow-x-hidden "
           }
         >
+          {" "}
+          <div>
+            <img
+              src='/images/bg.png'
+              alt='Background'
+              className='h-screen w-screen object-fill fixed top-0 left-0 z-0'
+            />
+          </div>
           <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
-          {children}
+          <div className='z-[1]'>{children}</div>
           {showFooter && <Footer />}
           <Toaster />
         </body>

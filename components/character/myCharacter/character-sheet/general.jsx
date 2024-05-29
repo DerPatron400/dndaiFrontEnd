@@ -81,7 +81,7 @@ export default function general({ character }) {
     let _ideal = extractSection(character.value, "ideal").split("-");
     let _bond = extractSection(character.value, "bond").split("-");
     let _flaw = extractSection(character.value, "flaw").split("-");
-    let _equipment = extractSection(character.value, "startingEquipment")
+    let _equipment = extractSection(character.value, "startingEquipment", true)
       ?.trim()
       .replaceAll("-", "")
       .split("\n")
@@ -114,7 +114,7 @@ export default function general({ character }) {
     }));
   }, [character]);
   return (
-    <div className='flex flex-col gap-4 md:gap-5'>
+    <div className='flex flex-col gap-4 md:gap-5 z-[1]'>
       <div className='grid grid-cols-4 md:grid-cols-3 gap-4 md:gap-5 uppercase'>
         <RenderData
           title='General'

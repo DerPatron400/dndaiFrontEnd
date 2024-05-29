@@ -45,13 +45,7 @@ export default function Home() {
       data-scroll-container
       className='w-full md:w-[99%] h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  '
     >
-      <div>
-        <img
-          src='/images/bg.png'
-          alt='Background'
-          className='h-screen w-screen object-fill fixed top-0 left-0 z-0'
-        />
-      </div>
+     
       <div
         className=' w-full h-screen  relative '
         style={{

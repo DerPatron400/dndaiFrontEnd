@@ -3,11 +3,11 @@ import Card from "./card";
 
 export default function characters({ characters = [] }) {
   return (
-    <div className='h-full min-h-screen w-screen px-[48px] py-[128px] '>
-      <div className=' flex flex-col gap-[20px] justify-start'>
-        <span className='headline-3 '>
+    <div className='h-full min-h-screen w-screen px-5 md:px-[48px] py-[120px] md:py-[128px] '>
+      <div className=' flex flex-col gap-[20px] justify-start '>
+        <span className='headline-3 z-[10]  '>
           My characters
-          <span className='text-gray2 ms-4 font-roboto-mono transform translate-up text-[24px]'>
+          <span className='text-gray2 ms-3 md:ms-4 font-roboto-mono transform translate-up text-[17px] md:text-[24px] translate-y-[-15px] md:translate-y-[-20px]'>
             ({characters.length})
           </span>
         </span>

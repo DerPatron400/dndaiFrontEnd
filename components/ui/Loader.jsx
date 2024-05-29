@@ -1,12 +1,16 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
-export default function Loader({ text = "" }) {
+export default function Loader({ text = "", className }) {
   return (
     <div
       role='status'
-      className='bg-gradient h-screen w-screen flex items-center justify-center'
+      className={cn(
+        "bg-gradient h-screen w-screen flex items-center justify-center",
+        className
+      )}
     >
-      <div className='flex flex-col gap-5'>
+      <div className='flex relative flex-col gap-5'>
         <div className='relative '>
           <div className='outer-ring'></div>
           <div className='inner-ring absolute top-0'></div>
@@ -17,7 +21,9 @@ export default function Loader({ text = "" }) {
           />
         </div>
         {text && (
-          <span className='description text-white uppercase'>{text}</span>
+          <span className='description absolute  w-60 top-[115%] text-white uppercase'>
+            {text}
+          </span>
         )}
       </div>
     </div>

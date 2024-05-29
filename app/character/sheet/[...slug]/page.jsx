@@ -6,7 +6,6 @@ import Loader from "@/components/ui/Loader";
 
 export default function page({ params }) {
   const [character, setCharacter] = useState();
-  console.log(params);
 
   const _getCharacter = async () => {
     try {
@@ -22,9 +21,10 @@ export default function page({ params }) {
 
   if (!character) return <Loader text={"fetching details..."} />;
 
+  console.log(character);
   return (
     <div className='bg-gradient text-white'>
-      <CharacterSheet character={character} />
+      <CharacterSheet character={character} setCharacter={setCharacter} />
     </div>
   );
 }

@@ -301,6 +301,6 @@ input:-webkit-autofill:active {
 .translate-up {
   display: inline-block;
   /* Ensure the transform affects the inline element */
-  transform: translateY(-20px);
+
   /* Adjust the -3px value as needed */
 }

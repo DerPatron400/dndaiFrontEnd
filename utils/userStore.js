@@ -6,6 +6,7 @@ const useUserStore = create(
     (set, get) => ({
       user: {
         token: null,
+        email: "",
       },
 
       setUser: (user) => set({ user }),

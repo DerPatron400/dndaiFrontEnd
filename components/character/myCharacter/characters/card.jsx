@@ -28,11 +28,11 @@ export default function card({ character, carousel, className }) {
   return (
     <div
       className={cn(
-        "rounded-[16px] h-auto group  my-0  overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate ",
+        "rounded-[16px] h-auto group  my-0  overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10] ",
         className
       )}
     >
-      <div className='w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none bg-russianViolet transition-all duration-200 ease-in-out '>
+      <div className='w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none transition-all duration-200 ease-in-out '>
         <CardHeader className='relative '>
           <img
             src={
@@ -44,7 +44,7 @@ export default function card({ character, carousel, className }) {
           />
           <div
             className={cn(
-              "absolute text-xs text-white  right-0 p-4   justify-between items-end flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto  ease-animate "
+              "absolute text-xs text-white  right-0 p-4   justify-between items-end flex opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto  ease-animate "
             )}
           >
             <DropdownMenu>
