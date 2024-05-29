@@ -14,9 +14,9 @@ export default function Index() {
   const [character, setCharacter] = useState(INITIAL_CHARACTER);
 
   return (
-    <div className='h-full min-h-screen w-screen flex flex-col bg-gradient pt-32 px-6 lg:px-12'>
+    <div className='h-full min-h-screen w-screen flex flex-col bg-gradient pt-32 px-6 lg:px-12 '>
       <div className='flex flex-col gap-2.5'>
-        <h1 className='text-center flex justify-start text-white headline-3  '>
+        <h1 className='text-center flex justify-start text-white headline-3 z-[10] '>
           Create your character
         </h1>
         <div className=' headline-4   w-full md:hidden'>
@@ -24,7 +24,7 @@ export default function Index() {
           <span className='text-white'> {STEP_NAMES[activeStep]}</span>
         </div>
       </div>
-      <div className='w-full flex '>
+      <div className='w-full flex z-[10] '>
         <Create setCharacter={setCharacter} character={character} />
       </div>
       <BottomMenu setCharacter={setCharacter} character={character} />

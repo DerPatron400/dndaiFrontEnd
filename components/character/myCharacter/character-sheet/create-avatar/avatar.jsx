@@ -10,6 +10,7 @@ import { IMAGE_STYLES } from "./constants";
 import { handleGenerateAvatar, handleUpdateAvatar } from "@/actions/character";
 import useUserStore from "@/utils/userStore";
 import Navbar from "@/components/navigation/Navbar";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
 const CurrentAvatarsList = ({
   avatars,
   selectedPortrait,
@@ -77,7 +78,7 @@ export default function Avatar({
   avatars = [],
   payload,
 }) {
-  //get params
+  const { isMobile } = useDeviceDetect();
   const params = useSearchParams();
   const router = useRouter();
   const path = usePathname();
@@ -139,183 +140,185 @@ export default function Avatar({
       onOpenChange={(_open) => setOpen(_open)}
       className='bg-russianViolet !gap-0'
     >
-      {/* for desktop */}
-      <DialogContent className='bg-[#1b1b31] !rounded-[16px] !p-0 flex-col !gap-0 border border-white/10  !min-w-[757px] hidden md:block  '>
-        <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>
-          {generateAvatar ? (
-            <div className='flex flex-col gap-3'>
+      {isMobile ? (
+        // Mobile
+        <DialogContent className='bg-[#1b1b31] !p-0 flex-col !gap-0 border-none h-screen  max-w-screen md:!hidden  !pt-[120px] '>
+          <Navbar />
+
+          <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>
+            {generateAvatar ? (
+              <div className='flex flex-col gap-3'>
+                <span className='text-white running-text-large '>
+                  Generate new portrait
+                </span>
+                <span className='running-text text-gray2'>
+                  Select an art style you want to use
+                </span>
+              </div>
+            ) : (
               <span className='text-white running-text-large '>
-                Generate new portrait
+                Change character portrait
               </span>
-              <span className='running-text text-gray2'>
-                Select an art style you want to use
-              </span>
-            </div>
-          ) : (
-            <span className='text-white running-text-large '>
-              Change character portrait
-            </span>
-          )}
-          {generateAvatar ? (
-            <GenerateNew style={style} setStyle={setStyle} />
-          ) : (
-            <CurrentAvatarsList
-              selectedPortrait={selectedPortrait}
-              setSelectedPortrait={setSelectedPortrait}
-              avatars={avatars}
+            )}
+            <GenerateNewAvatarBtn
+              generateAvatar={generateAvatar}
+              handleAvatarClick={handleAvatarClick}
+              className={"w-full"}
             />
-          )}
-        </div>
-
-        <div
-          className={cn(
-            "p-6 border-t border-white/10 justify-between w-full flex items-center  ",
-            generateAvatar && "justify-end"
-          )}
-        >
-          <GenerateNewAvatarBtn
-            generateAvatar={generateAvatar}
-            handleAvatarClick={handleAvatarClick}
-          />
-          <div className='md:flex items-center gap-4 hidden'>
-            <CustomButton
-              onClick={() => {
-                setOpen(false);
-              }}
-              disabled={isLoading}
-              withIcon={true}
-            >
-              <Cancel className='w-5 h-5 opacity-70' fill={"white"} />
-              Cancel
-            </CustomButton>
-            <CustomButton
-              variant={"primary"}
-              onClick={() => {
-                _handleUpdateAvatar();
-                setOpen(false);
-              }}
-              withIcon={true}
-              disabled={avatars.length === 0}
-              className={cn(generateAvatar && "hidden")}
-            >
-              <Save className='w-5 h-5 ' fill={"#0A0A21"} />
-              Save
-            </CustomButton>
-
-            <CustomButton
-              variant={"primary"}
-              onClick={() => {
-                _handleGenerateAvatar();
-              }}
-              disabled={isLoading}
-              withIcon={true}
-              className={cn(!generateAvatar && "hidden")}
-            >
-              {isLoading ? (
-                "Generating..."
-              ) : (
-                <>
-                  Generate
-                  <div className='flex  items-center gap-1 '>
-                    (<img src='/gems/Legendary.png' className='p-0' />
-                    1)
-                  </div>
-                </>
-              )}
-            </CustomButton>
+            {generateAvatar ? (
+              <GenerateNew style={style} setStyle={setStyle} />
+            ) : (
+              <CurrentAvatarsList
+                selectedPortrait={selectedPortrait}
+                setSelectedPortrait={setSelectedPortrait}
+                avatars={avatars}
+              />
+            )}
           </div>
-        </div>
-      </DialogContent>
 
-      {/* for mobile */}
-      <DialogContent className='bg-[#1b1b31] !p-0 flex-col !gap-0 border-none h-screen  max-w-screen md:hidden  !pt-[120px] '>
-        <Navbar />
+          <div
+            className={cn(
+              "p-6 border-t border-white/10 justify-end w-screen fixed bottom-0 left-0 bg-blur-bottom-menu flex items-center  "
+            )}
+          >
+            <div className='flex  items-center gap-4 justify-end '>
+              <CustomButton
+                onClick={() => {
+                  setOpen(false);
+                }}
+                disabled={isLoading}
+                withIcon={true}
+              >
+                <Cancel className='w-5 h-5 opacity-70' fill={"white"} />
+                Cancel
+              </CustomButton>
+              <CustomButton
+                variant={"primary"}
+                onClick={() => {
+                  _handleUpdateAvatar();
+                  setOpen(false);
+                }}
+                withIcon={true}
+                disabled={avatars.length === 0}
+                className={cn(generateAvatar && "hidden")}
+              >
+                <Save className='w-5 h-5 ' fill={"#0A0A21"} />
+                Save
+              </CustomButton>
 
-        <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>
-          {generateAvatar ? (
-            <div className='flex flex-col gap-3'>
+              <CustomButton
+                variant={"primary"}
+                onClick={() => {
+                  _handleGenerateAvatar();
+                }}
+                disabled={isLoading}
+                withIcon={true}
+                className={cn(!generateAvatar && "hidden")}
+              >
+                {isLoading ? (
+                  "Generating..."
+                ) : (
+                  <>
+                    Generate
+                    <div className='flex  items-center gap-1 '>
+                      (<img src='/gems/Legendary.png' className='p-0' />
+                      1)
+                    </div>
+                  </>
+                )}
+              </CustomButton>
+            </div>
+          </div>
+        </DialogContent>
+      ) : (
+        // Desktop
+        <DialogContent className='bg-[#1b1b31] !rounded-[16px] !p-0 flex-col !gap-0 border border-white/10  !min-w-[757px] hidden md:flex   '>
+          <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>
+            {generateAvatar ? (
+              <div className='flex flex-col gap-3'>
+                <span className='text-white running-text-large '>
+                  Generate new portrait
+                </span>
+                <span className='running-text text-gray2'>
+                  Select an art style you want to use
+                </span>
+              </div>
+            ) : (
               <span className='text-white running-text-large '>
-                Generate new portrait
+                Change character portrait
               </span>
-              <span className='running-text text-gray2'>
-                Select an art style you want to use
-              </span>
-            </div>
-          ) : (
-            <span className='text-white running-text-large '>
-              Change character portrait
-            </span>
-          )}
-          <GenerateNewAvatarBtn
-            generateAvatar={generateAvatar}
-            handleAvatarClick={handleAvatarClick}
-            className={"w-full"}
-          />
-          {generateAvatar ? (
-            <GenerateNew style={style} setStyle={setStyle} />
-          ) : (
-            <CurrentAvatarsList
-              selectedPortrait={selectedPortrait}
-              setSelectedPortrait={setSelectedPortrait}
-              avatars={avatars}
-            />
-          )}
-        </div>
-
-        <div
-          className={cn(
-            "p-6 border-t border-white/10 justify-end w-screen fixed bottom-0 left-0 bg-blur-bottom-menu flex items-center  "
-          )}
-        >
-          <div className='flex  items-center gap-4 justify-end '>
-            <CustomButton
-              onClick={() => {
-                setOpen(false);
-              }}
-              disabled={isLoading}
-              withIcon={true}
-            >
-              <Cancel className='w-5 h-5 opacity-70' fill={"white"} />
-              Cancel
-            </CustomButton>
-            <CustomButton
-              variant={"primary"}
-              onClick={() => {
-                _handleUpdateAvatar();
-                setOpen(false);
-              }}
-              withIcon={true}
-              disabled={avatars.length === 0}
-              className={cn(generateAvatar && "hidden")}
-            >
-              <Save className='w-5 h-5 ' fill={"#0A0A21"} />
-              Save
-            </CustomButton>
-
-            <CustomButton
-              variant={"primary"}
-              onClick={() => {
-                _handleGenerateAvatar();
-              }}
-              disabled={isLoading}
-              withIcon={true}
-              className={cn(!generateAvatar && "hidden")}
-            >
-              {isLoading ? (
-                "Generating..."
-              ) : (
-                <>
-                  Generate
-                  <div className='flex  items-center gap-1 '>
-                    (<img src='/gems/Legendary.png' className='p-0' />
-                    1)
-                  </div>
-                </>
-              )}
-            </CustomButton>
+            )}
+            {generateAvatar ? (
+              <GenerateNew style={style} setStyle={setStyle} />
+            ) : (
+              <CurrentAvatarsList
+                selectedPortrait={selectedPortrait}
+                setSelectedPortrait={setSelectedPortrait}
+                avatars={avatars}
+              />
+            )}
           </div>
-        </div>
-      </DialogContent>
+
+          <div
+            className={cn(
+              "p-6 border-t border-white/10 justify-between w-full flex items-center  ",
+              generateAvatar && "justify-end"
+            )}
+          >
+            <GenerateNewAvatarBtn
+              generateAvatar={generateAvatar}
+              handleAvatarClick={handleAvatarClick}
+            />
+            <div className='md:flex items-center gap-4 hidden'>
+              <CustomButton
+                onClick={() => {
+                  setOpen(false);
+                }}
+                disabled={isLoading}
+                withIcon={true}
+              >
+                <Cancel className='w-5 h-5 opacity-70' fill={"white"} />
+                Cancel
+              </CustomButton>
+              <CustomButton
+                variant={"primary"}
+                onClick={() => {
+                  _handleUpdateAvatar();
+                  setOpen(false);
+                }}
+                withIcon={true}
+                disabled={avatars.length === 0}
+                className={cn(generateAvatar && "hidden")}
+              >
+                <Save className='w-5 h-5 ' fill={"#0A0A21"} />
+                Save
+              </CustomButton>
+
+              <CustomButton
+                variant={"primary"}
+                onClick={() => {
+                  _handleGenerateAvatar();
+                }}
+                disabled={isLoading}
+                withIcon={true}
+                className={cn(!generateAvatar && "hidden")}
+              >
+                {isLoading ? (
+                  "Generating..."
+                ) : (
+                  <>
+                    Generate
+                    <div className='flex  items-center gap-1 '>
+                      (<img src='/gems/Legendary.png' className='p-0' />
+                      1)
+                    </div>
+                  </>
+                )}
+              </CustomButton>
+            </div>
+          </div>
+        </DialogContent>
+      )}
     </Dialog>
   );
 }
