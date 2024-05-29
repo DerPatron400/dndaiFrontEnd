@@ -121,6 +121,7 @@ export default function BottomMenu({ character, setCharacter }) {
         alignment: character.alignment.name,
         toolammo: character.equipment["tool&ammo"],
         isGreen: true,
+        gold: character.gold,
         ...character.abilities,
         ...character.personality,
         ...character.equipment,
@@ -147,23 +148,24 @@ export default function BottomMenu({ character, setCharacter }) {
           //select random race and gender
           //random number between 0 and array length
           const gender = getRandomValue(RACE_GENDER);
-          var { name } = getRandomValue(RACE);
-          console.log(gender, name);
+          var { name, description } = getRandomValue(RACE);
+
           setCharacter((prev) => ({
             ...prev,
             race: {
               name,
               gender,
+              description,
             },
           }));
           break;
 
         case 1:
           //select random class
-          var { name } = getRandomValue(CLASSES);
+          var { name, description } = getRandomValue(CLASSES);
           setCharacter((prev) => ({
             ...prev,
-            class: name,
+            class: { name, description },
           }));
           break;
 
@@ -209,10 +211,10 @@ export default function BottomMenu({ character, setCharacter }) {
           break;
         case 3:
           //select random background
-          var { name } = getRandomValue(BACKGROUND);
+          var { name, description } = getRandomValue(BACKGROUND);
           setCharacter((prev) => ({
             ...prev,
-            background: name,
+            background: { name, description },
           }));
           break;
         case 4:
@@ -234,10 +236,12 @@ export default function BottomMenu({ character, setCharacter }) {
           break;
         case 5:
           //select random alignment
-          var { name } = getRandomValue(ALIGNMENT);
+          var { name, description } = getRandomValue(ALIGNMENT);
+          console.log(name, description);
+
           setCharacter((prev) => ({
             ...prev,
-            alignment: name,
+            alignment: { name, description },
           }));
           break;
         case 6:
@@ -305,7 +309,7 @@ export default function BottomMenu({ character, setCharacter }) {
       setSearchMode(false);
     }
   };
-  console.log(searchMode);
+
   return (
     <>
       {/* For Desktop */}
@@ -324,7 +328,7 @@ export default function BottomMenu({ character, setCharacter }) {
           icon={
             character.name && (
               <img
-                src='/Icons/Success.png'
+                src='/Icons/Success.svg'
                 alt='Success'
                 className=' h-4 w-4'
               />

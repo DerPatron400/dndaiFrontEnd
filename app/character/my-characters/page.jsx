@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import Characters from "@/components/character/myCharacter/characters/index";
 import { getCharacters } from "@/actions/character";
 import useUserStore from "@/utils/userStore";
+import Loader from "@/components/ui/Loader";
 
 export default function page() {
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState();
   const { user } = useUserStore();
 
   const getAllCharacters = async () => {
@@ -20,6 +21,8 @@ export default function page() {
   useEffect(() => {
     getAllCharacters();
   }, []);
+
+  if (!characters) return <Loader text={"Fetching Characters..."} />;
 
   return (
     <div className='bg-gradient text-white'>

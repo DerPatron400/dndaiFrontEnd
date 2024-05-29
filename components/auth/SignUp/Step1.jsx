@@ -35,7 +35,7 @@ export default function Step1({ setStep, user, setUser }) {
             validateEmail(user.email) &&
             !error && (
               <img
-                src='/Icons/Success.png'
+                src='/Icons/Success.svg'
                 alt='Success'
                 className=' h-4 w-4'
               />

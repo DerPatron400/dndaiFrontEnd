@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import useUserStore from "@/utils/userStore";
 import Info from "@/components/ui/Icons/Info";
 import { cn } from "@/lib/utils";
+import Loader from "@/components/ui/Loader";
 
 const ProfileButtons = dynamic(() =>
   import("@/components/character/myCharacter/character-sheet/profile-buttons", {
@@ -13,14 +14,28 @@ const ProfileButtons = dynamic(() =>
   })
 );
 
-export default function characterInfo({ character }) {
+export default function characterInfo({
+  character,
+  currentPortrait,
+  loadingAvatar,
+}) {
   const { user } = useUserStore();
+
   return (
     <div className=" className='w-full h-auto border border-white/10 bg-white/10 rounded-[16px] flex flex-col justify-start">
       <div>
         <div className='h-[345px] w-full relative'>
+          {loadingAvatar && (
+            <Loader
+              text='Loading Avatar...'
+              className='absolute top-0 left-0 w-full h-[345px] bg-blur flex items-center justify-center'
+            />
+          )}
           <img
-            src='/images/CreateCharacter/CharacterName/CharacterName.png'
+            src={
+              currentPortrait ||
+              "/images/CreateCharacter/CharacterName/CharacterName.png"
+            }
             alt=''
             className=' h-full w-full object-cover rounded-t-[10px] '
           />
@@ -41,7 +56,12 @@ export default function characterInfo({ character }) {
             <span className=' headline-4 text-white '>
               {character?.personal?.name}
             </span>
-            <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
+            <img
+              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${character?.personal?.class
+                .toLowerCase()
+                .replaceAll(" ", "-")}.webp`}
+              className='rounded-full h-[32px] w-[32px]'
+            />
           </div>
           <div className='flex flex-col running-text-mono'>
             <span className='text-white '>

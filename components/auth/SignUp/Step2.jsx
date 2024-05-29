@@ -103,7 +103,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
             )
           }
         />
-        {usernameFocused && usernameExists && user.username.length > 2 && (
+        {usernameExists && user.username.length > 2 && (
           <CustomValidationtext
             validator={!usernameExists}
             text={"Username is already taken"}
@@ -117,7 +117,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
         onChange={(value) => {}}
         icon={
           user.email && (
-            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
+            <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
           )
         }
       />
@@ -127,7 +127,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
         onChange={(value) => onChange("name", value)}
         icon={
           user.name.length > 2 && (
-            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
+            <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
           )
         }
       />
@@ -137,7 +137,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
         onChange={(value) => onChange("surname", value)}
         icon={
           user.surname.length > 2 && (
-            <img src='/Icons/Success.png' alt='Success' className=' h-4 w-4' />
+            <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
           )
         }
       />
@@ -175,19 +175,22 @@ export default function Step2({ setStep, user, setUser, reset }) {
           onFocus={() => setIsPasswordFocused(true)}
           onBlur={() => setIsPasswordFocused(false)}
         />
-        {isPasswordFocused && (
+        {user.password.length > 0 && (
           <div>
             <CustomValidationtext
               validator={passwordValidation.hasMinLength}
               text={"At least 8 characters"}
+              isPassword
             />
             <CustomValidationtext
               validator={passwordValidation.hasNumber}
               text={"Contains a number"}
+              isPassword
             />
             <CustomValidationtext
               validator={passwordValidation.hasSpecialChar}
               text={"Contains a special character"}
+              isPassword
             />
           </div>
         )}

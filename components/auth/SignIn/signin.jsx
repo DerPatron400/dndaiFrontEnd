@@ -112,9 +112,7 @@ export default function SignIn() {
           </div>
           <CustomButton
             onClick={handleLogin}
-            disabled={
-              isLoading || !validateEmail(email) || password.length === 0
-            }
+            disabled={isLoading || email.length <= 2 || password.length === 0}
             variant={"primary"}
           >
             {isLoading ? "Signing in..." : "Sign in"}

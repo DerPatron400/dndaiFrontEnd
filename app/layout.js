@@ -6,7 +6,7 @@ import Footer from "@/components/navigation/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { usePathname } from "next/navigation";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import Script from 'next/script';
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,18 +20,18 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
-      gtag('config', 'G-BTHMYX7TZ9', {
+      gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: window.location.pathname,
-        screen_name: pathname.split('/')[1] || 'home', // Custom screen name
+        screen_name: pathname.split("/")[1] || "home", // Custom screen name
       });
     };
 
     const handleRouteChange = (url) => {
-      window.gtag('config', 'G-BTHMYX7TZ9', {
+      window.gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: url,
-        screen_name: url.split('/')[1] || 'home', // Custom screen name
+        screen_name: url.split("/")[1] || "home", // Custom screen name
       });
     };
 
@@ -41,7 +41,6 @@ export default function RootLayout({ children }) {
 
     // Re-run on path changes
     handleRouteChange(pathname);
-
   }, [pathname]);
 
   return (
@@ -70,7 +69,7 @@ export default function RootLayout({ children }) {
         </head>
         <body className={"w-screen  relative max-w-screen overflow-x-hidden "}>
           <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
-          {children}
+          <div className="z-[1]">{children}</div>
           {showFooter && <Footer />}
           <Toaster />
         </body>

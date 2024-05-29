@@ -11,7 +11,7 @@ import {
 export default function Choose({ _class, handleSelectClass }) {
   const { setShowModal, setSelectedCharacteristic } = useCharacterStore();
   useEffect(() => {
-    if (_class && window.innerWidth > 768) {
+    if (_class?.name && window.innerWidth > 768) {
       //focus div with id of this name
       document
         .getElementById(_class.name)

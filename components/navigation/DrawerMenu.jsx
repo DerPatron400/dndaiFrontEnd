@@ -5,6 +5,7 @@ import { User, CircleUserRound, Images } from "lucide-react";
 import useUserStore from "@/utils/userStore";
 import Link from "next/link";
 import useControlsStore from "@/utils/controlsStore";
+import Cancel from "../ui/Icons/Cancel";
 export default function DrawerMenu() {
   const { user } = useUserStore();
   const { showMenu, setShowMenu } = useControlsStore();
@@ -33,10 +34,9 @@ export default function DrawerMenu() {
             className='h-[32px] object-contain'
           />
         </Link>
-        <img
-          src='/Icons/Cancel.svg'
-          alt='logo'
-          className='h-10 object-contain '
+        <Cancel
+          width={"40px"}
+          fill={"#9A9AC1"}
           onClick={() => setShowMenu(false)}
         />
       </div>

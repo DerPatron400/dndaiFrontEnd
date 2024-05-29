@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import CustomButton from "@/components/ui/custom-button";
+import Cancel from "../ui/Icons/Cancel";
 
 export default function saveProgress() {
   return (
@@ -21,18 +22,14 @@ export default function saveProgress() {
           </div>
           <div className='w-full flex  gap-4 p-6  border-t-[1px] border-white/10 justify-between items-center font-roboto-mono '>
             <CustomButton withIcon={true}>
-              <img
-                src='/Icons/Cancel.svg'
-                alt='logo'
-                className='h-5 w-5 invert '
-              />
+              <Cancel className='h-5 w-5 opacity-70' fill='white' />
               Cancel
             </CustomButton>
             <CustomButton variant='error'>DON'T SAVE</CustomButton>
             <CustomButton variant='primary'>
               <div className='text-russianViolet flex items-center gap-2.5 '>
                 SAVE
-                <div className='flex  items-center gap-1 '>
+                <div className='flex  items-center gap-1 pe-3'>
                   (<img src='/gems/Legendary.png' className='p-0' />
                   1)
                 </div>

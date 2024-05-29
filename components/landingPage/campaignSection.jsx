@@ -80,7 +80,7 @@ export default function CampaignSection() {
             ))}
           </div>
         </div>
-        <CustomButton className={"mt-[28px]"}>All Campaigns</CustomButton>
+        <CustomButton className={"mt-[32px]"}>All Campaigns</CustomButton>
       </div>
     </>
   );
