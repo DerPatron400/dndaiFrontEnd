@@ -50,7 +50,7 @@ export default function newPass() {
   };
 
   return (
-    <div className=' text-white h-auto w-[345px]  flex flex-col justify-between items-start gap-8'>
+    <div className=' text-white h-auto w-[345px]  flex flex-col justify-between items-start gap-8 z-[10]'>
       <div className='flex flex-col gap-4'>
         <h1 className='running-text-large'>Enter your new password</h1>
       </div>
@@ -73,20 +73,22 @@ export default function newPass() {
             }
           />
 
-          <ul>
-            <CustomValidationtext
-              text='At least 8 characters'
-              validator={passwordValidation.hasMinLength}
-            />
-            <CustomValidationtext
-              text='Contains a number'
-              validator={passwordValidation.hasNumber}
-            />
-            <CustomValidationtext
-              text='Contains a special character'
-              validator={passwordValidation.hasSpecialChar}
-            />
-          </ul>
+          {password.length > 1 && (
+            <ul>
+              <CustomValidationtext
+                text='At least 8 characters'
+                validator={passwordValidation.hasMinLength}
+              />
+              <CustomValidationtext
+                text='Contains a number'
+                validator={passwordValidation.hasNumber}
+              />
+              <CustomValidationtext
+                text='Contains a special character'
+                validator={passwordValidation.hasSpecialChar}
+              />
+            </ul>
+          )}
         </div>
         <div className='flex flex-col gap-2'>
           <CustomInput

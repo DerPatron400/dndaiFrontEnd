@@ -38,7 +38,7 @@ export default function forgotPass() {
   }
 
   return (
-    <div className=' text-white h-auto w-[345px]  flex flex-col justify-between items-start gap-8'>
+    <div className=' text-white h-auto w-[345px]  flex flex-col justify-between items-start gap-8 z-[10]'>
       <div className='flex flex-col gap-4'>
         <h1 className='running-text-large'>Forgot password?</h1>
         <span className='running-text-small text-gray2'>

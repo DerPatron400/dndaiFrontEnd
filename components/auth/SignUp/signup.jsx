@@ -20,7 +20,7 @@ export default function signup() {
 
   return (
     <div
-      className={`text-white w-[345px] h-full flex flex-col justify-center items-start gap-8 
+      className={`text-white w-[345px] h-full flex flex-col justify-center items-start gap-8  z-[10]
             ${step === 1 ? "h-full gap-4" : "h-full gap-0 py-20"}`}
     >
       <div className='flex flex-col gap-4'>

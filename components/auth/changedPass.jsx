@@ -10,7 +10,7 @@ export default function changedPass() {
   };
 
   return (
-    <div className=' text-white h-[278px] w-[345px] flex text-center flex-col justify-between items-center gap-8  '>
+    <div className=' text-white h-[278px] w-[345px] flex text-center flex-col justify-between items-center gap-8 z-[10] '>
       <img
         src='/images/auth/Shield.png'
         alt=''
