@@ -16,7 +16,7 @@ export default function Step({ number, title, description, image }) {
           {description}
         </div>
 
-        <div className="md:h-[100vh] h-[50vh] bg-blur rounded-2xl md:w-2/3 w-full">
+        <div className="md:h-[80vh] h-[50vh] bg-blur rounded-2xl md:w-2/3 w-full">
           {/* Render the image using an img tag */}
           <img src={image} alt={title} className="w-full h-full object-cover" />
         </div>
