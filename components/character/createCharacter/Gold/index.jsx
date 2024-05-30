@@ -25,7 +25,7 @@ export default function Index({ character, setCharacter }) {
       >
         {selectedFace ? (
           <img
-            src={`/images/CreateCharacter/Gold/Gold.png`}
+            src={`/images/CreateCharacter/Gold/Gold.webp`}
             alt=''
             className='w-[231px] md:w-[300px] object-contain'
           />

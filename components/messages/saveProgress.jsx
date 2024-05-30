@@ -30,7 +30,7 @@ export default function saveProgress() {
               <div className='text-russianViolet flex items-center gap-2.5 '>
                 SAVE
                 <div className='flex  items-center gap-1 pe-3'>
-                  (<img src='/gems/Legendary.png' className='p-0' />
+                  (<img src='/gems/Legendary.webp' className='p-0' />
                   1)
                 </div>
               </div>

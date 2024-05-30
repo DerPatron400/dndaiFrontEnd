@@ -62,7 +62,7 @@ const GenerateNewAvatarBtn = ({
     >
       Generate new portrait
       <div className='flex  items-center gap-1 '>
-        (<img src='/gems/Legendary.png' className='p-0' />
+        (<img src='/gems/Legendary.webp' className='p-0' />
         1)
       </div>
     </CustomButton>
@@ -221,7 +221,7 @@ export default function Avatar({
                   <>
                     Generate
                     <div className='flex  items-center gap-1 '>
-                      (<img src='/gems/Legendary.png' className='p-0' />
+                      (<img src='/gems/Legendary.webp' className='p-0' />
                       1)
                     </div>
                   </>
@@ -309,7 +309,7 @@ export default function Avatar({
                   <>
                     Generate
                     <div className='flex  items-center gap-1 '>
-                      (<img src='/gems/Legendary.png' className='p-0' />
+                      (<img src='/gems/Legendary.webp' className='p-0' />
                       1)
                     </div>
                   </>
