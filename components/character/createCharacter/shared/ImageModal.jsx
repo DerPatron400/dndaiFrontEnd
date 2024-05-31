@@ -10,14 +10,14 @@ export default function ImageModal() {
   return (
     <div
       className={cn(
-        "bg-blur-bottom-menu ease-animate md:hidden flex items-center justify-center absolute w-screen h-screen z-[100] left-0 top-0 p-5 opacity-0 pointer-events-none",
+        "bg-blur-bottom-menu ease-animate md:hidden flex items-center justify-center absolute w-screen h-screen !z-[100] left-0 top-0 p-5 opacity-0 pointer-events-none",
         showModal && "opacity-100 pointer-events-auto"
       )}
     >
       <div className='flex flex-col gap-5 relative'>
         <CustomIconbutton
           onClick={() => setShowModal(false)}
-          className={"absolute top-4 right-4"}
+          className={"absolute top-4 right-4 bg-blur"}
         >
           <img src='/Icons/Cancel.svg' alt='' className='h-5 w-5 ' />
         </CustomIconbutton>

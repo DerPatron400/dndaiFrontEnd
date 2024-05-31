@@ -43,7 +43,7 @@ export default function CustomInputIcon({
         id={placeholder}
         value={value}
         className={cn(
-          "block w-96 h-[80px]  overflow-y-hidden !py-[30px]   resize-none  peer/input ps-5 pe-[70px] box-border    running-text  placeholder:opacity-100 text-white border border-gray2 rounded-[10px] bg-transparent hover:border-white cursor-pointer duration-300 transition-all focus:outline-0 focus:ring-offset-0 focus:ring-inset-irisPurpleLight focus:!ring-irisPurpleLight focus:!border-irisPurpleLight  placeholder:text-gray2  focus:shadow-text-area  ",
+          "block w-96 h-[80px]  overflow-y-hidden py-[28px]  resize-none  peer/input ps-5 pe-[70px] box-border    running-text  placeholder:opacity-100 text-white border border-gray2 rounded-[10px] bg-transparent hover:border-white cursor-pointer duration-300 transition-all focus:outline-0 focus:ring-offset-0 focus:ring-inset-irisPurpleLight focus:!ring-irisPurpleLight focus:!border-irisPurpleLight  placeholder:text-gray2  focus:shadow-text-area  ",
           isComment && "h-16 !py-5"
         )}
         placeholder={placeholder}

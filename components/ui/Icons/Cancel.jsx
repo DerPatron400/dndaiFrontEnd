@@ -3,12 +3,18 @@ import React from "react";
 export default function Cancel(props) {
   return (
     <svg
-      data-name='Ebene 1'
+      version='1.1'
+      id='Ebene_1'
       xmlns='http://www.w3.org/2000/svg'
-      viewBox='0 0 20 20'
+      x='0px'
+      y='0px'
+      viewBox='0 0 30 30'
       {...props}
     >
-      <path d='m16 15.293-.707.707L10 10.707 4.707 16 4 15.293 9.293 10 4 4.707 4.707 4 10 9.293 15.293 4l.707.707L10.707 10 16 15.293Z' />
+      <path
+        class='st0'
+        d='M30,0.7L29.3,0L15,14.3L0.7,0L0,0.7L14.3,15L0,29.3L0.7,30L15,15.7L29.3,30l0.7-0.7L15.7,15L30,0.7z'
+      />
     </svg>
   );
 }

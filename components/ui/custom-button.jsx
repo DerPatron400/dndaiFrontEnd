@@ -27,7 +27,6 @@ export default function CustomButton({
         (variant === "success" || variant === "error") &&
           withIcon &&
           "ps-6 pe-4 ",
-
         className
       )}
     >

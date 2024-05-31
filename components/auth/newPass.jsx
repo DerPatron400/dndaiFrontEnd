@@ -61,6 +61,13 @@ export default function newPass() {
             onChange={(value) => setPassword(value)}
             value={password}
             type={isPasswordVisible ? "text" : "password"}
+            error={
+              password.length > 0 &&
+              (!passwordValidation.hasMinLength ||
+                !passwordValidation.hasNumber ||
+                !passwordValidation.hasSpecialChar)
+            }
+            onFo
             icon={
               <img
                 onClick={togglePasswordVisibility}
@@ -73,7 +80,7 @@ export default function newPass() {
             }
           />
 
-          {password.length > 1 && (
+          {password.length > 0 && (
             <ul>
               <CustomValidationtext
                 text='At least 8 characters'

@@ -35,7 +35,7 @@ export default function DrawerMenu() {
           />
         </Link>
         <Cancel
-          width={"40px"}
+          width={"20px"}
           fill={"#9A9AC1"}
           onClick={() => setShowMenu(false)}
         />

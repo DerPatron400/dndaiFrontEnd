@@ -60,7 +60,7 @@ export default function Choose({ handleAlignmentChange, alignment }) {
                   : ""
               }`}
             />
-            <span>{name}</span>
+            <span className='description'>{name}</span>
           </div>
         ))}
       </div>

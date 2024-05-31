@@ -66,7 +66,7 @@ export default function Choose({ _class, handleSelectClass }) {
                         : ""
                     }`}
                   />
-                  <span>{name}</span>
+                  <span className='description'>{name}</span>
                 </div>
               </TooltipTrigger>
               <TooltipContent side='bottom'>

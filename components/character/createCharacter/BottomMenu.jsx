@@ -313,7 +313,7 @@ export default function BottomMenu({ character, setCharacter }) {
   return (
     <>
       {/* For Desktop */}
-      <div className='text-white hidden   md:flex justify-between items-center w-full py-12'>
+      <div className='text-white hidden   md:flex justify-between items-center w-full p-12 fixed bottom-0 left-0 z-[20]  '>
         <CustomButton
           disabled={isChoosingRandom}
           withIcon
@@ -358,8 +358,8 @@ export default function BottomMenu({ character, setCharacter }) {
         </div>
       </div>
       {/* For Mobile */}
-      <div className='w-full md:hidden left-0 bg-russianViolet  fixed bottom-0'>
-        <div className='bg-[#0A0A21]/40 flex items-center justify-between p-5  '>
+      <div className='w-full md:hidden left-0 bg-blur-bottom-menu z-[20]  fixed bottom-0'>
+        <div className=' flex items-center justify-between p-5  '>
           {searchMode ? (
             <SearchInput
               className={"w-full search text-white"}

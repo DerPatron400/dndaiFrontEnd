@@ -81,7 +81,7 @@ export default function Choose({ background, handleSelectBackground }) {
                         : ""
                     }`}
                   />
-                  <span>{name}</span>
+                  <span className='description'>{name}</span>
                 </div>
               </TooltipTrigger>
               <TooltipContent side='bottom'>

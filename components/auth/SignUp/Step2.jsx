@@ -168,9 +168,10 @@ export default function Step2({ setStep, user, setUser, reset }) {
             )
           }
           error={
-            !passwordValidation.hasMinLength ||
-            !passwordValidation.hasNumber ||
-            !passwordValidation.hasSpecialChar
+            user.password.length > 0 &&
+            (!passwordValidation.hasMinLength ||
+              !passwordValidation.hasNumber ||
+              !passwordValidation.hasSpecialChar)
           }
           onFocus={() => setIsPasswordFocused(true)}
           onBlur={() => setIsPasswordFocused(false)}

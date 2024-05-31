@@ -1,67 +1,3 @@
-export const INITIAL_CHARACTER = {
-  race: {
-    name: "",
-    gender: null,
-  },
-  class: null,
-  abilities: {
-    strength: 8,
-    dexterity: 8,
-    constitution: 8,
-    intelligence: 8,
-    wisdom: 8,
-    charisma: 8,
-  },
-  background: null,
-  personality: {
-    ideal: null,
-    bond: null,
-    personality: null,
-    flaw: null,
-  },
-  alignment: null,
-  equipment: {
-    weapon: null,
-    secondary: null,
-    armor: null,
-    "tool&ammo": null,
-  },
-  gold: null,
-  name: "",
-  pointsToSpend: 27,
-};
-export const dummy = {
-  race: {
-    name: "Arakocra",
-    gender: "female",
-  },
-  class: "Barbarian",
-  abilities: {
-    strength: 8,
-    dexterity: 8,
-    constitution: 8,
-    intelligence: 8,
-    wisdom: 8,
-    charisma: 8,
-  },
-  background: "Dungeon Delver",
-  personality: {
-    ideal: "freedom",
-    bond: "family",
-    personality: "Adventurous",
-    flaw: "addiction",
-  },
-  alignment: "true good",
-  equipment: {
-    weapon: "Battered Dagger",
-    secondary: "shield",
-    armor: "cloth armor",
-    "tool&ammo": "wooden arrows",
-  },
-  gold: 50,
-  name: "Character",
-};
-
 export const STEP_NAMES = [
   "RACE",
   "CLASS",
@@ -692,4 +628,78 @@ export const EQUIPMENTS = {
     "disguise kit",
     "holy water",
   ],
+};
+
+export const INITIAL_CHARACTER = {
+  race: {
+    name: RACE[0].name,
+    description: RACE[0].description,
+    gender: RACE_GENDER[0],
+  },
+  class: {
+    name: CLASSES[0].name,
+    description: CLASSES[0].description,
+  },
+  abilities: {
+    strength: 8,
+    dexterity: 8,
+    constitution: 8,
+    intelligence: 8,
+    wisdom: 8,
+    charisma: 8,
+  },
+  background: {
+    name: BACKGROUND[0].name,
+    description: BACKGROUND[0].description,
+  },
+  personality: {
+    ideal: null,
+    bond: null,
+    personality: null,
+    flaw: null,
+  },
+  alignment: {
+    name: ALIGNMENT[0].name,
+    description: ALIGNMENT[0].description,
+  },
+  equipment: {
+    weapon: null,
+    secondary: null,
+    armor: null,
+    "tool&ammo": null,
+  },
+  gold: null,
+  name: "",
+  pointsToSpend: 27,
+};
+export const dummy = {
+  race: {
+    name: "Arakocra",
+    gender: "female",
+  },
+  class: "Barbarian",
+  abilities: {
+    strength: 8,
+    dexterity: 8,
+    constitution: 8,
+    intelligence: 8,
+    wisdom: 8,
+    charisma: 8,
+  },
+  background: "Dungeon Delver",
+  personality: {
+    ideal: "freedom",
+    bond: "family",
+    personality: "Adventurous",
+    flaw: "addiction",
+  },
+  alignment: "true good",
+  equipment: {
+    weapon: "Battered Dagger",
+    secondary: "shield",
+    armor: "cloth armor",
+    "tool&ammo": "wooden arrows",
+  },
+  gold: 50,
+  name: "Character",
 };

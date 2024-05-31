@@ -37,7 +37,7 @@ export default function SignedInUserMenu() {
               alt=''
               className='h-[18px] object-contain '
             />
-            {user.greenCredits}
+            {user.blueCredits}
           </CustomIcontext>
           <CustomIcontext>
             <img
@@ -45,7 +45,7 @@ export default function SignedInUserMenu() {
               alt=''
               className='h-[18px] object-contain '
             />
-            {user.credits}
+            {user.yellowCredits}
           </CustomIcontext>
         </div>
       </div>
