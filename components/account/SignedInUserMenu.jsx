@@ -33,7 +33,7 @@ export default function SignedInUserMenu() {
         <div className='flex gap-5'>
           <CustomIcontext>
             <img
-              src='/gems/Mythic.png'
+              src='/gems/Mythic.webp'
               alt=''
               className='h-[18px] object-contain '
             />
@@ -41,7 +41,7 @@ export default function SignedInUserMenu() {
           </CustomIcontext>
           <CustomIcontext>
             <img
-              src='/gems/Legendary.png'
+              src='/gems/Legendary.webp'
               alt=''
               className='h-[18px] object-contain '
             />
