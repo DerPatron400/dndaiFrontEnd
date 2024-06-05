@@ -18,12 +18,12 @@ export default function DrawerMenu() {
   return (
     <div
       className={cn(
-        "absolute !z-[100] -top-8 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden translate-x-[-150%]    h-screen w-screen flex flex-col justify-start ",
+        "absolute !z-[400] -top-8 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden translate-x-[-150%]    h-screen w-screen flex flex-col justify-start ",
         showMenu &&
           "translate-x-[-50%] bg-blur-drawer opacity-100 pointer-events-auto  "
       )}
     >
-      <div className='w-full px-[20px] mt-11 mx-auto rounded-lg text-white  flex justify-between items-center !z-[100]'>
+      <div className='w-full  px-[20px] mt-11 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]'>
         <Link
           href='/'
           className='text-white hover:text-gray2 transition-all duration-300 ease-in-out'

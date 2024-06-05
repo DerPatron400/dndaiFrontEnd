@@ -69,3 +69,18 @@ export const handleUpdateAvatar = async (payload, token) => {
     throw error;
   }
 };
+
+export const getCredits = async (token) => {
+  try {
+    const response = await api.get("/user/credits", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

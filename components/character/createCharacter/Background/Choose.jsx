@@ -3,12 +3,7 @@ import SearchInput from "@/components/ui/search-input";
 import { cn } from "@/lib/utils";
 import { BACKGROUND } from "../constants";
 import useCharacterStore from "@/utils/characterStore";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 export default function Choose({ background, handleSelectBackground }) {
   const {
     backgroundQuery,
@@ -44,51 +39,42 @@ export default function Choose({ background, handleSelectBackground }) {
 
           return true;
         }).map(({ name, description }, index) => (
-          <TooltipProvider key={index}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div
-                  id={name}
-                  onClick={() => {
-                    handleSelectBackground({ name, description });
-                    setSelectedCharacteristic({
-                      name,
-                      image: `https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
-                        .toLowerCase()
-                        .replace(" ", "-")}.webp`,
-                      description,
-                    });
-                  }}
-                  className={`flex cursor-pointer col-span-4 md:col-span-4  relative lg:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
-                >
-                  <img
-                    onClick={handleShowModal}
-                    src={`/Icons/InfoButton.svg`}
-                    className={cn(
-                      `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
-                      background?.name !== name &&
-                        "opacity-0 pointer-events-none"
-                    )}
-                  />
-                  <img
-                    src={`https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
-                      .toLowerCase()
-                      .replaceAll(" ", "-")}.webp`}
-                    alt={name}
-                    className={` w-full h-[107px] md:h-[118px]  ease-animate object-cover rounded-[10px] ${
-                      background?.name === name
-                        ? "border-2 border-irisPurpleLight"
-                        : ""
-                    }`}
-                  />
-                  <span className='description'>{name}</span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side='bottom'>
-                <span className='!running-text-small '>{name}</span>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div
+            id={name}
+            key={index}
+            onClick={() => {
+              handleSelectBackground({ name, description });
+              setSelectedCharacteristic({
+                name,
+                image: `https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
+                  .toLowerCase()
+                  .replace(" ", "-")}.webp`,
+                description,
+              });
+            }}
+            className={`flex cursor-pointer col-span-4 md:col-span-4  relative lg:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
+          >
+            <img
+              onClick={handleShowModal}
+              src={`/Icons/InfoButton.svg`}
+              className={cn(
+                `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
+                background?.name !== name && "opacity-0 pointer-events-none"
+              )}
+            />
+            <img
+              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
+                .toLowerCase()
+                .replaceAll(" ", "-")}.webp`}
+              alt={name}
+              className={` w-full h-[107px] md:h-[118px]  ease-animate object-cover rounded-[10px] ${
+                background?.name === name
+                  ? "border-2 border-irisPurpleLight"
+                  : ""
+              }`}
+            />
+            <span className='description'>{name}</span>
+          </div>
         ))}
       </div>
     </div>

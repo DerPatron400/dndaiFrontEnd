@@ -67,7 +67,9 @@ export default function RootLayout({ children }) {
             }}
           />
         </head>
-        <body className={`w-screen relative max-w-screen overflow-x-hidden ${inter.className}`}>
+        <body
+          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden ${inter.className}`}
+        >
           {!pathname.includes("components") && (
             <div>
               <img
@@ -77,8 +79,8 @@ export default function RootLayout({ children }) {
               />
             </div>
           )}
-          <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
           <div className='z-[1]'>{children}</div>
+          <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
           {showFooter && <Footer />}
           <Toaster />
         </body>

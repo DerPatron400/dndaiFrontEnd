@@ -7,7 +7,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import GenerateNew from "./generate-new";
 import { cn } from "@/lib/utils";
 import { IMAGE_STYLES } from "./constants";
-import { handleGenerateAvatar, handleUpdateAvatar } from "@/actions/character";
+import {
+  getCredits,
+  handleGenerateAvatar,
+  handleUpdateAvatar,
+} from "@/actions/character";
 import useUserStore from "@/utils/userStore";
 import Navbar from "@/components/navigation/Navbar";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
@@ -61,10 +65,6 @@ const GenerateNewAvatarBtn = ({
       className={cn(generateAvatar && "hidden", className)}
     >
       Generate new portrait
-      <div className='flex  items-center gap-1 '>
-        (<img src='/gems/Legendary.webp' className='p-0' />
-        1)
-      </div>
     </CustomButton>
   );
 };
@@ -82,7 +82,7 @@ export default function Avatar({
   const params = useSearchParams();
   const router = useRouter();
   const path = usePathname();
-  const { user } = useUserStore();
+  const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const generateAvatar = params.get("generateAvatar");
   const [style, setStyle] = useState(IMAGE_STYLES[0]);
   const [selectedPortrait, setSelectedPortrait] = useState(
@@ -102,6 +102,7 @@ export default function Avatar({
       setOpen(false);
       payload.appearance += ",in " + style;
       const { avatarUrl } = await handleGenerateAvatar(payload, user?.token);
+      const { credits } = await getCredits(user?.token);
       setCurrentPortrait(avatarUrl);
       setSelectedPortrait(avatarUrl);
       setCharacter((prev) => ({
@@ -111,6 +112,8 @@ export default function Avatar({
           portraits: [...prev.personal.portraits, avatarUrl],
         },
       }));
+      setBlueCredits(credits.blueCredits);
+      setYellowCredits(credits.yellowCredits);
     } catch (error) {
       console.log("error", error);
     } finally {
@@ -221,7 +224,7 @@ export default function Avatar({
                   <>
                     Generate
                     <div className='flex  items-center gap-1 '>
-                      (<img src='/gems/Legendary.webp' className='p-0' />
+                      (<img src='/gems/Legendary.webp' className='p-0 w-3' />
                       1)
                     </div>
                   </>
@@ -309,7 +312,7 @@ export default function Avatar({
                   <>
                     Generate
                     <div className='flex  items-center gap-1 '>
-                      (<img src='/gems/Legendary.webp' className='p-0' />
+                      (<img src='/gems/Legendary.webp' className='p-0 w-3' />
                       1)
                     </div>
                   </>

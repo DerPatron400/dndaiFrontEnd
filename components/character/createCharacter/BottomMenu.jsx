@@ -10,7 +10,7 @@ import {
   getRandomName,
 } from "@/lib/Helpers/createCharacter";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
-import { createCharacter } from "@/actions/character";
+import { createCharacter, getCredits } from "@/actions/character";
 import {
   RACE,
   RACE_GENDER,
@@ -93,7 +93,7 @@ export default function BottomMenu({ character, setCharacter }) {
   const [isSoundOn, setIsSoundOn] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
   const { isMobile } = useDeviceDetect();
-  const { user } = useUserStore();
+  const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const [isChoosingRandom, setIsChoosingRandom] = useState(false);
   const MAX_STEPS = isMobile ? 8 : 7;
   const formComplete = activeStep === MAX_STEPS;
@@ -127,8 +127,12 @@ export default function BottomMenu({ character, setCharacter }) {
         ...character.equipment,
       };
 
-      const response = await createCharacter(payload, user?.token || "");
-      console.log(response);
+      const response = await createCharacter(payload, user?.token || null);
+      const { credits } = await getCredits(user?.token || null);
+
+      setYellowCredits(credits.yellowCredits);
+
+      setBlueCredits(credits.blueCredits);
     } catch (error) {
       console.log(error);
     } finally {

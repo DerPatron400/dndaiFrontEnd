@@ -1,18 +1,15 @@
 import React from "react";
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { CircleUserRound, Images } from "lucide-react";
-import IconButton from "@/components/ui/custom-iconbutton";
-import CustomButton from "../ui/custom-button";
 import CustomMenuItem from "../ui/custom-menu-item";
 import useUserStore from "@/utils/userStore";
 import CustomIcontext from "../ui/custom-icontext";
 import Cookie from "universal-cookie";
+import { useRouter } from "next/navigation";
 export default function SignedInUserMenu() {
+  const router = useRouter();
   const { user, setUser } = useUserStore();
   console.log(user);
   const cookies = new Cookie();
@@ -20,6 +17,10 @@ export default function SignedInUserMenu() {
     console.log("Logging out");
     setUser(null);
     cookies.set("token", null, { path: "/" });
+  };
+
+  const handleRedirect = (path) => {
+    router.push(path);
   };
   return (
     <DropdownMenuContent className='uppercase flex flex-col mt-4 bg-white/10 !px-0 py-2 border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px]'>
@@ -53,7 +54,9 @@ export default function SignedInUserMenu() {
       <hr className='w-full border-white/5 my-2' />
       <div className='w-full px-2 gap-2 flex flex-col'>
         <DropdownMenuItem className='flex !p-0 gap-2 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
-          <CustomMenuItem>
+          <CustomMenuItem
+            onClick={() => handleRedirect("/character/my-characters")}
+          >
             <img
               src='/Icons/UserCircle.svg'
               alt=''

@@ -10,9 +10,10 @@ const useUserStore = create(
       },
 
       setUser: (user) => set({ user }),
-      setCredits: (credits) => set({ user: { ...get().user, credits } }),
-      setGreenCredits: (greenCredits) =>
-        set({ user: { ...get().user, greenCredits } }),
+      setBlueCredits: (blueCredits) =>
+        set({ user: { ...get().user, blueCredits } }),
+      setYellowCredits: (yellowCredits) =>
+        set({ user: { ...get().user, yellowCredits } }),
     }),
     {
       name: "user-storage", // name of the item in the storage (must be unique)
