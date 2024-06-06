@@ -15,7 +15,9 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isTransparentNavbar = pathname.includes("/auth");
   const showFooter =
-    !pathname.includes("/auth") && !pathname.includes("/character");
+    !pathname.includes("/auth") &&
+    !pathname.includes("/character") &&
+    !pathname.includes("/campaign");
 
   useEffect(() => {
     const initializeGtag = () => {
