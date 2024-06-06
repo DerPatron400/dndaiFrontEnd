@@ -19,7 +19,7 @@ export default function card({ carousel, className }) {
   return (
     <div
       className={cn(
-        "rounded-[16px] h-auto group  my-0 min-w-[292px] overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate ",
+        "rounded-[16px]  h-auto group min-w-full my-0 max-w-full overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate ",
         className
       )}
     >

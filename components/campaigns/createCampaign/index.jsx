@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 // import BottomMenu from "./BottomMenu";
 import { cn } from "@/lib/utils";
 import Create from "@/components/campaigns/createCampaign/create";
+import CustomButton from "@/components/ui/custom-button";
 
 export default function Index() {
   //   const { activeStep, showModal } = useStepperStore();
@@ -25,11 +26,11 @@ export default function Index() {
   //     };
   //   }, [showModal]);
   return (
-    <div className='h-screen w-full flex flex-col bg-gradient pt-[172px] md:pt-[120px] px-6 lg:px-12 md:pb-64 '>
+    <div className="h-screen w-full flex flex-col bg-gradient pt-[172px] md:pt-[120px] px-6 lg:px-12 md:pb-64 ">
       {/* <ImageModal /> */}
       {/* Desktop */}
-      <div className='hidden md:flex flex-col gap-2.5 '>
-        <h1 className='text-center flex justify-start text-white headline-3 z-[10] '>
+      <div className="hidden md:flex flex-col gap-2.5 ">
+        <h1 className="text-center flex justify-start text-white headline-3 z-[10] ">
           Create your own campaign
         </h1>
       </div>
@@ -38,18 +39,19 @@ export default function Index() {
           "flex flex-col gap-2.5 bg-blur-bottom-menu z-[12] w-screen left-0 h-[198px] px-5 pb-4 md:hidden fixed top-0 justify-end"
         }
       >
-        <h1 className='text-center flex justify-start text-white headline-3 z-[10] '>
+        <h1 className="text-center flex justify-start text-white headline-3 z-[10] ">
           Create your own campaign
         </h1>
-        {/* <div className=" headline-4   w-full z-[10] md:hidden">
-          <span className="text-gray2">Step {activeStep + 1}/9</span>
-          <span className="text-white"> {STEP_NAMES[activeStep]}</span>
-        </div> */}
       </div>
-      <div className='w-full h-[65vh] flex z-[10] '>
+      <div className="w-full h-[62vh] flex z-[10] ">
         <Create />
       </div>
-      {/* <BottomMenu setCharacter={setCharacter} character={character} /> */}
+      <div className="flex justify-end items-end mt-5">
+        <CustomButton variant={"primary"} className={"w-1/5"}>
+          <img src="/Icons/Add.svg" alt="" className="h-5 w-5 opacity-75" />
+          Create campaign ( <img src="/gems/Legendary.png" alt="" /> 1)
+        </CustomButton>
+      </div>
     </div>
   );
 }

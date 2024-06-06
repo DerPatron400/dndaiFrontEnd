@@ -5,11 +5,11 @@ import CustomTextArea from "@/components/ui/custom-textArea";
 
 export default function campaignDetails() {
   return (
-    <div className='flex flex-col gap-[20px] h-full !mb-10'>
+    <div className="flex flex-col gap-[20px] !h-auto !mb-10">
       <CustomInput
         //   value={value}
         //   onChange={(e) => setValue(e)}
-        placeholder='Title (50 characters max.)'
+        placeholder="Title (50 characters max.)"
       />
       <CustomDropdown
         className={"min-w-full !w-full !m-0"}
@@ -20,13 +20,13 @@ export default function campaignDetails() {
         //   value={value}
         //   onChange={(e) => setValue(e)}
         className={"h-[200px] running-text-mono"}
-        placeholder='PLOT'
+        placeholder="PLOT"
       />
       <CustomTextArea
         //   value={value}
         //   onChange={(e) => setValue(e)}
         className={"h-[180px] running-text-mono"}
-        placeholder='HOOK'
+        placeholder="HOOK"
       />
     </div>
   );
