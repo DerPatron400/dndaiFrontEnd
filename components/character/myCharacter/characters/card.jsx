@@ -32,15 +32,15 @@ export default function card({ character, carousel, className }) {
         className
       )}
     >
-      <div className='w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none transition-all duration-200 ease-in-out '>
-        <CardHeader className='relative '>
+      <div className="w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none transition-all duration-200 ease-in-out ">
+        <CardHeader className="relative ">
           <img
             src={
               character?.personal?.portraitUrl ||
               "/images/CreateCharacter/CharacterName/CharacterName.png"
             }
-            alt=''
-            className='h-[248px] w-full  object-cover'
+            alt=""
+            className="h-[248px] w-full  object-cover"
           />
           <div
             className={cn(
@@ -48,19 +48,19 @@ export default function card({ character, carousel, className }) {
             )}
           >
             <DropdownMenu>
-              <DropdownMenuTrigger className=' !h-7 !w-7 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 bg-blur !flex !items-center !justify-center'>
-                <MoreOptions className='w-4 h-4' fill='white' />
+              <DropdownMenuTrigger className=" !h-7 !w-7 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 bg-blur !flex !items-center !justify-center">
+                <MoreOptions className="w-4 h-4" fill="white" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2'>
-                <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+              <DropdownMenuContent className="bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2">
+                <DropdownMenuItem className="flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer">
                   <CustomMenuItem>
-                    <Download className='h-5 w-5' fill='white' />
+                    <Download className="h-5 w-5" fill="white" />
                     <span>Download Character Sheet</span>
                   </CustomMenuItem>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+                <DropdownMenuItem className="flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer">
                   <CustomMenuItem>
-                    <Play className='h-5 w-5' fill='white' />
+                    <Play className="h-5 w-5" fill="white" />
                     <span>Play With Character</span>
                   </CustomMenuItem>
                 </DropdownMenuItem>
@@ -68,25 +68,25 @@ export default function card({ character, carousel, className }) {
             </DropdownMenu>
           </div>
         </CardHeader>
-        <CardContent className='  flex flex-col p-5 bg-white/[8%] group-hover:bg-white/10 !gap-4'>
-          <div className=' flex justify-between items-center'>
-            <span className=' headline-4 text-white '>
+        <CardContent className="  flex flex-col p-5 bg-white/[8%] group-hover:bg-white/10 !gap-4">
+          <div className=" flex justify-between items-center">
+            <span className=" headline-4 text-white ">
               {character.personal.name}
             </span>
             <img
               src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${character?.personal?.class
                 .toLowerCase()
                 .replaceAll(" ", "-")}.webp`}
-              className='rounded-full h-[32px] w-[32px]'
+              className="rounded-full h-[32px] w-[32px]"
             />
           </div>
-          <div className='flex flex-col running-text-mono'>
-            <span className='text-white '>
+          <div className="flex flex-col running-text-mono">
+            <span className="text-white ">
               LEVEL {character.personal.level}
             </span>
-            <span className=' text-irisPurpleLight'>
+            <span className=" text-irisPurpleLight">
               {character.personal.race}{" "}
-              <span className=' text-sandyOrange'>
+              <span className=" text-sandyOrange">
                 {" "}
                 {character.personal.class}
               </span>
@@ -104,7 +104,7 @@ export default function card({ character, carousel, className }) {
               }
               withIcon
             >
-              <Play className='h-3.5 w-3.5' fill={"#fff"} />
+              <Play className="h-3.5 w-3.5" fill={"#fff"} />
               <span>SHOW DETAILS</span>
             </CustomButton>
           </div>
