@@ -30,12 +30,12 @@ export default function create({ character, setCharacter }) {
   ];
 
   return (
-    <div className='w-full   flex flex-col md:flex-row pt-9 md:pt-8'>
-      <div className='text-white w-auto   h-auto '>
+    <div className="w-full   flex flex-col md:flex-row pt-9 md:pt-8">
+      <div className="text-white w-auto   h-auto ">
         <Stepper />
       </div>
 
-      <div className='md:ms-24 h-full w-full  '>
+      <div className="md:ms-24 h-full w-full  ">
         {stepComponents[activeStep]}
       </div>
     </div>

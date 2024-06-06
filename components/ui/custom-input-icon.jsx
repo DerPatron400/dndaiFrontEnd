@@ -21,7 +21,7 @@ export default function CustomInputIcon({
         isComment && "h-16"
       )}
     >
-      <div className='absolute inset-y-0 end-0 flex  items-center pe-5 ps-[14px] pointer-events-none'>
+      <div className="absolute inset-y-0 end-0 flex  items-center pe-5 ps-[14px] pointer-events-none">
         {isSubtle ? (
           <CustomButton disabled={!value} variant={"subtle"} withIcon={true}>
             {icon}
@@ -39,7 +39,7 @@ export default function CustomInputIcon({
         )}
       </div>
       <textarea
-        type='text'
+        type="text"
         id={placeholder}
         value={value}
         className={cn(
