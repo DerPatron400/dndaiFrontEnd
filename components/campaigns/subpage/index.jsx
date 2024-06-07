@@ -20,8 +20,8 @@ export default function index() {
         </div>
       </div>
 
-      <div className="w-full flex flex-col gap-[20px] text-white border z-[10] pt-9 md:pt-8 px-6 lg:px-12">
-        <div className="flex justify-between border w-full">
+      <div className="w-full flex flex-col gap-[20px] text-white z-[10] pt-9 md:pt-8 px-6 lg:px-12">
+        <div className="flex justify-between w-full">
           <div className="flex justify-start items-center gap-8 w-3/4">
             <Button withIcon variant={"primary"}>
               <Play size={14} /> <span>Play campaign</span>
@@ -70,7 +70,7 @@ export default function index() {
             </Button>
           </div>
         </div>
-        <div className="border w-full flex justify-between gap-[20px]">
+        <div className="w-full h-full flex justify-between gap-[20px]">
           <div className="w-3/4 flex flex-col gap-[20px] bg-white/[8%] border border-white/10 rounded-[16px]">
             <div className="flex flex-col gap-[20px] p-[20px]">
               <div className="flex justify-start items-center gap-4 ">
@@ -125,10 +125,18 @@ export default function index() {
               </div>
             </div>
           </div>
-          <div className="w-1/4 h-auto bg-white/[8%] border border-white/10 rounded-[16px] p-[20px]">
-            <div>
-              <span className="running-text-mono text-gray2">Created:</span>
-              <span className="ml-2">something</span>
+          <div className="w-1/4 h-1/4 bg-white/[8%] border border-white/10 rounded-[16px] p-[20px]">
+            <div className="running-text-mono border-b border-gray-600 p-2">
+              <span className="running-text-mono text-gray2">CREATED:</span>
+              <span className="ml-2">24 DAYS AGO</span>
+            </div>
+            <div className="running-text-mono border-b border-gray-600 p-2">
+              <span className="running-text-mono text-gray2">CREATED BY:</span>
+              <span className="ml-2">24 DAYS AGO</span>
+            </div>
+            <div className="running-text-mono border-b border-gray-600 p-2">
+              <span className="running-text-mono text-gray2">UPDATED:</span>
+              <span className="ml-2">24 DAYS AGO</span>
             </div>
           </div>
         </div>
