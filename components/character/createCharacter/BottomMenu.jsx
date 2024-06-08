@@ -4,11 +4,7 @@ import CustomButton from "@/components/ui/custom-button";
 import { cn } from "@/lib/utils";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useCharacterStore from "@/utils/characterStore";
-import {
-  canMoveForward,
-  reward,
-  getRandomName,
-} from "@/lib/Helpers/createCharacter";
+import { canMoveForward, reward, getRandomName } from "@/lib/Helpers/character";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
 import { createCharacter, getCredits } from "@/actions/character";
 import {

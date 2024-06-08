@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Scene from "./Scene";
 import { cn } from "@/lib/utils";
-import { reward } from "@/lib/Helpers/createCharacter";
+import { reward } from "@/lib/Helpers/character";
 
 export default function Index({ character, setCharacter }) {
   const [rolling, setRolling] = useState(false);

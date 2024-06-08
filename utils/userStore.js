@@ -5,7 +5,6 @@ const useUserStore = create(
   persist(
     (set, get) => ({
       user: {
-        token: null,
         email: "",
       },
 
@@ -14,6 +13,7 @@ const useUserStore = create(
         set({ user: { ...get().user, blueCredits } }),
       setYellowCredits: (yellowCredits) =>
         set({ user: { ...get().user, yellowCredits } }),
+      setUserStared: (stared) => set({ user: { ...get().user, stared } }),
     }),
     {
       name: "user-storage", // name of the item in the storage (must be unique)

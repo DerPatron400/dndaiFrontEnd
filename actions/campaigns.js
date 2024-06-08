@@ -30,7 +30,39 @@ export const getCampaignsByUser = async (token) => {
 
 export const getCampaignBySlug = async (slug) => {
   try {
-    const response = await api.get(`/campaign/${slug}`);
+    const response = await api.get(`/campaign/byId/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const starCampaign = async (id, token) => {
+  try {
+    const response = await api.patch(
+      `/campaign/star/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getFavoriteCampaigns = async (token) => {
+  try {
+    const response = await api.get("/campaign/favorite", {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error:", error);
