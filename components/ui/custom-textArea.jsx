@@ -1,19 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
-import CustomButton from "./custom-button";
 
 export default function CustomTextArea({
   placeholder,
-  icon,
-  isSubtle,
+  value,
+  onChange,
   isComment,
-  text = "",
   className,
 }) {
   const [inFocus, setInFocus] = useState(false);
-  const [value, setValue] = useState("");
 
   return (
     <div
@@ -23,7 +19,7 @@ export default function CustomTextArea({
       )}
     >
       <textarea
-        type="text"
+        type='text'
         id={placeholder}
         value={value}
         className={cn(
@@ -32,7 +28,7 @@ export default function CustomTextArea({
           className
         )}
         placeholder={placeholder}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         onFocus={() => setInFocus(true)}
         onBlur={() => setInFocus(false)}
       />

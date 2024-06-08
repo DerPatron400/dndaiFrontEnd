@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import CampaignCard from "@/components/campaigns/card";
-import CustomIconbutton from "../ui/custom-iconbutton";
+import CampaignCard from "@/components/campaigns/shared/card";
+import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
-import CustomButton from "../ui/custom-button";
+import CustomButton from "@/components/ui/custom-button";
 
 export default function CampaignSection() {
   const containerRef = useRef(null);

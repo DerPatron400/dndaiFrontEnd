@@ -11,7 +11,7 @@ export default function page() {
 
   const getAllCharacters = async () => {
     try {
-      const token = user.token;
+      const token = user?.token;
       const response = await getCharacters(token);
       setCharacters(response.characters);
     } catch (error) {
@@ -19,7 +19,6 @@ export default function page() {
     }
   };
   useEffect(() => {
-    if (!user?.token) return;
     getAllCharacters();
   }, [user]);
 

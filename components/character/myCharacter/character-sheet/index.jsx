@@ -8,7 +8,7 @@ import Edit from "@/components/ui/Icons/Edit";
 import Download from "@/components/ui/Icons/Download";
 import Avatar from "./create-avatar/avatar";
 import { usePathname, useRouter } from "next/navigation";
-import { extractSection } from "@/lib/Helpers/createCharacter";
+import { extractSection } from "@/lib/Helpers/shared";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import SoundButton from "@/components/ui/Shared/SoundButton";
 export default function characterSheet({ character, setCharacter }) {

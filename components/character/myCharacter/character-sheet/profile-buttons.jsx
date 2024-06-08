@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/tooltip";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Sheet from "@/components/ui/Icons/Sheet";
-import { extractSection } from "@/lib/Helpers/createCharacter";
+import { extractSection } from "@/lib/Helpers/shared";
 const INITIAL_STATE = {
   appearance: "",
   abilityScores: {

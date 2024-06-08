@@ -1,4 +1,4 @@
-import { extractSection } from "@/lib/Helpers/createCharacter";
+import { extractSection } from "@/lib/Helpers/shared";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 const _ABILITIES = [
