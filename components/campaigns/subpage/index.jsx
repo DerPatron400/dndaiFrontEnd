@@ -2,14 +2,20 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/components/ui/custom-button";
 import CustomIcontext from "@/components/ui/custom-icontext";
-import CustomInputIcon from "@/components/ui/custom-input-icon";
 import Play from "@/components/ui/icons/Play";
 import { extractSection } from "@/lib/Helpers/shared";
 import TimeStamps from "./TimeStamps";
 import Comments from "./Comments";
 import Details from "./Details";
+import Delete from "@/components/ui/Icons/Delete";
+import World from "@/components/ui/Icons/World";
+import useUserStore from "@/utils/userStore";
+import { cn } from "@/lib/utils";
 
 const TopButtons = ({ campaign }) => {
+  const { user } = useUserStore();
+  const isCreator = campaign.userId === user._id;
+
   return (
     <div className='flex justify-between w-full'>
       <div className='flex justify-start items-center gap-8 w-3/4'>
@@ -41,18 +47,20 @@ const TopButtons = ({ campaign }) => {
           <span>Share</span>
         </CustomIcontext>
       </div>
-      <div className='w-1/4 flex gap-4 justify-end items-end'>
-        <Button withIcon className={"border-none bg-transparent"}>
-          <img src='/Icons/Globe.png' className='h-5 w-5 opacity-75 ' alt='' />{" "}
-          <span>Publish</span>
+      <div className='flex gap-6 justify-end items-end'>
+        <Button
+          withIcon
+          variant={"subtle"}
+          className={cn(!isCreator && "hidden")}
+        >
+          <World className='h-5 w-5 fill-white' /> <span>Publish</span>
         </Button>
-        <Button withIcon className={"border-none bg-transparent"}>
-          <img
-            src='/Icons/Delete.png'
-            className='h-4 w-4 opacity-75 inver-red-500'
-            alt=''
-          />{" "}
-          <span>Delete</span>
+        <Button
+          withIcon
+          variant={"subtle"}
+          className={cn(!isCreator && "hidden")}
+        >
+          <Delete className='h-5 w-5 fill-errorRed' /> <span>Delete</span>
         </Button>
         <Button withIcon>
           <img
