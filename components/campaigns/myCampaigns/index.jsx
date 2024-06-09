@@ -1,18 +1,26 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Card from "@/components/campaigns/shared/card";
+import Button from "@/components/ui/custom-button";
 
 export default function index({ campaigns }) {
   return (
     <div className="h-screen w-full flex flex-col pt-[120px] px-5 lg:px-12 pb-10 md:pb-64 ">
       <div className="flex flex-col gap-2.5 ">
-        <div className="text-center flex justify-start text-white headline-3 z-[10] ">
+        <div className="text-center flex justify-between text-white headline-3 z-[10] ">
           <span className="headline-3 z-[10]  ">
             My campaigns
             <span className="text-gray2 ms-3 md:ms-4 font-roboto-mono transform translate-up text-[17px] md:text-[24px] translate-y-[-15px] md:translate-y-[-20px]">
               ({campaigns.length})
             </span>
           </span>
+          <Button withIcon>
+            <img
+              src="/Icons/Campaign.svg"
+              className="h-5 w-5 fill-white opacity-70"
+            />
+            <span>Create Campaign</span>
+          </Button>
         </div>
       </div>
       {/* <div
