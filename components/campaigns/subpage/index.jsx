@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@/components/ui/custom-button";
 import CustomIcontext from "@/components/ui/custom-icontext";
-import Play from "@/components/ui/icons/Play";
+import Play from "@/components/ui/Icons/Play";
 import { extractSection } from "@/lib/Helpers/shared";
 import TimeStamps from "./Timestamps";
 import Comments from "./Comments";
