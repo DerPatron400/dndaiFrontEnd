@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Details({ details }) {
+export default function Details({ details, setting }) {
   return (
-    <div className='flex gap-[20px] w-full border details-section'>
+    <div className='flex gap-[20px] w-full  details-section'>
       <div className='w-1/2 flex flex-col gap-[16px]'>
         <div className=' flex flex-col gap-[16px]'>
           <span className='running-text-mono text-gray2'>TIME</span>
@@ -21,7 +21,13 @@ export default function Details({ details }) {
         {" "}
         <div className='flex flex-col gap-[16px]'>
           <span className='running-text-mono text-gray2'>SETTING</span>
-          <div className='bg-white/[8%] rounded-[16px] w-full h-[446px]'></div>
+          <img
+            src={`https://dndai-images.s3.eu-central-1.amazonaws.com/settings/${setting
+              .toLowerCase()
+              .replaceAll(" ", "-")
+              .replaceAll("'", "")}.webp`}
+            className=' rounded-[16px] w-full h-[446px]'
+          ></img>
         </div>
       </div>
     </div>

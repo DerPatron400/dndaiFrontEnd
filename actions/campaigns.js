@@ -69,3 +69,35 @@ export const getFavoriteCampaigns = async (token) => {
     throw error;
   }
 };
+
+export const commentOnCampaign = async (id, comment, token) => {
+  try {
+    const response = await api.post(
+      `/campaign/comment/${id}`,
+      { comment },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getComments = async (id, token) => {
+  try {
+    const response = await api.get(`/campaign/comments/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

@@ -4,7 +4,7 @@ import Button from "@/components/ui/custom-button";
 import CustomIcontext from "@/components/ui/custom-icontext";
 import Play from "@/components/ui/icons/Play";
 import { extractSection } from "@/lib/Helpers/shared";
-import TimeStamps from "./TimeStamps";
+import TimeStamps from "./Timestamps";
 import Comments from "./Comments";
 import Details from "./Details";
 import Delete from "@/components/ui/Icons/Delete";
@@ -16,44 +16,60 @@ const TopButtons = ({ campaign }) => {
   const { user } = useUserStore();
   const isCreator = campaign.userId === user._id;
 
+  const handleDelete = () => {
+    console.log("delete");
+  };
+
+  const handlePublish = () => {
+    console.log("publish");
+  };
+
+  const handleUnpublish = () => {
+    console.log("unpublish");
+  };
   return (
-    <div className='flex justify-between w-full'>
-      <div className='flex justify-start items-center gap-8 w-3/4'>
-        <Button withIcon variant={"primary"}>
-          <Play size={14} /> <span>Play campaign</span>
-        </Button>
-        <CustomIcontext>
-          <img src='/Icons/Like.svg' alt='' className='h-5 w-5 opacity-70' />
-          <span>{campaign.analytics.likes.length}</span>
-        </CustomIcontext>
-        <CustomIcontext>
-          <Play className='h-5 w-5 fill-white opacity-70' />
-          <span>{campaign.analytics.plays.length}</span>
-        </CustomIcontext>
-        <CustomIcontext>
-          <img
-            src='/Icons/Star.svg'
-            alt=''
-            className='h-5 w-5 opacity-70 invert'
-          />
-          <span>{campaign.analytics.stars.length}</span>
-        </CustomIcontext>
-        <CustomIcontext>
-          <img
-            src='/Icons/Share.svg'
-            alt=''
-            className='h-5 w-5 opacity-70 invert'
-          />{" "}
-          <span>Share</span>
-        </CustomIcontext>
+    <div className='flex flex-col md:flex-row justify-between w-full'>
+      <div className='flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
+        <div className='flex items-start justify-start'>
+          <Button withIcon variant={"primary"}>
+            <Play size={14} /> <span>Play campaign</span>
+          </Button>
+        </div>
+        <div className='flex gap-8 justify-start items-start'>
+          <CustomIcontext>
+            <img src='/Icons/Like.svg' alt='' className='h-5 w-5 opacity-70' />
+            <span>{campaign.analytics.likes.length}</span>
+          </CustomIcontext>
+          <CustomIcontext>
+            <Play className='h-5 w-5 fill-white opacity-70' />
+            <span>{campaign.analytics.plays.length}</span>
+          </CustomIcontext>
+          <CustomIcontext>
+            <img
+              src='/Icons/Star.svg'
+              alt=''
+              className='h-5 w-5 opacity-70 invert'
+            />
+            <span>{campaign.analytics.stars.length}</span>
+          </CustomIcontext>
+          <CustomIcontext>
+            <img
+              src='/Icons/Share.svg'
+              alt=''
+              className='h-5 w-5 opacity-70 invert'
+            />{" "}
+            <span>Share</span>
+          </CustomIcontext>
+        </div>
       </div>
-      <div className='flex gap-6 justify-end items-end'>
+      <div className='flex gap-2 md:gap-6 items-start md:justify-end md:items-end flex-col md:flex-row'>
         <Button
           withIcon
           variant={"subtle"}
           className={cn(!isCreator && "hidden")}
         >
-          <World className='h-5 w-5 fill-white' /> <span>Publish</span>
+          <World className='h-5 w-5 fill-white' />{" "}
+          <span>{campaign.isPublished ? "Unpublish" : "Publish"}</span>
         </Button>
         <Button
           withIcon
@@ -75,9 +91,9 @@ const TopButtons = ({ campaign }) => {
   );
 };
 
-const TabButtons = ({ activeTab, setActiveTab, icon, text }) => {
+const TabButtons = ({ activeTab, onClick, icon, text }) => {
   return (
-    <Button withIcon className={"bg-transparent"}>
+    <Button onClick={onClick} withIcon className={"bg-transparent"}>
       <img src={icon} className='h-5 w-5 opacity-75 invert' alt='' />{" "}
       <span>{text}</span>
     </Button>
@@ -91,7 +107,6 @@ export default function index({ campaign }) {
   const [time, setTime] = useState("");
 
   useEffect(() => {
-    console.log(campaign, "campaign");
     const _hook = extractSection(campaign.adventure, "hook");
     const _plot = extractSection(campaign.adventure, "plot");
     const _time = extractSection(campaign.adventure, "time");
@@ -100,14 +115,14 @@ export default function index({ campaign }) {
     setTime(_time);
   }, [campaign]);
   return (
-    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[0px] px-6 lg:px-0 md:pb-64 '>
+    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[0px]  lg:px-0 md:pb-64 '>
       <div className='h-[400px] w-full z-[10] relative'>
         <img
           src='/campaignheader.png'
           alt=''
           className='h-full w-full object-cover'
         />
-        <div className='hidden absolute bottom-10 px-10 md:flex flex-col gap-2.5  '>
+        <div className=' absolute bottom-10 px-10 flex flex-col gap-2.5  '>
           <div className='text-center flex justify-start text-white headline-3 z-[10] '>
             <span className='headline-3 z-[10] headline-3'>
               {campaign.title}
@@ -116,14 +131,22 @@ export default function index({ campaign }) {
         </div>
       </div>
 
-      <div className='w-full flex flex-col gap-[20px] text-white z-[10] pt-9 md:pt-8 px-6 lg:px-12'>
+      <div className='w-full flex flex-col gap-[20px] text-white z-[10] pt-9 md:pt-8 px-4 lg:px-12'>
         <TopButtons campaign={campaign} />
-        <div className='w-full h-full flex justify-between gap-[20px]'>
-          <div className='w-3/4 flex flex-col gap-[20px] bg-white/[8%] border border-white/10 rounded-[16px]'>
+        <div className='w-full  h-full flex flex-col-reverse md:flex-row justify-between gap-[20px]'>
+          <div className='w-full md:w-3/4 flex flex-col gap-[20px] bg-white/[8%]  border-white/10 rounded-[16px]'>
             <div className='flex flex-col gap-6 p-[20px]'>
-              <div className='flex justify-start items-center gap-4 '>
-                <TabButtons icon={"/Icons/Eye.svg"} text={"Details"} />
-                <TabButtons icon={"/Icons/Comment.svg"} text={"Comments"} />
+              <div className='flex justify-start items-center flex-wrap gap-4 '>
+                <TabButtons
+                  onClick={() => setActiveTab("details")}
+                  icon={"/Icons/Eye.svg"}
+                  text={"Details"}
+                />
+                <TabButtons
+                  onClick={() => setActiveTab("comments")}
+                  icon={"/Icons/Comment.svg"}
+                  text={"Comments"}
+                />
                 <TabButtons icon={"/Icons/Adventure.svg"} text={"Adventures"} />
               </div>
               {/**Details section */}
@@ -135,9 +158,10 @@ export default function index({ campaign }) {
                     plot,
                     hook,
                   }}
+                  setting={campaign.setting}
                 />
               )}
-              {activeTab === "comments" && <Comments />}
+              {activeTab === "comments" && <Comments campaign={campaign} />}
 
               {/**Comment section */}
             </div>

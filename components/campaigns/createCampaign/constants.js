@@ -1,8 +1,15 @@
 export const TIMES = [
+  "Paleolithic Time",
+  "Neolithic Time",
+  "Bronze Age Time",
   "Ancient Time",
+  "Classical Time",
   "Medieval Time",
+  "Renaissance Time",
+  "Enlightenment Time",
+  "Industrial Time",
   "Modern Time",
-  "Future Time",
+  "Present Time",
 ];
 
 export const SETTINGS = [
@@ -12,7 +19,7 @@ export const SETTINGS = [
   "Celestial Realm",
   "Crystal Caves",
   "Desert Oasis",
-  "Dreamer's Reach",
+  "Dreamer's Realm",
   "Elemental Plane",
   "Feywild Forest",
   "Floating Sky",
@@ -27,7 +34,7 @@ export const SETTINGS = [
   "Lost Labyrinth",
   "Lunar Colony",
   "Mechanical City",
-  "Mystic Marshlands",
+  "mystic marshlands",
   "Necromancer's Tower",
   "Nomadic Wasteland",
   "Ocean Depths",
