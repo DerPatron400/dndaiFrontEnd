@@ -28,7 +28,7 @@ export default function card({ character, carousel, className }) {
   return (
     <div
       className={cn(
-        "rounded-[16px] h-auto group  my-0  overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10] ",
+        "rounded-[16px]  h-auto group  my-0  overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10] ",
         className
       )}
     >
@@ -40,7 +40,7 @@ export default function card({ character, carousel, className }) {
               "/images/CreateCharacter/CharacterName/CharacterName.png"
             }
             alt=""
-            className="h-[248px] w-full  object-cover"
+            className="h-[248px] 2xl:h-full w-full  object-cover"
           />
           <div
             className={cn(
