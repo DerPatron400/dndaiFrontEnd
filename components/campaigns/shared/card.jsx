@@ -46,13 +46,13 @@ export default function card({ campaign, carousel, className }) {
         className
       )}
     >
-      <Card className='w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none bg-russianViolet transition-all duration-200 ease-in-out '>
-        <CardHeader className='relative '>
+      <Card className="w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none bg-russianViolet transition-all duration-200 ease-in-out ">
+        <CardHeader className="relative ">
           <img
             onClick={handleRedirect}
-            src='/images/Header.png'
-            alt=''
-            className='h-[248px] w-full  object-cover'
+            src="/images/Header.png"
+            alt=""
+            className="h-[248px] w-full  object-cover"
           />
           <div
             className={cn(
@@ -62,29 +62,29 @@ export default function card({ campaign, carousel, className }) {
           >
             <div
               onClick={handleRedirect}
-              className='flex capitalize justify-center items-center !text-sm gap-2 font-roboto-mono'
+              className="flex capitalize justify-center items-center !text-sm gap-2 font-roboto-mono"
             >
-              <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
+              <IconButton className="bg-white  font-roboto-mono hover:bg-white h-6 w-6"></IconButton>
               {campaign?.playerName}
             </div>
-            <div className='flex justify-center items-center gap-2  prevent-redirect'>
-              <IconButton className='bg-blur ease-animate group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect'>
+            <div className="flex justify-center items-center gap-2  prevent-redirect">
+              <IconButton className="bg-blur ease-animate group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect">
                 <img
-                  src='/Icons/Share.svg'
-                  alt=''
-                  className='h-5 w-5 group-hover:opacity-100 invert  prevent-redirect'
+                  src="/Icons/Share.svg"
+                  alt=""
+                  className="h-5 w-5 group-hover:opacity-100 invert  prevent-redirect"
                 />
               </IconButton>
               <IconButton
                 disabled={isStarLoading}
                 onClick={handleStar}
-                className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect'
+                className="bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect"
               >
                 <Star
                   isfilled={
-                    user?.stared?.includes(campaign._id) ? "true" : undefined
+                    user?.stared?.includes(campaign?._id) ? "true" : undefined
                   }
-                  className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
+                  className="h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect"
                 />
               </IconButton>
             </div>
@@ -92,10 +92,10 @@ export default function card({ campaign, carousel, className }) {
         </CardHeader>
         <CardContent
           onClick={handleRedirect}
-          className=' rounded-bl-2xl  rounded-br-2xl flex flex-col justify-around p-5 bg-white/[8%] group-hover:bg-white/10  '
+          className=" rounded-bl-2xl  rounded-br-2xl flex flex-col justify-around p-5 bg-white/[8%] group-hover:bg-white/10  "
         >
-          <span className='mb-4 headline-4 text-white '>{campaign?.title}</span>
-          <span className='text-gray2 running-text-small truncate  text-wrap  max-h-16'>
+          <span className="mb-4 headline-4 text-white ">{campaign?.title}</span>
+          <span className="text-gray2 running-text-small truncate  text-wrap  max-h-16">
             {campaign?.plot}
           </span>
           <div
@@ -104,22 +104,22 @@ export default function card({ campaign, carousel, className }) {
               carousel && "hidden"
             )}
           >
-            <div className='flex items-center gap-x-3 running-text-mono '>
+            <div className="flex items-center gap-x-3 running-text-mono ">
               <CustomIcontext>
                 <img
-                  src='/Icons/Like.svg'
-                  alt=''
-                  className='h-5 w-5 opacity-70'
+                  src="/Icons/Like.svg"
+                  alt=""
+                  className="h-5 w-5 opacity-70"
                 />
                 <span>{campaign?.analytics.likes.length}</span>
               </CustomIcontext>
               <CustomIcontext>
-                <Play className='h-5 w-5 fill-white opacity-70' />
+                <Play className="h-5 w-5 fill-white opacity-70" />
                 <span>{campaign?.analytics.plays.length}</span>
               </CustomIcontext>
             </div>
             <Button withIcon>
-              <Play className='h-5 w-5 fill-white opacity-70' />
+              <Play className="h-5 w-5 fill-white opacity-70" />
               <span>Play</span>
             </Button>
           </div>
