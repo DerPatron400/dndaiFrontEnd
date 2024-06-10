@@ -82,7 +82,7 @@ export default function card({ campaign, carousel, className }) {
               >
                 <Star
                   isfilled={
-                    user?.stared?.includes(campaign._id) ? "true" : undefined
+                    user?.stared?.includes(campaign?._id) ? "true" : undefined
                   }
                   className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
                 />
