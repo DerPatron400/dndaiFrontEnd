@@ -12,7 +12,7 @@ export default function Index({ character, setCharacter }) {
   };
 
   return (
-    <div className=' text-white  flex justify-start items-center gap-5 h-full  w-full'>
+    <div className=' text-white  flex justify-start items-center gap-5 h-full  w-full pb-32 sm:pb-0'>
       <Choose
         abilities={character.abilities}
         _pointsToSpend={character.pointsToSpend}

@@ -18,6 +18,8 @@ import {
 } from "./constants";
 import useUserStore from "@/utils/userStore";
 import SearchInput from "@/components/ui/search-input";
+import Check from "@/components/ui/Icons/Check";
+import ArrowRight from "@/components/ui/Icons/ArrowRight";
 
 const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
   return (
@@ -68,11 +70,11 @@ const NextButton = ({
       className={"ps-5 pe-3.5"}
     >
       {formComplete ? "Finish And Start" : "Next step"}
-      <img
-        src={formComplete ? "/Icons/Check.svg" : "/Icons/ArrowRight.svg"}
-        alt='logo'
-        className={cn("h-5 w-5 ", formComplete && "invert")}
-      />
+      {formComplete ? (
+        <Check className='h-5 w-5 fill-black' />
+      ) : (
+        <ArrowRight className='h-5 w-5 fill-black' />
+      )}
     </CustomButton>
   );
 };

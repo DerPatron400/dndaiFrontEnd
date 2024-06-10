@@ -65,12 +65,12 @@ export default function card({
   return (
     <div
       className={cn(
-        "rounded-[16px] cursor-pointer h-auto group min-w-full my-0 max-w-full overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate ",
+        "rounded-[16px] cursor-pointer bg-russianViolet h-auto group hover:!shadow-custom-1 min-w-full my-0 max-w-full ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
         className
       )}
     >
-      <Card className='w-full h-full hover:!shadow-custom-1 overflow-hidden  border-none bg-russianViolet transition-all duration-200 ease-in-out '>
-        <CardHeader className='relative '>
+      <div className='w-full h-full  bg-white/[8%] hover:bg-white/10   ease-animate '>
+        <div className='relative '>
           <img
             onClick={handleRedirect}
             src={campaign?.worldMapUrl || "/images/Header.png"}
@@ -79,7 +79,7 @@ export default function card({
           />
           <div
             className={cn(
-              "absolute text-xs text-white p-4 flex w-full justify-between items-center",
+              "absolute top-0 text-xs text-white p-4 flex w-full justify-between items-center",
               carousel && "hidden"
             )}
           >
@@ -91,7 +91,7 @@ export default function card({
               {campaign?.playerName}
             </div>
             <div className='flex justify-center items-center gap-2  prevent-redirect'>
-              <IconButton className='bg-blur ease-animate group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect'>
+              <IconButton className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100   prevent-redirect'>
                 <img
                   src='/Icons/Share.svg'
                   alt=''
@@ -101,7 +101,7 @@ export default function card({
               <IconButton
                 disabled={isLoading}
                 onClick={handleStar}
-                className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect'
+                className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100   prevent-redirect'
               >
                 <Star
                   isfilled={
@@ -112,10 +112,10 @@ export default function card({
               </IconButton>
             </div>
           </div>
-        </CardHeader>
-        <CardContent
+        </div>
+        <div
           onClick={handleRedirect}
-          className=' rounded-bl-2xl  rounded-br-2xl flex flex-col justify-around p-5 bg-white/[8%] group-hover:bg-white/10  '
+          className='  flex flex-col justify-around p-5  '
         >
           <span className='mb-4 headline-4 text-white '>{campaign?.title}</span>
           <span className='text-gray2 running-text-small truncate  text-wrap  max-h-16'>
@@ -150,8 +150,8 @@ export default function card({
               <span>Play</span>
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
