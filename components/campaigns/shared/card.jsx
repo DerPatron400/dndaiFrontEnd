@@ -7,14 +7,20 @@ import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
 import CustomIcontext from "@/components/ui/custom-icontext";
 import { useRouter } from "next/navigation";
-import { starCampaign } from "@/actions/campaigns";
+import { likeCampaign, starCampaign } from "@/actions/campaigns";
 import useUserStore from "@/utils/userStore";
 import Star from "@/components/ui/Icons/Star";
 
-export default function card({ campaign, carousel, className }) {
+export default function card({
+  campaign,
+  carousel,
+  className,
+  handleUpdateCampaigns,
+}) {
   const router = useRouter();
   const { user, setUserStared } = useUserStore();
-  const [isStarLoading, setIsStarLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleRedirect = (event) => {
     const classNames =
       event?.target?.className?.baseVal || event?.target?.className;
@@ -26,7 +32,7 @@ export default function card({ campaign, carousel, className }) {
 
   const handleStar = async () => {
     try {
-      setIsStarLoading(true);
+      setIsLoading(true);
 
       const response = await starCampaign(campaign._id, user?.token);
       console.log(response);
@@ -34,10 +40,27 @@ export default function card({ campaign, carousel, className }) {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsStarLoading(false);
+      setIsLoading(false);
     }
   };
 
+  const handleLike = async () => {
+    try {
+      setIsLoading(true);
+      const response = await likeCampaign(campaign._id, user?.token);
+      handleUpdateCampaigns({
+        ...campaign,
+        analytics: {
+          ...campaign.analytics,
+          likes: response.likes,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   // console.log(user);
   return (
     <div
@@ -50,7 +73,7 @@ export default function card({ campaign, carousel, className }) {
         <CardHeader className='relative '>
           <img
             onClick={handleRedirect}
-            src='/images/Header.png'
+            src={campaign?.worldMapUrl || "/images/Header.png"}
             alt=''
             className='h-[248px] w-full  object-cover'
           />
@@ -76,7 +99,7 @@ export default function card({ campaign, carousel, className }) {
                 />
               </IconButton>
               <IconButton
-                disabled={isStarLoading}
+                disabled={isLoading}
                 onClick={handleStar}
                 className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100 ease-animate !duration-500 prevent-redirect'
               >
@@ -105,11 +128,15 @@ export default function card({ campaign, carousel, className }) {
             )}
           >
             <div className='flex items-center gap-x-3 running-text-mono '>
-              <CustomIcontext>
+              <CustomIcontext
+                disabled={isLoading}
+                onClick={handleLike}
+                className={"prevent-redirect"}
+              >
                 <img
                   src='/Icons/Like.svg'
                   alt=''
-                  className='h-5 w-5 opacity-70'
+                  className='h-5 w-5 opacity-70 prevent-redirect'
                 />
                 <span>{campaign?.analytics.likes.length}</span>
               </CustomIcontext>
