@@ -25,6 +25,7 @@ module.exports = {
       boxShadow: {
         "custom-1": "0px 0px 60px 0px rgba(110, 109, 255, 0.149)",
         "text-area": "0px 0px 30px -7px #8F91FF1A",
+        "step-images": "0px 20px 250px -100px #8F91FF99",
       },
       colors: {
         border: "hsl(var(--border))",

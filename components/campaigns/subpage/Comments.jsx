@@ -13,12 +13,34 @@ import {
 import CustomMenuItem from "@/components/ui/custom-menu-item";
 import { cn } from "@/lib/utils";
 import useUserStore from "@/utils/userStore";
-import { commentOnCampaign, getComments } from "@/actions/campaigns";
+import {
+  commentOnCampaign,
+  getComments,
+  likeComment,
+} from "@/actions/campaigns";
 import moment from "moment";
 
-const Comment = ({ comment }) => {
-  console.log(comment);
+const Comment = ({ comment, handleUpdateComments }) => {
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUserStore();
+
+  const handleLikeComment = async () => {
+    setIsLoading(true);
+    try {
+      const response = await likeComment(comment._id, user?.token);
+      handleUpdateComments({
+        ...comment,
+        analytics: {
+          ...comment.analytics,
+          likes: response.likes,
+        },
+      });
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className='w-full flex flex-col gap-[16px] py-4 '>
       <div className=' flex justify-between items-center'>
@@ -72,7 +94,7 @@ const Comment = ({ comment }) => {
           {moment(comment.createdAt).fromNow()}
         </span>
 
-        <CustomIcontext>
+        <CustomIcontext onClick={handleLikeComment} disabled={isLoading}>
           <img src='/Icons/Like.svg' alt='' className='h-5 w-5 opacity-70' />
           <span>{comment.analytics.likes.length}</span>
         </CustomIcontext>
@@ -87,6 +109,14 @@ export default function Comments({ campaign }) {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserStore();
 
+  const handleUpdateComments = (comment) => {
+    let _comments = comments.filter((c) => c._id !== comment._id);
+    _comments.push(comment);
+    _comments = _comments.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setComments(_comments);
+  };
   const handleGetComments = async () => {
     try {
       const response = await getComments(campaign._id, user?.token);
@@ -136,7 +166,11 @@ export default function Comments({ campaign }) {
       </div>
       <div>
         {comments.map((comment, index) => (
-          <Comment key={index} comment={comment} />
+          <Comment
+            handleUpdateComments={handleUpdateComments}
+            key={index}
+            comment={comment}
+          />
         ))}
       </div>
     </div>

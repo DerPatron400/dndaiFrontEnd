@@ -101,3 +101,89 @@ export const getComments = async (id, token) => {
     throw error;
   }
 };
+
+export const deleteCampaign = async (id, token) => {
+  try {
+    const response = await api.delete(`/campaign/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const publishCampaign = async (id, token) => {
+  try {
+    const response = await api.patch(
+      `/campaign/publish/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const unPublishCampaign = async (id, token) => {
+  try {
+    const response = await api.patch(
+      `/campaign/unpublish/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const likeCampaign = async (id, token) => {
+  try {
+    const response = await api.patch(
+      `/campaign/like/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const likeComment = async (commentId, token) => {
+  try {
+    const response = await api.patch(
+      `/campaign/likeComment/${commentId}`,
+
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

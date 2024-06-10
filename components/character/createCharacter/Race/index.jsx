@@ -13,7 +13,7 @@ export default function Index({ character, setCharacter }) {
   };
 
   return (
-    <div className=' text-white  flex justify-start  items-start gap-5 h-full md:h-[652px]  w-full pb-28 md:pb-0'>
+    <div className=' text-white  flex justify-start  items-start gap-5 h-full md:h-[100%]  w-full pb-28 md:pb-0'>
       <Choose race={character.race} handleSelectRace={handleSelectRace} />
 
       <Info race={character.race} handleSelectRace={handleSelectRace} />

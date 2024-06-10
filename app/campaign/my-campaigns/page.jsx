@@ -27,5 +27,5 @@ export default function page() {
   if (!campaigns) {
     return <Loader text={"Fetching Campaigns..."} />;
   }
-  return <MyCampaigns campaigns={campaigns} />;
+  return <MyCampaigns campaigns={campaigns} setCampaigns={setCampaigns} />;
 }
