@@ -21,9 +21,9 @@ export default function accountDropdown() {
           open && "border-white/40"
         )}
       >
-        <img src="/Icons/User.svg" className="h-5 w-5 invert" />
+        <img src='/Icons/User.svg' className='h-5 w-5 invert' />
       </DropdownMenuTrigger>
-      {user ? (
+      {user?.token ? (
         <SignedInUserMenu setOpen={setOpen} />
       ) : (
         <GeneralMenu setOpen={setOpen} />

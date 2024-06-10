@@ -28,7 +28,7 @@ export default function SignedInUserMenu() {
         <div className='flex flex-col gap-2'>
           <span className=' headline-4'>{user.username}</span>
           <span className='running-text-small lowercase text-gray2'>
-            {user.email.toLowerCase()}
+            {user?.email}
           </span>
         </div>
         <div className='flex gap-5'>
