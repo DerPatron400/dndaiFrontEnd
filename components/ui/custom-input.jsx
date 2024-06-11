@@ -23,7 +23,7 @@ export default function CustomInput({
       )}
     >
       <input
-        autofill='off'
+        autofill="off"
         disabled={disabled}
         type={type || "text"}
         value={value}
@@ -32,9 +32,9 @@ export default function CustomInput({
           icon && "pr-8",
           !placeholder.toLowerCase().includes("password") && "uppercase"
         )}
-        placeholder=' '
+        placeholder=" "
         //show password
-        masking='false'
+        masking="false"
         onChange={(e) => onChange(e.target.value)}
         onClick={onClick}
         onFocus={onFocus}
@@ -42,7 +42,7 @@ export default function CustomInput({
       />
 
       {icon && (
-        <div className='absolute right-4 top-1/2 transform -translate-y-1/2'>
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
           {icon}
         </div>
       )}
@@ -64,7 +64,7 @@ export default function CustomInput({
             "border-errorRed group-focus-within:!border-errorRed group-hover:!border-errorRed group-hover-within:text-[10px]"
         )}
       >
-        <legend className='ml-2  !-mt-1 uppercase px-0 text-[10px] transition-all duration-300 invisible max-w-[0.01px] group-focus-within:max-w-full group-focus-within:px-[3px] whitespace-nowrap'>
+        <legend className="ml-2  !-mt-1 uppercase px-0 text-[10px] transition-all duration-300 invisible max-w-[0.01px] group-focus-within:max-w-full group-focus-within:px-[3px] whitespace-nowrap">
           {placeholder}
         </legend>
       </fieldset>
@@ -76,7 +76,7 @@ export default function CustomInput({
             "border-errorRed group-hover:!border-errorRed group-focus-within:!border-errorRed"
         )}
       >
-        <legend className='ml-2 text-[10px] invisible px-[3px] uppercase   whitespace-nowrap group-hover-within:text-[10px]'>
+        <legend className="ml-2 text-[10px] invisible px-[3px] uppercase   whitespace-nowrap group-hover-within:text-[10px]">
           {placeholder}
         </legend>
       </fieldset>

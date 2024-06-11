@@ -2,7 +2,7 @@
 import { create } from "zustand";
 
 const useStepperStore = create((set) => ({
-  activeStep: 0,
+  activeStep: 7,
   setActiveStep: (activeStep) => set({ activeStep }),
   backgroundQuery: "",
   setBackgroundQuery: (backgroundQuery) => set({ backgroundQuery }),
@@ -17,7 +17,6 @@ const useStepperStore = create((set) => ({
     set({ selectedCharacteristic }),
   showModal: false,
   setShowModal: (showModal) => set({ showModal }),
-  
 }));
 
 export default useStepperStore;
