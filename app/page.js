@@ -43,9 +43,8 @@ export default function Home() {
     // from-russianViolet via-russianViolet to-[#262658]
     <div
       data-scroll-container
-      className='w-full md:w-[99%] h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  '
+      className='w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  '
     >
-     
       <div
         className=' w-full h-screen  relative '
         style={{

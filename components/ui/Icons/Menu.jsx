@@ -11,7 +11,7 @@ export default function Menu(props) {
       viewBox='0 0 40 6'
       {...props}
     >
-      <path class='st0' d='M40,0v1H0V0H40z M0,6h40V5H0V6z' />
+      <path d='M40,0v1H0V0H40z M0,6h40V5H0V6z' />
     </svg>
   );
 }

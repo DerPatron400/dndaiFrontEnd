@@ -50,7 +50,7 @@ export default function index({ campaigns, setCampaigns }) {
         {campaigns.map((campaign, i) => (
           <div
             key={i}
-            className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full min-w-full max-w-full'
+            className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 2xl:col-span-2 w-full min-w-full max-w-full'
           >
             <Card
               handleUpdateCampaigns={handleUpdateCampaigns}

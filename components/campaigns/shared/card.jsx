@@ -36,7 +36,13 @@ export default function card({
 
       const response = await starCampaign(campaign._id, user?.token);
       console.log(response);
-      setUserStared(response.stared);
+      handleUpdateCampaigns({
+        ...campaign,
+        analytics: {
+          ...campaign.analytics,
+          stars: response.stars,
+        },
+      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -99,13 +105,15 @@ export default function card({
                 />
               </IconButton>
               <IconButton
-                disabled={isLoading}
+                disabled={isLoading || !user.token}
                 onClick={handleStar}
                 className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100   prevent-redirect'
               >
                 <Star
                   isfilled={
-                    user?.stared?.includes(campaign?._id) ? "true" : undefined
+                    campaign?.analytics?.stars?.includes(user?._id)
+                      ? "true"
+                      : undefined
                   }
                   className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
                 />

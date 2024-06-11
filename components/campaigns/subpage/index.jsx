@@ -17,7 +17,9 @@ import {
   publishCampaign,
   unPublishCampaign,
   likeCampaign,
+  starCampaign,
 } from "@/actions/campaigns";
+import Star from "@/components/ui/Icons/Star";
 
 const TopButtons = ({ campaign, setCampaign }) => {
   const { user } = useUserStore();
@@ -111,6 +113,23 @@ const TopButtons = ({ campaign, setCampaign }) => {
       setIsLoading(false);
     }
   };
+
+  const handleStarCampaign = async () => {
+    setIsLoading(true);
+    try {
+      const response = await starCampaign(campaign._id, user?.token);
+      setCampaign((prev) => ({
+        ...prev,
+        analytics: {
+          ...prev.analytics,
+          stars: response.stars,
+        },
+      }));
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className='flex flex-col md:flex-row justify-between w-full'>
       <div className='flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
@@ -128,11 +147,17 @@ const TopButtons = ({ campaign, setCampaign }) => {
             <Play className='h-5 w-5 fill-white opacity-70' />
             <span>{campaign.analytics.plays.length}</span>
           </CustomIcontext>
-          <CustomIcontext>
-            <img
-              src='/Icons/Star.svg'
-              alt=''
-              className='h-5 w-5 opacity-70 invert'
+          <CustomIcontext
+            disabled={isLoading || !user.token}
+            onClick={handleStarCampaign}
+          >
+            <Star
+              isfilled={
+                campaign.analytics.stars.includes(user?._id)
+                  ? "true"
+                  : undefined
+              }
+              className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
             />
             <span>{campaign.analytics.stars.length}</span>
           </CustomIcontext>
@@ -189,7 +214,7 @@ const TabButtons = ({ activeTab, onClick, icon, text }) => {
 };
 
 export default function index({ campaign, setCampaign }) {
-  const [activeTab, setActiveTab] = useState("comments");
+  const [activeTab, setActiveTab] = useState("details");
   const [hook, setHook] = useState("");
   const [plot, setPlot] = useState("");
   const [time, setTime] = useState("");
@@ -203,10 +228,13 @@ export default function index({ campaign, setCampaign }) {
     setTime(_time);
   }, [campaign]);
   return (
-    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[0px]  lg:px-0 md:pb-64 '>
-      <div className='h-[400px] w-full z-[10] relative'>
+    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[0px]  lg:px-0 md:pb-20 '>
+      <div className='h-[40vh] w-full z-[10] relative'>
         <img
-          src={campaign?.worldMapUrl || "/campaignheader.png"}
+          src={`https://dndai-images.s3.eu-central-1.amazonaws.com/settings/${campaign.setting
+            .toLowerCase()
+            .replaceAll(" ", "-")
+            .replaceAll("'", "")}.webp`}
           alt=''
           className='h-full w-full object-cover'
         />
@@ -246,7 +274,7 @@ export default function index({ campaign, setCampaign }) {
                     plot,
                     hook,
                   }}
-                  setting={campaign.setting}
+                  worldMapUrl={campaign?.worldMapUrl}
                 />
               )}
               {activeTab === "comments" && <Comments campaign={campaign} />}

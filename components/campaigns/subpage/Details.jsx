@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Details({ details, setting }) {
+export default function Details({ details, worldMapUrl }) {
   return (
     <div className='flex gap-[20px] w-full  details-section'>
       <div className='w-1/2 flex flex-col gap-[16px]'>
@@ -19,14 +19,11 @@ export default function Details({ details, setting }) {
       </div>
       <div className='w-1/2'>
         {" "}
-        <div className='flex flex-col gap-[16px]'>
-          <span className='running-text-mono text-gray2'>SETTING</span>
+        <div className='flex flex-col gap-[16px] items-start justify-start'>
+          <span className='running-text-mono text-gray2'>WORLD MAP</span>
           <img
-            src={`https://dndai-images.s3.eu-central-1.amazonaws.com/settings/${setting
-              .toLowerCase()
-              .replaceAll(" ", "-")
-              .replaceAll("'", "")}.webp`}
-            className=' rounded-[16px] w-full h-[446px]'
+            src={worldMapUrl || "/campaignheader.png"}
+            className=' rounded-[16px] object-contain w-full'
           ></img>
         </div>
       </div>

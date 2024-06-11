@@ -15,7 +15,7 @@ export default function Loader({ text = "", className }) {
           <div className='outer-ring'></div>
           <div className='inner-ring absolute top-0'></div>
           <img
-            src='/Icons/logo-2.svg'
+            src='/Icons/Logo-2.svg'
             alt='logo'
             className='w-20 absolute top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2'
           />

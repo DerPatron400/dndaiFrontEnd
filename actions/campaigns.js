@@ -187,3 +187,17 @@ export const likeComment = async (commentId, token) => {
     throw error;
   }
 };
+
+export const deleteComment = async (commentId, token) => {
+  try {
+    const response = await api.delete(`/campaign/comment/${commentId}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
