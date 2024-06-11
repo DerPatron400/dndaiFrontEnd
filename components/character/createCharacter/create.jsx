@@ -12,6 +12,7 @@ import Equipment from "@/components/character/createCharacter/Equipment/index";
 import Gold from "@/components/character/createCharacter/Gold/index";
 import CharacterName from "@/components/character/createCharacter/CharacterName/index";
 import Stepper from "./stepper";
+import { cn } from "@/lib/utils";
 
 export default function create({ character, setCharacter }) {
   const { activeStep } = useStepperStore();
@@ -30,8 +31,13 @@ export default function create({ character, setCharacter }) {
   ];
 
   return (
-    <div className="w-full   flex flex-col md:flex-row pt-9 md:pt-8">
-      <div className="text-white w-auto   h-auto ">
+    <div
+      className={cn(
+        `w-full   flex flex-col md:flex-row pt-9 md:pt-8 , 
+        ${activeStep >= 7 ? " " : ""}`
+      )}
+    >
+      <div className="text-white w-auto h-auto ">
         <Stepper />
       </div>
 

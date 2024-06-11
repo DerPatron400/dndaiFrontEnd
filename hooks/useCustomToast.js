@@ -31,7 +31,7 @@ const useCustomToast = () => {
             }
           }}
           altText="Try again"
-          className="gap-x-2 "
+          className="gap-x-2 running-text-mono"
         >
           {/* {actionIcon} */}
           {actionText}

@@ -46,17 +46,21 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   return (
-    <html lang='en' suppressHydrationWarning={true} className={inter.className}>
-      <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
+    <html lang="en" suppressHydrationWarning={true} className={inter.className}>
+      <GoogleOAuthProvider clientId="1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com">
         <head>
           {/* Google Analytics Script */}
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          />
           <Script
-            strategy='afterInteractive'
+            strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=G-BTHMYX7TZ9`}
           />
           <Script
-            id='google-analytics'
-            strategy='afterInteractive'
+            id="google-analytics"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];
@@ -75,13 +79,13 @@ export default function RootLayout({ children }) {
           {!pathname.includes("components") && (
             <div>
               <img
-                src='/images/bg.png'
-                alt='Background'
-                className='h-screen w-screen object-fill fixed top-0 left-0 z-0'
+                src="/images/bg.png"
+                alt="Background"
+                className="h-screen w-screen object-fill fixed top-0 left-0 z-0"
               />
             </div>
           )}
-          <div className='z-[1]'>{children}</div>
+          <div className="z-[1]">{children}</div>
           <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
           {showFooter && <Footer />}
           <Toaster />
