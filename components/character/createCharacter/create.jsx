@@ -33,15 +33,17 @@ export default function create({ character, setCharacter }) {
   return (
     <div
       className={cn(
-        `w-full   flex flex-col md:flex-row pt-9 md:pt-8 , 
+        `w-full h-full   flex flex-col md:flex-row pt-9 md:pt-8 , 
         ${activeStep >= 7 ? " " : ""}`
       )}
     >
-      <div className="text-white w-auto h-auto ">
+      <div className='text-white w-auto h-full '>
         <Stepper />
       </div>
 
-      <div className="md:ms-24 h-full w-full  ">
+      <div
+        className={cn("md:ms-24 h-full w-full  ", activeStep >= 7 && "md:ms-0")}
+      >
         {stepComponents[activeStep]}
       </div>
     </div>

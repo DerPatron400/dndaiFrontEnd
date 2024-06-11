@@ -42,7 +42,8 @@ export default function characterSheet({ character, setCharacter }) {
           }
         >
           <Edit fill='white' className='h-4 w-4 opacity-70' />
-          Change character portrait
+          {character?.personal?.portraits?.length > 0 ? "Change " : "Create "}
+          character portrait
         </CustomButton>
         <CustomButton
           className={

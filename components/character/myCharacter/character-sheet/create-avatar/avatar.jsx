@@ -192,7 +192,7 @@ export default function Avatar({
                 disabled={isLoading}
                 withIcon={true}
               >
-                <Cancel className='w-5 h-5 opacity-70' fill={"white"} />
+                <Cancel className='w-3 h-3 opacity-70' fill={"white"} />
                 Cancel
               </CustomButton>
               <CustomButton
@@ -280,7 +280,7 @@ export default function Avatar({
                 disabled={isLoading}
                 withIcon={true}
               >
-                <Cancel className='w-5 h-5 opacity-70' fill={"white"} />
+                <Cancel className='w-3 h-3 opacity-70' fill={"white"} />
                 Cancel
               </CustomButton>
               <CustomButton

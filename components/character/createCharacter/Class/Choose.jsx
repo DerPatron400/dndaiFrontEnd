@@ -19,10 +19,10 @@ export default function Choose({ _class, handleSelectClass }) {
   };
 
   return (
-    <div className="md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full  md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  ">
-      <h1 className="headline-4 hidden md:block">Class</h1>
+    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full  md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%] md:pb-0  '>
+      <h1 className='headline-4 hidden md:block'>Class</h1>
 
-      <div className="grid grid-cols-12 lg:grid-cols-10 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar">
+      <div className='grid grid-cols-12 lg:grid-cols-10 2xl:grid-cols-12 gap-4 md:gap-5  w-full overflow-auto hide-scrollbar md:pb-5'>
         {CLASSES.map(({ name, description }, index) => (
           <div
             key={index}
@@ -56,7 +56,7 @@ export default function Choose({ _class, handleSelectClass }) {
                 _class?.name === name ? "border-2 border-irisPurpleLight" : ""
               }`}
             />
-            <span className="description">{name}</span>
+            <span className='description'>{name}</span>
           </div>
         ))}
       </div>

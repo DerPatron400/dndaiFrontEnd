@@ -8,7 +8,7 @@ export default function Stepper() {
   // Define step names
 
   return (
-    <ol className='hidden md:block relative h-auto text-gray-500  border-gradient-to-b from-purple-400 via-pink-500 to-red-500 '>
+    <ol className='hidden md:block relative h-full text-gray-500  border-gradient-to-b from-purple-400 via-pink-500 to-red-500 '>
       {STEP_NAMES.slice(0, 8).map((stepName, index) => (
         <li key={index} className='mb-8  flex items-center gap-x-2.5  relative'>
           <hr

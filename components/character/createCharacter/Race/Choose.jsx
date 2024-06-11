@@ -25,9 +25,9 @@ export default function Choose({ race, handleSelectRace }) {
     setShowModal(true);
   };
   return (
-    <div className="md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  ">
+    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  '>
       {/* For PC */}
-      <h1 className="headline-4 hidden md:block">Race</h1>
+      <h1 className='headline-4 hidden md:block'>Race</h1>
       <SearchInput
         query={raceQuery}
         setQuery={setRaceQuery}
@@ -42,7 +42,7 @@ export default function Choose({ race, handleSelectRace }) {
         onChange={handleSelect}
       />
       {/* Ends */}
-      <div className="grid grid-cols-12 lg:grid-cols-10 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar">
+      <div className='grid grid-cols-12 lg:grid-cols-10 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar'>
         {RACE.filter(({ name }) => {
           if (raceQuery) {
             return name.toLowerCase().includes(raceQuery.toLowerCase());
@@ -86,7 +86,7 @@ export default function Choose({ race, handleSelectRace }) {
                 race?.name === name && "border-2 border-irisPurpleLight"
               }`}
             />
-            <span className="description">{name}</span>
+            <span className='description'>{name}</span>
           </div>
         ))}
       </div>
