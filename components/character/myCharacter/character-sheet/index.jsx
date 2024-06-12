@@ -11,6 +11,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { extractSection } from "@/lib/Helpers/shared";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import SoundButton from "@/components/ui/Shared/SoundButton";
+import Generate from "@/components/ui/Icons/Generate";
 export default function characterSheet({ character, setCharacter }) {
   const [open, setOpen] = useState(false);
   const [currentPortrait, setCurrentPortrait] = useState(
@@ -41,7 +42,11 @@ export default function characterSheet({ character, setCharacter }) {
             "border border-none bg-transparent p-0 hover:bg-transparent active:bg-transparent active:text-gray2"
           }
         >
-          <Edit fill='white' className='h-4 w-4 opacity-70' />
+          {character?.personal?.portraits?.length > 0 ? (
+            <Edit fill='white' className='h-4 w-4 opacity-70' />
+          ) : (
+            <Generate className='h-4 w-4 opacity-70 fill-white' />
+          )}
           {character?.personal?.portraits?.length > 0 ? "Change " : "Create "}
           character portrait
         </CustomButton>

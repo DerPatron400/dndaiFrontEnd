@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export default function GenerateNew({ style, setStyle }) {
   return (
-    <div className='grid grid-cols-12 w-full gap-5 min-h-96  max-h-[80vh] md:max-h-[60vh] h-full overflow-y-scroll hide-scrollbar  pb-24'>
+    <div className='grid grid-cols-12 w-full gap-5 min-h-96  max-h-[80vh] md:max-h-[60vh] h-full overflow-y-scroll hide-scrollbar  pb-6'>
       {IMAGE_STYLES.map((avatar, index) => (
         <div
           key={index}

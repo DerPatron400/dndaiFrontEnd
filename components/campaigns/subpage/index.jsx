@@ -206,7 +206,12 @@ const TopButtons = ({ campaign, setCampaign }) => {
 
 const TabButtons = ({ activeTab, onClick, icon, text }) => {
   return (
-    <Button onClick={onClick} withIcon className={"bg-transparent"}>
+    <Button
+      onClick={onClick}
+      withIcon
+      className={"bg-transparent"}
+      active={activeTab === text.toLowerCase()}
+    >
       <img src={icon} className='h-5 w-5 opacity-75 invert' alt='' />{" "}
       <span>{text}</span>
     </Button>
@@ -228,38 +233,27 @@ export default function index({ campaign, setCampaign }) {
     setTime(_time);
   }, [campaign]);
   return (
-    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[0px]  lg:px-0 md:pb-20 '>
-      <div className='h-[40vh] w-full z-[10] relative'>
-        <img
-          src={`https://dndai-images.s3.eu-central-1.amazonaws.com/settings/${campaign.setting
-            .toLowerCase()
-            .replaceAll(" ", "-")
-            .replaceAll("'", "")}.webp`}
-          alt=''
-          className='h-full w-full object-cover'
-        />
-        <div className=' absolute bottom-10 px-10 flex flex-col gap-2.5  '>
-          <div className='text-center flex justify-start text-white headline-3 z-[10] '>
-            <span className='headline-3 z-[10] headline-3'>
-              {campaign.title}
-            </span>
-          </div>
-        </div>
-      </div>
+    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[128px]  px-4 lg:px-12 md:pb-20 '>
+      <span className='headline-3 z-[10] headline-3 text-white capitalize'>
+        {campaign.title}
+      </span>
 
-      <div className='w-full flex flex-col gap-[20px] text-white z-[10] pt-9 md:pt-8 px-4 lg:px-12'>
+      <div className='w-full flex flex-col gap-[20px] text-white z-[10] pt-9 md:pt-8 '>
         <TopButtons campaign={campaign} setCampaign={setCampaign} />
         <div className='w-full  h-full flex flex-col-reverse md:flex-row justify-between gap-[20px]'>
-          <div className='w-full md:w-3/4 flex flex-col gap-[20px] bg-white/[8%]  border-white/10 rounded-[16px]'>
+          <TimeStamps campaign={campaign} />
+          <div className='w-full md:w-2/3 flex flex-col gap-[20px] bg-white/[8%]  border-white/10 rounded-[16px]'>
             <div className='flex flex-col gap-6 p-[20px]'>
               <div className='flex justify-start items-center flex-wrap gap-4 '>
                 <TabButtons
                   onClick={() => setActiveTab("details")}
+                  activeTab={activeTab}
                   icon={"/Icons/Eye.svg"}
                   text={"Details"}
                 />
                 <TabButtons
                   onClick={() => setActiveTab("comments")}
+                  activeTab={activeTab}
                   icon={"/Icons/Comment.svg"}
                   text={"Comments"}
                 />
@@ -274,7 +268,7 @@ export default function index({ campaign, setCampaign }) {
                     plot,
                     hook,
                   }}
-                  worldMapUrl={campaign?.worldMapUrl}
+                  setting={campaign?.setting}
                 />
               )}
               {activeTab === "comments" && <Comments campaign={campaign} />}
@@ -282,7 +276,6 @@ export default function index({ campaign, setCampaign }) {
               {/**Comment section */}
             </div>
           </div>
-          <TimeStamps campaign={campaign} />
         </div>
       </div>
     </div>

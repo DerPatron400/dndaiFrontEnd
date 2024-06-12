@@ -8,6 +8,7 @@ export default function CustomButton({
   variant,
   disabled,
   onClick,
+  active,
 }) {
   return (
     <Button
@@ -27,6 +28,8 @@ export default function CustomButton({
         (variant === "success" || variant === "error") &&
           withIcon &&
           "ps-6 pe-4",
+        active && " !bg-white/20 !border-white/40",
+
         className
       )}
     >

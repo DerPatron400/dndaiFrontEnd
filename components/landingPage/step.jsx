@@ -17,7 +17,7 @@ export default function Step({ number, title, description, image }) {
         </div>
 
         <div
-          className='h-full rounded-[16px]
+          className='h-full rounded-[10px] md:rounded-[16px]
         shadow-step-images
          z-10 overflow-hidden border-[1px] border-[#8F91FF]/20 l md:w-2/3 w-full'
         >

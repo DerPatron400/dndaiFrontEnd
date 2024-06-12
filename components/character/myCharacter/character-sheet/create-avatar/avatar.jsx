@@ -15,6 +15,7 @@ import {
 import useUserStore from "@/utils/userStore";
 import Navbar from "@/components/navigation/Navbar";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
+import Generate from "@/components/ui/Icons/Generate";
 const CurrentAvatarsList = ({
   avatars,
   selectedPortrait,
@@ -64,7 +65,7 @@ const GenerateNewAvatarBtn = ({
       withIcon={true}
       className={cn(generateAvatar && "hidden", className)}
     >
-      Generate new portrait
+      <Generate className='h-4 w-5 ' /> Generate new portrait
     </CustomButton>
   );
 };

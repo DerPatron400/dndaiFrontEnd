@@ -2,7 +2,7 @@
 import { create } from "zustand";
 
 const useStepperStore = create((set) => ({
-  activeStep: 7,
+  activeStep: 0,
   setActiveStep: (activeStep) => set({ activeStep }),
   backgroundQuery: "",
   setBackgroundQuery: (backgroundQuery) => set({ backgroundQuery }),

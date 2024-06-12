@@ -5,6 +5,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Sheet from "@/components/ui/Icons/Sheet";
 import { extractSection } from "@/lib/Helpers/shared";
@@ -50,80 +56,72 @@ export default function ProfileButtons({ details }) {
 
   return (
     <div className='absolute top-4 left-4 w-full flex justify-start gap-4 '>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <CustomIconbutton className={" bg-blur"}>
-              <img src='/icons/Vector.svg' alt='' className='h-3.5 w-3.5' />
-            </CustomIconbutton>
-          </TooltipTrigger>
-          <TooltipContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
-            <div className='flex flex-col gap-4 '>
-              <span className='headline-4'>Appeareance</span>
-              <span className='running-text'>{generalInfo?.appearance}</span>
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Popover>
+        <PopoverTrigger>
+          <CustomIconbutton className={" bg-blur"}>
+            <img src='/icons/Vector.svg' alt='' className='h-3.5 w-3.5' />
+          </CustomIconbutton>
+        </PopoverTrigger>
+        <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
+          <div className='flex flex-col gap-4 '>
+            <span className='headline-4'>Appeareance</span>
+            <span className='running-text'>{generalInfo?.appearance}</span>
+          </div>
+        </PopoverContent>
+      </Popover>
 
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <CustomIconbutton className={" bg-blur"}>
-              <Sheet className='h-3.5 w-3.5' fill={"#fff"} />
-            </CustomIconbutton>
-          </TooltipTrigger>
-          <TooltipContent side='bottom' className='!p-6 !pt-4 !pe-5'>
-            <div className='flex flex-col gap-4 '>
-              <span className='headline-4'>Abilitiy Scores</span>
-              <div className='flex flex-col justify-start gap-5 w-full'>
-                {Object.entries(generalInfo.abilityScores).map(
-                  ([key, value]) => {
-                    return (
-                      <div
-                        className='flex items-center justify-between w-4/4'
-                        key={key}
-                      >
-                        <div
-                          key={key}
-                          className={`flex cursor-pointer running-text-mono uppercase justify-start items-center gap-3  `}
-                        >
-                          <img
-                            src={`https://dndai-images.s3.eu-central-1.amazonaws.com/abilities/${key}.webp`}
-                            className={`w-12 h-12 ease-animate object-cover rounded-[10px] `}
-                          />
-                          <span>{key}</span>
-                        </div>
-                        <div className='flex items-center gap-4'>
-                          <div className='flex items-center gap-2'>
-                            <span className='running-text-mono'>{value}</span>
-                          </div>
-                        </div>
+      <Popover>
+        <PopoverTrigger>
+          <CustomIconbutton className={" bg-blur"}>
+            <Sheet className='h-3.5 w-3.5' fill={"#fff"} />
+          </CustomIconbutton>
+        </PopoverTrigger>
+        <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
+          <div className='flex flex-col gap-4 '>
+            <span className='headline-4'>Abilitiy Scores</span>
+            <div className='flex flex-col justify-start gap-5 w-full'>
+              {Object.entries(generalInfo.abilityScores).map(([key, value]) => {
+                return (
+                  <div
+                    className='flex items-center justify-between w-4/4'
+                    key={key}
+                  >
+                    <div
+                      key={key}
+                      className={`flex cursor-pointer running-text-mono uppercase justify-start items-center gap-3  `}
+                    >
+                      <img
+                        src={`https://dndai-images.s3.eu-central-1.amazonaws.com/abilities/${key}.webp`}
+                        className={`w-12 h-12 ease-animate object-cover rounded-[10px] `}
+                      />
+                      <span>{key}</span>
+                    </div>
+                    <div className='flex items-center gap-4'>
+                      <div className='flex items-center gap-2'>
+                        <span className='running-text-mono'>{value}</span>
                       </div>
-                    );
-                  }
-                )}
-              </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+          </div>
+        </PopoverContent>
+      </Popover>
 
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <CustomIconbutton className={" bg-blur"}>
-              <img src='/icons/info.svg' alt='' className='h-3.5 w-3.5 ' />
-            </CustomIconbutton>
-          </TooltipTrigger>
-          <TooltipContent side='bottom' className='!p-6 !pt-4 !pe-5'>
-            <div className='flex flex-col gap-4 '>
-              <span className='headline-4'>Abilities</span>
-              <span className='running-text'>{generalInfo?.abbilities}</span>
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Popover>
+        <PopoverTrigger>
+          <CustomIconbutton className={" bg-blur"}>
+            <img src='/icons/info.svg' alt='' className='h-3.5 w-3.5 ' />
+          </CustomIconbutton>
+        </PopoverTrigger>
+        <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
+          <div className='flex flex-col gap-4 '>
+            <span className='headline-4'>Abilities</span>
+            <span className='running-text'>{generalInfo?.abbilities}</span>
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

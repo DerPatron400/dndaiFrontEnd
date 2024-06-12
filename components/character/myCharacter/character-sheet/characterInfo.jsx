@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import useUserStore from "@/utils/userStore";
 import Info from "@/components/ui/Icons/Info";
 import { cn } from "@/lib/utils";
 import Loader from "@/components/ui/Loader";
+import { extractSection } from "@/lib/Helpers/shared";
 
 const ProfileButtons = dynamic(() =>
   import("@/components/character/myCharacter/character-sheet/profile-buttons", {
@@ -17,6 +18,14 @@ export default function characterInfo({
   loadingAvatar,
 }) {
   const { user } = useUserStore();
+  const [level, setLevel] = useState();
+
+  useEffect(() => {
+    if (!character) return;
+    let _level = extractSection(character.value, "level")?.trim();
+
+    setLevel(_level);
+  }, [character]);
 
   return (
     <div className=" className='w-full h-auto border border-white/10 bg-white/10 rounded-[16px] flex flex-col justify-start">
@@ -61,9 +70,7 @@ export default function characterInfo({
             />
           </div>
           <div className='flex flex-col running-text-mono'>
-            <span className='text-white '>
-              LEVEL {character?.personal?.level}
-            </span>
+            <span className='text-white '>LEVEL {level}</span>
             <span className=' text-irisPurpleLight'>
               {character?.personal?.race}{" "}
               <span className=' text-sandyOrange'>

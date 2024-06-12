@@ -19,7 +19,7 @@ export default function Stepper() {
             )}
           />
           {/* Use IconButton to set active step */}
-          <div className=' bg-russianViolet rounded-full h-full w-auto z-10'>
+          <div className=' bg-russianViolet rounded-full  h-full w-auto z-10'>
             <CustomIconbutton
               className={cn(
                 " h-8 w-8 opacity-70 text-gray2 pointer-events-none",

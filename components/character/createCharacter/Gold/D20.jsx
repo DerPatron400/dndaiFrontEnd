@@ -125,7 +125,7 @@ export function Model({ selectedFace, setSelectedFace, rolling, setRolling }) {
   return (
     <group
       onClick={() => {
-        if (!rolling) setRolling(true);
+        if (!rolling && !selectedFace) setRolling(true);
       }}
       onPointerEnter={() => (document.body.style.cursor = "pointer")}
       onPointerLeave={() => (document.body.style.cursor = "auto")}
