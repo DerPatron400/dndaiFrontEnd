@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Card from "@/components/campaigns/shared/card";
+import Card from "@/components/ui/Shared/Card/campaign";
 
 export default function index({ campaigns }) {
   return (
@@ -22,7 +22,7 @@ export default function index({ campaigns }) {
             key={i}
             className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full min-w-full max-w-full'
           >
-            <Card campaign={campaign}  className={"!w-full !min-w-full"} />
+            <Card campaign={campaign} className={"!w-full !min-w-full"} />
           </div>
         ))}
       </div>

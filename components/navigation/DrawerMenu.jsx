@@ -6,14 +6,21 @@ import useUserStore from "@/utils/userStore";
 import Link from "next/link";
 import useControlsStore from "@/utils/controlsStore";
 import Cancel from "../ui/Icons/Cancel";
+import { useRouter } from "next/navigation";
 export default function DrawerMenu() {
   const { user } = useUserStore();
   const { showMenu, setShowMenu } = useControlsStore();
+  const router = useRouter();
 
   useEffect(() => {
     if (showMenu) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "auto";
   }, [showMenu]);
+
+  const handleRedirect = (path) => {
+    router.push(path);
+    setShowMenu(false);
+  };
 
   return (
     <div
@@ -43,7 +50,7 @@ export default function DrawerMenu() {
 
       <div className='mx-[20px] mt-10 gap-[34px] flex flex-col running-text-mono uppercase '>
         <div className={cn("flex items-center gap-6 ", user && "hidden")}>
-          <Button withIcon>
+          <Button onClick={() => handleRedirect("/auth/sign-in")} withIcon>
             <img
               src='/Icons/Login.svg'
               alt='logo'
@@ -51,7 +58,12 @@ export default function DrawerMenu() {
             />
             SIGN IN
           </Button>
-          <span className='running-text-mono uppercase'>Sign Up</span>
+          <Button
+            onClick={() => handleRedirect("/auth/sign-up")}
+            variant='subtle'
+          >
+            Sign Up
+          </Button>
         </div>
 
         <div className='flex gap-3  hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
@@ -70,7 +82,10 @@ export default function DrawerMenu() {
           />
           <span>Saved images</span>
         </div>
-        <div className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+        <div
+          onClick={() => handleRedirect("/campaign/my-campaigns")}
+          className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
+        >
           <img
             src='/Icons/Campaign.svg'
             alt=''

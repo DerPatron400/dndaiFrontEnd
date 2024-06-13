@@ -6,7 +6,7 @@ import { TIMES } from "./constants";
 
 export default function campaignDetails({ campaign, handleSetCampaign }) {
   return (
-    <div className='flex flex-col gap-[20px] !h-auto !mb-10'>
+    <div className='flex   flex-col gap-[20px] '>
       <CustomInput
         value={campaign.title}
         onChange={(e) => {

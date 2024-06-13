@@ -25,7 +25,7 @@ export default function Choose({ race, handleSelectRace }) {
     setShowModal(true);
   };
   return (
-    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  '>
+    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  md:pb-0'>
       {/* For PC */}
       <h1 className='headline-4 hidden md:block'>Race</h1>
       <SearchInput
@@ -42,7 +42,7 @@ export default function Choose({ race, handleSelectRace }) {
         onChange={handleSelect}
       />
       {/* Ends */}
-      <div className='grid grid-cols-12 lg:grid-cols-10 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar'>
+      <div className='grid grid-cols-12 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-10 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar md:pb-5'>
         {RACE.filter(({ name }) => {
           if (raceQuery) {
             return name.toLowerCase().includes(raceQuery.toLowerCase());
@@ -67,7 +67,7 @@ export default function Choose({ race, handleSelectRace }) {
                 description: description,
               });
             }}
-            className={`flex cursor-pointer col-span-4 md:col-span-4 relative lg:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
+            className={`flex cursor-pointer col-span-4 md:col-span-4 relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <img
               onClick={handleShowModal}

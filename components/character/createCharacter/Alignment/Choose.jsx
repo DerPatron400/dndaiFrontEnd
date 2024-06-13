@@ -10,14 +10,14 @@ export default function Choose({ handleAlignmentChange, alignment }) {
     setShowModal(true);
   };
   return (
-    <div className="md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 lg:w-2/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  ">
-      <h1 className="headline-4 hidden md:block">Alignment</h1>
+    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 lg:w-2/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%] md:pb-0  '>
+      <h1 className='headline-4 hidden md:block'>Alignment</h1>
       <SearchInput
         query={query}
         setQuery={setQuery}
         className={"hidden md:block"}
       />
-      <div className="grid grid-cols-12  gap-4 md:gap-5 w-full overflow-auto hide-scrollbar">
+      <div className='grid grid-cols-12  gap-4 md:gap-5 w-full overflow-auto hide-scrollbar md:pb-5'>
         {ALIGNMENT.filter(({ name }) => {
           if (query) {
             return name.toLowerCase().includes(query.toLowerCase());
@@ -60,7 +60,7 @@ export default function Choose({ handleAlignmentChange, alignment }) {
                   : ""
               }`}
             />
-            <span className="description">{name}</span>
+            <span className='description'>{name}</span>
           </div>
         ))}
       </div>

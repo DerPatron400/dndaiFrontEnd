@@ -20,7 +20,10 @@ export default function page() {
     }
   };
   useEffect(() => {
-    if (!user.token) return;
+    if (!user?.token) {
+      setCampaigns([]);
+      return;
+    }
     handleGetCampaigns();
   }, [user]);
 

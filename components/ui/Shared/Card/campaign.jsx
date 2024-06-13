@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Play from "@/components/ui/Icons/Play";
 import Button from "@/components/ui/custom-button";
 import IconButton from "@/components/ui/custom-iconbutton";
@@ -18,7 +17,7 @@ export default function card({
   handleUpdateCampaigns,
 }) {
   const router = useRouter();
-  const { user, setUserStared } = useUserStore();
+  const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRedirect = (event) => {
@@ -71,7 +70,7 @@ export default function card({
   return (
     <div
       className={cn(
-        "rounded-[16px] cursor-pointer bg-russianViolet h-auto group hover:!shadow-custom-1 min-w-full my-0 max-w-full ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
+        "rounded-[16px] cursor-pointer bg-russianViolet h-auto group hover:!shadow-custom-1 min-w-[90%] w-[90%] my-0 max-w-[90%] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
         className
       )}
     >
@@ -105,7 +104,7 @@ export default function card({
                 />
               </IconButton>
               <IconButton
-                disabled={isLoading || !user.token}
+                disabled={isLoading || !user?.token}
                 onClick={handleStar}
                 className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100   prevent-redirect'
               >

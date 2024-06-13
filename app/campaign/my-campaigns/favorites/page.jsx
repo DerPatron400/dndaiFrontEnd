@@ -19,8 +19,11 @@ export default function page() {
     }
   };
   useEffect(() => {
-    if (!user.token) return;
-    console.log(user.token);
+    if (!user?.token) {
+      setCampaigns([]);
+      return;
+    }
+
     fetchCampaigns();
   }, [user]);
 

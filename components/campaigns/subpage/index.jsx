@@ -21,9 +21,9 @@ import {
 } from "@/actions/campaigns";
 import Star from "@/components/ui/Icons/Star";
 
-const TopButtons = ({ campaign, setCampaign }) => {
+const TopButtons = ({ campaign, setCampaign, className }) => {
   const { user } = useUserStore();
-  const isCreator = campaign.userId === user._id;
+  const isCreator = campaign.userId === user?._id;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -131,14 +131,19 @@ const TopButtons = ({ campaign, setCampaign }) => {
     }
   };
   return (
-    <div className='flex flex-col md:flex-row justify-between w-full'>
+    <div
+      className={cn(
+        "flex flex-col md:flex-row justify-between w-full",
+        className
+      )}
+    >
       <div className='flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
-        <div className='flex items-start justify-start'>
+        <div className='hidden md:flex items-start justify-start'>
           <Button withIcon variant={"primary"}>
             <Play size={14} /> <span>Play campaign</span>
           </Button>
         </div>
-        <div className='flex gap-8 justify-start items-start'>
+        <div className='flex gap-8 w-full  justify-between md:justify-start items-start'>
           <CustomIcontext disabled={isLoading} onClick={handleLike}>
             <img src='/Icons/Like.svg' alt='' className='h-5 w-5 opacity-70' />
             <span>{campaign.analytics.likes.length}</span>
@@ -148,7 +153,7 @@ const TopButtons = ({ campaign, setCampaign }) => {
             <span>{campaign.analytics.plays.length}</span>
           </CustomIcontext>
           <CustomIcontext
-            disabled={isLoading || !user.token}
+            disabled={isLoading || !user?.token}
             onClick={handleStarCampaign}
           >
             <Star
@@ -171,7 +176,7 @@ const TopButtons = ({ campaign, setCampaign }) => {
           </CustomIcontext>
         </div>
       </div>
-      <div className='flex gap-2 md:gap-6 items-start md:justify-end md:items-end flex-col md:flex-row'>
+      <div className=' gap-2 md:gap-6 items-start md:justify-end md:items-end flex-col md:flex-row hidden md:flex'>
         <Button
           disabled={isLoading}
           onClick={campaign.isPublished ? handleUnpublish : handlePublish}
@@ -233,13 +238,29 @@ export default function index({ campaign, setCampaign }) {
     setTime(_time);
   }, [campaign]);
   return (
-    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[172px] md:pt-[128px]  px-4 lg:px-12 md:pb-20 '>
-      <span className='headline-3 z-[10] headline-3 text-white capitalize'>
-        {campaign.title}
-      </span>
+    <div className='min-h-screen h-full w-full flex flex-col border bg-gradient pt-[112px] md:pt-[128px]  px-4 lg:px-12 md:pb-20 '>
+      <div className='flex flex-col gap-5 z-[10]'>
+        <span className='headline-3  headline-3 text-white capitalize'>
+          {campaign.title}
+        </span>
+
+        <img
+          src={campaign?.worldMapUrl || "/campaignheader.png"}
+          className=' md:hidden object-contain w-full'
+        />
+        <TopButtons
+          campaign={campaign}
+          setCampaign={setCampaign}
+          className={" md:hidden"}
+        />
+      </div>
 
       <div className='w-full flex flex-col gap-[20px] text-white z-[10] pt-9 md:pt-8 '>
-        <TopButtons campaign={campaign} setCampaign={setCampaign} />
+        <TopButtons
+          campaign={campaign}
+          setCampaign={setCampaign}
+          className={"hidden md:flex"}
+        />
         <div className='w-full  h-full flex flex-col-reverse md:flex-row justify-between gap-[20px]'>
           <TimeStamps campaign={campaign} />
           <div className='w-full md:w-2/3 flex flex-col gap-[20px] bg-white/[8%]  border-white/10 rounded-[16px]'>

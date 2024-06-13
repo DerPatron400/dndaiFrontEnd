@@ -315,7 +315,7 @@ export default function BottomMenu({ character, setCharacter }) {
   return (
     <>
       {/* For Desktop */}
-      <div className='text-white hidden   md:flex justify-between items-center w-full py-12  left-0 z-[20]   '>
+      <div className='text-white hidden h-full   md:flex justify-between items-center w-full py-12  left-0 z-[20]   '>
         <CustomButton
           disabled={isChoosingRandom}
           withIcon
@@ -361,12 +361,10 @@ export default function BottomMenu({ character, setCharacter }) {
       </div>
       {/* For Mobile */}
       <div
-        className={cn(`w-full md:hidden left-0 z-[20] fixed bottom-0, 
-       ${
-         activeStep >= 7
-           ? "!bg-transparent fixed bottom-0"
-           : "bg-blur-bottom-menu"
-       } `)}
+        className={cn(
+          "w-full md:hidden left-0 z-[20] fixed bottom-0",
+          activeStep >= 7 ? "!bg-transparent " : "bg-blur-bottom-menu"
+        )}
       >
         <div className=' flex items-center justify-between p-5  '>
           {searchMode ? (

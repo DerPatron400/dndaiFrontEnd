@@ -15,7 +15,7 @@ export default function CustomDropdown({
   return (
     <div
       className={cn(
-        "relative h-[48px] m-4 max-w-[fit-content] group bg-transparent running-text-mono uppercase",
+        "relative h-[48px] max-h-[48px] m-4 max-w-[fit-content] group bg-transparent running-text-mono uppercase",
         className
       )}
     >
@@ -61,7 +61,7 @@ export default function CustomDropdown({
       {options && (
         <div
           className={cn(
-            "bg-[#1b1b31]  flex text-white rounded-[16px] absolute w-full  pointer-events-none border border-white/10  flex-col gap-2 shadow-lg mt-2 p-2  uppercase opacity-0 hover:opacity-100 hover:pointer-events-auto transition-all duration-300 ease-in-out z-[50] ",
+            "bg-[#1b1b31]  flex text-white max-h-96 overflow-y-scroll hide-scrollbar rounded-[16px] absolute w-full  pointer-events-none border border-white/10  flex-col gap-2 shadow-lg mt-2 p-2  uppercase opacity-0 hover:opacity-100 hover:pointer-events-auto transition-all duration-300 ease-in-out z-[50] ",
             show && " opacity-100 pointer-events-auto"
           )}
         >

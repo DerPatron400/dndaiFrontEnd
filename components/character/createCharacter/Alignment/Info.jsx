@@ -6,7 +6,7 @@ export default function Info({ alignment }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 h-full border bg-white/10 border-white/10 rounded-[16px] overflow-hidden pb-6",
+        "hidden md:block w-2/5 h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll hide-scrollbar pb-6",
         !alignment && "opacity-0 pointer-events-none"
       )}
     >
@@ -19,7 +19,7 @@ export default function Info({ alignment }) {
 
 `}
             alt={alignment}
-            className='h-full object-cover '
+            className='h-full w-full object-cover '
           />
         </div>
 

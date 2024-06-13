@@ -201,3 +201,23 @@ export const deleteComment = async (commentId, token) => {
     throw error;
   }
 };
+
+export const getMostLikedCampaigns = async () => {
+  try {
+    const response = await api.get("/campaign/mostLiked");
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getPopularCampaigns = async () => {
+  try {
+    const response = await api.get("/campaign/popular");
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

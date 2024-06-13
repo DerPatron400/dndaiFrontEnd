@@ -5,7 +5,7 @@ export default function Info({ _class }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll pb-6 hide-scrollbar  md:max-h-[652px] md:max-w-[467px]",
+        "hidden md:block w-2/5 h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll pb-6 hide-scrollbar   md:max-w-[467px]",
         !_class && "opacity-0 pointer-events-none"
       )}
     >

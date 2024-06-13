@@ -22,7 +22,7 @@ export default function Choose({ _class, handleSelectClass }) {
     <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full  md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%] md:pb-0  '>
       <h1 className='headline-4 hidden md:block'>Class</h1>
 
-      <div className='grid grid-cols-12 lg:grid-cols-10 2xl:grid-cols-12 gap-4 md:gap-5  w-full overflow-auto hide-scrollbar md:pb-5'>
+      <div className='grid grid-cols-12 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-10 2xl:grid-cols-12 gap-4 md:gap-5  w-full overflow-auto hide-scrollbar md:pb-5'>
         {CLASSES.map(({ name, description }, index) => (
           <div
             key={index}
@@ -37,7 +37,7 @@ export default function Choose({ _class, handleSelectClass }) {
                 description: description,
               });
             }}
-            className={`flex cursor-pointer col-span-4 md:col-span-4 relative lg:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
+            className={`flex cursor-pointer col-span-4 md:col-span-4 relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <img
               src={`/Icons/InfoButton.svg`}

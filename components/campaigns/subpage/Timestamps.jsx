@@ -5,7 +5,7 @@ export default function Timestamps({ campaign }) {
     <div className=' w-full  md:w-1/3 h-fit flex running-text-mono uppercase  flex-col max-h-auto bg-white/[8%] border border-white/10 rounded-[16px] overflow-hidden '>
       <img
         src={campaign?.worldMapUrl || "/campaignheader.png"}
-        className='  object-contain w-full'
+        className=' hidden md:block object-contain w-full'
       />
       <div className='p-5'>
         <div className=' border-b w-full border-white/10 pb-5'>
