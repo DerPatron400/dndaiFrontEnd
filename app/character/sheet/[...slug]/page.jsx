@@ -23,7 +23,7 @@ export default function page({ params }) {
 
   console.log(character);
   return (
-    <div className='bg-gradient text-white'>
+    <div className="bg-gradient text-white">
       <CharacterSheet character={character} setCharacter={setCharacter} />
     </div>
   );
