@@ -18,7 +18,8 @@ export default function RootLayout({ children }) {
     !pathname.includes("/auth") &&
     !pathname.includes("/character") &&
     !pathname.includes("/campaign") &&
-    !pathname.includes("/discover");
+    !pathname.includes("/discover") &&
+    !pathname.includes("game");
 
   useEffect(() => {
     const initializeGtag = () => {
