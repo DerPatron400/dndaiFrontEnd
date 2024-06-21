@@ -13,13 +13,13 @@ export default function Choose({ background, handleSelectBackground }) {
   } = useCharacterStore();
 
   useEffect(() => {
-    if (background?.name && window.innerWidth > 768) {
+    if (background?.name) {
       //focus div with id of this name
       document
         .getElementById(background.name)
         .scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [background]);
+  }, []);
   const handleShowModal = () => {
     setShowModal(true);
   };

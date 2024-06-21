@@ -1,3 +1,5 @@
+const selectRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
 export const STEP_NAMES = [
   "RACE",
   "CLASS",
@@ -653,20 +655,20 @@ export const INITIAL_CHARACTER = {
     description: BACKGROUND[0].description,
   },
   personality: {
-    ideal: null,
-    bond: null,
-    personality: null,
-    flaw: null,
+    ideal: selectRandom(PERSONALITIES.ideal),
+    bond: selectRandom(PERSONALITIES.bond),
+    personality: selectRandom(PERSONALITIES.personality),
+    flaw: selectRandom(PERSONALITIES.flaw),
   },
   alignment: {
     name: ALIGNMENT[0].name,
     description: ALIGNMENT[0].description,
   },
   equipment: {
-    weapon: null,
-    secondary: null,
-    armor: null,
-    "tool&ammo": null,
+    weapon: selectRandom(EQUIPMENTS.weapon),
+    secondary: selectRandom(EQUIPMENTS.secondaryweapon),
+    armor: selectRandom(EQUIPMENTS.armour),
+    "tool&ammo": selectRandom(EQUIPMENTS["tool&ammo"]),
   },
   gold: null,
   name: "",

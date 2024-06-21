@@ -18,7 +18,7 @@ export default function CustomButton({
         "running-text-mono gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100",
         withIcon && "flex items-center pe-5 ps-[20px] ",
         variant === "subtle" &&
-          "!border-none bg-transparent hover:bg-transparent active:bg-transparent active:text-gray2 !px-0",
+          "!border-none bg-transparent hover:bg-transparent active:bg-transparent hover:text-gray1 active:text-gray2 !px-0",
         variant === "primary" &&
           "bg-white hover:bg-gray1 text-russianViolet active:bg-gray2 border-none",
         variant === "error" &&

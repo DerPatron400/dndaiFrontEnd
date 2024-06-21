@@ -15,7 +15,7 @@ export default function Info({ background }) {
               ?.toLowerCase()
               .replaceAll(" ", "-")}.webp`}
             alt={background?.name}
-            className='h-full object-cover '
+            className='h-full w-full object-cover '
           />
         </div>
 

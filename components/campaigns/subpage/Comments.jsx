@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CustomIcontext from "@/components/ui/custom-icontext";
 import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
-import { Check } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -21,6 +21,7 @@ import {
 } from "@/actions/campaigns";
 import moment from "moment";
 import Delete from "@/components/ui/Icons/Delete";
+import Send from "@/components/ui/Icons/Send";
 
 const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
   const [open, setOpen] = useState(false);
@@ -163,7 +164,7 @@ export default function Comments({ campaign }) {
           onChange={(e) => setComment(e)}
           className={"w-full "}
           placeholder='Write a comment....'
-          icon={<Check fill={"white"} className='h-4 w-4  opacity-70' />}
+          icon={<Send fill={"white"} className='h-4 w-4  opacity-70' />}
           isComment={true}
           text={"Send"}
           isSubtle={true}

@@ -26,7 +26,7 @@ export default function Card({
               <img
                 src={img}
                 alt=''
-                className='h-full w-full object-cover   rounded-[10px]  md:rounded-none'
+                className=' w-full object-contain   rounded-[10px]  md:rounded-none'
               />
             </div>
           </TooltipTrigger>

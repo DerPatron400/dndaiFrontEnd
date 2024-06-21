@@ -6,13 +6,13 @@ import useCharacterStore from "@/utils/characterStore";
 export default function Choose({ _class, handleSelectClass }) {
   const { setShowModal, setSelectedCharacteristic } = useCharacterStore();
   useEffect(() => {
-    if (_class?.name && window.innerWidth > 768) {
+    if (_class?.name) {
       //focus div with id of this name
       document
         .getElementById(_class.name)
         .scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [_class]);
+  }, []);
 
   const handleShowModal = () => {
     setShowModal(true);

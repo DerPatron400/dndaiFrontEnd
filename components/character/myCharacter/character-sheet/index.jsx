@@ -36,11 +36,13 @@ export default function characterSheet({ character, setCharacter }) {
         <CustomButton
           onClick={() => {
             setOpen(true);
-            router.push(pathname);
+            if (character?.personal?.portraits?.length > 0) {
+              router.push(pathname);
+            } else {
+              router.push(pathname + "?generateAvatar=true");
+            }
           }}
-          className={
-            "border border-none bg-transparent p-0 hover:bg-transparent active:bg-transparent active:text-gray2"
-          }
+          variant='subtle'
         >
           {character?.personal?.portraits?.length > 0 ? (
             <Edit fill='white' className='h-4 w-4 opacity-70' />
@@ -50,11 +52,7 @@ export default function characterSheet({ character, setCharacter }) {
           {character?.personal?.portraits?.length > 0 ? "Change " : "Create "}
           character portrait
         </CustomButton>
-        <CustomButton
-          className={
-            "border border-none bg-transparent p-0 hover:bg-transparent active:bg-transparent active:text-gray2"
-          }
-        >
+        <CustomButton variant='subtle'>
           <Download fill='white' className='h-4 w-4 opacity-70 text-white' />
           Download character sheet
         </CustomButton>

@@ -59,7 +59,7 @@ export default function ProfileButtons({ details }) {
       <Popover>
         <PopoverTrigger>
           <CustomIconbutton className={" bg-blur"}>
-            <img src='/icons/Vector.svg' alt='' className='h-3.5 w-3.5' />
+            <img src='/Icons/Vector.svg' alt='' className='h-4 w-4' />
           </CustomIconbutton>
         </PopoverTrigger>
         <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
@@ -73,7 +73,7 @@ export default function ProfileButtons({ details }) {
       <Popover>
         <PopoverTrigger>
           <CustomIconbutton className={" bg-blur"}>
-            <Sheet className='h-3.5 w-3.5' fill={"#fff"} />
+            <Sheet className='h-4 w-4' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
         <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
@@ -112,7 +112,7 @@ export default function ProfileButtons({ details }) {
       <Popover>
         <PopoverTrigger>
           <CustomIconbutton className={" bg-blur"}>
-            <img src='/icons/info.svg' alt='' className='h-3.5 w-3.5 ' />
+            <img src='/Icons/info.svg' alt='' className='h-4 w-4 ' />
           </CustomIconbutton>
         </PopoverTrigger>
         <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>

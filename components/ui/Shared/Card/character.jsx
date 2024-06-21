@@ -28,12 +28,19 @@ export default function card({ character, carousel, className }) {
     setLevel(_level);
   }, [character]);
 
-  const handleRedirect = (path) => {
-    router.push(path);
+  const handleRedirect = (event, path) => {
+    const classNames =
+      event?.target?.className?.baseVal || event?.target?.className;
+
+    if (!classNames?.includes("prevent-redirect")) {
+      router.push(path);
+    }
   };
   return (
     <div
-      onClick={() => handleRedirect(`/character/sheet/${character._id}`)}
+      onClick={(event) =>
+        handleRedirect(event, `/character/sheet/${character._id}`)
+      }
       className={cn(
         "rounded-[16px]  h-auto group hover:!shadow-custom-1 bg-white/[8%] group-hover:bg-white/10  my-0 cursor-pointer  overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10] ",
         className
@@ -55,8 +62,11 @@ export default function card({ character, carousel, className }) {
             )}
           >
             <DropdownMenu>
-              <DropdownMenuTrigger className=' bg-blur  !h-7 !w-7 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 !flex !items-center !justify-center'>
-                <MoreOptions className='w-4 h-4' fill='white' />
+              <DropdownMenuTrigger className=' bg-blur  prevent-redirect  !h-7 !w-7 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 !flex !items-center !justify-center'>
+                <MoreOptions
+                  className='w-4 h-4  prevent-redirect'
+                  fill='white'
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2'>
                 <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>

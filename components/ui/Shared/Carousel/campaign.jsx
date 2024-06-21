@@ -40,8 +40,8 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
   return (
     <div
       className={cn(
-        " flex w-full relative  overflow-hidden z-[30]",
-        isLanding && " w-full mt-16 "
+        " flex w-screen md:w-full relative  overflow-hidden z-[30]",
+        isLanding && " w-screen md:w-full mt-16 "
       )}
     >
       <div

@@ -70,7 +70,7 @@ export default function card({
   return (
     <div
       className={cn(
-        "rounded-[16px] cursor-pointer bg-russianViolet h-auto group hover:!shadow-custom-1 min-w-[90%] w-[90%] my-0 max-w-[90%] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
+        "rounded-[16px] cursor-pointer bg-russianViolet h-auto group hover:!shadow-custom-1 min-w-[90vw] w-[90vw] my-0 max-w-[90vw] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
         className
       )}
     >
@@ -84,8 +84,7 @@ export default function card({
           />
           <div
             className={cn(
-              "absolute top-0 text-xs text-white p-4 flex w-full justify-between items-center",
-              carousel && "hidden"
+              "absolute top-0 text-xs text-white p-4 flex w-full justify-between items-center"
             )}
           >
             <div
@@ -130,8 +129,7 @@ export default function card({
           </span>
           <div
             className={cn(
-              "flex justify-between items-center gap-5 mt-4 text-white",
-              carousel && "hidden"
+              "flex justify-between items-center gap-5 mt-4 text-white"
             )}
           >
             <div className='flex items-center gap-x-3 running-text-mono '>

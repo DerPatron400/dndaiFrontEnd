@@ -14,13 +14,13 @@ export default function Choose({ race, handleSelectRace }) {
   };
 
   useEffect(() => {
-    if (race.name && window.innerWidth > 768) {
+    if (race.name) {
       //focus div with id of this name
       document
         .getElementById(race.name)
         .scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [race.name]);
+  }, []);
   const handleShowModal = () => {
     setShowModal(true);
   };

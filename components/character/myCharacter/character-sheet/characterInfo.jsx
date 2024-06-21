@@ -28,13 +28,13 @@ export default function characterInfo({
   }, [character]);
 
   return (
-    <div className=" className='w-full h-auto border border-white/10 bg-white/10 rounded-[16px] flex flex-col justify-start">
+    <div className=' w-full h-auto border border-white/10 bg-white/10 rounded-[16px] overflow-hidden flex flex-col justify-start'>
       <div>
-        <div className='h-[345px] w-full relative'>
+        <div className='h-auto w-full relative'>
           {loadingAvatar && (
             <Loader
               text='Loading Avatar...'
-              className='absolute top-0 left-0 w-full h-[345px] bg-blur flex items-center justify-center'
+              className='absolute top-0 left-0 w-full h-full bg-blur flex items-center justify-center'
             />
           )}
           <img
@@ -43,7 +43,7 @@ export default function characterInfo({
               "/images/CreateCharacter/CharacterName/CharacterName.png"
             }
             alt=''
-            className=' h-full w-full object-cover rounded-t-[10px] '
+            className=' w-full object-contain aspect-square rounded-t-[10px] '
           />
           <div
             className={cn(
@@ -71,9 +71,9 @@ export default function characterInfo({
           </div>
           <div className='flex flex-col running-text-mono'>
             <span className='text-white '>LEVEL {level}</span>
-            <span className=' text-irisPurpleLight'>
+            <span className=' text-irisPurpleLight uppercase'>
               {character?.personal?.race}{" "}
-              <span className=' text-sandyOrange'>
+              <span className=' text-sandyOrange uppercase'>
                 {character?.personal?.class}
               </span>
             </span>

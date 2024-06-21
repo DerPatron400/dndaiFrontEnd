@@ -38,7 +38,7 @@ export default function Navbar({ variant }) {
     <div className='px-5 md:px-8 fixed top-5 md:top-8 z-20 w-full'>
       <div
         className={cn(
-          " running-text-mono w-full rounded-2xl border border-white/10 top-0 md:top-8 left-0 translate-x-[0] flex h-[64px]  justify-center md:p-[8px] md:ps-4 ",
+          " running-text-mono w-full rounded-2xl border border-white/10 top-0 md:top-8 left-0 translate-x-[0] flex h-auto md:h-[64px]  justify-center md:p-[8px] md:ps-4 ",
           variant === "glass" && "bg-blur",
           isMobile && "bg-transparent border-0",
           variant === "transparent" && "bg-transparent border-0"

@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./card";
+import Card from "../../../ui/Shared/Card/character";
 import { cn } from "@/lib/utils";
 
 export default function characters({ characters = [], className }) {

@@ -30,7 +30,7 @@ export default function DrawerMenu() {
           "translate-x-[-50%] bg-blur-drawer opacity-100 pointer-events-auto  "
       )}
     >
-      <div className='w-full  px-[20px] mt-9 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]'>
+      <div className='w-full  px-[20px] mt-5 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]'>
         <Link
           href='/'
           className='text-white hover:text-gray2 transition-all duration-300 ease-in-out'
