@@ -20,12 +20,14 @@ import {
   starCampaign,
 } from "@/actions/campaigns";
 import Star from "@/components/ui/Icons/Star";
+import useGameStore from "@/utils/gameStore";
 
 const TopButtons = ({ campaign, setCampaign, className }) => {
   const { user } = useUserStore();
   const isCreator = campaign.userId === user?._id;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { setCurrentCampaign } = useGameStore();
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -130,6 +132,11 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
       setIsLoading(false);
     }
   };
+
+  const handlePlay = () => {
+    setCurrentCampaign(campaign);
+    router.push("/game/play");
+  };
   return (
     <div
       className={cn(
@@ -139,7 +146,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
     >
       <div className='flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
         <div className='hidden md:flex items-start justify-start'>
-          <Button withIcon variant={"primary"}>
+          <Button onClick={handlePlay} withIcon variant={"primary"}>
             <Play size={14} /> <span>Play campaign</span>
           </Button>
         </div>

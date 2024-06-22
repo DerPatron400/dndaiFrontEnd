@@ -1,41 +1,36 @@
 import React from "react";
 import { DialogContent } from "@/components/ui/dialog";
 import CustomButton from "@/components/ui/custom-button";
+import Generate from "@/components/ui/Icons/Generate";
+import Download from "@/components/ui/Icons/Download";
+import Cancel from "@/components/ui/Icons/Cancel";
 
 export default function imageZoom() {
   return (
-    <DialogContent className=" text-white bg-transparent border-none p-0">
+    <DialogContent className=' text-white bg-transparent border-none p-0'>
       <>
-        <div className="grid grid-cols-1 gap-4  ">
+        <div className='grid grid-cols-1 gap-4  '>
           <img
-            src="/images/CreateCharacter/CharacterName/CharacterName.png"
-            className="w-full h-[107px] md:h-[500px] md:w-full ease-animate object-cover rounded-[10px] "
+            src='/images/CreateCharacter/CharacterName/CharacterName.png'
+            className='w-full h-[107px] md:h-[500px] md:w-full ease-animate object-cover rounded-[10px] '
           />
         </div>
       </>
 
-      <div className="flex justify-between ">
-        <div className="flex justify-start gap-4 ">
-          <button className="running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100">
-            <img
-              src="/Icons/Generate.svg"
-              alt=""
-              className="h-4 w-4 opacity-70"
-            />
+      <div className='flex justify-between '>
+        <div className='flex justify-start gap-4 '>
+          <CustomButton withIcon>
+            <Generate className='w-5 h-5 opacity-70 fill-white' />
             Generate another image
-          </button>
-          <button className="running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/0 hover:bg-white/10 uppercase border border-white/0 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100">
-            <img
-              src="/Icons/Download.svg"
-              alt=""
-              className="h-4 w-4 opacity-70 invert"
-            />
+          </CustomButton>
+          <CustomButton withIcon variant={"subtle"}>
+            <Download className='h-5 w-5 opacity-70 fill-white' />
             download image
-          </button>
+          </CustomButton>
         </div>
         <CustomButton withIcon>
-          <img src="/Icons/Cancel.svg" alt="" className="w-6 h-6 opacity-70" />
-          <span className="running-text-mono text-white">CLOSE</span>
+          <Cancel className='w-3 h-3 opacity-70 fill-white' />
+          <span className='running-text-mono text-white'>CLOSE</span>
         </CustomButton>
       </div>
     </DialogContent>

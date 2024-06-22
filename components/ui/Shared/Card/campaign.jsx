@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { likeCampaign, starCampaign } from "@/actions/campaigns";
 import useUserStore from "@/utils/userStore";
 import Star from "@/components/ui/Icons/Star";
+import useGameStore from "@/utils/gameStore";
 
 export default function card({
   campaign,
@@ -19,6 +20,7 @@ export default function card({
   const router = useRouter();
   const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
+  const { setCurrentCampaign } = useGameStore();
 
   const handleRedirect = (event) => {
     const classNames =
@@ -67,6 +69,11 @@ export default function card({
     }
   };
   // console.log(user);
+
+  const handlePlay = () => {
+    setCurrentCampaign(campaign);
+    router.push("/game/play");
+  };
   return (
     <div
       className={cn(
@@ -150,7 +157,7 @@ export default function card({
                 <span>{campaign?.analytics.plays.length}</span>
               </CustomIcontext>
             </div>
-            <Button withIcon>
+            <Button onClick={handlePlay} withIcon>
               <Play className='h-5 w-5 fill-white opacity-70' />
               <span>Play</span>
             </Button>

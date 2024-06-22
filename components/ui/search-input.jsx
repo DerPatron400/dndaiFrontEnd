@@ -2,7 +2,12 @@ import { cn } from "@/lib/utils";
 import Search from "./Icons/Search";
 import { useState } from "react";
 
-export default function SearchInput({ query, setQuery, className }) {
+export default function SearchInput({
+  query,
+  setQuery,
+  className,
+  placeholder = "SEARCH",
+}) {
   const [input, setInput] = useState("");
   return (
     <div className={cn("relative h-[40px]  running-text-mono", className)}>
@@ -16,7 +21,7 @@ export default function SearchInput({ query, setQuery, className }) {
           "block h-full uppercase  w-full p-4 ps-[38px] text-sm placeholder:!text-sm placeholder:font-medium placeholder:opacity-100 text-white border border-gray3 rounded-[10px] bg-transparent hover:border-gray2 duration-300 transition-all focus:outline-0 focus:ring-offset-0 focus:ring-inset-irisPurpleLight focus:!ring-irisPurpleLight focus:!border-irisPurpleLight  placeholder:text-gray2  ",
           input && "border-white"
         )}
-        placeholder='SEARCH'
+        placeholder={placeholder}
         value={query || input}
         onChange={(e) => {
           setInput(e.target.value);

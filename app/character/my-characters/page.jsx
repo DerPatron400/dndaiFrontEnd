@@ -26,7 +26,7 @@ export default function page() {
   if (!characters) return <Loader text={"Fetching Characters..."} />;
   if (characters.length <= 0) return <CharacterPlaceholder />;
   return (
-    <div className='bg-gradient text-white'>
+    <div className=' text-white'>
       <Characters characters={characters} />
     </div>
   );

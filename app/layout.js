@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navigation/Navbar";
+import GameplayNavbar from "@/components/navigation/GameplayNavbar";
 import Footer from "@/components/navigation/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { usePathname } from "next/navigation";
@@ -20,6 +21,8 @@ export default function RootLayout({ children }) {
     !pathname.includes("/campaign") &&
     !pathname.includes("/discover") &&
     !pathname.includes("game");
+
+  const gameplayPage = pathname.includes("/game/play");
 
   useEffect(() => {
     const initializeGtag = () => {
@@ -88,7 +91,11 @@ export default function RootLayout({ children }) {
             </div>
           )}
           <div className='z-[1]'>{children}</div>
-          <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
+          {gameplayPage ? (
+            <GameplayNavbar />
+          ) : (
+            <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
+          )}
           {showFooter && <Footer />}
           <Toaster />
         </body>

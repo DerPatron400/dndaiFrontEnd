@@ -10,18 +10,9 @@ import {
 
 export default function page() {
   const { user } = useUserStore();
-  const [characters, setCharacters] = useState([]);
+
   const [campaigns, setCampaigns] = useState([]);
   const [popularCampaigns, setPopularCampaigns] = useState([]);
-  const getAllCharacters = async () => {
-    try {
-      const response = await getCharacters(user?.token);
-      console.log("response", response);
-      setCharacters(response.characters);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
 
   const handleGetPopularCampaigns = async () => {
     try {
@@ -41,15 +32,8 @@ export default function page() {
     }
   };
   useEffect(() => {
-    getAllCharacters();
     handleGetPopularCampaigns();
     handleGetMostLikedCampaigns();
   }, [user]);
-  return (
-    <Discover
-      mostLiked={campaigns}
-      popular={popularCampaigns}
-      characters={characters}
-    />
-  );
+  return <Discover mostLiked={campaigns} popular={popularCampaigns} />;
 }

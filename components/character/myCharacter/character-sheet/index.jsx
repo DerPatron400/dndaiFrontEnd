@@ -12,26 +12,33 @@ import { extractSection } from "@/lib/Helpers/shared";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import SoundButton from "@/components/ui/Shared/SoundButton";
 import Generate from "@/components/ui/Icons/Generate";
+import useGameStore from "@/utils/gameStore";
 export default function characterSheet({ character, setCharacter }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { setCurrentCharacter } = useGameStore();
   const [open, setOpen] = useState(false);
+  const [appearance, setAppearance] = useState(false);
+  const [loadingAvatar, setLoadingAvatar] = useState(false);
   const [currentPortrait, setCurrentPortrait] = useState(
     character.personal.portraitUrl
   );
-  const [loadingAvatar, setLoadingAvatar] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
-  const [appearance, setAppearance] = useState(false);
 
   useEffect(() => {
     let _appearance = extractSection(character.value, "appearance")?.trim();
     setAppearance(_appearance);
   }, [character]);
+
+  const handlePlay = () => {
+    setCurrentCharacter(character);
+    router.push("/game/campaign-selection");
+  };
   return (
     <div className='h-full min-h-screen w-screen pt-32 px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'>
       <div className='hidden md:flex justify-start gap-[32px]'>
-        <CustomButton variant={"primary"}>
+        <CustomButton onClick={handlePlay} variant={"primary"}>
           <Play className='h-4 w-4 opacity-70' />
-          Play with characters
+          Play with character
         </CustomButton>
         <CustomButton
           onClick={() => {

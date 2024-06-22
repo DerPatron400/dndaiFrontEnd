@@ -15,12 +15,17 @@ import Download from "@/components/ui/Icons/Download";
 import { useRouter } from "next/navigation";
 import Eye from "@/components/ui/Icons/Eye";
 import { extractSection } from "@/lib/Helpers/shared";
-
+import useGameStore from "@/utils/gameStore";
 //resolved conflicts
 export default function card({ character, carousel, className }) {
   const router = useRouter();
+  const { setCurrentCharacter } = useGameStore();
   const [level, setLevel] = useState();
 
+  const handlePlay = () => {
+    setCurrentCharacter(character);
+    router.push("/game/campaign-selection");
+  };
   useEffect(() => {
     if (!character) return;
     let _level = extractSection(character.value, "level")?.trim();
@@ -76,7 +81,7 @@ export default function card({ character, carousel, className }) {
                   </CustomMenuItem>
                 </DropdownMenuItem>
                 <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
-                  <CustomMenuItem>
+                  <CustomMenuItem onClick={handlePlay}>
                     <Play className='h-5 w-5' fill='white' />
                     <span>Play With Character</span>
                   </CustomMenuItem>
