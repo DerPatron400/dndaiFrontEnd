@@ -4,6 +4,7 @@ import MyCampaigns from "@/components/campaigns/myCampaigns/index";
 import useUserStore from "@/utils/userStore";
 import { getCampaignsByUser } from "@/actions/campaigns";
 import Loader from "@/components/ui/Loader";
+import CampaignPlaceholder from "@/components/ui/Shared/Placeholder/campaign";
 
 export default function page() {
   const [campaigns, setCampaigns] = useState();
@@ -29,6 +30,10 @@ export default function page() {
 
   if (!campaigns) {
     return <Loader text={"Fetching Campaigns..."} />;
+  }
+
+  if (campaigns.length === 0) {
+    return <CampaignPlaceholder />;
   }
   return <MyCampaigns campaigns={campaigns} setCampaigns={setCampaigns} />;
 }

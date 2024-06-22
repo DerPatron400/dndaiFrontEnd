@@ -4,6 +4,7 @@ import Characters from "@/components/character/myCharacter/characters/index";
 import { getCharacters } from "@/actions/character";
 import useUserStore from "@/utils/userStore";
 import Loader from "@/components/ui/Loader";
+import CharacterPlaceholder from "@/components/ui/Shared/Placeholder/character";
 
 export default function page() {
   const [characters, setCharacters] = useState();
@@ -23,7 +24,7 @@ export default function page() {
   }, [user]);
 
   if (!characters) return <Loader text={"Fetching Characters..."} />;
-
+  if (characters.length <= 0) return <CharacterPlaceholder />;
   return (
     <div className='bg-gradient text-white'>
       <Characters characters={characters} />
