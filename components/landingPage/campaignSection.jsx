@@ -22,8 +22,8 @@ export default function CampaignSection() {
 
   return (
     <>
-      <div className='max-w-screen h-full flex flex-col justify-center items-center pb-32 text-white '>
-        <h1 className='headline-1 text-center w-full px-5 md:px-12 uppercase z-10 '>
+      <div className="max-w-screen h-full flex flex-col justify-center items-center pb-32 text-white ">
+        <h1 className="headline-1 text-center w-full px-5 md:px-12 uppercase z-10 ">
           Forge your destiny and choose your campaign!
         </h1>
         <CampaignCarousel isLanding campaigns={campaigns} />
