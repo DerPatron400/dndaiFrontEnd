@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useRef } from "react";
 import CampaignCard from "@/components/ui/Shared/Card/campaign";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
@@ -50,8 +51,8 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
           !canScrollLeft && "pointer-events-none opacity-0"
         )}
       >
-        <CustomIconbutton onClick={scrollLeft} variant='primary'>
-          <img src='/Icons/ArrowLeft.svg' alt='' className='w-5 h-5' />
+        <CustomIconbutton onClick={scrollLeft} variant="primary">
+          <img src="/Icons/ArrowLeft.svg" alt="" className="w-5 h-5" />
         </CustomIconbutton>
       </div>
       <div
@@ -62,10 +63,10 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
       >
         <CustomIconbutton
           onClick={scrollRight}
-          variant='primary'
+          variant="primary"
           className={"hidden md:flex"}
         >
-          <img src='/Icons/ArrowRight.svg' alt='' className='w-5 h-5' />
+          <img src="/Icons/ArrowRight.svg" alt="" className="w-5 h-5" />
         </CustomIconbutton>
       </div>
       <div
@@ -81,7 +82,7 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
             campaign={campaign}
             key={index}
             carousel
-            className='snap-center'
+            className="snap-center"
           />
         ))}
       </div>
