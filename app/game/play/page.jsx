@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Game from "@/components/game/gamepage/index";
 import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
@@ -7,7 +7,7 @@ import { initiateGame } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-export default function page() {
+function GameHandler() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -33,7 +33,6 @@ export default function page() {
   };
   useEffect(() => {
     if (id) {
-     
       setResponse(game?.state);
     }
     if (!user?.token || id) return;
@@ -48,5 +47,13 @@ export default function page() {
     <div className='pt-[128px] h-screen !z-[10] text-white relative'>
       <Game response={response} />
     </div>
+  );
+}
+
+export default function page() {
+  return (
+    <Suspense fallback={null}>
+      <GameHandler />
+    </Suspense>
   );
 }
