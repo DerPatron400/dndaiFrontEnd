@@ -1,42 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import { DialogContent } from "@/components/ui/dialog";
 import CustomButton from "@/components/ui/custom-button";
 import CustomDropdown from "@/components/ui/custom-dropdown";
+import useGameStore from "@/utils/gameStore";
+import useUserStore from "@/utils/userStore";
+import { textToSpeech } from "@/actions/game";
+import { getCredits } from "@/actions/character";
+import Cancel from "@/components/ui/Icons/Cancel";
 
-export default function narrate() {
+const VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
+
+export default function narrate({ setOpen }) {
+  const [selectedVoice, setSelectedVoice] = useState(VOICES[0]);
+  const { game } = useGameStore();
+  const { user, setYellowCredits, setBlueCredits } = useUserStore();
+  const [audio, setAudio] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleNarrate = async () => {
+    try {
+      setLoading(true);
+      console.log("here");
+      const payload = {
+        voice: selectedVoice.toLowerCase(),
+        input: game.state,
+      };
+      const url = await textToSpeech(payload, user?.token);
+      const { credits } = await getCredits(user?.token);
+
+      setYellowCredits(credits.yellowCredits);
+
+      setBlueCredits(credits.blueCredits);
+      setAudio(url);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <DialogContent className="bg-white/[8%] text-white border border-white/10 w-1/3">
-      <>
-        <div className="flex flex-col gap-2">
-          <span className="running-text-large">
-            Enhance Your Story with Narration?
-          </span>
-        </div>
-        <div className="flex flex-col gap-2 pb-4 p-4 bg-white/[8%] rounded-[8px] overflow-auto hide-scrollbar max-h-[50vh]">
-          <span className="running-text w-full">Choose narraters voice</span>
-          <CustomDropdown
-            className={"!w-full !min-w-full"}
-            placeholder={"dropdown"}
-            options={["option1", "option2", "option3"]}
-          />
-        </div>
-        <span className="text-gray2">
-          Each line of narration costs (1) additional
+    <DialogContent className='bg-white/[8%] h-fit text-white border border-white/10 w-fit '>
+      <div className='flex flex-col gap-2'>
+        <span className='running-text-large'>
+          Enhance Your Story with Narration?
         </span>
-      </>
+      </div>
+      <div className='flex flex-col gap-2 pb-4 p-4 bg-white/[8%] rounded-[8px] '>
+        <span className='running-text w-full'>Choose narraters voice</span>
+        <CustomDropdown
+          className={"!w-full !min-w-full"}
+          placeholder={"dropdown"}
+          selectedOption={selectedVoice}
+          setSelectedOption={(option) => setSelectedVoice(option)}
+          options={VOICES}
+        />
+        {audio && <audio controls src={audio} className='w-full' />}
+      </div>
+      <div className='text-gray2 flex items-center'>
+        Each line of narration costs (
+        <img
+          src='/gems/Mythic.webp'
+          alt=''
+          className='h-[18px] mx-1 object-contain '
+        />
+        1) additional
+      </div>
 
-      <div className="flex justify-end gap-4 pt-2">
-        <CustomButton withIcon>
-          <img src="/Icons/Cancel.svg" alt="" className="w-6 h-6 opacity-70" />
-          <span className="running-text-mono text-white">CANCEL</span>
+      <div className='flex justify-end gap-4 pt-2'>
+        <CustomButton
+          disabled={loading}
+          onClick={() => setOpen(false)}
+          withIcon
+        >
+          <Cancel className='h-3 w-3  fill-white opacity-70' />
+          <span className='running-text-mono text-white'>CANCEL</span>
         </CustomButton>
-        <CustomButton withIcon variant={"primary"}>
+        <CustomButton
+          disabled={loading}
+          onClick={handleNarrate}
+          withIcon
+          variant={"primary"}
+        >
           <img
-            src="/Icons/Narrate.svg"
-            alt=""
-            className="h-4 w-4 opacity-70 invert"
+            src='/Icons/Narrate.svg'
+            alt=''
+            className='h-4 w-4 opacity-70 invert'
           />
-          <span className="running-text-mono text-black">Narrate</span>
+          <span className='running-text-mono text-black'>Narrate</span>
         </CustomButton>
       </div>
     </DialogContent>

@@ -5,14 +5,18 @@ import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
 import { initiateGame } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export default function page() {
-  const { currentCampaign, currentCharacter } = useGameStore();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const { currentCampaign, currentCharacter, setGame, game } = useGameStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const [response, setResponse] = useState();
 
   const handleInitiateGame = async () => {
-    console.log("here");
     const { responseText, game, credits } = await initiateGame(
       {
         campaignId: currentCampaign._id,
@@ -23,10 +27,16 @@ export default function page() {
     setResponse(responseText);
     setBlueCredits(credits.blue);
     setYellowCredits(credits.yellow);
+    setGame(game);
+    //push to the game page with the game id
+    router.push(`${pathname}?id=${game._id}`);
   };
   useEffect(() => {
-    console.log(user);
-    if (!user?.token) return;
+    if (id) {
+     
+      setResponse(game?.state);
+    }
+    if (!user?.token || id) return;
 
     handleInitiateGame();
   }, [user?.token]);

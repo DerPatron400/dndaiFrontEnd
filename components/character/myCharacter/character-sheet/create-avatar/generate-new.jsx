@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IMAGE_STYLES } from "./constants";
+import { IMAGE_STYLES } from "@/components/constants/ImageStyles";
 import { cn } from "@/lib/utils";
 
 export default function GenerateNew({ style, setStyle }) {

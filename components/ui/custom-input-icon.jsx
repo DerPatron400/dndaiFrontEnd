@@ -39,12 +39,9 @@ export default function CustomInputIcon({
           </CustomButton>
         ) : (
           <IconButton
+            variant={"primary"}
             onClick={onClick}
             disabled={!value || disabled}
-            className={cn(
-              "bg-white/30 text-russianViolet transition-all duration-300 ease-in-out group ",
-              value && "bg-white "
-            )}
           >
             {icon}
           </IconButton>

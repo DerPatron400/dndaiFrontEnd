@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "@/components/ui/custom-button";
 import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
@@ -8,10 +8,16 @@ import ImageZoom from "./imageZoom";
 import Narrate from "./narrate";
 
 export default function bottomMenu() {
+  const [imageDialog, setImageDialog] = useState(false);
+  const [imageViewDialog, setImageViewDialog] = useState(false);
+  const [narrateDialog, setNarrateDialog] = useState(false);
   return (
     <div className='flex justify-between items-center'>
       <div className='flex justify-start items-center gap-3'>
-        <Dialog>
+        <Dialog
+          open={imageDialog}
+          onOpenChange={(isOpen) => setImageDialog(isOpen)}
+        >
           <DialogTrigger asChild suppressHydrationWarning>
             <button className='running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100'>
               <img
@@ -22,11 +28,23 @@ export default function bottomMenu() {
               Generate image
             </button>
           </DialogTrigger>
-          {/* <Step1 /> */}
-          <ImageZoom />
+          <Step1 setOpen={setImageDialog} setImageOpen={setImageViewDialog} />
         </Dialog>
 
-        <Dialog>
+        <Dialog
+          open={imageViewDialog}
+          onOpenChange={(isOpen) => setImageViewDialog(isOpen)}
+        >
+          <ImageZoom
+            setOpen={setImageViewDialog}
+            setImageDialog={setImageDialog}
+          />
+        </Dialog>
+
+        <Dialog
+          open={narrateDialog}
+          onOpenChange={(isOpen) => setNarrateDialog(isOpen)}
+        >
           <DialogTrigger asChild>
             <button className='running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100'>
               <img
@@ -37,7 +55,7 @@ export default function bottomMenu() {
               Narrate
             </button>
           </DialogTrigger>
-          <Narrate />
+          <Narrate setOpen={setNarrateDialog} />
         </Dialog>
         <CustomButton>
           <img src='/Icons/Bulb.svg' alt='' className='h-4 w-4 opacity-70' />
