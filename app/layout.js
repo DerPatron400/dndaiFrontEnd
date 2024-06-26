@@ -25,6 +25,13 @@ export default function RootLayout({ children }) {
   const gameplayPage = pathname.includes("/game/play");
 
   useEffect(() => {
+    (async () => {
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      const locomotiveScroll = new LocomotiveScroll();
+    })();
+  }, []);
+
+  useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
       gtag("config", "G-BTHMYX7TZ9", {
@@ -73,8 +80,8 @@ export default function RootLayout({ children }) {
                 gtag('js', new Date());
                 gtag('config', 'G-BTHMYX7TZ9', {
                   page_path: window.location.pathname,
-                });
-              `,
+                  });
+                  `,
             }}
           />
         </head>
@@ -91,13 +98,13 @@ export default function RootLayout({ children }) {
             </div>
           )}
           <div className='z-[1]'>{children}</div>
-          {gameplayPage ? (
-            <GameplayNavbar />
-          ) : (
+          {!gameplayPage && (
             <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
           )}
           {showFooter && <Footer />}
-          <Toaster />
+          <div className='!z-[50]'>
+            <Toaster />
+          </div>
         </body>
       </GoogleOAuthProvider>
     </html>

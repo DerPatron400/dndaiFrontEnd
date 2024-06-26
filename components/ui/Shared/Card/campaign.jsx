@@ -77,11 +77,11 @@ export default function card({
   return (
     <div
       className={cn(
-        "rounded-[16px] cursor-pointer bg-russianViolet h-auto group hover:!shadow-custom-1 min-w-[90vw] w-[90vw] my-0 max-w-[90vw] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
+        "rounded-[16px] cursor-pointer bg-russianViolet h-full group hover:!shadow-custom-1 min-w-[90vw] w-[90vw] my-0 max-w-[90vw] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
         className
       )}
     >
-      <div className='w-full h-full  bg-white/[8%] hover:bg-white/10   ease-animate '>
+      <div className='w-full h-full flex flex-col  bg-white/[8%] hover:bg-white/10   ease-animate '>
         <div className='relative '>
           <img
             onClick={handleRedirect}
@@ -128,15 +128,19 @@ export default function card({
         </div>
         <div
           onClick={handleRedirect}
-          className='  flex flex-col justify-around p-5  '
+          className='  flex flex-col h-full justify-between  p-5  '
         >
-          <span className='mb-4 headline-4 text-white '>{campaign?.title}</span>
-          <span className='text-gray2 running-text-small truncate  text-wrap  max-h-16'>
-            {campaign?.plot}
-          </span>
+          <div className='  flex flex-col justify-around '>
+            <span className='mb-4 headline-4 text-white '>
+              {campaign?.title}
+            </span>
+            <span className='text-gray2 running-text-small truncate  text-wrap  max-h-16'>
+              {campaign?.plot}
+            </span>
+          </div>
           <div
             className={cn(
-              "flex justify-between items-center gap-5 mt-4 text-white"
+              "flex justify-between items-center gap-5 mt-auto text-white"
             )}
           >
             <div className='flex items-center gap-x-3 running-text-mono '>

@@ -63,3 +63,18 @@ export const addChoice = async (payload, token) => {
     throw error;
   }
 };
+
+export const saveCharacter = async (payload, token) => {
+  try {
+    const response = await api.post("/gpt4/save-character", payload, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

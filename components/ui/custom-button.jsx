@@ -29,7 +29,7 @@ export default function CustomButton({
           withIcon &&
           "ps-6 pe-4",
         active && " !bg-white/20 !border-white/40",
-
+        variant === "upgrade" && "bg-irisPurple ",
         className
       )}
     >

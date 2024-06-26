@@ -15,8 +15,9 @@ export default function ToastWithAction({
   toast({
     title: title,
     description: "",
+
     className: cn(
-      "border-0 text-white font-roboto-mono uppercase",
+      "border-0 text-white font-roboto-mono uppercase !z-50",
       message === "Error" ? "bg-[#C92631] " : "bg-[#4767DC] "
     ),
     action: (

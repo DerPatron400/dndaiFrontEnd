@@ -14,6 +14,8 @@ import {
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Sheet from "@/components/ui/Icons/Sheet";
 import { extractSection } from "@/lib/Helpers/shared";
+import Appearance from "@/components/ui/Icons/Appearance";
+import Info from "@/components/ui/Icons/Info";
 const INITIAL_STATE = {
   appearance: "",
   abilityScores: {
@@ -59,7 +61,7 @@ export default function ProfileButtons({ details }) {
       <Popover>
         <PopoverTrigger>
           <CustomIconbutton className={" bg-blur"}>
-            <img src='/Icons/Vector.svg' alt='' className='h-4 w-4' />
+            <Appearance className='h-5 w-5' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
         <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
@@ -73,7 +75,7 @@ export default function ProfileButtons({ details }) {
       <Popover>
         <PopoverTrigger>
           <CustomIconbutton className={" bg-blur"}>
-            <Sheet className='h-4 w-4' fill={"#fff"} />
+            <Sheet className='h-4.5 w-4.5' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
         <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
@@ -112,7 +114,7 @@ export default function ProfileButtons({ details }) {
       <Popover>
         <PopoverTrigger>
           <CustomIconbutton className={" bg-blur"}>
-            <img src='/Icons/info.svg' alt='' className='h-4 w-4 ' />
+            <Info className='h-4 w-4' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
         <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>

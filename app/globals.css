@@ -217,7 +217,14 @@ body {
 .bg-blur-bottom-menu {
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
-  background-color: #0a0a2166;
+  background: #ffffff1a;
+}
+
+.bg-blur-x {
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  background: #ffffff1a;
+
 }
 
 .blur-shadow {

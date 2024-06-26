@@ -2,6 +2,16 @@ import React, { useEffect, useRef } from "react";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useGameStore from "@/utils/gameStore";
 import ReactMarkdown from "react-markdown";
+import { cn } from "@/lib/utils";
+
+const TEXT_SIZES = {
+  17: "text-xs",
+  18: "text-sm",
+  19: "",
+  20: "text-lg",
+  21: "text-xl",
+  22: "text-2xl",
+};
 
 const TypingIndicator = () => {
   return (
@@ -12,7 +22,8 @@ const TypingIndicator = () => {
     </div>
   );
 };
-export default function chatbox({ chat, character, loading }) {
+
+export default function chatbox({ chat, character, loading, textSize }) {
   const { currentCharacter } = useGameStore();
   const chatboxRef = useRef(null);
 
@@ -32,7 +43,7 @@ export default function chatbox({ chat, character, loading }) {
         return (
           <div
             key={index}
-            className={"flex flex-col gap-4 justify-start items-start  w-full"}
+            className={"flex flex-col gap-4 justify-start items-start  w-full "}
           >
             <div className={"flex gap-2 justify-start items-center"}>
               <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
@@ -47,18 +58,27 @@ export default function chatbox({ chat, character, loading }) {
                   className='h-full w-full rounded-full object-cover'
                 />
               </CustomIconbutton>
-              <span className='running-text-mono uppercase text-gray2'>
+              <span className={"running-text-mono uppercase text-gray2"}>
                 {item.type === "system"
                   ? "DNDAI Dungeon Master"
                   : currentCharacter?.personal.name}
               </span>
             </div>
             {item.type === "system" ? (
-              <ReactMarkdown className='markdown-text'>
+              <ReactMarkdown
+                className={cn("markdown-text ", TEXT_SIZES[textSize])}
+              >
                 {item.text}
               </ReactMarkdown>
             ) : (
-              <span className='font-helvetica-now-display'>{item.text}</span>
+              <span
+                className={cn(
+                  "font-helvetica-now-display",
+                  TEXT_SIZES[textSize]
+                )}
+              >
+                {item.text}
+              </span>
             )}
           </div>
         );
@@ -76,7 +96,7 @@ export default function chatbox({ chat, character, loading }) {
                 className='h-full w-full rounded-full object-cover'
               />
             </CustomIconbutton>
-            <span className='running-text-mono uppercase text-gray2'>
+            <span className={"running-text-mono uppercase text-gray2"}>
               DNDAI Dungeon Master
             </span>
           </div>

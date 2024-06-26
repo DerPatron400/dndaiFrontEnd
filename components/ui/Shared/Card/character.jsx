@@ -74,13 +74,13 @@ export default function card({ character, carousel, className }) {
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2'>
-                <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+                <DropdownMenuItem className='flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
                   <CustomMenuItem>
                     <Download className='h-5 w-5' fill='white' />
                     <span>Download Character Sheet</span>
                   </CustomMenuItem>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+                <DropdownMenuItem className='flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
                   <CustomMenuItem onClick={handlePlay}>
                     <Play className='h-5 w-5' fill='white' />
                     <span>Play With Character</span>

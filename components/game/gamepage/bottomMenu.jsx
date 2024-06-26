@@ -7,10 +7,11 @@ import Step1 from "./steps/step1";
 import ImageZoom from "./imageZoom";
 import Narrate from "./narrate";
 
-export default function bottomMenu() {
+export default function bottomMenu({ textSize, setTextSize }) {
   const [imageDialog, setImageDialog] = useState(false);
   const [imageViewDialog, setImageViewDialog] = useState(false);
   const [narrateDialog, setNarrateDialog] = useState(false);
+
   return (
     <div className='flex justify-between items-center'>
       <div className='flex justify-start items-center gap-3'>
@@ -64,11 +65,21 @@ export default function bottomMenu() {
       </div>
       <div className='flex gap-2 justify-start items-center'>
         <span className='running-text-mono text-gray2'>TEXT SIZE</span>
-        <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
+        <CustomIconbutton
+          disabled={textSize <= 17}
+          onClick={() => setTextSize((prev) => prev - 1)}
+          variant={"primary"}
+          className={"h-6 w-6"}
+        >
           <img src='/Icons/Minus.svg' alt='logo' className='h-2 w-2' />
         </CustomIconbutton>
-
-        <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
+        <span>{textSize}</span>
+        <CustomIconbutton
+          onClick={() => setTextSize((prev) => prev + 1)}
+          disabled={textSize >= 22}
+          variant={"primary"}
+          className={"h-6 w-6"}
+        >
           <img src='/Icons/Add.svg' alt='logo' className='h-2 w-2' />
         </CustomIconbutton>
       </div>

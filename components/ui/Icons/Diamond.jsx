@@ -1,0 +1,14 @@
+import React from "react";
+
+export default function Diamond(props) {
+  return (
+    <svg
+      data-name='Ebene 1'
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 20 20'
+      {...props}
+    >
+      <path d='M16 4H3L1 9l8.5 9L18 9l-2-5Zm-.677 1 1.2 3h-2.385l-1.2-3h2.385ZM3.677 5h2.384l-1.2 3H2.477l1.2-3ZM9 16.014 2.375 9H9v7.014ZM5.939 8l1.2-3h4.723l1.2 3H5.939ZM10 9h6.625L10 16.014V9Z' />
+    </svg>
+  );
+}

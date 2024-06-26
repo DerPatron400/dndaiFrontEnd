@@ -32,12 +32,7 @@ export default function Home() {
     setIsSoundOn(!isSoundOn);
   }
 
-  useEffect(() => {
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
-    })();
-  }, []);
+ 
   const { isMobile } = useDeviceDetect();
   return (
     // from-russianViolet via-russianViolet to-[#262658]
