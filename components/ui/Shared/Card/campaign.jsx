@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Play from "@/components/ui/Icons/Play";
 import Button from "@/components/ui/custom-button";
 import IconButton from "@/components/ui/custom-iconbutton";
@@ -10,10 +10,11 @@ import { likeCampaign, starCampaign } from "@/actions/campaigns";
 import useUserStore from "@/utils/userStore";
 import Star from "@/components/ui/Icons/Star";
 import useGameStore from "@/utils/gameStore";
+import { extractSection } from "@/lib/Helpers/shared";
 
 export default function card({
   campaign,
-  carousel,
+
   className,
   handleUpdateCampaigns,
 }) {
@@ -21,6 +22,13 @@ export default function card({
   const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const { setCurrentCampaign } = useGameStore();
+  const [plot, setPlot] = useState(campaign?.plot);
+
+  useEffect(() => {
+    const _plot = extractSection(campaign.adventure, "plot");
+
+    setPlot(_plot || campaign.plot);
+  }, []);
 
   const handleRedirect = (event) => {
     const classNames =
@@ -68,12 +76,12 @@ export default function card({
       setIsLoading(false);
     }
   };
-  // console.log(user);
 
   const handlePlay = () => {
     setCurrentCampaign(campaign);
     router.push("/game/play");
   };
+
   return (
     <div
       className={cn(
@@ -128,14 +136,14 @@ export default function card({
         </div>
         <div
           onClick={handleRedirect}
-          className='  flex flex-col h-full justify-between  p-5  '
+          className='  flex flex-col h-full justify-between flex-1  p-5  '
         >
           <div className='  flex flex-col justify-around '>
-            <span className='mb-4 headline-4 text-white '>
+            <span className='mb-4 h-12  headline-4 text-white '>
               {campaign?.title}
             </span>
-            <span className='text-gray2 running-text-small truncate  text-wrap  max-h-16'>
-              {campaign?.plot}
+            <span className='text-gray2 capitalize running-text-small truncate  text-wrap  max-h-16'>
+              {plot}
             </span>
           </div>
           <div
@@ -161,9 +169,9 @@ export default function card({
                 <span>{campaign?.analytics.plays.length}</span>
               </CustomIcontext>
             </div>
-            <Button onClick={handlePlay} withIcon>
-              <Play className='h-5 w-5 fill-white opacity-70' />
-              <span>Play</span>
+            <Button onClick={handlePlay} withIcon className='prevent-redirect'>
+              <Play className='h-5 w-5 fill-white opacity-70 prevent-redirect' />
+              <span className='prevent-redirect'>Play</span>
             </Button>
           </div>
         </div>

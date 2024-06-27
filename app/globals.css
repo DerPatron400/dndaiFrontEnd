@@ -328,3 +328,41 @@ input:-webkit-autofill:active {
 
   /* Adjust the -3px value as needed */
 }
+
+/* Hide the default audio controls */
+/* audio::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none;
+} */
+
+audio::-webkit-media-controls-enclosure {
+  width: 100% !important;
+  -webkit-appearance: none;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-mute-button,
+/* settings button */
+audio::-webkit-media-controls-fullscreen-button,
+audio::-webkit-media-controls-rewind-button,
+audio::-webkit-media-controls-return-to-realtime-button,
+audio::-webkit-media-controls-toggle-closed-captions-button,
+audio::-webkit-media-controls-toggle-closed-captions-button,
+audio::-webkit-media-controls-panel,
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-seek-back-button,
+audio::-webkit-media-controls-seek-forward-button,
+audio::-webkit-media-controls-fullscreen-button,
+audio::-webkit-media-controls-rewind-button,
+audio::-webkit-media-controls-return-to-realtime-button,
+audio::-webkit-media-controls-return-to-realtime-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+audio::-webkit-media-controls-enclosure {
+  width: 100% !important;
+  -webkit-appearance: none;
+}

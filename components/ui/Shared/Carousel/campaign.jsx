@@ -9,9 +9,11 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
   const [canScrollLeft, setScrollLeft] = useState(false);
   const [canScrollRight, setScrollRight] = useState(false);
   useEffect(() => {
-    setScrollRight(
-      containerRef.current?.scrollLeft < containerRef.current?.scrollWidth
-    );
+    if (!containerRef.current) return;
+    if (containerRef.current?.clientWidth !== containerRef.current?.scrollWidth)
+      setScrollRight(
+        containerRef.current?.scrollLeft < containerRef.current?.scrollWidth
+      );
     setScrollLeft(containerRef.current?.scrollLeft > 0);
 
     containerRef.current.addEventListener("scroll", () => {
@@ -21,7 +23,11 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
       );
       setScrollLeft(containerRef.current?.scrollLeft > 0);
     });
-  }, [containerRef.current]);
+
+    return () => {
+      containerRef?.current?.removeEventListener("scroll", () => {});
+    };
+  }, [containerRef.current, campaigns]);
 
   const scrollRight = () => {
     //check if scroll left on right side
@@ -41,38 +47,38 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
   return (
     <div
       className={cn(
-        " flex w-screen md:w-full relative  overflow-hidden z-[30]",
+        " flex w-screen md:w-full relative h-full  overflow-hidden z-[30]",
         isLanding && " w-screen md:w-full mt-16 "
       )}
     >
       <div
         className={cn(
-          "absolute top-[50%] left-0 ease-animate opacity-100   translate-y-[-50%] z-10  h-full hidden md:flex items-center justify-start px-10 w-[40vw] md:w-[20vw] ltr-gradient",
+          "absolute top-[50%] left-0 ease-animate opacity-100   translate-y-[-50%] z-10  h-full hidden md:flex items-center justify-start px-10 w-[40vw] md:w-[20vw] ",
           !canScrollLeft && "pointer-events-none opacity-0"
         )}
       >
-        <CustomIconbutton onClick={scrollLeft} variant="primary">
-          <img src="/Icons/ArrowLeft.svg" alt="" className="w-5 h-5" />
+        <CustomIconbutton onClick={scrollLeft} variant='primary'>
+          <img src='/Icons/ArrowLeft.svg' alt='' className='w-5 h-5' />
         </CustomIconbutton>
       </div>
       <div
         className={cn(
-          "absolute top-[50%] right-0 !z-[30]  ease-animate  opacity-100 translate-y-[-50%]  h-full flex  items-center justify-end px-10 w-[64px] md:w-[270px] rtl-gradient",
+          "absolute top-[50%] right-0 !z-[30]  ease-animate  opacity-100 translate-y-[-50%]  h-full flex  items-center justify-end px-10 w-[64px] md:w-[270px]",
           !canScrollRight && "pointer-events-none opacity-0"
         )}
       >
         <CustomIconbutton
           onClick={scrollRight}
-          variant="primary"
+          variant='primary'
           className={"hidden md:flex"}
         >
-          <img src="/Icons/ArrowRight.svg" alt="" className="w-5 h-5" />
+          <img src='/Icons/ArrowRight.svg' alt='' className='w-5 h-5' />
         </CustomIconbutton>
       </div>
       <div
         ref={containerRef}
         className={cn(
-          "flex w-full h-full items-center gap-5  snap-x snap-mandatory overflow-x-scroll hide-scrollbar ",
+          "flex w-full h-full items-center  gap-x-5  snap-x snap-mandatory overflow-x-scroll hide-scrollbar ",
           isLanding && "px-5 md:px-12 ",
           className
         )}
@@ -82,7 +88,7 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
             campaign={campaign}
             key={index}
             carousel
-            className="snap-center"
+            className='snap-center'
           />
         ))}
       </div>

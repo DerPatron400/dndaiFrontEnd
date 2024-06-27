@@ -76,7 +76,7 @@ export default function StepDialog({ setOpen, setImageOpen }) {
             {IMAGE_TYPES.map((type, i) => (
               <div onClick={() => setImageType(type.type)} key={i}>
                 <img
-                  src='/images/CreateCharacter/CharacterName/CharacterName.png'
+                  src={type.image}
                   className={cn(
                     "w-full h-[107px] cursor-pointer md:h-[223px] md:w-[223px] ease-animate object-cover rounded-[10px] ",
                     type.type === imageType && "border-2 border-irisPurple"

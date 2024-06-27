@@ -57,7 +57,7 @@ export default function Index() {
   };
 
   return (
-    <div className='h-full md:h-screen md:max-h-screen w-full flex flex-col bg-gradient pt-[130px] md:pt-[120px] px-6 lg:px-12 md:pb-64  '>
+    <div className='h-full md:!h-[77vh]   md:max-h-screen w-full flex flex-col bg-gradient pt-[130px] md:pt-[120px] px-6 lg:px-12   '>
       <div className='hidden md:flex flex-col gap-2.5 '>
         <h1 className='text-center hidden md:flex justify-start text-white headline-3 z-[10] '>
           Create your own campaign
@@ -73,11 +73,11 @@ export default function Index() {
         </h1>
       </div>
 
-      <div className='w-full h-full flex-1 x flex z-[10] '>
+      <div className='w-full h-full    z-[10] '>
         <Create campaign={campaign} handleSetCampaign={handleSetCampaign} />
       </div>
       {/* Desktop */}
-      <div className='md:flex    z-[20] justify-end items-end py-12 hidden fixed bottom-0 left-0 w-full px-6 lg:px-12 '>
+      <div className='md:flex    z-[20] justify-end items-end py-12 hidden  bottom-0 left-0 w-full px-6 lg:px-12 '>
         <CustomButton
           variant={"primary"}
           disabled={!isValid() || loading}

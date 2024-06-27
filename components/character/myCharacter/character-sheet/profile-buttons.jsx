@@ -36,7 +36,7 @@ export default function ProfileButtons({ details }) {
     let _abilities = extractSection(details, "abilities");
     _abilities = _abilities ? _abilities.replaceAll("*", "").trim() : null;
 
-    let _abilityScores = extractSection(details, "abilityscores", true)
+    let _abilityScores = extractSection(details, "abilityscores")
       ?.trim()
       .replaceAll("-", "")
       .split("\n");
@@ -46,12 +46,12 @@ export default function ProfileButtons({ details }) {
       appearance: _apperance,
       abbilities: _abilities,
       abilityScores: {
-        strength: _abilityScores[0]?.split(":")[1]?.trim(),
-        dexterity: _abilityScores[1]?.split(":")[1]?.trim(),
-        constitution: _abilityScores[2]?.split(":")[1]?.trim(),
-        intelligence: _abilityScores[3]?.split(":")[1]?.trim(),
-        wisdom: _abilityScores[4]?.split(":")[1]?.trim(),
-        charisma: _abilityScores[5]?.split(":")[1]?.trim(),
+        strength: _abilityScores[0]?.trim(),
+        dexterity: _abilityScores[1]?.trim(),
+        constitution: _abilityScores[2]?.trim(),
+        intelligence: _abilityScores[3]?.trim(),
+        wisdom: _abilityScores[4]?.trim(),
+        charisma: _abilityScores[5]?.trim(),
       },
     }));
   }, [details]);

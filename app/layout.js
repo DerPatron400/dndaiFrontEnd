@@ -25,13 +25,6 @@ export default function RootLayout({ children }) {
   const gameplayPage = pathname.includes("/game/play");
 
   useEffect(() => {
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
-    })();
-  }, []);
-
-  useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
       gtag("config", "G-BTHMYX7TZ9", {

@@ -106,7 +106,7 @@ export default function index({ response }) {
                 setInput("");
                 handleChat(input);
               }}
-              className={"w-3/4 "}
+              className={"w-[65%] "}
               placeholder='What Would You Do?'
               icon={
                 <img src='/Icons/ArrowUp.svg' alt='chat' className='h-5 w-5' />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CustomButton from "@/components/ui/custom-button";
 import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
@@ -6,14 +6,144 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Step1 from "./steps/step1";
 import ImageZoom from "./imageZoom";
 import Narrate from "./narrate";
+import Stop from "@/components/ui/Icons/Stop";
+import Pause from "@/components/ui/Icons/Pause";
+import Play from "@/components/ui/Icons/Play";
+import { cn } from "@/lib/utils";
+
+const NarrationControls = ({ audio }) => {
+  const audioRef = useRef(null);
+  const progressBarRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleTimeUpdate = () => {
+    if (!isDragging) {
+      const current = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+      const percent = (current / duration) * 100;
+      setProgress(percent);
+    }
+  };
+
+  const handleProgressBarClick = (e) => {
+    const rect = progressBarRef.current.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const totalWidth = rect.width;
+    let percent = (offsetX / totalWidth) * 100;
+    percent = Math.min(100, Math.max(0, percent)); // Clamp between 0 and 100
+    const newTime = (audioRef.current.duration / 100) * percent;
+    audioRef.current.currentTime = newTime;
+    setProgress(percent);
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      const rect = progressBarRef.current.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const totalWidth = rect.width;
+      let percent = (offsetX / totalWidth) * 100;
+      percent = Math.min(100, Math.max(0, percent)); // Clamp between 0 and 100
+      const newTime = (audioRef.current.duration / 100) * percent;
+      audioRef.current.currentTime = newTime;
+      setProgress(percent);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const togglePlayPause = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
+  return (
+    <div
+      className={cn(
+        "absolute h-auto w-[30%] border-white/10 rounded-[16px] border gap-5 right-0 bottom-full flex flex-col p-5 -translate-y-12 ",
+        !audio && "hidden"
+      )}
+    >
+      <div className='flex flex-col gap-3'>
+        <span className='headline-4'>Narration</span>
+        <span className='text-gray2'>
+          Each created text-block of narration costs (
+          <img
+            src='/gems/Mythic.webp'
+            alt=''
+            className='h-5  mx-1 object-contain'
+            style={{ display: "inline", verticalAlign: "middle" }}
+          />
+          1) additional
+        </span>
+      </div>
+      <audio
+        ref={audioRef}
+        onTimeUpdate={handleTimeUpdate}
+        src={audio}
+        className='w-full '
+      />
+      <div className='flex items-center space-x-3'>
+        <div className='cursor-pointer' onClick={togglePlayPause}>
+          {isPlaying ? (
+            <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+          ) : (
+            <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+          )}
+        </div>
+        <div
+          className='custom-progress-bar flex-grow h-[1px] bg-gray-300 rounded relative cursor-pointer'
+          ref={progressBarRef}
+          onClick={handleProgressBarClick}
+        >
+          <div
+            className='bg-gray2 h-full rounded'
+            style={{ width: `${progress}%` }}
+          ></div>
+          <div
+            className='custom-progress-handle w-4 h-4 border  bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer'
+            style={{ left: `${progress}%` }}
+            onMouseDown={handleMouseDown}
+          ></div>
+        </div>
+      </div>
+      {/* <CustomButton withIcon={true} variant='subtle'>
+        <Stop className='h-5 w-5 fill-errorRed' />
+        Stop Narrating
+      </CustomButton> */}
+    </div>
+  );
+};
 
 export default function bottomMenu({ textSize, setTextSize }) {
   const [imageDialog, setImageDialog] = useState(false);
   const [imageViewDialog, setImageViewDialog] = useState(false);
   const [narrateDialog, setNarrateDialog] = useState(false);
+  const [audio, setAudio] = useState(null);
 
   return (
-    <div className='flex justify-between items-center'>
+    <div className='flex justify-between items-center relative '>
+      <NarrationControls audio={audio} />
       <div className='flex justify-start items-center gap-3'>
         <Dialog
           open={imageDialog}
@@ -56,7 +186,11 @@ export default function bottomMenu({ textSize, setTextSize }) {
               Narrate
             </button>
           </DialogTrigger>
-          <Narrate setOpen={setNarrateDialog} />
+          <Narrate
+            audio={audio}
+            setAudio={setAudio}
+            setOpen={setNarrateDialog}
+          />
         </Dialog>
         <CustomButton>
           <img src='/Icons/Bulb.svg' alt='' className='h-4 w-4 opacity-70' />

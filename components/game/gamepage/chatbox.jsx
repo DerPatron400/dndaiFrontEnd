@@ -37,7 +37,7 @@ export default function chatbox({ chat, character, loading, textSize }) {
   return (
     <div
       ref={chatboxRef}
-      className='relative w-3/4 h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 '
+      className='relative w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 '
     >
       {chat.map((item, index) => {
         return (

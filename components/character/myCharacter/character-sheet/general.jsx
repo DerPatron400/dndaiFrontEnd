@@ -1,4 +1,4 @@
-import { extractSection } from "@/lib/Helpers/character";
+import { extractSection } from "@/lib/Helpers/shared";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 
@@ -72,27 +72,29 @@ export default function general({ character }) {
   useEffect(() => {
     if (!character) return;
 
+    console.log(character.value, character);
+
     let _background = extractSection(character.value, "background")?.trim();
     let _alignment = extractSection(character.value, "alignment");
-    let _xpPoints = extractSection(character.value, "xp points") || 0;
+    let _xpPoints = extractSection(character.value, "xp") || 1;
     let _personality = extractSection(character.value, "personality").split(
       ","
     )[0];
     let _ideal = extractSection(character.value, "ideal").split("-");
     let _bond = extractSection(character.value, "bond").split("-");
     let _flaw = extractSection(character.value, "flaw").split("-");
-    let _equipment = extractSection(character.value, "startingEquipment", true)
+    let _equipment = extractSection(character.value, "startingEquipment")
       ?.trim()
       .replaceAll("-", "")
       .split("\n")
-      .splice(1);
-    // let _hitPoints = extractSection(character.value, "hit point");
-    // let _armorClass = extractSection(character.value, "armor class");
+      .splice(1) || ["", "", "", ""];
+    let _hitPoints = extractSection(character.value, "hitpoints");
+    let _armorClass = extractSection(character.value, "armorclass");
 
     setGeneralInfo((prev) => ({
       ...prev,
       background: _background,
-      alignment: _alignment,
+      alignment: _alignment || character.general.alignment,
       xpPoints: _xpPoints,
       personality: _personality,
       ideal: {
@@ -111,6 +113,8 @@ export default function general({ character }) {
       secondary: _equipment[1]?.split("(")[0].trim(),
       armor: _equipment[2]?.split("(")[0].trim(),
       toolAndAmmo: _equipment[3]?.split("(")[0].trim(),
+      hitPoints: _hitPoints,
+      armorClass: _armorClass,
     }));
   }, [character]);
   return (
@@ -168,11 +172,11 @@ export default function general({ character }) {
           data={[
             {
               key: "Hit Point",
-              value: "140",
+              value: generalInfo.hitPoints,
             },
             {
               key: "Armor Class",
-              value: "61",
+              value: generalInfo.armorClass,
             },
           ]}
           className={"col-span-4 md:col-span-1"}

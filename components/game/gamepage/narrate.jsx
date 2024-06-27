@@ -10,21 +10,22 @@ import Cancel from "@/components/ui/Icons/Cancel";
 
 const VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
 
-export default function narrate({ setOpen }) {
+export default function narrate({ setOpen, audio, setAudio }) {
   const [selectedVoice, setSelectedVoice] = useState(VOICES[0]);
   const { game } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
-  const [audio, setAudio] = useState(null);
+
   const [loading, setLoading] = useState(false);
 
   const handleNarrate = async () => {
     try {
       setLoading(true);
-      console.log("here");
+
       const payload = {
         voice: selectedVoice.toLowerCase(),
         input: game.state,
       };
+
       const url = await textToSpeech(payload, user?.token);
       const { credits } = await getCredits(user?.token);
 
@@ -32,6 +33,7 @@ export default function narrate({ setOpen }) {
 
       setBlueCredits(credits.blueCredits);
       setAudio(url);
+      setOpen(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -54,7 +56,6 @@ export default function narrate({ setOpen }) {
           setSelectedOption={(option) => setSelectedVoice(option)}
           options={VOICES}
         />
-        {audio && <audio controls src={audio} className='w-full' />}
       </div>
       <div className='text-gray2 flex items-center'>
         Each line of narration costs (

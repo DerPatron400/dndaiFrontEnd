@@ -35,7 +35,9 @@ export default function abilitiesInfo({ character }) {
   const [spells, setSpells] = useState([]);
   const [additionalNotes, setAdditionalNotes] = useState();
   useEffect(() => {
-    let _spells = extractSection(character.value, "spells");
+    let _spells = extractSection(character.value, "spells").split(
+      "Additional Notes"
+    )[0];
     _spells = _spells ? _spells.replaceAll("-", "").trim().split("\n") : null;
     setSpells(_spells);
     let _addtionalNotes = extractSection(
