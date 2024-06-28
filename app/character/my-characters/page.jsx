@@ -6,6 +6,7 @@ import useUserStore from "@/utils/userStore";
 import Loader from "@/components/ui/Loader";
 import CharacterPlaceholder from "@/components/ui/Shared/Placeholder/character";
 
+//merge
 export default function page() {
   const [characters, setCharacters] = useState();
   const { user } = useUserStore();
@@ -26,7 +27,7 @@ export default function page() {
   if (!characters) return <Loader text={"Fetching Characters..."} />;
   if (characters.length <= 0) return <CharacterPlaceholder />;
   return (
-    <div className=' text-white'>
+    <div className=" text-white">
       <Characters characters={characters} />
     </div>
   );
