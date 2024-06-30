@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { DialogContent } from "@/components/ui/dialog";
 import CustomButton from "@/components/ui/custom-button";
 import CustomDropdown from "@/components/ui/custom-dropdown";
@@ -7,19 +7,94 @@ import useUserStore from "@/utils/userStore";
 import { textToSpeech } from "@/actions/game";
 import { getCredits } from "@/actions/character";
 import Cancel from "@/components/ui/Icons/Cancel";
+import Pause from "@/components/ui/Icons/Pause";
+import Play from "@/components/ui/Icons/Play";
 
 const VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
 
-export default function narrate({ setOpen, audio, setAudio }) {
+export default function narrate({ setOpen, setAudio }) {
   const [selectedVoice, setSelectedVoice] = useState(VOICES[0]);
   const { game } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
 
   const [loading, setLoading] = useState(false);
 
+  const audioRef = useRef(null);
+  const progressBarRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleTimeUpdate = () => {
+    if (!isDragging) {
+      const current = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+      const percent = (current / duration) * 100;
+      setProgress(percent);
+    }
+  };
+
+  const handleProgressBarClick = (e) => {
+    const rect = progressBarRef.current.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const totalWidth = rect.width;
+    let percent = (offsetX / totalWidth) * 100;
+    percent = Math.min(100, Math.max(0, percent)); // Clamp between 0 and 100
+    const newTime = (audioRef.current.duration / 100) * percent;
+    audioRef.current.currentTime = newTime;
+    setProgress(percent);
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      const rect = progressBarRef.current.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const totalWidth = rect.width;
+      let percent = (offsetX / totalWidth) * 100;
+      percent = Math.min(100, Math.max(0, percent)); // Clamp between 0 and 100
+      const newTime = (audioRef.current.duration / 100) * percent;
+      audioRef.current.currentTime = newTime;
+      setProgress(percent);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const togglePlayPause = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
+
+  useEffect(() => {
+    //reset progress
+    setProgress(0);
+    setIsPlaying(false);
+  }, [selectedVoice]);
   const handleNarrate = async () => {
     try {
       setLoading(true);
+      audioRef.current.pause();
+      setIsPlaying(false);
 
       const payload = {
         voice: selectedVoice.toLowerCase(),
@@ -56,7 +131,38 @@ export default function narrate({ setOpen, audio, setAudio }) {
           setSelectedOption={(option) => setSelectedVoice(option)}
           options={VOICES}
         />
+        <div className='flex items-center w-[98%] space-x-3 mt-3'>
+          <div className='cursor-pointer' onClick={togglePlayPause}>
+            {isPlaying ? (
+              <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+            ) : (
+              <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+            )}
+          </div>
+          <div
+            className='custom-progress-bar flex-grow h-[1px] bg-gray-300 rounded relative cursor-pointer'
+            ref={progressBarRef}
+            onClick={handleProgressBarClick}
+          >
+            <div
+              className='bg-gray2 h-full rounded'
+              style={{ width: `${progress}%` }}
+            ></div>
+            <div
+              className='custom-progress-handle w-4 h-4 border ease-animate duration-150 bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer'
+              style={{ left: `${progress - 2}%` }}
+              onMouseDown={handleMouseDown}
+            ></div>
+          </div>
+        </div>
       </div>
+      <audio
+        ref={audioRef}
+        onTimeUpdate={handleTimeUpdate}
+        src={`/audio/voiceModels/${selectedVoice}.wav`}
+        className='w-full '
+      />
+
       <div className='text-gray2 flex items-center'>
         Each line of narration costs (
         <img
@@ -64,7 +170,7 @@ export default function narrate({ setOpen, audio, setAudio }) {
           alt=''
           className='h-[18px] mx-1 object-contain '
         />
-        1) additional
+        2) additional
       </div>
 
       <div className='flex justify-end gap-4 pt-2'>

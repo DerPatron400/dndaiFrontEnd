@@ -29,7 +29,7 @@ export default function page() {
   }, [user]);
 
   if (!campaigns) {
-    return <Loader text={"Fetching Campaigns..."} />;
+    return <Loader text={"Loading Campaigns ..."} />;
   }
 
   if (campaigns.length === 0) {

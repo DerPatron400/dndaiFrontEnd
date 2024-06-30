@@ -53,7 +53,7 @@ export default function Home() {
             ? "url(/images/Landing/Header-mobile.png)"
             : "url(/images/Landing/Header.png)",
           backgroundSize: "cover",
-          //position
+          //
           backgroundPosition: "center",
         }}
       >

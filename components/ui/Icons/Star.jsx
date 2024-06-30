@@ -4,14 +4,12 @@ export default function Star(props) {
   if (props.isfilled) {
     return (
       <svg
-        width='18'
-        height='16'
-        viewBox='0 0 18 16'
-        fill='none'
+        data-name='Ebene 1'
         xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 20 20'
         {...props}
       >
-        <path d='M12.8668 10.0889L14.2668 16L9.0001 12.8666L3.7334 16L5.1334 10.0889L0.466797 6.1111L6.6001 5.5778L9.0001 0L11.4001 5.6L17.5334 6.1111L12.8668 10.0889Z' />
+        <path d='m13.867 11.089 1.4 5.911L10 13.867 4.733 17l1.4-5.911L1.467 7.11 7.6 6.578 10 1l2.4 5.6 6.133.511-4.666 3.978Z' />
       </svg>
     );
   }

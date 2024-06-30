@@ -23,8 +23,14 @@ const TypingIndicator = () => {
   );
 };
 
-export default function chatbox({ chat, character, loading, textSize }) {
-  const { currentCharacter } = useGameStore();
+export default function chatbox({
+  chat,
+  character,
+  loading,
+  textSize,
+  setImageViewDialog,
+}) {
+  const { currentCharacter, setGameImage } = useGameStore();
   const chatboxRef = useRef(null);
 
   useEffect(() => {
@@ -34,13 +40,29 @@ export default function chatbox({ chat, character, loading, textSize }) {
       behavior: "smooth",
     });
   }, [chat]);
+
+  const handleViewImage = (url) => {
+    setGameImage(url);
+    setImageViewDialog(true);
+  };
   return (
     <div
       ref={chatboxRef}
       className='relative w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 '
     >
       {chat.map((item, index) => {
-        return (
+        return item.type === "image" ? (
+          <div
+            onClick={() => handleViewImage(item.url)}
+            key={index}
+            className='h-[223px] w-full'
+          >
+            <img
+              src={item.url}
+              className=' h-full object-contain rounded-[16px] border border-white/10 shadow-custom-1'
+            />
+          </div>
+        ) : (
           <div
             key={index}
             className={"flex flex-col gap-4 justify-start items-start  w-full "}

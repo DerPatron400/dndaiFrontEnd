@@ -14,7 +14,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isTransparentNavbar = pathname.includes("/auth");
+  const isTransparentNavbar =
+    pathname.includes("/auth") || pathname.includes("/game/play");
   const showFooter =
     !pathname.includes("/auth") &&
     !pathname.includes("/character") &&
@@ -22,7 +23,7 @@ export default function RootLayout({ children }) {
     !pathname.includes("/discover") &&
     !pathname.includes("game");
 
-  const gameplayPage = pathname.includes("/game/play");
+  const characterSheet = pathname.includes("/character/sheet");
 
   useEffect(() => {
     const initializeGtag = () => {
@@ -55,10 +56,7 @@ export default function RootLayout({ children }) {
       <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
         <head>
           {/* Google Analytics Script */}
-          <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-          />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
           <Script
             strategy='afterInteractive'
             src={`https://www.googletagmanager.com/gtag/js?id=G-BTHMYX7TZ9`}
@@ -91,9 +89,12 @@ export default function RootLayout({ children }) {
             </div>
           )}
           <div className='z-[1]'>{children}</div>
-          {!gameplayPage && (
-            <Navbar variant={isTransparentNavbar ? "transparent" : "glass"} />
-          )}
+
+          <Navbar
+            characterSheet={characterSheet}
+            variant={isTransparentNavbar ? "transparent" : "glass"}
+          />
+
           {showFooter && <Footer />}
           <div className='!z-[50]'>
             <Toaster />

@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 export default function Timestamps({ campaign }) {
   return (
-    <div className=' w-full  md:w-1/3 h-fit flex running-text-mono uppercase  flex-col max-h-auto bg-white/[8%] border border-white/10 rounded-[16px] overflow-hidden '>
+    <div className=' w-full h-fit flex running-text-mono uppercase  flex-col max-h-auto bg-white/[8%] border border-white/10 rounded-[16px] overflow-hidden '>
       <img
         src={campaign?.worldMapUrl || "/campaignheader.png"}
         className=' hidden md:block object-contain w-full'

@@ -4,18 +4,9 @@ import CustomButton from "@/components/ui/custom-button";
 import { cn } from "@/lib/utils";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useCharacterStore from "@/utils/characterStore";
-import { canMoveForward, reward, getRandomName } from "@/lib/Helpers/character";
+import { canMoveForward, getRandomName } from "@/lib/Helpers/character";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
 import { createCharacter, getCredits } from "@/actions/character";
-import {
-  RACE,
-  RACE_GENDER,
-  ALIGNMENT,
-  BACKGROUND,
-  CLASSES,
-  EQUIPMENTS,
-  PERSONALITIES,
-} from "./constants";
 import useUserStore from "@/utils/userStore";
 import SearchInput from "@/components/ui/search-input";
 import Check from "@/components/ui/Icons/Check";
@@ -107,6 +98,7 @@ export default function BottomMenu({ character, setCharacter }) {
     setActiveStep(activeStep + 1);
   };
 
+  
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
@@ -138,161 +130,12 @@ export default function BottomMenu({ character, setCharacter }) {
     }
   };
 
-  function getRandomValue(array) {
-    return array[Math.floor(Math.random() * array.length)];
-  }
-  const handleRandomCharacter = async () => {
-    setIsChoosingRandom(true);
-    for (let i = activeStep; i <= MAX_STEPS; i++) {
-      setActiveStep(i);
-      switch (i) {
-        case 0:
-          //select random race and gender
-          //random number between 0 and array length
-          const gender = getRandomValue(RACE_GENDER);
-          var { name, description } = getRandomValue(RACE);
-
-          setCharacter((prev) => ({
-            ...prev,
-            race: {
-              name,
-              gender,
-              description,
-            },
-          }));
-          break;
-
-        case 1:
-          //select random class
-          var { name, description } = getRandomValue(CLASSES);
-          setCharacter((prev) => ({
-            ...prev,
-            class: { name, description },
-          }));
-          break;
-
-        case 2:
-          let scores = {
-            strength: 8,
-            dexterity: 8,
-            constitution: 8,
-            intelligence: 8,
-            wisdom: 8,
-            charisma: 8,
-          };
-          let points = character.pointsToSpend;
-
-          const abilities = Object.keys(scores);
-
-          // Function to get the cost of increasing a score by 1
-          function getCost(score) {
-            return score >= 14 ? 2 : 1;
-          }
-
-          while (points > 0) {
-            // Pick a random ability
-            const ability =
-              abilities[Math.floor(Math.random() * abilities.length)];
-
-            // Calculate the cost to increase this ability
-            const cost = getCost(scores[ability]);
-
-            // If we have enough points and the score is less than 15, increase it
-            if (points >= cost && scores[ability] < 15) {
-              scores[ability]++;
-              points -= cost;
-            }
-          }
-
-          setCharacter((prev) => ({
-            ...prev,
-            abilities: scores,
-            pointsToSpend: 0,
-          }));
-
-          break;
-        case 3:
-          //select random background
-          var { name, description } = getRandomValue(BACKGROUND);
-          setCharacter((prev) => ({
-            ...prev,
-            background: { name, description },
-          }));
-          break;
-        case 4:
-          //select random personality
-          var personality = getRandomValue(PERSONALITIES.personality);
-          var ideal = getRandomValue(PERSONALITIES.ideal);
-          var bond = getRandomValue(PERSONALITIES.bond);
-          var flaw = getRandomValue(PERSONALITIES.flaw);
-          setCharacter((prev) => ({
-            ...prev,
-            personality: {
-              ideal,
-              bond,
-              personality,
-              flaw,
-            },
-          }));
-
-          break;
-        case 5:
-          //select random alignment
-          var { name, description } = getRandomValue(ALIGNMENT);
-          console.log(name, description);
-
-          setCharacter((prev) => ({
-            ...prev,
-            alignment: { name, description },
-          }));
-          break;
-        case 6:
-          //select random equipment
-          var weapon = getRandomValue(EQUIPMENTS.weapon);
-          var secondary = getRandomValue(EQUIPMENTS.secondaryweapon);
-          var armor = getRandomValue(EQUIPMENTS.armour);
-          var toolammo = getRandomValue(EQUIPMENTS["tool&ammo"]);
-          setCharacter((prev) => ({
-            ...prev,
-            equipment: {
-              weapon,
-              secondary,
-              armor,
-              "tool&ammo": toolammo,
-            },
-          }));
-
-          break;
-        case 7:
-          //select random gold
-          var selectedFace = Math.floor(Math.random() * 20) + 1;
-          setCharacter((prev) => ({
-            ...prev,
-            gold: reward(selectedFace).gold,
-            selectedFace,
-          }));
-          break;
-        case 8:
-          //select random name
-          var name = getRandomName();
-          setCharacter((prev) => ({
-            ...prev,
-            name,
-          }));
-
-        default:
-          break;
-      }
-      await new Promise((resolve) => setTimeout(resolve, 2500));
-    }
-    if (!character.name) {
-      const name = getRandomName();
-      setCharacter((prev) => ({
-        ...prev,
-        name,
-      }));
-    }
-    setIsChoosingRandom(false);
+  const handleRandomCharacterName = async () => {
+    const name = getRandomName();
+    setCharacter((prev) => ({
+      ...prev,
+      name,
+    }));
   };
 
   useEffect(() => {
@@ -316,13 +159,9 @@ export default function BottomMenu({ character, setCharacter }) {
     <>
       {/* For Desktop */}
       <div className='text-white hidden h-full   md:flex justify-between items-center w-full py-12  left-0 z-[20]   '>
-        <CustomButton
-          disabled={isChoosingRandom}
-          withIcon
-          onClick={handleRandomCharacter}
-        >
+        <CustomButton withIcon onClick={handleRandomCharacterName}>
           <img src='/Icons/Random.svg' alt='logo' className='h-5 w-5 ' />
-          RANDOM CHARACTER
+          RANDOM CHARACTER Name
         </CustomButton>
         <CustomInput
           value={character.name}

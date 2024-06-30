@@ -168,6 +168,8 @@ body {
   .animate-spin-progress {
     animation: spin-progress 2s linear infinite;
   }
+
+
 }
 
 .dm-mono {
@@ -185,8 +187,8 @@ body {
 }
 
 .bg-blur {
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(128px);
+  -webkit-backdrop-filter: blur(128px);
   background-color: rgba(209, 207, 207, 0.082);
 }
 
@@ -217,7 +219,7 @@ body {
 .bg-blur-bottom-menu {
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
-  background: #ffffff1a;
+  background: #0A0A2166;
 }
 
 .bg-blur-x {
@@ -334,6 +336,14 @@ input:-webkit-autofill:active {
   display: none !important;
   -webkit-appearance: none;
 } */
+.ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /* Adjust the number of lines as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 audio::-webkit-media-controls-enclosure {
   width: 100% !important;
@@ -366,3 +376,12 @@ audio::-webkit-media-controls-enclosure {
   width: 100% !important;
   -webkit-appearance: none;
 }
+
+/* @media screen and (-webkit-min-device-pixel-ratio:0) {
+
+  select,
+  textarea,
+  input {
+    font-size: 16px;
+  }
+} */

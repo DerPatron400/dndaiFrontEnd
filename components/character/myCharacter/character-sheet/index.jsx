@@ -29,17 +29,9 @@ export default function characterSheet({ character, setCharacter }) {
     setAppearance(_appearance);
   }, [character]);
 
-  const handlePlay = () => {
-    setCurrentCharacter(character);
-    router.push("/game/campaign-selection");
-  };
   return (
     <div className='h-full min-h-screen w-screen pt-32 px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'>
       <div className='hidden md:flex justify-start gap-[32px]'>
-        <CustomButton onClick={handlePlay} variant={"primary"}>
-          <Play className='h-4 w-4 opacity-70' />
-          Play with character
-        </CustomButton>
         <CustomButton
           onClick={() => {
             setOpen(true);
@@ -52,15 +44,15 @@ export default function characterSheet({ character, setCharacter }) {
           variant='subtle'
         >
           {character?.personal?.portraits?.length > 0 ? (
-            <Edit fill='white' className='h-4 w-4 opacity-70' />
+            <Edit fill='white' className='h-5 w-5 opacity-70' />
           ) : (
-            <Generate className='h-4 w-4 opacity-70 fill-white' />
+            <Generate className='h-5 w-5 opacity-70 fill-white' />
           )}
           {character?.personal?.portraits?.length > 0 ? "Change " : "Create "}
           character portrait
         </CustomButton>
         <CustomButton variant='subtle'>
-          <Download fill='white' className='h-4 w-4 opacity-70 text-white' />
+          <Download fill='white' className='h-5 w-5 opacity-70 text-white' />
           Download character sheet
         </CustomButton>
       </div>
@@ -101,11 +93,11 @@ export default function characterSheet({ character, setCharacter }) {
               router.push(pathname);
             }}
           >
-            <Edit fill='white' className='h-4 w-4 opacity-70' />
+            <Edit fill='white' className='h-5 w-5  ' />
           </CustomIconbutton>
         </div>
         <CustomButton variant={"primary"}>
-          <Play className='h-4 w-4 opacity-70' />
+          <Play className='h-5 w-5 opacity-70' />
           Play Now
         </CustomButton>
       </div>

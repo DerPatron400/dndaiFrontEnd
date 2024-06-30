@@ -46,10 +46,10 @@ export default function Choose({ handleSetPersonality, personalities }) {
     });
   };
   return (
-    <div className='md:rounded-[16px]  w-full md:w-full lg:w-4/5 flex flex-col gap-6  h-full mb-auto md:p-5 md:pt-6  md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar'>
+    <div className='md:rounded-[16px]  w-full md:w-full lg:w-4/5 flex flex-col gap-6  h-full mb-auto md:p-5 md:pt-6  md:border border-white/10 md:bg-white/[8%]  overflow-scroll hide-scrollbar'>
       <h1 className='headline-4 hidden md:block'>Personality</h1>
 
-      <div className=' w-full h-full flex justify-between flex-col md:flex-row items-center gap-16 md:gap-5'>
+      <div className=' w-full h-auto flex justify-between flex-col md:flex-row items-center gap-16 md:gap-5'>
         {_Personality.map((item, index) => (
           <Card
             key={index}

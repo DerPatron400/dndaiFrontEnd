@@ -8,7 +8,7 @@ export default function index({ characters, popular, mostLiked }) {
   return (
     <div className='pt-[128px] w-full h-full relative text-white  pb-12'>
       <span className='headline-3 !z-[20] px-5 md:px-12'>Discover</span>
-      <div className='flex flex-col gap-16 w-full mt-9'>
+      <div className='flex flex-col h-full gap-16 w-full mt-9'>
         <Row
           text={"Commuity favorties"}
           campaigns={mostLiked}

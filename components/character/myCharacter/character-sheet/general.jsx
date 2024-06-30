@@ -60,6 +60,7 @@ const INITIAL_STATE = {
   },
   hitPoints: 0,
   armorClass: 0,
+  gold: 0,
 
   weapon: "",
   secondary: "",
@@ -88,9 +89,14 @@ export default function general({ character }) {
       .replaceAll("-", "")
       .split("\n")
       .splice(1) || ["", "", "", ""];
+    let _gold = extractSection(character.value, "startingEquipment")
+      ?.trim()
+      .replaceAll("-", "")
+      .split("\n")
+      .splice(0);
     let _hitPoints = extractSection(character.value, "hitpoints");
     let _armorClass = extractSection(character.value, "armorclass");
-
+    console.log(_gold[0]);
     setGeneralInfo((prev) => ({
       ...prev,
       background: _background,
@@ -115,6 +121,7 @@ export default function general({ character }) {
       toolAndAmmo: _equipment[3]?.split("(")[0].trim(),
       hitPoints: _hitPoints,
       armorClass: _armorClass,
+      gold: _gold[0].replace("Gold", "").trim(),
     }));
   }, [character]);
   return (
@@ -186,7 +193,17 @@ export default function general({ character }) {
 
       <div className=' h-auto  p-5 pt-6 bg-white/10 border border-white/10 rounded-[16px] uppercase'>
         <div className=' flex flex-col gap-5'>
-          <span className='headline-4'>Equipment</span>
+          <div className='flex w-full items-center justify-between'>
+            <span className='headline-4'>Equipment</span>
+            <div className='flex items-center running-text-small gap-1.5'>
+              {generalInfo.gold}
+              <img
+                src='/Icons/Gold.svg'
+                alt='gold'
+                className='h-[18px] object-contain'
+              />
+            </div>
+          </div>
           <div className='grid grid-cols-2 md:grid-cols-4 gap-5'>
             <RenderEquipmentData
               image='https://dndai-images.s3.eu-central-1.amazonaws.com/equipment/weapon.webp'
