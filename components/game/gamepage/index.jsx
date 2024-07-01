@@ -9,14 +9,16 @@ import useUserStore from "@/utils/userStore";
 import { addChoice } from "@/actions/game";
 import GameplayNavbar from "@/components/navigation/GameplayNavbar";
 import Loader from "@/components/ui/Loader";
-
+import useCustomToast from "@/hooks/useCustomToast";
 export default function index({ response }) {
   const { currentCampaign, currentCharacter, game, setGame } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
+  const { invokeToast } = useCustomToast();
   const [input, setInput] = useState("");
   const [textSize, setTextSize] = useState(19);
   const [saveCharacterLoading, setSaveCharacterLoading] = useState(false);
   const [imageViewDialog, setImageViewDialog] = useState(false);
+  const [narrate, setNarrate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([
     {
@@ -54,10 +56,15 @@ export default function index({ response }) {
       ]);
     } catch (error) {
       console.log(error);
+      invokeToast(
+        error?.response?.data?.error || "Something Went Wrong",
+        "error"
+      );
     } finally {
       setLoading(false);
     }
   };
+ 
 
   return (
     <>
@@ -118,6 +125,8 @@ export default function index({ response }) {
               setImageViewDialog={setImageViewDialog}
               loading={saveCharacterLoading}
               setLoading={setSaveCharacterLoading}
+              narrate={narrate}
+              setNarrate={setNarrate}
             />
           </div>
         </div>

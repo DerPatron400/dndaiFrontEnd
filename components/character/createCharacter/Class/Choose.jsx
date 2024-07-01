@@ -40,7 +40,7 @@ export default function Choose({ _class, handleSelectClass }) {
             className={`flex cursor-pointer col-span-4 md:col-span-4 relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <img
-              src={`/Icons/InfoButton.svg`}
+              src={`/Icons/Info-btn.svg`}
               onClick={handleShowModal}
               className={cn(
                 `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
@@ -52,7 +52,7 @@ export default function Choose({ _class, handleSelectClass }) {
                 .toLowerCase()
                 .replaceAll(" ", "-")}.webp`}
               alt={name}
-              className={`w-full  h-[107px] md:h-[118px] 2xl:h-[200px] ease-animate object-cover rounded-[10px] ${
+              className={` w-full object-contain ease-animate rounded-[10px] ${
                 _class?.name === name ? "border-2 border-irisPurpleLight" : ""
               }`}
             />

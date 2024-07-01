@@ -61,15 +61,19 @@ const UserLoggedIn = ({ handleRedirect }) => {
       <hr className='border-white/10 ' />
       <div className='flex flex-col gap-6'>
         <CustomMenuItem
-          onClick={() => handleRedirect("/discover")}
-          className={"p-0"}
+          //onClick={() => handleRedirect("/discover")}
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
         >
           <Discover className='h-5 w-5 opacity-70 fill-white' />
           <span>Discover</span>
         </CustomMenuItem>
         <CustomMenuItem
           onClick={() => handleRedirect("/character/my-characters")}
-          className={"p-0"}
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
         >
           <img
             src='/Icons/UserCircle.svg'
@@ -78,7 +82,11 @@ const UserLoggedIn = ({ handleRedirect }) => {
           />
           <span>My characters</span>
         </CustomMenuItem>
-        <CustomMenuItem className={"p-0"}>
+        <CustomMenuItem
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
+        >
           <img
             src='/Icons/ImageLibrary.svg'
             alt=''
@@ -88,7 +96,9 @@ const UserLoggedIn = ({ handleRedirect }) => {
         </CustomMenuItem>
         <CustomMenuItem
           onClick={() => handleRedirect("/campaign/my-campaigns")}
-          className={"p-0"}
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
         >
           <img
             src='/Icons/Campaign.svg'
@@ -99,7 +109,9 @@ const UserLoggedIn = ({ handleRedirect }) => {
         </CustomMenuItem>
         <CustomMenuItem
           onClick={() => handleRedirect("/campaign/my-campaigns/favorites")}
-          className={"p-0"}
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
         >
           <Star isfilled={true} className='h-5 w-5 opacity-70 fill-white' />
           <span>Favorites</span>
@@ -108,12 +120,21 @@ const UserLoggedIn = ({ handleRedirect }) => {
 
       <hr className='border-white/10 ' />
       <div className='flex flex-col gap-6'>
-        <CustomMenuItem className={"p-0"}>
+        <CustomMenuItem
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
+        >
           <Settings className='h-5 w-5 opacity-70 fill-white' />
           <span>Account Setting</span>
         </CustomMenuItem>
 
-        <CustomMenuItem onClick={handleLogout} className={"p-0"}>
+        <CustomMenuItem
+          onClick={handleLogout}
+          className={
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+          }
+        >
           <Logout className='h-5 w-5 opacity-70 fill-white' />
           <span>Logout</span>
         </CustomMenuItem>
@@ -192,7 +213,7 @@ const UserLoggedOut = ({ handleRedirect }) => {
     </div>
   );
 };
-export default function DrawerMenu() {
+export default function DrawerMenu({ characterCreatePage }) {
   const { user } = useUserStore();
   const { showMenu, setShowMenu } = useControlsStore();
 
@@ -208,17 +229,21 @@ export default function DrawerMenu() {
     setShowMenu(false);
   };
 
-  if (user?.token) return;
-
   return (
     <div
       className={cn(
-        "absolute !z-[400]  -top-16 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden translate-x-[-150%]    h-screen w-screen flex flex-col justify-start ",
+        "absolute !z-[400]  -top-16 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden translate-x-[-150%]    h-screen w-screen overflow-y-scroll pb-10 flex flex-col justify-start ",
         showMenu &&
-          "translate-x-[-50%] bg-blur-drawer opacity-100 pointer-events-auto  "
+          "translate-x-[-50%] bg-blur-drawer opacity-100 pointer-events-auto  ",
+        characterCreatePage && "-top-5"
       )}
     >
-      <div className='w-full  px-[20px] mt-16 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]'>
+      <div
+        className={cn(
+          "w-full  px-[20px] mt-16 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]",
+          characterCreatePage && "mt-5"
+        )}
+      >
         <Link
           href='/'
           className='text-white hover:text-gray2 transition-all duration-300 ease-in-out'

@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import Game from "@/components/game/gamepage/index";
 import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
-import { initiateGame } from "@/actions/game";
+import { getGame, initiateGame } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
@@ -18,29 +18,49 @@ function GameHandler() {
     setGame,
     game,
     setCurrentCharacter,
+    setCurrentCampaign,
   } = useGameStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const [response, setResponse] = useState();
 
   const handleInitiateGame = async () => {
-    const { responseText, game, credits, character } = await initiateGame(
-      {
-        campaignId: currentCampaign._id,
-        characterId: currentCharacter._id,
-      },
-      user?.token
-    );
-    setResponse(responseText);
-    setBlueCredits(credits.blue);
-    setYellowCredits(credits.yellow);
-    setGame(game);
-    setCurrentCharacter(character);
-    //push to the game page with the game id
-    router.push(`${pathname}?id=${game._id}`);
+    console.log("currentCampaign", currentCampaign);
+    console.log("currentCharacter", currentCharacter);
+    try {
+      const { responseText, game, credits, character } = await initiateGame(
+        {
+          campaignId: currentCampaign._id,
+          characterId: currentCharacter._id,
+        },
+        user?.token
+      );
+
+      setResponse(game.state);
+      setBlueCredits(credits.blue);
+      setYellowCredits(credits.yellow);
+      setGame(game);
+      setCurrentCharacter(character);
+      //push to the game page with the game id
+      router.push(`${pathname}?id=${game._id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetGame = async () => {
+    try {
+      const { game, character, campaign } = await getGame(id, user?.token);
+      setGame(game);
+      setResponse(game?.state);
+      setCurrentCharacter(character);
+      setCurrentCampaign(campaign);
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     if (id) {
-      setResponse(game?.state);
+      handleGetGame();
     }
     if (!user?.token || id) return;
 

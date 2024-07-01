@@ -71,7 +71,7 @@ export default function Choose({ race, handleSelectRace }) {
           >
             <img
               onClick={handleShowModal}
-              src={`/Icons/InfoButton.svg`}
+              src={`/Icons/Info-btn.svg`}
               className={cn(
                 `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
                 race?.name !== name && "opacity-0 pointer-events-none"
@@ -82,7 +82,7 @@ export default function Choose({ race, handleSelectRace }) {
                 .toLowerCase()
                 .replace(" ", "-")}.webp`}
               alt={name}
-              className={` w-full  h-[107px] md:h-[118px] 2xl:h-[200px] ease-animate object-cover rounded-[10px] ${
+              className={` w-full object-contain ease-animate rounded-[10px] ${
                 race?.name === name && "border-2 border-irisPurpleLight"
               }`}
             />

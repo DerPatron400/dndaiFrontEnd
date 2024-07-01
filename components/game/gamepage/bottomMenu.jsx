@@ -14,7 +14,7 @@ import { saveCharacter } from "@/actions/game";
 import useGameStore from "@/utils/gameStore";
 import useUserStore from "@/utils/userStore";
 import useCustomToast from "@/hooks/useCustomToast";
-const NarrationControls = ({ audio }) => {
+const NarrationControls = ({ audio, narrate, setNarrate }) => {
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -45,6 +45,16 @@ const NarrationControls = ({ audio }) => {
     setIsDragging(true);
   };
 
+  const reset = () => {
+    //reset progress
+    setProgress(0);
+    setIsPlaying(false);
+  };
+
+  useEffect(() => {
+    reset();
+  }, [audio]);
+
   const handleMouseMove = (e) => {
     if (isDragging) {
       const rect = progressBarRef.current.getBoundingClientRect();
@@ -62,18 +72,22 @@ const NarrationControls = ({ audio }) => {
     setIsDragging(false);
   };
 
-  const playAudio = () => {
+  const togglePlayPause = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
       setIsPlaying(true);
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
-  const stopAudio = () => {
+  const stopNarration = () => {
     if (!audioRef.current.paused) {
       audioRef.current.pause();
       setIsPlaying(false);
     }
+    setNarrate(false);
   };
 
   useEffect(() => {
@@ -88,7 +102,7 @@ const NarrationControls = ({ audio }) => {
     <div
       className={cn(
         "absolute h-auto w-[30%] border-white/10 rounded-[16px] border gap-5 right-0 bottom-full flex flex-col p-5 -translate-y-12 ",
-        !audio && "hidden"
+        (!audio || !narrate) && "hidden"
       )}
     >
       <div className='flex flex-col gap-3'>
@@ -111,9 +125,9 @@ const NarrationControls = ({ audio }) => {
         className='w-full '
       />
       <div className='flex items-center space-x-3'>
-        <div className='cursor-pointer' onClick={playAudio}>
+        <div className='cursor-pointer' onClick={togglePlayPause}>
           {isPlaying ? (
-            <Pause className='h-5 w-5 fill-white ' />
+            <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
           ) : (
             <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
           )}
@@ -134,12 +148,7 @@ const NarrationControls = ({ audio }) => {
           ></div>
         </div>
       </div>
-      <CustomButton
-        disabled={audioRef?.current?.paused}
-        onClick={stopAudio}
-        withIcon={true}
-        variant='subtle'
-      >
+      <CustomButton onClick={stopNarration} withIcon={true} variant='subtle'>
         <Stop className='h-5 w-5 fill-errorRed' />
         Stop Narrating
       </CustomButton>
@@ -155,9 +164,10 @@ export default function bottomMenu({
   setChat,
   loading,
   setLoading,
+  narrate,
+  setNarrate,
 }) {
   const [imageDialog, setImageDialog] = useState(false);
-
   const [narrateDialog, setNarrateDialog] = useState(false);
   const [audio, setAudio] = useState(null);
   const { invokeToast } = useCustomToast();
@@ -190,9 +200,25 @@ export default function bottomMenu({
     }
   };
 
+  useEffect(() => {
+    if (imageDialog) {
+      //remove scorll
+      document.body.style.height = "100vh";
+      document.body.style.overflow = "hidden";
+    } else {
+      //add scroll
+      document.body.style.height = "auto";
+      document.body.style.overflow = "auto";
+    }
+  }, [imageDialog]);
+
   return (
     <div className='flex justify-between items-center relative '>
-      <NarrationControls audio={audio} />
+      <NarrationControls
+        audio={audio}
+        setNarrate={setNarrate}
+        narrate={narrate}
+      />
       <div className='flex justify-start items-center gap-3'>
         <Dialog
           open={imageDialog}
@@ -243,6 +269,8 @@ export default function bottomMenu({
             audio={audio}
             setAudio={setAudio}
             setOpen={setNarrateDialog}
+            setNarrate={setNarrate}
+            narrate={narrate}
           />
         </Dialog>
         <CustomButton onClick={handleSaveCharacter}>

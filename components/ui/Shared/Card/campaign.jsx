@@ -108,11 +108,11 @@ export default function card({
           />
           <div
             className={cn(
-              "absolute top-0 text-xs text-white p-4 flex w-full justify-between items-center",
+              "absolute top-0 text-xs text-white p-4 flex w-full justify-end items-center",
               isLanding && "hidden"
             )}
           >
-            <div
+            {/* <div
               onClick={handleRedirect}
               className={
                 "flex capitalize justify-center items-center !text-sm gap-2 font-roboto-mono"
@@ -120,7 +120,7 @@ export default function card({
             >
               <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
               {campaign?.playerName}
-            </div>
+            </div> */}
             <div className='flex justify-center items-center gap-2  prevent-redirect'>
               <IconButton className='bg-blur group   opacity-0 group-hover:opacity-100   prevent-redirect'>
                 <img

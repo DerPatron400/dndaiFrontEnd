@@ -87,8 +87,7 @@ export default function card({
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className={cn(
-                    "flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer",
-                    hideShowDetails && "hidden"
+                    "flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer"
                   )}
                 >
                   <CustomMenuItem onClick={handlePlay}>
@@ -125,7 +124,7 @@ export default function card({
           <div
             className={cn(
               "flex justify-between items-center gap-5 text-white",
-              carousel && "hidden"
+              (carousel || hideShowDetails) && "hidden"
             )}
           >
             <CustomButton withIcon>

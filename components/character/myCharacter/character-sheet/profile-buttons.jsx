@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,

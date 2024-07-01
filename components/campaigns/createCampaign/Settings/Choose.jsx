@@ -19,7 +19,7 @@ export default function Choose({ campaign, handleSetCampaign }) {
             onClick={() => {
               handleSetCampaign("setting", setting);
             }}
-            className='md:col-span-4 gap-3 flex flex-col lg:col-span-3 2xl:col-span-2 col-span-4  cursor-pointer'
+            className='md:col-span-4 gap-3 flex flex-col lg:col-span-2  col-span-4  cursor-pointer'
           >
             <img
               src={`https://dndai-images.s3.eu-central-1.amazonaws.com/settings/${setting
@@ -28,7 +28,7 @@ export default function Choose({ campaign, handleSetCampaign }) {
                 .replaceAll("'", "")}.webp`}
               alt='setting'
               className={cn(
-                `h-[135px] w-full aspect-square ease-animate object-cover  rounded-[10px]`,
+                ` w-full aspect-square ease-animate object-contain   rounded-[10px]`,
                 campaign?.setting === setting &&
                   "border-2 border-irisPurpleLight"
               )}

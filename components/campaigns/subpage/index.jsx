@@ -45,7 +45,7 @@ export default function index({ campaign, setCampaign }) {
 
         <img
           src={campaign?.worldMapUrl || "/campaignheader.png"}
-          className=' md:hidden object-contain w-full'
+          className=' md:hidden object-contain w-full rounded-[16px]'
         />
         <TopButtons
           campaign={campaign}

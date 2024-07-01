@@ -12,7 +12,7 @@ import Play from "@/components/ui/Icons/Play";
 
 const VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
 
-export default function narrate({ setOpen, setAudio }) {
+export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
   const [selectedVoice, setSelectedVoice] = useState(VOICES[0]);
   const { game } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
@@ -76,6 +76,11 @@ export default function narrate({ setOpen, setAudio }) {
     }
   };
 
+  const reset = () => {
+    //reset progress
+    setProgress(0);
+    setIsPlaying(false);
+  };
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -86,15 +91,15 @@ export default function narrate({ setOpen, setAudio }) {
   }, [isDragging]);
 
   useEffect(() => {
-    //reset progress
-    setProgress(0);
-    setIsPlaying(false);
+    reset();
   }, [selectedVoice]);
   const handleNarrate = async () => {
     try {
+      console.log("getting audio");
+      audioRef?.current?.pause();
       setLoading(true);
-      audioRef.current.pause();
       setIsPlaying(false);
+      setNarrate(true);
 
       const payload = {
         voice: selectedVoice.toLowerCase(),
@@ -115,6 +120,12 @@ export default function narrate({ setOpen, setAudio }) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (game && narrate) {
+      handleNarrate();
+    }
+  }, [game]);
   return (
     <DialogContent className='bg-white/[8%] h-fit text-white border border-white/10 w-fit '>
       <div className='flex flex-col gap-2'>

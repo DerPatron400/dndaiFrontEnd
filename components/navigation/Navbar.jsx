@@ -32,6 +32,8 @@ export default function Navbar({ variant, characterSheet }) {
     pathname.includes("/my-campaigns") ||
     pathname.includes("/create");
 
+  const characterCreatePage = pathname.includes("/character/create");
+
   // const scrollFromTop = useRef(0);
 
   // useEffect(() => {
@@ -65,15 +67,19 @@ export default function Navbar({ variant, characterSheet }) {
     <div
       className={cn(
         "px-5 md:px-8 fixed top-0 pt-16 pb-4 md:py-0 flex flex-col md:top-8 z-20 w-full",
-        isMobile && !mobileBlurNotAllowed && "bg-blur-bottom-menu "
+        isMobile &&
+          !mobileBlurNotAllowed &&
+          !showMenu &&
+          "bg-blur-bottom-menu md:bg-auto ",
+        characterCreatePage && "pt-5"
       )}
     >
       <div
         className={cn(
           " running-text-mono w-full rounded-2xl md:border border-white/10 top-0 md:top-8 left-0 translate-x-[0] flex h-auto md:h-[64px]  justify-center md:p-[8px] md:ps-4 ",
+          variant === "transparent" && "bg-transparent border-none",
           variant === "glass" && "md:bg-blur",
-          isMobile && "bg-transparent border-0",
-          variant === "transparent" && "bg-transparent border-0"
+          isMobile && "bg-transparent border-0"
           //scrollFromTop.current > 100 && "bg-white/10 border-white/10 bg-blur"
         )}
       >
@@ -99,7 +105,7 @@ export default function Navbar({ variant, characterSheet }) {
             fill='#9A9AC1'
           />
 
-          <DrawerMenu />
+          <DrawerMenu characterCreatePage={characterCreatePage} />
         </div>
         {/* Desktop */}
         <div className=' w-full hidden h-full text-white  md:flex justify-between items-center'>

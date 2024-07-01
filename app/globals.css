@@ -93,6 +93,12 @@ body {
 
 @layer components {
 
+  .bg-blur {
+    backdrop-filter: blur(128px);
+    -webkit-backdrop-filter: blur(128px);
+    background-color: rgba(209, 207, 207, 0.082);
+  }
+
   /* Headline 1 */
   .headline-1 {
     @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em] 2xl:text-[120px] 2xl:leading-[100px];
@@ -186,11 +192,7 @@ body {
     );
 }
 
-.bg-blur {
-  backdrop-filter: blur(128px);
-  -webkit-backdrop-filter: blur(128px);
-  background-color: rgba(209, 207, 207, 0.082);
-}
+
 
 .bg-blur-1 {
   backdrop-filter: blur(5px);
@@ -377,11 +379,11 @@ audio::-webkit-media-controls-enclosure {
   -webkit-appearance: none;
 }
 
-/* @media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio:0) {
 
   select,
   textarea,
   input {
     font-size: 16px;
   }
-} */
+}
