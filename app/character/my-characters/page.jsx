@@ -24,7 +24,7 @@ export default function page() {
     getAllCharacters();
   }, [user]);
 
-  if (!characters) return <Loader text={"Fetching Characters..."} />;
+  if (!characters) return <Loader text={"Loading Characters ..."} />;
   if (characters.length <= 0) return <CharacterPlaceholder />;
   return (
     <div className=" text-white">

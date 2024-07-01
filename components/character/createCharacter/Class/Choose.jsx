@@ -52,7 +52,7 @@ export default function Choose({ _class, handleSelectClass }) {
                 .toLowerCase()
                 .replaceAll(" ", "-")}.webp`}
               alt={name}
-              className={`w-full  h-[107px] md:h-[118px]  ease-animate object-cover rounded-[10px] ${
+              className={`w-full  h-[107px] md:h-[118px] 2xl:h-[200px] ease-animate object-cover rounded-[10px] ${
                 _class?.name === name ? "border-2 border-irisPurpleLight" : ""
               }`}
             />

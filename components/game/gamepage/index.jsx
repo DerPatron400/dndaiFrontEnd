@@ -16,7 +16,7 @@ export default function index({ response }) {
   const [input, setInput] = useState("");
   const [textSize, setTextSize] = useState(19);
   const [saveCharacterLoading, setSaveCharacterLoading] = useState(false);
-
+  const [imageViewDialog, setImageViewDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([
     {
@@ -67,10 +67,7 @@ export default function index({ response }) {
           className='absolute top-0 z-[40] left-0 h-screen w-screen bg-blur-x flex items-center justify-center'
         />
       )}
-      <GameplayNavbar
-        loading={saveCharacterLoading}
-        setLoading={setSaveCharacterLoading}
-      />
+
       <div className=' border-white h-full   w-full flex gap-10  md:pt-[0px] px-6 lg:px-12  pb-12'>
         <div
           className={
@@ -89,6 +86,7 @@ export default function index({ response }) {
               loading={loading}
               chat={chat}
               character={currentCharacter}
+              setImageViewDialog={setImageViewDialog}
             />
 
             <CustomInputIcon
@@ -112,7 +110,15 @@ export default function index({ response }) {
                 <img src='/Icons/ArrowUp.svg' alt='chat' className='h-5 w-5' />
               }
             />
-            <BottomMenu textSize={textSize} setTextSize={setTextSize} />
+            <BottomMenu
+              setChat={setChat}
+              textSize={textSize}
+              setTextSize={setTextSize}
+              imageViewDialog={imageViewDialog}
+              setImageViewDialog={setImageViewDialog}
+              loading={saveCharacterLoading}
+              setLoading={setSaveCharacterLoading}
+            />
           </div>
         </div>
       </div>

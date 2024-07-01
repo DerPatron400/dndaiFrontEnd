@@ -17,7 +17,12 @@ import Eye from "@/components/ui/Icons/Eye";
 import { extractSection } from "@/lib/Helpers/shared";
 import useGameStore from "@/utils/gameStore";
 //resolved conflicts
-export default function card({ character, carousel, className }) {
+export default function card({
+  character,
+  carousel,
+  className,
+  hideShowDetails,
+}) {
   const router = useRouter();
   const { setCurrentCharacter } = useGameStore();
   const [level, setLevel] = useState();
@@ -67,9 +72,9 @@ export default function card({ character, carousel, className }) {
             )}
           >
             <DropdownMenu>
-              <DropdownMenuTrigger className=' bg-blur  prevent-redirect  !h-7 !w-7 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 !flex !items-center !justify-center'>
+              <DropdownMenuTrigger className=' bg-blur  prevent-redirect  !h-9 !w-9 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 !flex !items-center !justify-center'>
                 <MoreOptions
-                  className='w-4 h-4  prevent-redirect'
+                  className='w-5 h-5  prevent-redirect'
                   fill='white'
                 />
               </DropdownMenuTrigger>
@@ -80,7 +85,12 @@ export default function card({ character, carousel, className }) {
                     <span>Download Character Sheet</span>
                   </CustomMenuItem>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+                <DropdownMenuItem
+                  className={cn(
+                    "flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer",
+                    hideShowDetails && "hidden"
+                  )}
+                >
                   <CustomMenuItem onClick={handlePlay}>
                     <Play className='h-5 w-5' fill='white' />
                     <span>Play With Character</span>
@@ -90,7 +100,7 @@ export default function card({ character, carousel, className }) {
             </DropdownMenu>
           </div>
         </div>
-        <div className='  flex flex-col p-5  !gap-4'>
+        <div className='  flex flex-col p-5 pb-6  !gap-4'>
           <div className=' flex justify-between items-center'>
             <span className=' headline-4 text-white '>
               {character?.personal.name}

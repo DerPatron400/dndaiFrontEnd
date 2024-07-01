@@ -8,7 +8,7 @@ import { generateGameImage } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import useGameStore from "@/utils/gameStore";
 
-export default function StepDialog({ setOpen, setImageOpen }) {
+export default function StepDialog({ setOpen, setImageOpen, setChat }) {
   const [step, setStep] = useState(1);
   const [style, setStyle] = useState(IMAGE_STYLES[0]);
   const [imageType, setImageType] = useState(IMAGE_TYPES[0].type);
@@ -47,6 +47,13 @@ export default function StepDialog({ setOpen, setImageOpen }) {
         user?.token
       );
       setGameImage(imageUrl);
+      setChat((prev) => [
+        ...prev,
+        {
+          type: "image",
+          url: imageUrl,
+        },
+      ]);
       setBlueCredits(credits.blue);
       setYellowCredits(credits.yellow);
       setOpen(false);

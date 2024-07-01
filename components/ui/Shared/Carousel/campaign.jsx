@@ -47,8 +47,8 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
   return (
     <div
       className={cn(
-        " flex w-screen md:w-full relative h-full  overflow-hidden z-[30]",
-        isLanding && " w-screen md:w-full mt-16 "
+        " flex w-screen md:w-full relative h-full  overflow-hidden z-[10]",
+        isLanding && " w-screen md:w-screen mt-16 "
       )}
     >
       <div
@@ -78,7 +78,7 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
       <div
         ref={containerRef}
         className={cn(
-          "flex w-full h-full items-center  gap-x-5  snap-x snap-mandatory overflow-x-scroll hide-scrollbar ",
+          "flex w-full h-full items-center gap-x-4 md:gap-x-5  snap-x snap-mandatory overflow-x-scroll hide-scrollbar ",
           isLanding && "px-5 md:px-12 ",
           className
         )}
@@ -88,6 +88,7 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
             campaign={campaign}
             key={index}
             carousel
+            isLanding={isLanding}
             className='snap-center'
           />
         ))}

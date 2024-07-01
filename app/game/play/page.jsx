@@ -12,12 +12,18 @@ function GameHandler() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const { currentCampaign, currentCharacter, setGame, game } = useGameStore();
+  const {
+    currentCampaign,
+    currentCharacter,
+    setGame,
+    game,
+    setCurrentCharacter,
+  } = useGameStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const [response, setResponse] = useState();
 
   const handleInitiateGame = async () => {
-    const { responseText, game, credits } = await initiateGame(
+    const { responseText, game, credits, character } = await initiateGame(
       {
         campaignId: currentCampaign._id,
         characterId: currentCharacter._id,
@@ -28,6 +34,7 @@ function GameHandler() {
     setBlueCredits(credits.blue);
     setYellowCredits(credits.yellow);
     setGame(game);
+    setCurrentCharacter(character);
     //push to the game page with the game id
     router.push(`${pathname}?id=${game._id}`);
   };
@@ -41,7 +48,7 @@ function GameHandler() {
   }, [user?.token]);
 
   if (!response) {
-    return <Loader text='Loading Game...' />;
+    return <Loader text='Loading Game ...' />;
   }
   return (
     <div className='pt-[128px] h-screen !z-[10] text-white relative'>

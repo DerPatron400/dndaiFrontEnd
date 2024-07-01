@@ -146,7 +146,7 @@ export default function Avatar({
     >
       {isMobile ? (
         // Mobile
-        <DialogContent className='bg-[#1b1b31] !p-0 flex-col !gap-0 border-none h-screen  max-w-screen md:!hidden  !pt-[120px] '>
+        <DialogContent className='bg-[#1b1b31] !p-0 flex-col !gap-0 border-none h-full  max-w-screen md:!hidden  !pt-[120px] '>
           <Navbar />
 
           <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>

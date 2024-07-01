@@ -11,18 +11,19 @@ import useUserStore from "@/utils/userStore";
 import Star from "@/components/ui/Icons/Star";
 import useGameStore from "@/utils/gameStore";
 import { extractSection } from "@/lib/Helpers/shared";
+import Like from "@/components/ui/Icons/Like";
 
 export default function card({
   campaign,
-
   className,
   handleUpdateCampaigns,
+  isLanding,
 }) {
   const router = useRouter();
   const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { setCurrentCampaign } = useGameStore();
-  const [plot, setPlot] = useState(campaign?.plot);
+  const { setCurrentCampaign, currentCharacter } = useGameStore();
+  const [plot, setPlot] = useState();
 
   useEffect(() => {
     const _plot = extractSection(campaign.adventure, "plot");
@@ -34,7 +35,10 @@ export default function card({
     const classNames =
       event?.target?.className?.baseVal || event?.target?.className;
 
-    if (!classNames?.includes("prevent-redirect")) {
+    if (
+      typeof classNames === "string" &&
+      !classNames?.includes("prevent-redirect")
+    ) {
       router.push(`/campaign/${campaign._id}`);
     }
   };
@@ -79,13 +83,18 @@ export default function card({
 
   const handlePlay = () => {
     setCurrentCampaign(campaign);
-    router.push("/game/play");
+
+    if (!currentCharacter) {
+      router.push("/game/character-selection");
+    } else {
+      router.push("/game/play");
+    }
   };
 
   return (
     <div
       className={cn(
-        "rounded-[16px] cursor-pointer bg-russianViolet h-full group hover:!shadow-custom-1 min-w-[90vw] w-[90vw] my-0 max-w-[90vw] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
+        "rounded-[16px] cursor-pointer bg-russianViolet h-full group hover:!shadow-custom-1 min-w-[292px] w-[292px] max-w-[292px] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
         className
       )}
     >
@@ -99,18 +108,21 @@ export default function card({
           />
           <div
             className={cn(
-              "absolute top-0 text-xs text-white p-4 flex w-full justify-between items-center"
+              "absolute top-0 text-xs text-white p-4 flex w-full justify-between items-center",
+              isLanding && "hidden"
             )}
           >
             <div
               onClick={handleRedirect}
-              className='flex capitalize justify-center items-center !text-sm gap-2 font-roboto-mono'
+              className={
+                "flex capitalize justify-center items-center !text-sm gap-2 font-roboto-mono"
+              }
             >
               <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
               {campaign?.playerName}
             </div>
             <div className='flex justify-center items-center gap-2  prevent-redirect'>
-              <IconButton className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100   prevent-redirect'>
+              <IconButton className='bg-blur group   opacity-0 group-hover:opacity-100   prevent-redirect'>
                 <img
                   src='/Icons/Share.svg'
                   alt=''
@@ -120,7 +132,7 @@ export default function card({
               <IconButton
                 disabled={isLoading || !user?.token}
                 onClick={handleStar}
-                className='bg-blur group  border border-iconColor opacity-0 group-hover:opacity-100   prevent-redirect'
+                className='bg-blur group    opacity-0 group-hover:opacity-100   prevent-redirect'
               >
                 <Star
                   isfilled={
@@ -136,19 +148,20 @@ export default function card({
         </div>
         <div
           onClick={handleRedirect}
-          className='  flex flex-col h-full justify-between flex-1  p-5  '
+          className='  flex flex-col h-full justify-between flex-1  p-5 gap-4 '
         >
           <div className='  flex flex-col justify-around '>
-            <span className='mb-4 h-12  headline-4 text-white '>
+            <span className='mb-4 h-9  md:h-12  headline-4 text-white '>
               {campaign?.title}
             </span>
-            <span className='text-gray2 capitalize running-text-small truncate  text-wrap  max-h-16'>
+            <span className='h-16 overflow-hidden text-gray2 capitalize running-text-small break-words whitespace-pre-line ellipsis'>
               {plot}
             </span>
           </div>
           <div
             className={cn(
-              "flex justify-between items-center gap-5 mt-auto text-white"
+              "flex justify-between items-center gap-5 mt-auto text-white",
+              isLanding && "hidden"
             )}
           >
             <div className='flex items-center gap-x-3 running-text-mono '>
@@ -157,14 +170,22 @@ export default function card({
                 onClick={handleLike}
                 className={"prevent-redirect"}
               >
-                <img
-                  src='/Icons/Like.svg'
-                  alt=''
-                  className='h-5 w-5 opacity-70 prevent-redirect'
+                <Like
+                  isfilled={
+                    campaign?.analytics?.likes?.includes(user?._id)
+                      ? "true"
+                      : undefined
+                  }
+                  className='h-5 w-5 opacity-70 fill-white prevent-redirect'
                 />
-                <span>{campaign?.analytics.likes.length}</span>
+                <span className='prevent-redirect'>
+                  {campaign?.analytics.likes.length}
+                </span>
               </CustomIcontext>
-              <CustomIcontext>
+              <CustomIcontext
+                disabled={true}
+                className={"disabled:opacity-100"}
+              >
                 <Play className='h-5 w-5 fill-white opacity-70' />
                 <span>{campaign?.analytics.plays.length}</span>
               </CustomIcontext>

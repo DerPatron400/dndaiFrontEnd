@@ -58,8 +58,8 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
   return (
     <div className='w-full flex flex-col gap-[16px] py-4 '>
       <div className=' flex justify-between items-center'>
-        <div className='flex capitalize justify-center items-center !text-sm gap-2 font-roboto-mono'>
-          <CustomIconbutton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></CustomIconbutton>
+        <div className='flex  justify-center uppercase items-center !text-sm gap-2 font-roboto-mono'>
+          <CustomIconbutton className='bg-white   font-roboto-mono hover:bg-white h-6 w-6'></CustomIconbutton>
           {comment.playerName}
         </div>
         {comment.userId === user._id && (

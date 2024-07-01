@@ -42,7 +42,7 @@ export default function Choose({ race, handleSelectRace }) {
         onChange={handleSelect}
       />
       {/* Ends */}
-      <div className='grid grid-cols-12 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-10 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar md:pb-5'>
+      <div className='grid grid-cols-12 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-10 2xl:grid-cols-12 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar md:pb-5'>
         {RACE.filter(({ name }) => {
           if (raceQuery) {
             return name.toLowerCase().includes(raceQuery.toLowerCase());
@@ -82,7 +82,7 @@ export default function Choose({ race, handleSelectRace }) {
                 .toLowerCase()
                 .replace(" ", "-")}.webp`}
               alt={name}
-              className={` w-full  h-[107px] md:h-[118px] ease-animate object-cover rounded-[10px] ${
+              className={` w-full  h-[107px] md:h-[118px] 2xl:h-[200px] ease-animate object-cover rounded-[10px] ${
                 race?.name === name && "border-2 border-irisPurpleLight"
               }`}
             />

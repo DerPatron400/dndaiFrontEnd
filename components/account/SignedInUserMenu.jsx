@@ -8,10 +8,11 @@ import useUserStore from "@/utils/userStore";
 import CustomIcontext from "@/components/ui/custom-icontext";
 import Cookie from "universal-cookie";
 import { useRouter } from "next/navigation";
+import Discover from "@/components/ui/Icons/Discover";
 export default function SignedInUserMenu() {
   const router = useRouter();
   const { user, setUser } = useUserStore();
-  console.log(user);
+
   const cookies = new Cookie();
   const handleLogout = () => {
     console.log("Logging out");
@@ -53,6 +54,12 @@ export default function SignedInUserMenu() {
 
       <hr className='w-full border-white/5 my-2' />
       <div className='w-full px-2 gap-2 flex flex-col'>
+        <DropdownMenuItem className='flex !p-0 gap-2 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+          <CustomMenuItem onClick={() => handleRedirect("/discover")}>
+            <Discover className='h-5 w-5  opacity-70 fill-white' />
+            <span>Discover</span>
+          </CustomMenuItem>
+        </DropdownMenuItem>
         <DropdownMenuItem className='flex !p-0 gap-2 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
           <CustomMenuItem
             onClick={() => handleRedirect("/character/my-characters")}

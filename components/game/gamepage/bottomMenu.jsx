@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import CustomButton from "@/components/ui/custom-button";
-import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Step1 from "./steps/step1";
@@ -10,7 +9,11 @@ import Stop from "@/components/ui/Icons/Stop";
 import Pause from "@/components/ui/Icons/Pause";
 import Play from "@/components/ui/Icons/Play";
 import { cn } from "@/lib/utils";
-
+import Save from "@/components/ui/Icons/Save";
+import { saveCharacter } from "@/actions/game";
+import useGameStore from "@/utils/gameStore";
+import useUserStore from "@/utils/userStore";
+import useCustomToast from "@/hooks/useCustomToast";
 const NarrationControls = ({ audio }) => {
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
@@ -59,11 +62,15 @@ const NarrationControls = ({ audio }) => {
     setIsDragging(false);
   };
 
-  const togglePlayPause = () => {
+  const playAudio = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
       setIsPlaying(true);
-    } else {
+    }
+  };
+
+  const stopAudio = () => {
+    if (!audioRef.current.paused) {
       audioRef.current.pause();
       setIsPlaying(false);
     }
@@ -94,7 +101,7 @@ const NarrationControls = ({ audio }) => {
             className='h-5  mx-1 object-contain'
             style={{ display: "inline", verticalAlign: "middle" }}
           />
-          1) additional
+          2) additional
         </span>
       </div>
       <audio
@@ -104,9 +111,9 @@ const NarrationControls = ({ audio }) => {
         className='w-full '
       />
       <div className='flex items-center space-x-3'>
-        <div className='cursor-pointer' onClick={togglePlayPause}>
+        <div className='cursor-pointer' onClick={playAudio}>
           {isPlaying ? (
-            <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+            <Pause className='h-5 w-5 fill-white ' />
           ) : (
             <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
           )}
@@ -127,19 +134,61 @@ const NarrationControls = ({ audio }) => {
           ></div>
         </div>
       </div>
-      {/* <CustomButton withIcon={true} variant='subtle'>
+      <CustomButton
+        disabled={audioRef?.current?.paused}
+        onClick={stopAudio}
+        withIcon={true}
+        variant='subtle'
+      >
         <Stop className='h-5 w-5 fill-errorRed' />
         Stop Narrating
-      </CustomButton> */}
+      </CustomButton>
     </div>
   );
 };
 
-export default function bottomMenu({ textSize, setTextSize }) {
+export default function bottomMenu({
+  textSize,
+  setTextSize,
+  imageViewDialog,
+  setImageViewDialog,
+  setChat,
+  loading,
+  setLoading,
+}) {
   const [imageDialog, setImageDialog] = useState(false);
-  const [imageViewDialog, setImageViewDialog] = useState(false);
+
   const [narrateDialog, setNarrateDialog] = useState(false);
   const [audio, setAudio] = useState(null);
+  const { invokeToast } = useCustomToast();
+  const { setCurrentCharacter, game } = useGameStore();
+  const { setBlueCredits, setYellowCredits, user } = useUserStore();
+
+  const handleSaveCharacter = async () => {
+    try {
+      setLoading(true);
+      console.log(game);
+      const payload = {
+        characterId: game.characterId,
+        gameId: game._id,
+      };
+
+      const { character, credits } = await saveCharacter(payload, user?.token);
+      setCurrentCharacter(character);
+
+      setYellowCredits(credits.yellow);
+      setBlueCredits(credits.blue);
+      invokeToast("Character Saved Successfully", "Success");
+    } catch (error) {
+      invokeToast(
+        error?.response?.data?.message || "Something Went Wrong",
+        "error"
+      );
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className='flex justify-between items-center relative '>
@@ -159,7 +208,11 @@ export default function bottomMenu({ textSize, setTextSize }) {
               Generate image
             </button>
           </DialogTrigger>
-          <Step1 setOpen={setImageDialog} setImageOpen={setImageViewDialog} />
+          <Step1
+            setChat={setChat}
+            setOpen={setImageDialog}
+            setImageOpen={setImageViewDialog}
+          />
         </Dialog>
 
         <Dialog
@@ -192,9 +245,9 @@ export default function bottomMenu({ textSize, setTextSize }) {
             setOpen={setNarrateDialog}
           />
         </Dialog>
-        <CustomButton>
-          <img src='/Icons/Bulb.svg' alt='' className='h-4 w-4 opacity-70' />
-          Suggest next move
+        <CustomButton onClick={handleSaveCharacter}>
+          <Save className='h-5 w-5 fill-white opacity-70' />
+          Save Character
         </CustomButton>
       </div>
       <div className='flex gap-2 justify-start items-center'>

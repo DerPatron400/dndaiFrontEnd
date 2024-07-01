@@ -5,9 +5,10 @@ import { reward } from "@/lib/Helpers/character";
 
 export default function Index({ character, setCharacter }) {
   const [rolling, setRolling] = useState(false);
-  const [selectedFace, setSelectedFace] = useState(character.selectedFace);
+  const [selectedFace, setSelectedFace] = useState(null);
 
   useEffect(() => {
+    if (!selectedFace) return;
     setCharacter((prev) => ({
       ...prev,
       gold: reward(selectedFace).gold,
@@ -16,7 +17,7 @@ export default function Index({ character, setCharacter }) {
   }, [selectedFace]);
 
   return (
-    <div className='w-full h-screen top-0 md:top-auto md:h-[652px] xl:h-[500px] 2xl:h-[652px] absolute left-0  flex flex-col mb-20 md:mb-0 justify-center  items-center text-white '>
+    <div className='w-full h-screen top-0 md:top-auto md:h-[652px] xl:h-[500px] 2xl:h-[652px] fixed left-0  flex flex-col mb-20 md:mb-0 justify-center  items-center text-white '>
       <div
         className={cn(
           " flex flex-col gap-8 md:gap-3 justify-center items-center ",

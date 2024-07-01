@@ -37,7 +37,7 @@ export default function Choose({ handleAlignmentChange, alignment }) {
                 description: description,
               });
             }}
-            className={`flex cursor-pointer col-span-4 md:col-span-4 relative  flex-col running-text-mono uppercase justify-start items-start gap-3  `}
+            className={`flex cursor-pointer col-span-4 md:col-span-4  relative  flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <img
               onClick={handleShowModal}
@@ -54,7 +54,7 @@ export default function Choose({ handleAlignmentChange, alignment }) {
 
 `}
               alt={name}
-              className={`w-fullh-[107px] md:h-[118px] ease-animate object-cover rounded-[10px] ${
+              className={`w-full h-[107px] md:h-[118px] 2xl:h-[250px] ease-animate object-cover rounded-[10px] ${
                 alignment?.name === name
                   ? "border-2 border-irisPurpleLight"
                   : ""

@@ -17,6 +17,7 @@ import {
 } from "@/actions/campaigns";
 import Star from "@/components/ui/Icons/Star";
 import useGameStore from "@/utils/gameStore";
+import Like from "@/components/ui/Icons/Like";
 
 const TopButtons = ({ campaign, setCampaign, className }) => {
   const { user } = useUserStore();
@@ -136,7 +137,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row justify-between w-full",
+        "flex flex-col md:flex-row justify-between w-full ",
         className
       )}
     >
@@ -146,12 +147,17 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
             <Play size={14} /> <span>Play campaign</span>
           </Button>
         </div>
-        <div className='flex gap-8 w-full  justify-between md:justify-start items-start'>
+        <div className='flex gap-6 md:gap-8 w-full  justify-start items-start'>
           <CustomIcontext disabled={isLoading} onClick={handleLike}>
-            <img src='/Icons/Like.svg' alt='' className='h-5 w-5 opacity-70' />
+            <Like
+              className='h-5 w-5 fill-white opacity-70'
+              isfilled={
+                campaign.analytics.likes.includes(user?._id) ? "true" : null
+              }
+            />
             <span>{campaign.analytics.likes.length}</span>
           </CustomIcontext>
-          <CustomIcontext>
+          <CustomIcontext disabled={true} className={"disabled:opacity-100"}>
             <Play className='h-5 w-5 fill-white opacity-70' />
             <span>{campaign.analytics.plays.length}</span>
           </CustomIcontext>
@@ -161,9 +167,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
           >
             <Star
               isfilled={
-                campaign.analytics.stars.includes(user?._id)
-                  ? "true"
-                  : undefined
+                campaign.analytics.stars.includes(user?._id) ? "true" : null
               }
               className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
             />
