@@ -16,7 +16,6 @@ import useGameStore from "@/utils/gameStore";
 export default function characterSheet({ character, setCharacter }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { setCurrentCharacter } = useGameStore();
   const [open, setOpen] = useState(false);
   const [appearance, setAppearance] = useState(false);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
@@ -28,6 +27,18 @@ export default function characterSheet({ character, setCharacter }) {
     let _appearance = extractSection(character.value, "appearance")?.trim();
     setAppearance(_appearance);
   }, [character]);
+
+  useEffect(() => {
+    if (open) {
+      //remove scorll
+      document.body.style.height = "100vh";
+      document.body.style.overflow = "hidden";
+    } else {
+      //add scroll
+      document.body.style.height = "auto";
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
 
   return (
     <div className='h-full min-h-screen w-screen pt-32 px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'>
@@ -41,7 +52,6 @@ export default function characterSheet({ character, setCharacter }) {
               router.push(pathname + "?generateAvatar=true");
             }
           }}
-          variant='subtle'
         >
           {character?.personal?.portraits?.length > 0 ? (
             <Edit fill='white' className='h-5 w-5 opacity-70' />

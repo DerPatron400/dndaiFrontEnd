@@ -78,3 +78,18 @@ export const saveCharacter = async (payload, token) => {
     throw error;
   }
 };
+
+export const getGame = async (id, token) => {
+  try {
+    const response = await api.get(`/gpt4/game/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

@@ -6,7 +6,7 @@ export default function MobileHeader() {
   return (
     <div
       className={
-        "flex flex-col gap-2.5 bg-blur-bottom-menu  z-[12] w-screen  fixed h-[188px] top-0 left-0 px-5 pb-4  md:hidden   justify-end"
+        "flex flex-col gap-2.5 bg-blur-bottom-menu  z-[12] w-screen  fixed h-[144px] top-0 left-0 px-5 pb-4  md:hidden   justify-end"
       }
     >
       <h1 className='text-center flex justify-start text-white headline-3 z-[10] '>

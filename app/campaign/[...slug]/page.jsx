@@ -21,6 +21,6 @@ export default function page({ params }) {
     handleGetyCampaign();
   }, []);
 
-  if (!campaign) return <Loader text={"Fetching Campaign..."} />;
+  if (!campaign) return <Loader text={"Loading Campaign..."} />;
   return <Subpage campaign={campaign} setCampaign={setCampaign} />;
 }

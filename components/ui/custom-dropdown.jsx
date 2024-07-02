@@ -87,7 +87,7 @@ export default function CustomDropdown({
 
                 setTimeout(() => {
                   setShow(false);
-                }, 1000);
+                }, 500);
               }}
               className='    ease-animate z-[11] '
             >

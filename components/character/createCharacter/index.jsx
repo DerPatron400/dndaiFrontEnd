@@ -25,7 +25,7 @@ export default function Index() {
     };
   }, [showModal]);
   return (
-    <div className='h-full  border border-green-400 w-full flex flex-col bg-gradient pt-[160px] md:pt-[120px] px-6 lg:px-12 '>
+    <div className='h-full  border border-green-400 w-full flex flex-col bg-gradient pt-[136px] md:pt-[120px] px-6 lg:px-12 '>
       <ImageModal />
       {/* Desktop */}
       <div className='hidden md:flex flex-col gap-2.5 '>

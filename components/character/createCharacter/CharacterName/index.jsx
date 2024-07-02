@@ -11,7 +11,7 @@ export default function index({ character, setCharacter }) {
     }));
   };
   return (
-    <div className='flex flex-col gap-5'>
+    <div className='flex h-screen fixed top-[200px] left-0 px-6 w-full flex-col gap-5'>
       <img
         src={`/images/CreateCharacter/CharacterName/CharacterName.png`}
         alt=''
