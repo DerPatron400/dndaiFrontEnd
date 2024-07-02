@@ -22,7 +22,7 @@ const CurrentAvatarsList = ({
   setSelectedPortrait,
 }) => {
   return (
-    <div className='grid  grid-cols-12 w-full gap-5 min-h-96 max-h-[60vh] overflow-scroll hide-scrollbar '>
+    <div className='grid  grid-cols-12 w-full gap-5 min-h-96 max-h-[60vh] overflow-scroll hide-scrollbar pb-24 md:pb-0'>
       {avatars.map((avatar, index) => (
         <div
           key={index}

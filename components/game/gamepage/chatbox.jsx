@@ -48,7 +48,7 @@ export default function chatbox({
   return (
     <div
       ref={chatboxRef}
-      className='relative w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 '
+      className='relative chat-box w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 '
     >
       {chat.map((item, index) => {
         return item.type === "image" ? (

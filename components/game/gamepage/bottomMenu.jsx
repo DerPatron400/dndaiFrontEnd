@@ -201,14 +201,15 @@ export default function bottomMenu({
   };
 
   useEffect(() => {
+    const chatBox = document.querySelector(".chat-box");
     if (imageDialog) {
       //remove scorll
-      document.body.style.height = "100vh";
-      document.body.style.overflow = "hidden";
+      chatBox.style.height = "10vh";
+      chatBox.style.overflow = "hidden";
     } else {
       //add scroll
-      document.body.style.height = "auto";
-      document.body.style.overflow = "auto";
+      chatBox.style.height = "auto";
+      chatBox.style.overflow = "auto";
     }
   }, [imageDialog]);
 
