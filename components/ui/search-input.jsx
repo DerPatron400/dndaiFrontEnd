@@ -1,20 +1,28 @@
 import { cn } from "@/lib/utils";
 import Search from "./Icons/Search";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function SearchInput({
   query,
   setQuery,
   className,
   placeholder = "SEARCH",
+  autoFocus,
 }) {
   const [input, setInput] = useState("");
+  const inputRef = useRef(null);
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus(); // Automatically focus the input field on mount
+    }
+  }, [autoFocus]);
   return (
     <div className={cn("relative h-[40px]  running-text-mono", className)}>
       <div className='absolute inset-y-0 start-0 flex items-center  ps-3 pointer-events-none'>
         <Search className='h-5 w-5 opacity-70 fill-gray2' />
       </div>
       <input
+        ref={inputRef}
         type='text'
         id='default-search'
         className={cn(

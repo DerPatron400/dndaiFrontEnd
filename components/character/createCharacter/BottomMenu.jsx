@@ -98,7 +98,6 @@ export default function BottomMenu({ character, setCharacter }) {
     setActiveStep(activeStep + 1);
   };
 
-  
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
@@ -208,6 +207,7 @@ export default function BottomMenu({ character, setCharacter }) {
         <div className=' flex items-center justify-between p-5  '>
           {searchMode ? (
             <SearchInput
+              autoFocus={true}
               className={"w-full search text-white"}
               query={activeStep === 0 ? raceQuery : backgroundQuery}
               setQuery={activeStep === 0 ? setRaceQuery : setBackgroundQuery}
@@ -232,7 +232,7 @@ export default function BottomMenu({ character, setCharacter }) {
                   <img
                     src={"/Icons/Search.svg"}
                     alt='Search Toggle'
-                    className='h-5 w-5 opacity-70 '
+                    className='h-5 w-5  '
                   />
                 </CustomIconbutton>
               </div>

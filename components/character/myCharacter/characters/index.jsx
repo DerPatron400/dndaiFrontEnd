@@ -5,6 +5,7 @@ import CustomButton from "@/components/ui/custom-button";
 import AddUser from "@/components/ui/Icons/AddUser";
 
 export default function characters({ characters = [], className }) {
+  
   return (
     <div
       className={cn(

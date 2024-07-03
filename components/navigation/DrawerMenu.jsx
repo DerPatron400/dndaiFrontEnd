@@ -26,7 +26,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
     setShowMenu(false);
   };
   return (
-    <div className='mx-[20px] mt-12 gap-[34px] flex flex-col running-text-mono uppercase '>
+    <div className='mx-[20px] mt-12 gap-[34px] flex flex-col running-text-mono uppercase pb-16'>
       <div className='gap-5 pb-4 flex flex-col'>
         <div className='flex flex-col gap-2'>
           <span className=' headline-4'>{user.username}</span>

@@ -67,25 +67,27 @@ export default function Choose({ race, handleSelectRace }) {
                 description: description,
               });
             }}
-            className={`flex cursor-pointer col-span-4 md:col-span-4 relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
+            className={`flex cursor-pointer col-span-4 md:col-span-4  xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
-            <img
-              onClick={handleShowModal}
-              src={`/Icons/Info-btn.svg`}
-              className={cn(
-                `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
-                race?.name !== name && "opacity-0 pointer-events-none"
-              )}
-            />
-            <img
-              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/race/${name
-                .toLowerCase()
-                .replace(" ", "-")}.webp`}
-              alt={name}
-              className={` w-full object-contain ease-animate rounded-[10px] ${
-                race?.name === name && "border-2 border-irisPurpleLight"
-              }`}
-            />
+            <div className='relative w-full  '>
+              <img
+                src={`https://dndai-images.s3.eu-central-1.amazonaws.com/race/${name
+                  .toLowerCase()
+                  .replace(" ", "-")}.webp`}
+                alt={name}
+                className={` w-full relative object-contain ease-animate rounded-[10px] ${
+                  race?.name === name && "border-2 border-irisPurpleLight"
+                }`}
+              />
+              <img
+                onClick={handleShowModal}
+                src={`/Icons/Info-btn.svg`}
+                className={cn(
+                  `w-6 h-6 left-2 bottom-2 md:hidden ease-animate object-cover absolute`,
+                  race?.name !== name && "opacity-0 pointer-events-none"
+                )}
+              />
+            </div>
             <span className='description'>{name}</span>
           </div>
         ))}

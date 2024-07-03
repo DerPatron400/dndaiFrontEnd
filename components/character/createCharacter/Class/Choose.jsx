@@ -39,23 +39,25 @@ export default function Choose({ _class, handleSelectClass }) {
             }}
             className={`flex cursor-pointer col-span-4 md:col-span-4 relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
-            <img
-              src={`/Icons/Info-btn.svg`}
-              onClick={handleShowModal}
-              className={cn(
-                `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
-                _class?.name !== name && "opacity-0 pointer-events-none"
-              )}
-            />
-            <img
-              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${name
-                .toLowerCase()
-                .replaceAll(" ", "-")}.webp`}
-              alt={name}
-              className={` w-full object-contain ease-animate rounded-[10px] ${
-                _class?.name === name ? "border-2 border-irisPurpleLight" : ""
-              }`}
-            />
+            <div className='relative w-full  '>
+              <img
+                src={`/Icons/Info-btn.svg`}
+                onClick={handleShowModal}
+                className={cn(
+                  `w-6 h-6 left-2 bottom-2 md:hidden ease-animate object-cover absolute`,
+                  _class?.name !== name && "opacity-0 pointer-events-none"
+                )}
+              />
+              <img
+                src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${name
+                  .toLowerCase()
+                  .replaceAll(" ", "-")}.webp`}
+                alt={name}
+                className={` w-full object-contain ease-animate rounded-[10px] ${
+                  _class?.name === name ? "border-2 border-irisPurpleLight" : ""
+                }`}
+              />
+            </div>
             <span className='description'>{name}</span>
           </div>
         ))}

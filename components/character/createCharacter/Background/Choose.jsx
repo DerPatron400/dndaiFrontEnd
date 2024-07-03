@@ -54,25 +54,27 @@ export default function Choose({ background, handleSelectBackground }) {
             }}
             className={`flex cursor-pointer col-span-4 md:col-span-4  relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
-            <img
-              onClick={handleShowModal}
-              src={`/Icons/Info-btn.svg`}
-              className={cn(
-                `w-6 h-6 left-2 top-[75px] md:hidden ease-animate object-cover absolute`,
-                background?.name !== name && "opacity-0 pointer-events-none"
-              )}
-            />
-            <img
-              src={`https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
-                .toLowerCase()
-                .replaceAll(" ", "-")}.webp`}
-              alt={name}
-              className={`  w-full object-contain ease-animate rounded-[10px] ${
-                background?.name === name
-                  ? "border-2 border-irisPurpleLight"
-                  : ""
-              }`}
-            />
+            <div className='relative w-full  '>
+              <img
+                onClick={handleShowModal}
+                src={`/Icons/Info-btn.svg`}
+                className={cn(
+                  `w-6 h-6 left-2 bottom-2 md:hidden ease-animate object-cover absolute`,
+                  background?.name !== name && "opacity-0 pointer-events-none"
+                )}
+              />
+              <img
+                src={`https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
+                  .toLowerCase()
+                  .replaceAll(" ", "-")}.webp`}
+                alt={name}
+                className={`  w-full object-contain ease-animate rounded-[10px] ${
+                  background?.name === name
+                    ? "border-2 border-irisPurpleLight"
+                    : ""
+                }`}
+              />
+            </div>
             <span className='description'>{name}</span>
           </div>
         ))}

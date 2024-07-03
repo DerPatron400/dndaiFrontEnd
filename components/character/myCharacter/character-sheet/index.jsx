@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CharacterInfo from "@/components/character/myCharacter/character-sheet/characterInfo";
 import AbilitiesInfo from "@/components/character/myCharacter/character-sheet/abilitiesInfo";
 import GeneralInfo from "@/components/character/myCharacter/character-sheet/general";
@@ -12,10 +12,11 @@ import { extractSection } from "@/lib/Helpers/shared";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import SoundButton from "@/components/ui/Shared/SoundButton";
 import Generate from "@/components/ui/Icons/Generate";
-import useGameStore from "@/utils/gameStore";
+
 export default function characterSheet({ character, setCharacter }) {
   const router = useRouter();
   const pathname = usePathname();
+  const containerRef = useRef();
   const [open, setOpen] = useState(false);
   const [appearance, setAppearance] = useState(false);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
@@ -29,19 +30,23 @@ export default function characterSheet({ character, setCharacter }) {
   }, [character]);
 
   useEffect(() => {
+    const container = containerRef.current;
     if (open) {
       //remove scorll
-      document.body.style.height = "100vh";
-      document.body.style.overflow = "hidden";
+      container.style.height = "100vh !important";
+      container.style.overflow = "hidden !important";
     } else {
       //add scroll
-      document.body.style.height = "auto";
-      document.body.style.overflow = "auto";
+      container.style.height = "auto";
+      container.style.overflow = "auto";
     }
   }, [open]);
 
   return (
-    <div className='h-full min-h-screen w-screen pt-32 px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'>
+    <div
+      ref={containerRef}
+      className='h-full min-h-screen w-screen pt-32 px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'
+    >
       <div className='hidden md:flex justify-start gap-[32px]'>
         <CustomButton
           onClick={() => {
