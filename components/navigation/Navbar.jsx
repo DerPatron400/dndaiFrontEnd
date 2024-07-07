@@ -90,54 +90,54 @@ export default function Navbar({ variant, characterSheet }) {
           }
         >
           <Link
-            href='#'
-            className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+            href="#"
+            className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
           >
             <img
-              src='/Icons/Logo.svg'
-              alt='logo'
-              className='h-8 object-contain'
+              src="/Icons/Logo.svg"
+              alt="logo"
+              className="h-8 object-contain"
             />
           </Link>
           <Menu
             onClick={() => setShowMenu(true)}
-            className='w-10 '
-            fill='#9A9AC1'
+            className="w-10 "
+            fill="#9A9AC1"
           />
 
           <DrawerMenu characterCreatePage={characterCreatePage} />
         </div>
         {/* Desktop */}
-        <div className=' w-full hidden h-full text-white  md:flex justify-between items-center'>
-          <div className='flex justify-center items-center gap-6'>
+        <div className=" w-full hidden h-full text-white  md:flex justify-between items-center">
+          <div className="flex justify-center items-center gap-6">
             <Link
-              href='/'
-              className='text-white me-2 hover:text-gray1 transition-all duration-300 ease-in-out'
+              href="/"
+              className="text-white me-2 hover:text-gray1 transition-all duration-300 ease-in-out"
             >
-              <img src='/Icons/Logo.svg' alt='logo' className='h-10' />
+              <img src="/Icons/Logo.svg" alt="logo" className="h-10" />
             </Link>
 
             <Link
-              href='#'
-              className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
+              href="#"
+              className="text-white hover:text-gray1 transition-all duration-300 ease-in-out "
             >
               HOW TO PLAY
             </Link>
 
             <Link
-              href='#'
-              className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+              href="#"
+              className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
             >
               GALLERY
             </Link>
             <Link
-              href='#'
-              className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+              href="#"
+              className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
             >
               STORE
             </Link>
           </div>
-          <div className='flex justify-center items-center gap-5'>
+          <div className="flex justify-center items-center gap-5">
             <span
               className={cn(
                 "running-text-mono uppercase cursor-pointer",
@@ -153,7 +153,7 @@ export default function Navbar({ variant, characterSheet }) {
             <AccountDropdown />
             {variant === "transparent" ? (
               <CustomIconbutton>
-                <Volume2 className='h-5 w-5' />
+                <Volume2 className="h-5 w-5" />
               </CustomIconbutton>
             ) : characterSheet ? (
               <CustomButton
@@ -162,7 +162,7 @@ export default function Navbar({ variant, characterSheet }) {
                 withIcon={true}
                 onClick={handlePlayWithCharacter}
               >
-                <Play className='h-5 w-5 fill-russianViolet opacity-70' />
+                <Play className="h-5 w-5 fill-russianViolet opacity-70" />
                 PLAY Now
               </CustomButton>
             ) : (
