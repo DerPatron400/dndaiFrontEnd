@@ -38,6 +38,7 @@ export default function Choose({ race, handleSelectRace }) {
       {/* For mobile */}
       <CustomRadioButton
         options={["male", "female", "diverse"]}
+        selectedOption={race?.gender}
         className={"flex flex-row flex-wrap md:hidden"}
         onChange={handleSelect}
       />

@@ -14,7 +14,8 @@ import { saveCharacter } from "@/actions/game";
 import useGameStore from "@/utils/gameStore";
 import useUserStore from "@/utils/userStore";
 import useCustomToast from "@/hooks/useCustomToast";
-const NarrationControls = ({ audio, narrate, setNarrate }) => {
+import Loader from "@/components/ui/Loader";
+const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -99,60 +100,75 @@ const NarrationControls = ({ audio, narrate, setNarrate }) => {
     };
   }, [isDragging]);
   return (
-    <div
-      className={cn(
-        "absolute h-auto w-[30%] border-white/10 rounded-[16px] border gap-5 right-0 bottom-full flex flex-col p-5 -translate-y-12 ",
-        (!audio || !narrate) && "hidden"
+    <>
+      {loading && (
+        <Loader
+          className={
+            "absolute h-[212px] w-[245px] border-white/10 bg-transparent rounded-[16px] items-center justify-center border right-0 bottom-full flex  -translate-y-3 "
+          }
+          text='Loading narrative ...'
+        />
       )}
-    >
-      <div className='flex flex-col gap-3'>
-        <span className='headline-4'>Narration</span>
-        <span className='text-gray2'>
-          Each created text-block of narration costs (
-          <img
-            src='/gems/Mythic.webp'
-            alt=''
-            className='h-5  mx-1 object-contain'
-            style={{ display: "inline", verticalAlign: "middle" }}
-          />
-          2) additional
-        </span>
-      </div>
-      <audio
-        ref={audioRef}
-        onTimeUpdate={handleTimeUpdate}
-        src={audio}
-        className='w-full '
-      />
-      <div className='flex items-center space-x-3'>
-        <div className='cursor-pointer' onClick={togglePlayPause}>
-          {isPlaying ? (
-            <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
-          ) : (
-            <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
-          )}
+      <div
+        className={cn(
+          "absolute h-auto w-[245px] border-white/10 rounded-[16px] border gap-5 right-0 bottom-full flex flex-col p-5 -translate-y-3 ",
+          (!audio || !narrate) && "hidden"
+        )}
+      >
+        <div className={cn("flex flex-col gap-3", loading && "hidden")}>
+          <span className='headline-4'>Narration</span>
+          <span className='text-gray2 running-text-small'>
+            Each created text-block of narration costs
+            <img
+              src='/gems/Mythic.webp'
+              alt=''
+              className='h-5  mx-1 object-contain'
+              style={{ display: "inline", verticalAlign: "middle" }}
+            />
+            2 additional
+          </span>
         </div>
-        <div
-          className='custom-progress-bar flex-grow h-[1px] bg-gray-300 rounded relative cursor-pointer'
-          ref={progressBarRef}
-          onClick={handleProgressBarClick}
+        <audio
+          ref={audioRef}
+          onTimeUpdate={handleTimeUpdate}
+          src={audio}
+          className='w-full '
+        />
+        <div className={cn("flex items-center space-x-3", loading && "hidden")}>
+          <div className='cursor-pointer' onClick={togglePlayPause}>
+            {isPlaying ? (
+              <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+            ) : (
+              <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+            )}
+          </div>
+          <div
+            className='custom-progress-bar flex-grow h-[1px] bg-gray-300 rounded relative cursor-pointer'
+            ref={progressBarRef}
+            onClick={handleProgressBarClick}
+          >
+            <div
+              className='bg-gray2 h-full rounded'
+              style={{ width: `${progress}%` }}
+            ></div>
+            <div
+              className='custom-progress-handle w-4 h-4 border  bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer'
+              style={{ left: `${progress}%` }}
+              onMouseDown={handleMouseDown}
+            ></div>
+          </div>
+        </div>
+        <CustomButton
+          className={cn("self-start", loading && "hidden")}
+          onClick={stopNarration}
+          withIcon={true}
+          variant='subtle'
         >
-          <div
-            className='bg-gray2 h-full rounded'
-            style={{ width: `${progress}%` }}
-          ></div>
-          <div
-            className='custom-progress-handle w-4 h-4 border  bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer'
-            style={{ left: `${progress}%` }}
-            onMouseDown={handleMouseDown}
-          ></div>
-        </div>
+          <Stop className='h-5 w-5 fill-errorRed' />
+          Stop Narrating
+        </CustomButton>
       </div>
-      <CustomButton onClick={stopNarration} withIcon={true} variant='subtle'>
-        <Stop className='h-5 w-5 fill-errorRed' />
-        Stop Narrating
-      </CustomButton>
-    </div>
+    </>
   );
 };
 
@@ -170,6 +186,7 @@ export default function bottomMenu({
   const [imageDialog, setImageDialog] = useState(false);
   const [narrateDialog, setNarrateDialog] = useState(false);
   const [audio, setAudio] = useState(null);
+  const [audioLoading, setAudioLoading] = useState(false);
   const { invokeToast } = useCustomToast();
   const { setCurrentCharacter, game } = useGameStore();
   const { setBlueCredits, setYellowCredits, user } = useUserStore();
@@ -214,11 +231,12 @@ export default function bottomMenu({
   }, [imageDialog]);
 
   return (
-    <div className='flex justify-between items-center relative '>
+    <div className='flex  justify-between items-center relative '>
       <NarrationControls
         audio={audio}
         setNarrate={setNarrate}
         narrate={narrate}
+        loading={audioLoading}
       />
       <div className='flex justify-start items-center gap-3'>
         <Dialog
@@ -263,10 +281,12 @@ export default function bottomMenu({
                 alt=''
                 className='h-4 w-4 opacity-70'
               />
-              Narrate
+              Start Narrate
             </button>
           </DialogTrigger>
           <Narrate
+            loading={audioLoading}
+            setLoading={setAudioLoading}
             audio={audio}
             setAudio={setAudio}
             setOpen={setNarrateDialog}
@@ -289,7 +309,7 @@ export default function bottomMenu({
         >
           <img src='/Icons/Minus.svg' alt='logo' className='h-2 w-2' />
         </CustomIconbutton>
-        <span>{textSize}</span>
+
         <CustomIconbutton
           onClick={() => setTextSize((prev) => prev + 1)}
           disabled={textSize >= 22}

@@ -174,7 +174,7 @@ export const likeComment = async (commentId, token) => {
   try {
     const response = await api.patch(
       `/campaign/likeComment/${commentId}`,
-
+      {},
       {
         headers: {
           Authorization: token,

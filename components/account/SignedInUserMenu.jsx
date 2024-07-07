@@ -95,7 +95,9 @@ export default function SignedInUserMenu() {
           </CustomMenuItem>
         </DropdownMenuItem>
         <DropdownMenuItem className='flex gap-2 !p-0   focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
-          <CustomMenuItem>
+          <CustomMenuItem
+            onClick={() => handleRedirect("/campaign/my-campaigns/favorites")}
+          >
             <img
               src='/Icons/StarFilled.svg'
               alt=''

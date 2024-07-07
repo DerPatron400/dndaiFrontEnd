@@ -12,12 +12,17 @@ import Play from "@/components/ui/Icons/Play";
 
 const VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
 
-export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
+export default function Narrate({
+  setOpen,
+  setAudio,
+  setNarrate,
+  narrate,
+  loading,
+  setLoading,
+}) {
   const [selectedVoice, setSelectedVoice] = useState(VOICES[0]);
   const { game } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
-
-  const [loading, setLoading] = useState(false);
 
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
@@ -95,9 +100,9 @@ export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
   }, [selectedVoice]);
   const handleNarrate = async () => {
     try {
-      console.log("getting audio");
       audioRef?.current?.pause();
       setLoading(true);
+      setOpen(false);
       setIsPlaying(false);
       setNarrate(true);
 
@@ -113,7 +118,6 @@ export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
 
       setBlueCredits(credits.blueCredits);
       setAudio(url);
-      setOpen(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -127,17 +131,17 @@ export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
     }
   }, [game]);
   return (
-    <DialogContent className='bg-white/[8%] h-fit text-white border border-white/10 w-fit '>
-      <div className='flex flex-col gap-2'>
+    <DialogContent className='bg-white/[8%] h-fit px-0 pb-0 !rounded-[16px] text-white border border-white/10 w-fit '>
+      <div className='flex px-6 flex-col gap-2'>
         <span className='running-text-large'>
           Enhance Your Story with Narration?
         </span>
       </div>
-      <div className='flex flex-col gap-2 pb-4 p-4 bg-white/[8%] rounded-[8px] '>
+      <div className='flex mx-6 flex-col gap-2 pb-4 p-4 bg-white/[8%] rounded-[16px] border border-white/10 '>
         <span className='running-text w-full'>Choose narraters voice</span>
         <CustomDropdown
           className={"!w-full !min-w-full"}
-          placeholder={"dropdown"}
+          placeholder={"Voice"}
           selectedOption={selectedVoice}
           setSelectedOption={(option) => setSelectedVoice(option)}
           options={VOICES}
@@ -174,7 +178,7 @@ export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
         className='w-full '
       />
 
-      <div className='text-gray2 flex items-center'>
+      <div className='text-gray2 px-6 flex items-center'>
         Each line of narration costs (
         <img
           src='/gems/Mythic.webp'
@@ -184,7 +188,7 @@ export default function Narrate({ setOpen, setAudio, setNarrate, narrate }) {
         2) additional
       </div>
 
-      <div className='flex justify-end gap-4 pt-2'>
+      <div className='flex p-6 justify-end gap-4  border-white/10 border-t '>
         <CustomButton
           disabled={loading}
           onClick={() => setOpen(false)}
