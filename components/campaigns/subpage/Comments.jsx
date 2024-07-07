@@ -22,16 +22,21 @@ import {
 import moment from "moment";
 import Delete from "@/components/ui/Icons/Delete";
 import Send from "@/components/ui/Icons/Send";
+import Like from "@/components/ui/Icons/Like";
 
 const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserStore();
 
+  let counter = 0;
   const handleLikeComment = async () => {
+    if (!user?.token || isLoading) return;
+
     setIsLoading(true);
     try {
-      const response = await likeComment(comment._id, user?.token);
+      const response = await likeComment(comment._id, user.token);
+
       handleUpdateComments({
         ...comment,
         analytics: {
@@ -46,6 +51,8 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
   };
 
   const handleDeleteComment = async () => {
+    if (!user?.token || isLoading) return;
+
     setIsLoading(true);
     try {
       await deleteComment(comment._id, user?.token);
@@ -55,6 +62,8 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
       setIsLoading(false);
     }
   };
+
+  console.log(comment.analytics.likes, user?._id);
   return (
     <div className='w-full flex flex-col gap-[16px] py-4 '>
       <div className=' flex justify-between items-center'>
@@ -97,7 +106,12 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
         </span>
 
         <CustomIcontext onClick={handleLikeComment} disabled={isLoading}>
-          <img src='/Icons/Like.svg' alt='' className='h-5 w-5 opacity-70' />
+          <Like
+            className='h-5 w-5 fill-white opacity-70'
+            isfilled={
+              comment.analytics.likes.includes(user?._id) ? "true" : null
+            }
+          />
           <span>{comment.analytics.likes.length}</span>
         </CustomIcontext>
       </div>

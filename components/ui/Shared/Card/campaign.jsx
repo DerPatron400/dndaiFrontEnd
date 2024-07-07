@@ -18,6 +18,7 @@ export default function card({
   className,
   handleUpdateCampaigns,
   isLanding,
+  favorite,
 }) {
   const router = useRouter();
   const { user } = useUserStore();
@@ -132,7 +133,10 @@ export default function card({
               <IconButton
                 disabled={isLoading || !user?.token}
                 onClick={handleStar}
-                className='bg-blur group    opacity-0 group-hover:opacity-100   prevent-redirect'
+                className={cn(
+                  "bg-blur group    opacity-0 group-hover:opacity-100   prevent-redirect",
+                  favorite && "opacity-100"
+                )}
               >
                 <Star
                   isfilled={

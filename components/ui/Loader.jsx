@@ -10,18 +10,15 @@ export default function Loader({ text = "", className }) {
         className
       )}
     >
-      <div className='flex relative   flex-col gap-5'>
-        <div className='relative w-full  flex items-center justify-center'>
-          <div className='outer-ring'></div>
+      <div className='flex relative h-full items-center justify-center    flex-col gap-5'>
+        <div className='relative w-full flex-col gap-5  flex items-center justify-center'>
+          <div className='outer-ring flex items-center justify-center'>
+            <img src='/Icons/Logo-2.svg' alt='logo' className='w-20  ' />
+          </div>
           <div className='inner-ring absolute top-0'></div>
-          <img
-            src='/Icons/Logo-2.svg'
-            alt='logo'
-            className='w-20 absolute top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2'
-          />
 
           {text && (
-            <span className='description  text-center absolute  w-screen top-[115%] text-white uppercase'>
+            <span className='description  text-center    text-white uppercase'>
               {text}
             </span>
           )}

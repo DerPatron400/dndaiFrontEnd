@@ -36,15 +36,16 @@ export default function CustomDropdown({
     >
       <input
         type='text'
-        className='outline-none h-full  px-3 py-3 peer bg-transparent text-white uppercase '
+        className='outline-none h-full text-[14px]   px-3 py-3 peer bg-transparent text-white uppercase '
         placeholder=' '
         value={selectedOption}
+        autoFocus={false}
         onClick={() => setShow(true)}
-        onFocus={() => setShow(true)}
+        //onFocus={() => setShow(true)}
       />
       <img
         src='/Icons/DropdownArrow.svg'
-        className='absolute z-10 h-1 w-2  right-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none'
+        className='absolute z-[9] h-1 w-2  right-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none'
       />
 
       <label
