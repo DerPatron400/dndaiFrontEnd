@@ -29,7 +29,7 @@ export default function card() {
           </li>
         </ul>
         <CustomButton variant={"primary"} className={"w-full"}>
-          Subscribe now
+          Buy now
         </CustomButton>
       </div>
     </div>
