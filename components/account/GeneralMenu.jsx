@@ -48,7 +48,10 @@ export default function GeneralMenu({ setOpen }) {
           <span>My characters</span>
         </CustomMenuItem>
       </DropdownMenuItem>
-      <DropdownMenuItem className='flex gap-2 !p-0 !my-0 focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <DropdownMenuItem
+        onClick={() => handleRedirect("/my-account/gallery")}
+        className='flex gap-2 !p-0 !my-0 focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
+      >
         <CustomMenuItem>
           <img
             src='/Icons/ImageLibrary.svg'
