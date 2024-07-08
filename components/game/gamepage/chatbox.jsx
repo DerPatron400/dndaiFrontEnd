@@ -15,10 +15,10 @@ const TEXT_SIZES = {
 
 const TypingIndicator = () => {
   return (
-    <div className='flex items-center space-x-1'>
-      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce'></div>
-      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-150'></div>
-      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-300'></div>
+    <div className="flex items-center space-x-1">
+      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce"></div>
+      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-150"></div>
+      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-300"></div>
     </div>
   );
 };
@@ -48,18 +48,18 @@ export default function chatbox({
   return (
     <div
       ref={chatboxRef}
-      className='relative chat-box w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 '
+      className="relative chat-box w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 "
     >
       {chat.map((item, index) => {
         return item.type === "image" ? (
           <div
             onClick={() => handleViewImage(item.url)}
             key={index}
-            className='h-[223px] w-full'
+            className="h-[223px] w-full"
           >
             <img
               src={item.url}
-              className=' h-full object-contain rounded-[16px] border border-white/10 shadow-custom-1'
+              className=" h-full object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 "
             />
           </div>
         ) : (
@@ -76,8 +76,8 @@ export default function chatbox({
                       : character?.personal?.portraitUrl ||
                         "/images/CreateCharacter/CharacterName/CharacterName.png"
                   }
-                  alt='logo'
-                  className='h-full w-full rounded-full object-cover'
+                  alt="logo"
+                  className="h-full w-full rounded-full object-cover"
                 />
               </CustomIconbutton>
               <span className={"running-text-mono uppercase text-gray2"}>
@@ -114,8 +114,8 @@ export default function chatbox({
             <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
               <img
                 src={"/Icons/logo-profile.svg"}
-                alt='logo'
-                className='h-full w-full rounded-full object-cover'
+                alt="logo"
+                className="h-full w-full rounded-full object-cover"
               />
             </CustomIconbutton>
             <span className={"running-text-mono uppercase text-gray2"}>
