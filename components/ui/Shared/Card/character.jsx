@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import Eye from "@/components/ui/Icons/Eye";
 import { extractSection } from "@/lib/Helpers/shared";
 import useGameStore from "@/utils/gameStore";
-//resolved conflicts
+
 export default function card({
   character,
   carousel,
@@ -31,10 +31,10 @@ export default function card({
     setCurrentCharacter(character);
     router.push("/game/campaign-selection");
   };
+
   useEffect(() => {
     if (!character) return;
     let _level = extractSection(character.value, "level")?.trim();
-
     setLevel(_level);
   }, [character]);
 
@@ -46,40 +46,43 @@ export default function card({
       router.push(path);
     }
   };
+
+  const handleShowDetails = (event) => {
+    event.stopPropagation();
+    window.open(`/character/sheet/${character._id}`, "_blank");
+  };
+
   return (
     <div
       onClick={(event) =>
         handleRedirect(event, `/character/sheet/${character._id}`)
       }
       className={cn(
-        "rounded-[16px]  h-auto group hover:!shadow-custom-1 bg-white/[8%] group-hover:bg-white/10  my-0 cursor-pointer  overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full  border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10] ",
+        "rounded-[16px] h-auto group hover:!shadow-custom-1 bg-white/[8%] group-hover:bg-white/10 my-0 cursor-pointer overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10]",
         className
       )}
     >
-      <div className='w-full h-full overflow-hidden  border-none transition-all '>
-        <div className='relative '>
+      <div className='w-full h-full overflow-hidden border-none transition-all'>
+        <div className='relative'>
           <img
             src={
               character?.personal?.portraitUrl ||
               "/images/CreateCharacter/CharacterName/CharacterName.png"
             }
             alt=''
-            className='h-[248px] 2xl:h-full w-full  object-cover'
+            className='h-[248px] 2xl:h-full w-full object-cover'
           />
           <div
             className={cn(
-              "absolute text-xs text-white  top-0 right-0 p-4   justify-between items-end flex opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto  ease-animate "
+              "absolute text-xs text-white top-0 right-0 p-4 justify-between items-end flex opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-animate"
             )}
           >
             <DropdownMenu>
-              <DropdownMenuTrigger className=' bg-blur  prevent-redirect  !h-9 !w-9 cursor-pointer !border ease-animate  border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20  active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 !flex !items-center !justify-center'>
-                <MoreOptions
-                  className='w-5 h-5  prevent-redirect'
-                  fill='white'
-                />
+              <DropdownMenuTrigger className='bg-blur prevent-redirect !h-9 !w-9 cursor-pointer !border ease-animate border-white/10 hover:border-white/20 hover:bg-white/10 active:bg-white/20 active:border-white/40 disabled:opacity-30% disabled:pointer-events-none hover:!duration-200 !rounded-full active:!duration-100 !flex !items-center !justify-center'>
+                <MoreOptions className='w-5 h-5 prevent-redirect' fill='white' />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2'>
-                <DropdownMenuItem className='flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+              <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px] border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2'>
+                <DropdownMenuItem className='flex !p-0 prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white transition-all duration-300 ease-linear cursor-pointer'>
                   <CustomMenuItem>
                     <Download className='h-5 w-5' fill='white' />
                     <span>Download Character Sheet</span>
@@ -87,7 +90,7 @@ export default function card({
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className={cn(
-                    "flex !p-0  prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer"
+                    "flex !p-0 prevent-redirect !my-0 w-full focus:bg-transparent focus:text-white transition-all duration-300 ease-linear cursor-pointer"
                   )}
                 >
                   <CustomMenuItem onClick={handlePlay}>
@@ -99,9 +102,9 @@ export default function card({
             </DropdownMenu>
           </div>
         </div>
-        <div className='  flex flex-col p-5 pb-6  !gap-4'>
-          <div className=' flex justify-between items-center'>
-            <span className=' headline-4 text-white '>
+        <div className='flex flex-col p-5 pb-6 !gap-4'>
+          <div className='flex justify-between items-center'>
+            <span className='headline-4 text-white'>
               {character?.personal.name}
             </span>
             <img
@@ -112,9 +115,9 @@ export default function card({
             />
           </div>
           <div className='flex flex-col running-text-mono'>
-            <span className='text-white '>LEVEL {level || 0}</span>
+            <span className='text-white'>LEVEL {level || 0}</span>
             <span className='uppercase text-irisPurpleLight'>
-              {character?.personal.race}{" "}
+              {character?.personal.race}
               <span className='uppercase text-sandyOrange'>
                 {" "}
                 {character?.personal.class}
@@ -127,7 +130,7 @@ export default function card({
               (carousel || hideShowDetails) && "hidden"
             )}
           >
-            <CustomButton withIcon>
+            <CustomButton withIcon onClick={handleShowDetails}>
               <Eye className='w-4 h-4' fill='white' />
               <span>SHOW DETAILS</span>
             </CustomButton>
