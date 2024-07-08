@@ -51,7 +51,7 @@ export default function Home() {
         style={{
           backgroundImage: isMobile
             ? "url(/images/Landing/Header-mobile.png)"
-            : "url(/images/Landing/Header.png)",
+            : "url(/images/Landing/Header.webp)",
           backgroundSize: "cover",
           //
           backgroundPosition: "center",

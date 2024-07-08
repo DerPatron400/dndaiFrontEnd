@@ -102,7 +102,7 @@ export default function card({
         <div className='relative '>
           <img
             onClick={handleRedirect}
-            src={campaign?.worldMapUrl || "/images/Header.png"}
+            src={campaign?.worldMapUrl || "/images/Header.webp"}
             alt=''
             className='h-[248px] w-full  object-cover'
           />
