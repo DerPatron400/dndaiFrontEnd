@@ -280,7 +280,7 @@ export default function bottomMenu({
         </CustomButton>
       </div>
       <div className='flex gap-2 justify-start items-center'>
-        <span className='running-text-mono text-gray2'>TEXT SIZE</span>
+        <span className='running-text-mono text-gray2'> </span>
         <CustomIconbutton
           disabled={textSize <= 17}
           onClick={() => setTextSize((prev) => prev - 1)}
