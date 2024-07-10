@@ -12,8 +12,8 @@ export default function SoundButton() {
     <CustomIconbutton onClick={toggleSound}>
       <img
         src={isSoundOn ? "/Icons/Sound.svg" : "/Icons/SoundOff.svg"}
-        alt='Sound Toggle'
-        className='h-5 w-5 invert'
+        alt="Sound Toggle"
+        className="h-5 w-5 invert"
       />
     </CustomIconbutton>
   );

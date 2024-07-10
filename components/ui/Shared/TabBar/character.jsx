@@ -12,10 +12,12 @@ import CampaignAdd from "@/components/ui/Icons/CampaignAdd";
 import AddUser from "@/components/ui/Icons/AddUser";
 import { cn } from "@/lib/utils";
 import useGameStore from "@/utils/gameStore";
+import Search from "../../Icons/Search";
+import SoundButton from "../SoundButton";
 
-export default function CampaignTabBar({ campaign }) {
+export default function character() {
   const router = useRouter();
-  const { isSoundOn, toggleSound } = useSoundControls();
+  const { isSoundOn, set } = useSoundControls();
   const { setCurrentCampaign, currentCharacter } = useGameStore();
 
   const [showButtons, setShowButtons] = useState(false);
@@ -74,15 +76,12 @@ export default function CampaignTabBar({ campaign }) {
         </div>
         <div className="flex justify-between items-center w-full ">
           <div className="flex items-center gap-5">
-            <CustomIconbutton onClick={toggleSound}>
-              <img
-                src={isSoundOn ? "/Icons/Sound.svg" : "/Icons/SoundOff.svg"}
-                alt="Sound Toggle"
-                className="h-5 w-5 invert"
-              />
-            </CustomIconbutton>
+            <SoundButton />
             <CustomIconbutton onClick={() => setShowButtons((prev) => !prev)}>
               <Add className="h-5 w-5 fill-white" />
+            </CustomIconbutton>
+            <CustomIconbutton onClick={() => setShowButtons((prev) => !prev)}>
+              <Search className="h-5 w-5 fill-white" />
             </CustomIconbutton>
           </div>
           <CustomButton
@@ -92,7 +91,7 @@ export default function CampaignTabBar({ campaign }) {
             // onClick={handleCreateCampaign}
           >
             <Play className="h-5 w-5 fill-russianViolet" />
-            Play campaign
+            Play Now
           </CustomButton>
         </div>
       </div>
