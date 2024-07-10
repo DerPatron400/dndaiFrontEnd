@@ -47,8 +47,8 @@ export default function Footer() {
           />
         </div>
         {/* Copyright Notice */}
-        <div className='text-left mt-14 running-text-mono '>
-          <p className=''>DND AI © 2024 All rights reserved</p>
+        <div className='text-left  relative !z-10 mt-14 running-text-mono '>
+          <p className='z-10 text-white'>DND AI © 2024 All rights reserved</p>
         </div>
       </div>
     </footer>

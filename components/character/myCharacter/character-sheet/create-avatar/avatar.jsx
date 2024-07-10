@@ -22,7 +22,7 @@ const CurrentAvatarsList = ({
   setSelectedPortrait,
 }) => {
   return (
-    <div className='grid  grid-cols-12 w-full gap-5 min-h-96 max-h-[60vh] overflow-scroll hide-scrollbar pb-24 md:pb-0'>
+    <div className='grid  grid-cols-12 w-full  gap-5 min-h-96 max-h-[60vh] overflow-y-scroll hide-scrollbar pb-24 md:pb-0'>
       {avatars.map((avatar, index) => (
         <div
           key={index}
@@ -237,7 +237,7 @@ export default function Avatar({
       ) : (
         // Desktop
         <DialogContent className='bg-[#1b1b31] !rounded-[16px] !p-0 flex-col !gap-0 border border-white/10  !min-w-[757px] hidden md:flex   '>
-          <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>
+          <div className='flex gap-5 flex-col items-start p-6 pt-4  pb-0'>
             {generateAvatar ? (
               <div className='flex flex-col gap-3'>
                 <span className='text-white running-text-large '>

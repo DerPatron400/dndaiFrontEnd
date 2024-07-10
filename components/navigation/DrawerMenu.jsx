@@ -83,6 +83,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
           <span>My characters</span>
         </CustomMenuItem>
         <CustomMenuItem
+          onClick={() => handleRedirect("/my-account/gallery")}
           className={
             "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
           }
@@ -181,7 +182,10 @@ const UserLoggedOut = ({ handleRedirect }) => {
         />
         <span>Discover</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div
+        onClick={() => handleRedirect("/my-account/gallery")}
+        className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
+      >
         <img
           src='/Icons/ImageLibrary.svg'
           alt=''
