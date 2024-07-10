@@ -13,6 +13,13 @@ const GemsInfo = [
         truly unique.
       </span>
     ),
+    benefits: [
+      "Create a custom campaign",
+      "Generate a character portrait",
+      "Generate an image of your character in action",
+      "Generate an image of the enemy",
+      "Generate a dungeon map",
+    ],
   },
   {
     imgSrc: "/gems/mythicGems.png",
@@ -24,19 +31,25 @@ const GemsInfo = [
         heroes to life!
       </span>
     ),
+    benefits: [
+      "Creating your own custom character",
+      "Starting a new game",
+      "Taking one turn in the game.",
+      "Continuing a game",
+    ],
   },
 ];
 
 export default function Index() {
   return (
-    <div className='z-10  w-full h-full flex flex-col md:gap-12 gap-10 md:flex-col text-white justify-center items-center mt-16'>
-      <span className='text-center w-3/4 hidden md:block text-white headline-3 z-[10] '>
+    <div className='z-10  w-full h-full flex flex-col md:gap-12 gap-10 md:flex-col text-white justify-center items-center md:mt-16'>
+      <span className='text-center w-3/4 block text-white headline-3 z-[10] '>
         Here's how our <span className='text-irisPurpleLight'>gem system</span>{" "}
         works.
       </span>
-      <div className=' w-full grid grid-cols-2 gap-5'>
+      <div className=' w-full grid grid-cols-1 lg:grid-cols-2 gap-5'>
         {GemsInfo.map((gem, i) => (
-          <Card key={i} imgSrc={gem.imgSrc}>
+          <Card key={i} benefits={gem.benefits} imgSrc={gem.imgSrc}>
             {gem.info}
           </Card>
         ))}

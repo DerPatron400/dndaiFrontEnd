@@ -117,7 +117,7 @@ export default function BottomMenu({ character, setCharacter }) {
       };
 
       const response = await createCharacter(payload, user?.token || null);
-      const { credits } = await getCredits(user?.token || null);
+      const { credits } = await getCredits(user?.token);
       console.log(response);
       setYellowCredits(credits.yellowCredits);
 
