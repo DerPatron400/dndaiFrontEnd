@@ -21,7 +21,10 @@ export default function index({ campaigns, setCampaigns }) {
   };
 
   return (
-    <div className='min-h-screen relative h-full w-full flex flex-col pt-[130px] md:pt-[128spx] px-5 lg:px-12 pb-32 md:pb-64 '>
+    <div
+      className='min-h-screen relative h-full w-full flex flex-col pt-[130px] md:pt-[128spx] px-5 lg:px-12 pb-32 md:pb-64 '
+      suppressHydrationWarning
+    >
       <div className='flex flex-col gap-2.5 '>
         <div className='text-center flex justify-between text-white headline-3 z-[10] '>
           {/* desktop */}

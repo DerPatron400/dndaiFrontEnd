@@ -3,6 +3,7 @@ import SearchInput from "@/components/ui/search-input";
 import { cn } from "@/lib/utils";
 import { ALIGNMENT } from "../constants";
 import useCharacterStore from "@/utils/characterStore";
+import Info2 from "@/components/ui/Icons/Info2";
 export default function Choose({ handleAlignmentChange, alignment }) {
   const { setShowModal, setSelectedCharacteristic } = useCharacterStore();
   const [query, setQuery] = useState("");
@@ -40,14 +41,15 @@ export default function Choose({ handleAlignmentChange, alignment }) {
             className={`flex cursor-pointer col-span-4 md:col-span-4  relative  flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <div className='relative w-full  '>
-              <img
+              <div
                 onClick={handleShowModal}
-                src={`/Icons/Info-btn.svg`}
                 className={cn(
-                  `w-6 h-6 left-2 bottom-2 md:hidden ease-animate object-cover absolute`,
+                  "h-5 w-5 bg-[#4767DC] flex items-center justify-center rounded-full left-2 bottom-2 md:hidden ease-animate object-cover absolute ",
                   alignment?.name !== name && "opacity-0 pointer-events-none"
                 )}
-              />
+              >
+                <Info2 className='h-[9px] w-[2px] fill-white  ' />
+              </div>
               <img
                 src={`https://dndai-images.s3.eu-central-1.amazonaws.com/alignments/${name
                   .toLowerCase()

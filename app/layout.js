@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     !pathname.includes("/discover") &&
     !pathname.includes("game") &&
     !pathname.includes("payment");
-  
+
   const characterSheet = pathname.includes("/character/sheet");
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   return (
-    <html lang='en' suppressHydrationWarning={true} className={inter.className}>
+    <html lang='en' suppressHydrationWarning className={inter.className}>
       <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
         <head>
           {/* Google Analytics Script */}
@@ -92,12 +92,12 @@ export default function RootLayout({ children }) {
               />
             </div>
           )}
-          <div className='z-[1]'>{children}</div>
 
           <Navbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}
           />
+          <div className='z-[1]'>{children}</div>
 
           {showFooter && <Footer />}
           <div className='!z-[50]'>

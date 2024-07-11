@@ -83,9 +83,9 @@ const UserLoggedIn = ({ handleRedirect }) => {
           <span>My characters</span>
         </CustomMenuItem>
         <CustomMenuItem
-          onClick={() => handleRedirect("/my-account/gallery")}
+          //onClick={() => handleRedirect("/my-account/gallery")}
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <img

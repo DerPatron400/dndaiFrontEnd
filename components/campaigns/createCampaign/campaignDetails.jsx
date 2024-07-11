@@ -24,13 +24,13 @@ export default function campaignDetails({ campaign, handleSetCampaign }) {
       <CustomTextArea
         value={campaign.plot}
         onChange={(e) => handleSetCampaign("plot", e)}
-        className={"h-[200px] running-text-mono"}
+        className={"h-[200px] "}
         placeholder='PLOT'
       />
       <CustomTextArea
         value={campaign.hook}
         onChange={(e) => handleSetCampaign("hook", e)}
-        className={"h-[180px] running-text-mono"}
+        className={"h-[180px] "}
         placeholder='HOOK'
       />
     </div>

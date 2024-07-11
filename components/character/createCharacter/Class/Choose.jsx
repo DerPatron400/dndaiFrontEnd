@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { CLASSES } from "../constants";
 import useCharacterStore from "@/utils/characterStore";
+import Info2 from "@/components/ui/Icons/Info2";
 
 export default function Choose({ _class, handleSelectClass }) {
   const { setShowModal, setSelectedCharacteristic } = useCharacterStore();
@@ -40,14 +41,15 @@ export default function Choose({ _class, handleSelectClass }) {
             className={`flex cursor-pointer col-span-4 md:col-span-4 relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <div className='relative w-full  '>
-              <img
-                src={`/Icons/Info-btn.svg`}
+              <div
                 onClick={handleShowModal}
                 className={cn(
-                  `w-6 h-6 left-2 bottom-2 md:hidden ease-animate object-cover absolute`,
+                  "h-5 w-5 bg-[#4767DC] flex items-center justify-center rounded-full left-2 bottom-2 md:hidden ease-animate object-cover absolute ",
                   _class?.name !== name && "opacity-0 pointer-events-none"
                 )}
-              />
+              >
+                <Info2 className='h-[9px] w-[2px] fill-white  ' />
+              </div>
               <img
                 src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${name
                   .toLowerCase()

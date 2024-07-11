@@ -68,18 +68,17 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
     }
   };
 
-  if (loading)
-    return (
-      <Loader
-        text='Generating image...'
-        className={
-          "absolute top-0 left-0 w-full h-full bg-blur flex items-center justify-center"
-        }
-      />
-    );
-
   return (
-    <DialogContent className='bg-white/[8%] !gap-0 text-white border !p-0 border-white/10 !rounded-[16px]'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px]'>
+      {loading && (
+        <Loader
+          text='Generating image...'
+          className={
+            "absolute !z-30 top-0 left-0 w-full h-full bg-blur flex items-center justify-center"
+          }
+        />
+      )}
+
       {step === 1 && (
         <>
           <div className='flex p-6 pb-5 flex-col gap-2'>

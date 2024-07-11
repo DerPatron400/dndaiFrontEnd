@@ -147,16 +147,11 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         className
       )}
     >
-      <div className="flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row">
-        <div className="hidden md:flex items-start justify-start">
-          <Button onClick={handlePlay} withIcon variant={"primary"}>
-            <Play size={14} /> <span>Play campaign</span>
-          </Button>
-        </div>
-        <div className="flex gap-6 md:gap-8 w-full  justify-start items-start">
+      <div className='flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
+        <div className='flex gap-6 md:gap-8 w-full  justify-start items-start'>
           <CustomIcontext disabled={isLoading} onClick={handleLike}>
             <Like
-              className="h-5 w-5 fill-white opacity-70"
+              className='h-5 w-5 fill-white opacity-70'
               isfilled={
                 campaign.analytics.likes.includes(user?._id) ? "true" : null
               }
@@ -164,7 +159,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
             <span>{campaign.analytics.likes.length}</span>
           </CustomIcontext>
           <CustomIcontext disabled={true} className={"disabled:opacity-100"}>
-            <Play className="h-5 w-5 fill-white opacity-70" />
+            <Play className='h-5 w-5 fill-white opacity-70' />
             <span>{campaign.analytics.plays.length}</span>
           </CustomIcontext>
           <CustomIcontext
@@ -175,21 +170,21 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
               isfilled={
                 campaign.analytics.stars.includes(user?._id) ? "true" : null
               }
-              className="h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect"
+              className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
             />
             <span>{campaign.analytics.stars.length}</span>
           </CustomIcontext>
           <CustomIcontext>
             <img
-              src="/Icons/Share.svg"
-              alt=""
-              className="h-5 w-5 opacity-70 invert"
+              src='/Icons/Share.svg'
+              alt=''
+              className='h-5 w-5 opacity-70 invert'
             />{" "}
             <span>Share</span>
           </CustomIcontext>
         </div>
       </div>
-      <div className=" gap-2 md:gap-6 items-start md:justify-end md:items-end flex-col md:flex-row hidden md:flex">
+      <div className=' gap-2 md:gap-6 items-start md:justify-end md:items-end flex-col md:flex-row hidden md:flex'>
         <Button
           disabled={isLoading}
           onClick={campaign.isPublished ? handleUnpublish : handlePublish}
@@ -197,7 +192,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
           variant={"subtle"}
           className={cn(!isCreator && "hidden")}
         >
-          <World className="h-5 w-5 fill-white" />{" "}
+          <World className='h-5 w-5 fill-white' />{" "}
           <span>{campaign.isPublished ? "Unpublish" : "Publish"}</span>
         </Button>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -209,7 +204,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
               !isCreator && "hidden"
             )}
           >
-            <Delete className="h-5 w-5 fill-errorRed" /> <span>Delete</span>
+            <Delete className='h-5 w-5 fill-errorRed' /> <span>Delete</span>
           </DialogTrigger>
           <DeleteBox
             isLoading={isLoading}
@@ -219,9 +214,9 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         </Dialog>
         <Button disabled={isLoading} onClick={downloadWorldMap} withIcon>
           <img
-            src="/Icons/Download.svg"
-            className="h-5 w-5 opacity-75 invert"
-            alt=""
+            src='/Icons/Download.svg'
+            className='h-5 w-5 opacity-75 invert'
+            alt=''
           />{" "}
           <span>Download world map</span>
         </Button>

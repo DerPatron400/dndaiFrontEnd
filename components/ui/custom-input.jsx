@@ -17,13 +17,13 @@ export default function CustomInput({
   return (
     <div
       className={cn(
-        "relative disable-dbl-tap-zoom rounded-[10px] h-12 w-full  group bg-transparent running-text-mono ",
+        "relative disable-dbl-tap-zoom rounded-[10px] h-12 w-full  group bg-transparent !running-text-mono ",
         disabled && "opacity-75 pointer-events-none",
         className
       )}
     >
       <input
-        autofill="off"
+        autofill='off'
         disabled={disabled}
         type={type || "text"}
         value={value}
@@ -32,9 +32,9 @@ export default function CustomInput({
           icon && "pr-8",
           !placeholder.toLowerCase().includes("password") && "uppercase"
         )}
-        placeholder=" "
+        placeholder=' '
         //show password
-        masking="false"
+        masking='false'
         onChange={(e) => onChange(e.target.value)}
         onClick={onClick}
         onFocus={onFocus}
@@ -42,14 +42,14 @@ export default function CustomInput({
       />
 
       {icon && (
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+        <div className='absolute right-4 top-1/2 transform -translate-y-1/2'>
           {icon}
         </div>
       )}
 
       <label
         className={cn(
-          `absolute left-[9px] uppercase top-px !text-sm text-gray2 transition-all duration-300 px-1 transform -translate-y-[43%] pointer-events-none 
+          `absolute left-[9px] !running-text-mono uppercase top-px !text-sm text-gray2 transition-all duration-300 px-1 transform -translate-y-[43%] pointer-events-none 
   peer-placeholder-shown:top-1/2  font-medium peer-placeholder-shown:text-xl group-focus-within:!top-px group-focus-within:!text-sm group-focus-within:!text-irisPurpleLight group-focus-within:!text-[10px]`,
           value && "!text-[10px]"
         )}
@@ -59,24 +59,24 @@ export default function CustomInput({
 
       <fieldset
         className={cn(
-          "inset-0 absolute border border-gray2 rounded-[10px] pointer-events-none mt-[-6px] invisible peer-placeholder-shown:visible group-focus-within:!border-irisPurpleLight group-focus-within:border-1 group-focus-within:rounded-[10px] group-hover:border-white transition-all duration-300 ",
+          "inset-0 absolute border !running-text-mono border-gray2 rounded-[10px] pointer-events-none mt-[-6px] invisible peer-placeholder-shown:visible group-focus-within:!border-irisPurpleLight group-focus-within:border-1 group-focus-within:rounded-[10px] group-hover:border-white transition-all duration-300 ",
           error &&
             "border-errorRed group-focus-within:!border-errorRed group-hover:!border-errorRed group-hover-within:text-[10px]"
         )}
       >
-        <legend className="ml-2  !-mt-1 uppercase px-0 text-[10px] transition-all duration-300 invisible max-w-[0.01px] group-focus-within:max-w-full group-focus-within:px-[3px] whitespace-nowrap">
+        <legend className='ml-2  !-mt-1 uppercase px-0 text-[10px] transition-all duration-300 invisible max-w-[0.01px] group-focus-within:max-w-full group-focus-within:px-[3px] whitespace-nowrap'>
           {placeholder}
         </legend>
       </fieldset>
 
       <fieldset
         className={cn(
-          "inset-0 absolute border uppercase border-gray-400 rounded-[10px] pointer-events-none mt-[-6px] visible peer-placeholder-shown:invisible group-focus-within:border-1 group-focus-within:!border-irisPurpleLight group-hover:border-irisPurpleLight group-hover-within:text-[10px]",
+          "inset-0 absolute border !running-text-mono uppercase border-gray-400 rounded-[10px] pointer-events-none mt-[-6px] visible peer-placeholder-shown:invisible group-focus-within:border-1 group-focus-within:!border-irisPurpleLight group-hover:border-irisPurpleLight group-hover-within:text-[10px]",
           error &&
             "border-errorRed group-hover:!border-errorRed group-focus-within:!border-errorRed"
         )}
       >
-        <legend className="ml-2 text-[10px] invisible px-[3px] uppercase   whitespace-nowrap group-hover-within:text-[10px]">
+        <legend className='ml-2 !running-text-mono text-[10px] invisible px-[3px] uppercase   whitespace-nowrap group-hover-within:text-[10px]'>
           {placeholder}
         </legend>
       </fieldset>

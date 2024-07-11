@@ -4,6 +4,8 @@ import CustomRadioButton from "@/components/ui/custom-radio-button";
 import { cn } from "@/lib/utils";
 import { RACE } from "../constants";
 import useCharacterStore from "@/utils/characterStore";
+import Info from "@/components/ui/Icons/Info";
+import Info2 from "@/components/ui/Icons/Info2";
 
 export default function Choose({ race, handleSelectRace }) {
   const { raceQuery, setRaceQuery, setShowModal, setSelectedCharacteristic } =
@@ -25,9 +27,9 @@ export default function Choose({ race, handleSelectRace }) {
     setShowModal(true);
   };
   return (
-    <div className="md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  md:pb-0">
+    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%]  md:pb-0'>
       {/* For PC */}
-      <h1 className="headline-4 hidden md:block">Race</h1>
+      <h1 className='headline-4 hidden md:block'>Race</h1>
       <SearchInput
         query={raceQuery}
         setQuery={setRaceQuery}
@@ -43,7 +45,7 @@ export default function Choose({ race, handleSelectRace }) {
         onChange={handleSelect}
       />
       {/* Ends */}
-      <div className="grid grid-cols-12 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-10 2xl:grid-cols-12 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar md:pb-5">
+      <div className='grid grid-cols-12 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-10 2xl:grid-cols-12 gap-4 md:gap-5 w-full overflow-auto hide-scrollbar md:pb-5'>
         {RACE.filter(({ name }) => {
           if (raceQuery) {
             return name.toLowerCase().includes(raceQuery.toLowerCase());
@@ -70,7 +72,7 @@ export default function Choose({ race, handleSelectRace }) {
             }}
             className={`flex cursor-pointer col-span-4 md:col-span-4  xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
-            <div className="relative w-full  ">
+            <div className='relative w-full  '>
               <img
                 src={`https://dndai-images.s3.eu-central-1.amazonaws.com/race/${name
                   .toLowerCase()
@@ -80,16 +82,17 @@ export default function Choose({ race, handleSelectRace }) {
                   race?.name === name && "border-2 border-irisPurpleLight"
                 }`}
               />
-              <img
+              <div
                 onClick={handleShowModal}
-                src={`/Icons/Info-btn.svg`}
                 className={cn(
-                  `w-6 h-6 left-2 bottom-2 md:hidden ease-animate object-cover absolute`,
+                  "h-5 w-5 bg-[#4767DC] flex items-center justify-center rounded-full left-2 bottom-2 md:hidden ease-animate object-cover absolute ",
                   race?.name !== name && "opacity-0 pointer-events-none"
                 )}
-              />
+              >
+                <Info2 className='h-[9px] w-[2px] fill-white  ' />
+              </div>
             </div>
-            <span className="description">{name}</span>
+            <span className='description'>{name}</span>
           </div>
         ))}
       </div>
