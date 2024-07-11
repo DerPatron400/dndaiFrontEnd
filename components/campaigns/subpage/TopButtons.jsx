@@ -21,6 +21,7 @@ import useGameStore from "@/utils/gameStore";
 import Like from "@/components/ui/Icons/Like";
 
 const TopButtons = ({ campaign, setCampaign, className }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { user } = useUserStore();
   const isCreator = campaign.userId === user?._id;
   const router = useRouter();
@@ -135,6 +136,10 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
     setCurrentCampaign(campaign);
     router.push("/game/play");
   };
+
+  const handleOpenDelete = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div
       className={cn(
@@ -195,7 +200,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
           <World className="h-5 w-5 fill-white" />{" "}
           <span>{campaign.isPublished ? "Unpublish" : "Publish"}</span>
         </Button>
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger
             withIcon
             variant={"subtle"}
@@ -209,7 +214,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
           <DeleteBox
             isLoading={isLoading}
             handleDelete={handleDelete}
-            campaign={campaign}
+            setIsOpen={setIsOpen}
           />
         </Dialog>
         <Button disabled={isLoading} onClick={downloadWorldMap} withIcon>

@@ -5,17 +5,17 @@ import { cn } from "@/lib/utils";
 import Cancel from "@/components/ui/Icons/Cancel";
 import Delete from "@/components/ui/Icons/Delete";
 
-export default function deleteBox({ handleDelete, isLoading, setIsOpen }) {
+export default function DeleteBox({ handleDelete, isLoading, setIsOpen }) {
   return (
     <DialogContent className="bg-white/[8%] text-white border border-white/10 !w-2/4">
-      <div className="flex flex-col gap-4 ">
+      <div className="flex flex-col gap-4">
         <span className="headline-3">Delete this campaign?</span>
-        <span className="text-gray2 ">
+        <span className="text-gray2">
           Your campaign will be deleted permanently.
         </span>
       </div>
-      <hr className="border-white/10 " />
-      <DialogFooter className={""}>
+      <hr className="border-white/10" />
+      <DialogFooter className="">
         <Button onClick={() => setIsOpen(false)} withIcon={true}>
           <Cancel className="w-3 h-3" fill="white" />
           Cancel

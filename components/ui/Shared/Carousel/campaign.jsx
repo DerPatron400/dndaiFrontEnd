@@ -57,8 +57,8 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
           !canScrollLeft && "pointer-events-none opacity-0"
         )}
       >
-        <CustomIconbutton onClick={scrollLeft} variant='primary'>
-          <img src='/Icons/ArrowLeft.svg' alt='' className='w-5 h-5' />
+        <CustomIconbutton onClick={scrollLeft} variant="primary">
+          <img src="/Icons/ArrowLeft.svg" alt="" className="w-5 h-5" />
         </CustomIconbutton>
       </div>
       <div
@@ -69,10 +69,10 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
       >
         <CustomIconbutton
           onClick={scrollRight}
-          variant='primary'
+          variant="primary"
           className={"hidden md:flex"}
         >
-          <img src='/Icons/ArrowRight.svg' alt='' className='w-5 h-5' />
+          <img src="/Icons/ArrowRight.svg" alt="" className="w-5 h-5" />
         </CustomIconbutton>
       </div>
       <div
@@ -89,7 +89,7 @@ export default function Campaign({ campaigns, isLanding = false, className }) {
             key={index}
             carousel
             isLanding={isLanding}
-            className='snap-center'
+            className="snap-center"
           />
         ))}
       </div>
