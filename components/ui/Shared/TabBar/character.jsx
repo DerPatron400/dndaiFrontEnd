@@ -14,17 +14,21 @@ import { cn } from "@/lib/utils";
 import useGameStore from "@/utils/gameStore";
 import Search from "../../Icons/Search";
 import SoundButton from "../SoundButton";
+import SearchInput from "@/components/ui/search-input";
 
 export default function character() {
   const router = useRouter();
   const { isSoundOn, set } = useSoundControls();
   const { setCurrentCampaign, currentCharacter } = useGameStore();
-
+  const [searchMode, setSearchMode] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+  const [query, setQuery] = useState("");
   const detectClickOutside = (e) => {
-    if (showButtons) {
+    if (showButtons || (searchMode && !e.target.closest(".search"))) {
       if (!e.target.closest(".btns-menu")) {
         setShowButtons(false);
+        setSearchMode(false);
+        console.log("clicked outside");
       }
     }
   };
@@ -35,6 +39,16 @@ export default function character() {
       document.removeEventListener("click", detectClickOutside);
     };
   }, [showButtons]);
+
+  useEffect(() => {
+    // Add event listener
+    document.addEventListener("click", detectClickOutside);
+
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener("click", detectClickOutside);
+    };
+  }, [searchMode]); // Depend on searchMode to properly handle changes in its state
 
   const handlePlay = () => {
     setCurrentCampaign(campaign);
@@ -75,24 +89,47 @@ export default function character() {
           </div>
         </div>
         <div className="flex justify-between items-center w-full ">
-          <div className="flex items-center gap-5">
-            <SoundButton />
-            <CustomIconbutton onClick={() => setShowButtons((prev) => !prev)}>
-              <Add className="h-5 w-5 fill-white" />
-            </CustomIconbutton>
-            <CustomIconbutton onClick={() => setShowButtons((prev) => !prev)}>
-              <Search className="h-5 w-5 fill-white" />
-            </CustomIconbutton>
-          </div>
-          <CustomButton
-            variant={"primary"}
-            onClick={handlePlay}
-            // disabled={!isValid() || loading}
-            // onClick={handleCreateCampaign}
-          >
-            <Play className="h-5 w-5 fill-russianViolet" />
-            Play Now
-          </CustomButton>
+          {searchMode ? (
+            <SearchInput
+              autoFocus={true}
+              className={"w-full search text-white"}
+              query={query}
+              setQuery={setQuery}
+            />
+          ) : (
+            <>
+              <div className="flex items-center gap-5">
+                <SoundButton />
+                <CustomIconbutton
+                  onClick={() => setShowButtons((prev) => !prev)}
+                >
+                  <Add className="h-5 w-5 fill-white" />
+                </CustomIconbutton>
+
+                <CustomIconbutton
+                  onClick={() => {
+                    console.log("search");
+                    setSearchMode(true);
+                  }}
+                >
+                  <img
+                    src={"/Icons/Search.svg"}
+                    alt="Search Toggle"
+                    className="h-5 w-5  "
+                  />
+                </CustomIconbutton>
+              </div>
+              <CustomButton
+                variant={"primary"}
+                onClick={handlePlay}
+                // disabled={!isValid() || loading}
+                // onClick={handleCreateCampaign}
+              >
+                <Play className="h-5 w-5 fill-russianViolet" />
+                Play Now
+              </CustomButton>
+            </>
+          )}
         </div>
       </div>
     </div>
