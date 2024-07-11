@@ -25,9 +25,9 @@ const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
       withIcon={true}
     >
       <img
-        src='/Icons/ArrowLeft.svg'
-        alt='logo'
-        className='h-5 w-5 invert opacity-70'
+        src="/Icons/ArrowLeft.svg"
+        alt="logo"
+        className="h-5 w-5 invert opacity-70"
       />
       Back
     </CustomButton>
@@ -62,9 +62,9 @@ const NextButton = ({
     >
       {formComplete ? "Finish And Start" : "Next step"}
       {formComplete ? (
-        <Check className='h-5 w-5 fill-black' />
+        <Check className="h-5 w-5 fill-black" />
       ) : (
-        <ArrowRight className='h-5 w-5 fill-black' />
+        <ArrowRight className="h-5 w-5 fill-black" />
       )}
     </CustomButton>
   );
@@ -157,9 +157,9 @@ export default function BottomMenu({ character, setCharacter }) {
   return (
     <>
       {/* For Desktop */}
-      <div className='text-white hidden h-full   md:flex justify-between items-center w-full py-12  left-0 z-[20]   '>
+      <div className="text-white hidden h-full   md:flex justify-between items-center w-full py-12  left-0 z-[20]   ">
         <CustomButton withIcon onClick={handleRandomCharacterName}>
-          <img src='/Icons/Random.svg' alt='logo' className='h-5 w-5 ' />
+          <img src="/Icons/Random.svg" alt="logo" className="h-5 w-5 " />
           RANDOM CHARACTER Name
         </CustomButton>
         <CustomInput
@@ -168,19 +168,19 @@ export default function BottomMenu({ character, setCharacter }) {
           icon={
             character.name && (
               <img
-                src='/Icons/Success.svg'
-                alt='Success'
-                className=' h-4 w-4'
+                src="/Icons/Success.svg"
+                alt="Success"
+                className=" h-4 w-4"
               />
             )
           }
           onChange={(value) =>
             setCharacter((prev) => ({ ...prev, name: value }))
           }
-          placeholder='CHARACTER NAME'
+          placeholder="CHARACTER NAME"
           className={"w-1/4"}
         />
-        <div className='flex items-center gap-x-6'>
+        <div className="flex items-center gap-x-6">
           <BackButton
             activeStep={activeStep}
             isChoosingRandom={isChoosingRandom}
@@ -204,7 +204,7 @@ export default function BottomMenu({ character, setCharacter }) {
           activeStep >= 7 ? "!bg-transparent " : "bg-blur-bottom-menu"
         )}
       >
-        <div className=' flex items-center justify-between p-5  '>
+        <div className=" flex items-center justify-between p-5  ">
           {searchMode ? (
             <SearchInput
               autoFocus={true}
@@ -214,12 +214,12 @@ export default function BottomMenu({ character, setCharacter }) {
             />
           ) : (
             <>
-              <div className='flex items-center gap-5'>
+              <div className="flex items-center gap-5">
                 <CustomIconbutton onClick={toggleSound}>
                   <img
                     src={isSoundOn ? "/Icons/Sound.svg" : "/Icons/SoundOff.svg"}
-                    alt='Sound Toggle'
-                    className='h-5 w-5 invert'
+                    alt="Sound Toggle"
+                    className="h-5 w-5 invert"
                   />
                 </CustomIconbutton>
                 <CustomIconbutton
@@ -231,12 +231,12 @@ export default function BottomMenu({ character, setCharacter }) {
                 >
                   <img
                     src={"/Icons/Search.svg"}
-                    alt='Search Toggle'
-                    className='h-5 w-5  '
+                    alt="Search Toggle"
+                    className="h-5 w-5  "
                   />
                 </CustomIconbutton>
               </div>
-              <div className='flex items-center gap-x-6'>
+              <div className="flex items-center gap-x-6">
                 <BackButton
                   activeStep={activeStep}
                   isChoosingRandom={isChoosingRandom}

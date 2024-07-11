@@ -106,7 +106,7 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
           className={
             "absolute h-[212px] w-[245px] border-white/10 bg-transparent rounded-[16px] items-center justify-center border right-0 bottom-full flex  -translate-y-3 "
           }
-          text='Loading narrative ...'
+          text="Loading narrative ..."
         />
       )}
       <div
@@ -117,13 +117,13 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
         )}
       >
         <div className={cn("flex flex-col gap-3", loading && "hidden")}>
-          <span className='headline-4'>Narration</span>
-          <span className='text-gray2 running-text-small'>
+          <span className="headline-4">Narration</span>
+          <span className="text-gray2 running-text-small">
             Each created text-block of narration costs
             <img
-              src='/gems/Mythic.webp'
-              alt=''
-              className='h-5  mx-1 object-contain'
+              src="/gems/Mythic.webp"
+              alt=""
+              className="h-5  mx-1 object-contain"
               style={{ display: "inline", verticalAlign: "middle" }}
             />
             2 additional
@@ -133,27 +133,27 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
           ref={audioRef}
           onTimeUpdate={handleTimeUpdate}
           src={audio}
-          className='w-full '
+          className="w-full "
         />
         <div className={cn("flex items-center space-x-3", loading && "hidden")}>
-          <div className='cursor-pointer' onClick={togglePlayPause}>
+          <div className="cursor-pointer" onClick={togglePlayPause}>
             {isPlaying ? (
-              <Pause className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+              <Pause className="h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2" />
             ) : (
-              <Play className='h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2' />
+              <Play className="h-5 w-5 fill-white hover:fill-gray1 active:fill-gray2" />
             )}
           </div>
           <div
-            className='custom-progress-bar flex-grow h-[1px] bg-gray-300 rounded relative cursor-pointer'
+            className="custom-progress-bar flex-grow h-[1px] bg-gray-300 rounded relative cursor-pointer"
             ref={progressBarRef}
             onClick={handleProgressBarClick}
           >
             <div
-              className='bg-gray2 h-full rounded'
+              className="bg-gray2 h-full rounded"
               style={{ width: `${progress}%` }}
             ></div>
             <div
-              className='custom-progress-handle w-4 h-4 border  bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer'
+              className="custom-progress-handle w-4 h-4 border  bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer"
               style={{ left: `${progress}%` }}
               onMouseDown={handleMouseDown}
             ></div>
@@ -163,9 +163,9 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
           className={cn("self-start", loading && "hidden")}
           onClick={stopNarration}
           withIcon={true}
-          variant='subtle'
+          variant="subtle"
         >
-          <Stop className='h-5 w-5 fill-errorRed' />
+          <Stop className="h-5 w-5 fill-errorRed" />
           Stop Narrating
         </CustomButton>
       </div>
@@ -232,24 +232,24 @@ export default function bottomMenu({
   }, [imageDialog]);
 
   return (
-    <div className='flex  justify-between items-center relative '>
+    <div className="flex  justify-between items-center relative ">
       <NarrationControls
         audio={audio}
         setNarrate={setNarrate}
         narrate={narrate}
         loading={audioLoading}
       />
-      <div className='flex justify-start items-center gap-3'>
+      <div className="flex justify-start items-center gap-3">
         <Dialog
           open={imageDialog}
           onOpenChange={(isOpen) => setImageDialog(isOpen)}
         >
           <DialogTrigger asChild suppressHydrationWarning>
-            <button className='running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100'>
+            <button className="running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100">
               <img
-                src='/Icons/Generate.svg'
-                alt=''
-                className='h-4 w-4 opacity-70'
+                src="/Icons/Generate.svg"
+                alt=""
+                className="h-4 w-4 opacity-70"
               />
               Generate image
             </button>
@@ -276,11 +276,11 @@ export default function bottomMenu({
           onOpenChange={(isOpen) => setNarrateDialog(isOpen)}
         >
           <DialogTrigger asChild>
-            <button className='running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100'>
+            <button className="running-text-mono flex items-center pe-5 ps-[20px] gap-2 h-[48px] px-6 bg-white/10 hover:bg-white/10 uppercase border border-white/10 hover:border-white/20 active:bg-white/20 active:border-white/40 disabled:opacity-30 rounded-[10px]  cursor-pointer z-[10] ease-animate  hover:!duration-200 active:!duration-100">
               <img
-                src='/Icons/Narrate.svg'
-                alt=''
-                className='h-4 w-4 opacity-70'
+                src="/Icons/Narrate.svg"
+                alt=""
+                className="h-4 w-4 opacity-70"
               />
               Start Narrate
             </button>
@@ -296,19 +296,19 @@ export default function bottomMenu({
           />
         </Dialog>
         <CustomButton onClick={handleSaveCharacter}>
-          <Save className='h-5 w-5 fill-white opacity-70' />
+          <Save className="h-5 w-5 fill-white opacity-70" />
           Save Character
         </CustomButton>
       </div>
-      <div className='flex gap-2 justify-start items-center'>
-        <span className='running-text-mono text-gray2'> </span>
+      <div className="flex gap-2 justify-start items-center">
+        <span className="running-text-mono text-gray2"> </span>
         <CustomIconbutton
           disabled={textSize <= 17}
           onClick={() => setTextSize((prev) => prev - 1)}
           variant={"primary"}
           className={"h-6 w-6"}
         >
-          <img src='/Icons/Minus.svg' alt='logo' className='h-2 w-2' />
+          <img src="/Icons/Minus.svg" alt="logo" className="h-2 w-2" />
         </CustomIconbutton>
 
         <CustomIconbutton
@@ -317,7 +317,7 @@ export default function bottomMenu({
           variant={"primary"}
           className={"h-6 w-6"}
         >
-          <img src='/Icons/Add.svg' alt='logo' className='h-2 w-2' />
+          <img src="/Icons/Add.svg" alt="logo" className="h-2 w-2" />
         </CustomIconbutton>
       </div>
     </div>
