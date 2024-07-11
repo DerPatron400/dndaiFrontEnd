@@ -17,7 +17,7 @@ export default function Details({ details, setting }) {
           <p className='running-text capitalize'>{details.hook}</p>
         </div>
       </div>
-      <div className='mdLw-1/2'>
+      <div className='md:w-1/2'>
         {" "}
         <div className='flex flex-col gap-[16px] items-start justify-start'>
           <span className='running-text-mono text-gray2'>SETTINGS</span>

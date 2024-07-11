@@ -54,7 +54,7 @@ export default function ProfileButtons({ details }) {
     <div className='absolute top-4 left-4 w-full flex justify-start gap-4 '>
       <Popover>
         <PopoverTrigger>
-          <CustomIconbutton className={" bg-blur"}>
+          <CustomIconbutton className={" bg-blur-icon-button"}>
             <Appearance className='h-5 w-5' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
@@ -68,7 +68,7 @@ export default function ProfileButtons({ details }) {
 
       <Popover>
         <PopoverTrigger>
-          <CustomIconbutton className={" bg-blur"}>
+          <CustomIconbutton className={" bg-blur-icon-button"}>
             <Sheet className='h-4.5 w-4.5' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
@@ -107,7 +107,7 @@ export default function ProfileButtons({ details }) {
 
       <Popover>
         <PopoverTrigger>
-          <CustomIconbutton className={" bg-blur"}>
+          <CustomIconbutton className={" bg-blur-icon-button"}>
             <Info className='h-4 w-4' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>

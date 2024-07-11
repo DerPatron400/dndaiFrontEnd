@@ -98,6 +98,12 @@ body {
     background-color: rgba(209, 207, 207, 0.082);
   }
 
+  .bg-blur-icon-button {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: rgba(10, 10, 33, .6);
+  }
+
   /* Headline 1 */
   .headline-1 {
     @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em] 2xl:text-[120px] 2xl:leading-[100px];
@@ -185,9 +191,8 @@ body {
 
 /* styles.css */
 .squircle {
-  clip-path: path(
-    "M0.5,0 C0.776,0 1,0.224 1,0.5 C1,0.776 0.776,1 0.5,1 C0.224,1 0,0.776 0,0.5 C0,0.224 0.224,0 0.5,0 Z"
-  );
+  clip-path: path("M0.5,0 C0.776,0 1,0.224 1,0.5 C1,0.776 0.776,1 0.5,1 C0.224,1 0,0.776 0,0.5 C0,0.224 0.224,0 0.5,0 Z"
+    );
 }
 
 .bg-blur-1 {
@@ -244,30 +249,24 @@ body {
 }
 
 .rtl-gradient {
-  background: linear-gradient(
-    90deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(90deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
 }
 
 .ltr-gradient {
-  background: linear-gradient(
-    270deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(270deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
 }
 
 .top-gradient {
-  background: linear-gradient(
-    220deg,
-    rgba(10, 10, 33, 0) 0%,
-    rgba(10, 10, 33, 0.5) 40.5%,
-    #0a0a21 80.5%
-  );
+  background: linear-gradient(220deg,
+      rgba(10, 10, 33, 0) 0%,
+      rgba(10, 10, 33, 0.5) 40.5%,
+      #0a0a21 80.5%);
 }
 
 .icon-glow {
@@ -381,6 +380,7 @@ audio::-webkit-media-controls-enclosure {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
+
   select,
   textarea,
   input {

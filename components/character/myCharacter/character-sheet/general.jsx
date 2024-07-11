@@ -10,16 +10,16 @@ const RenderData = ({ title, data, className, containerClassName }) => {
         className
       )}
     >
-      <div className=" flex flex-col gap-6">
-        <span className="headline-4 w-full truncate">{title}</span>
+      <div className=' flex flex-col gap-6'>
+        <span className='headline-4 w-full truncate'>{title}</span>
         <div className={cn("flex flex-col gap-6", containerClassName)}>
           {data.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col justify-center items-start gap-4 "
+              className='flex flex-col justify-center items-start gap-4 '
             >
-              <span className="text-gray2 description">{item.key}</span>
-              <span className="running-text-mono">{item.value}</span>
+              <span className='text-gray2 description'>{item.key}</span>
+              <span className='running-text-mono'>{item.value}</span>
             </div>
           ))}
         </div>
@@ -28,18 +28,21 @@ const RenderData = ({ title, data, className, containerClassName }) => {
   );
 };
 
-const RenderEquipmentData = ({ image, title, value }) => {
+const RenderEquipmentData = ({ value, className, length, index }) => {
+  if (value === "") return null;
+  console.log(length === index - 1);
   return (
-    <div className="flex flex-col justify-center items-start w-full">
-      <div className="flex w-full gap-4">
-        <span className="running-text-mono w-1/2 border-b border-white/10 py-2">
-          {title}
-        </span>
-        <span className="running-text-mono w-1/2 border-b border-white/10 py-2">
-          {value}
-        </span>
-      </div>
-    </div>
+    <span
+      className={cn(
+        "running-text-mono  border-b border-white/10 py-5",
+        length % 2 === 0
+          ? (index === length - 1 || index === length - 2) && "!pb-0 border-0"
+          : index === length - 1 && "!pb-0 border-0",
+        className
+      )}
+    >
+      {value}
+    </span>
   );
 };
 
@@ -63,7 +66,7 @@ const INITIAL_STATE = {
   hitPoints: 0,
   armorClass: 0,
   gold: 0,
-
+  equipment: [],
   weapon: "",
   secondary: "",
   armor: "",
@@ -90,7 +93,8 @@ export default function general({ character }) {
       ?.trim()
       .replaceAll("-", "")
       .split("\n")
-      .splice(1) || ["", "", "", ""];
+
+      .filter((item) => item.trim() !== "");
     let _gold = extractSection(character.value, "startingEquipment")
       ?.trim()
       .replaceAll("-", "")
@@ -98,7 +102,7 @@ export default function general({ character }) {
       .splice(0);
     let _hitPoints = extractSection(character.value, "hitpoints");
     let _armorClass = extractSection(character.value, "armorclass");
-    console.log(_gold[0]);
+
     setGeneralInfo((prev) => ({
       ...prev,
       background: _background,
@@ -117,6 +121,7 @@ export default function general({ character }) {
         value: _flaw[0],
         description: _flaw[1],
       },
+      equipment: _equipment,
       weapon: _equipment[0]?.split("(")[0].trim(),
       secondary: _equipment[1]?.split("(")[0].trim(),
       armor: _equipment[2]?.split("(")[0].trim(),
@@ -127,10 +132,10 @@ export default function general({ character }) {
     }));
   }, [character]);
   return (
-    <div className="flex flex-col gap-4 md:gap-5 z-[1]">
-      <div className="grid grid-cols-4 md:grid-cols-3 gap-4 md:gap-5 uppercase">
+    <div className='flex flex-col gap-4 md:gap-5 z-[1]'>
+      <div className='grid grid-cols-4 md:grid-cols-3 gap-4 md:gap-5 uppercase'>
         <RenderData
-          title="General"
+          title='General'
           data={[
             {
               key: "gender",
@@ -152,7 +157,7 @@ export default function general({ character }) {
           className={"col-span-2 md:col-span-1"}
         />
         <RenderData
-          title="Personality"
+          title='Personality'
           data={[
             {
               key: "Personality",
@@ -177,7 +182,7 @@ export default function general({ character }) {
           className={"col-span-2 md:col-span-1"}
         />
         <RenderData
-          title="Defence"
+          title='Defence'
           data={[
             {
               key: "Hit Point",
@@ -189,44 +194,25 @@ export default function general({ character }) {
             },
           ]}
           className={"col-span-4 md:col-span-1"}
-          containerClassName="flex-row md:flex-col"
+          containerClassName='flex-row md:flex-col'
         />
       </div>
 
-      <div className=" h-auto  p-5 pt-6 bg-white/10 border border-white/10 rounded-[16px] uppercase">
-        <div className=" flex flex-col ">
-          <div className="flex w-full items-center justify-between ">
-            <span className="headline-4">Inventory</span>
-            {/* <div className="flex items-center running-text-small gap-1.5 ">
-              {generalInfo.gold}
-              <img
-                src="/Icons/Gold.svg"
-                alt="gold"
-                className="h-[18px] object-contain"
-              />
-            </div> */}
-          </div>
-          <div className="w-full flex ">
-            {/* <RenderEquipmentData
-              image="https://dndai-images.s3.eu-central-1.amazonaws.com/equipment/weapon.webp"
-              title="Weapon"
-              value={generalInfo.weapon}
-            /> */}
-            {/* <RenderEquipmentData
-              image="https://dndai-images.s3.eu-central-1.amazonaws.com/equipment/secondary.webp"
-              title="Secondary"
-              value={generalInfo.secondary}
-            />
-            <RenderEquipmentData
-              image="https://dndai-images.s3.eu-central-1.amazonaws.com/equipment/armor.webp"
-              title="Armor"
-              value={generalInfo.armor}
-            /> */}
-            <RenderEquipmentData
-              // image="https://dndai-images.s3.eu-central-1.amazonaws.com/equipment/tool-and-ammo.webp"
-              title="Tool & Ammo"
-              value={generalInfo.toolAndAmmo}
-            />
+      <div className=' h-auto  p-5 pt-6 bg-white/10 border border-white/10 rounded-[16px] uppercase'>
+        <div className=' flex flex-col '>
+          <div className='flex w-full flex-col gap-4 items-start justify-between '>
+            <span className='headline-4'>Inventory</span>
+            <div className='w-full grid-cols-2 grid gap-x-5 '>
+              {generalInfo.equipment?.map((item, index) => (
+                <RenderEquipmentData
+                  key={index}
+                  value={item}
+                  index={index}
+                  length={generalInfo.equipment.length}
+                  className={""}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

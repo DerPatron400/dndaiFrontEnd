@@ -21,8 +21,9 @@ export default function RootLayout({ children }) {
     !pathname.includes("/character") &&
     !pathname.includes("/campaign") &&
     !pathname.includes("/discover") &&
-    !pathname.includes("game");
-
+    !pathname.includes("game") &&
+    !pathname.includes("payment");
+  
   const characterSheet = pathname.includes("/character/sheet");
 
   useEffect(() => {
@@ -56,7 +57,10 @@ export default function RootLayout({ children }) {
       <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
         <head>
           {/* Google Analytics Script */}
-          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+          <meta
+            name='viewport'
+            content='width=device-width, initial-scale=1, maximum-scale=1'
+          />
           <Script
             strategy='afterInteractive'
             src={`https://www.googletagmanager.com/gtag/js?id=G-BTHMYX7TZ9`}

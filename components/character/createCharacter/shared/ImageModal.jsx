@@ -17,7 +17,7 @@ export default function ImageModal() {
       <div className='flex flex-col gap-5 relative'>
         <CustomIconbutton
           onClick={() => setShowModal(false)}
-          className={"absolute top-4 right-4 bg-blur"}
+          className={"absolute top-4 right-4 bg-blur-icon-button"}
         >
           <img src='/Icons/Cancel.svg' alt='' className='h-5 w-5 ' />
         </CustomIconbutton>

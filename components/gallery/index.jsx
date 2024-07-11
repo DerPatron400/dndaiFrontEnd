@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomDropdown from "@/components/ui/custom-dropdown";
 import { cn } from "@/lib/utils";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Download from "@/components/ui/Icons/Download";
-
+import { useRouter } from "next/navigation";
+import CustomButton from "../ui/custom-button";
+import ArrowRight from "../ui/Icons/ArrowRight";
+import ArrowLeft from "../ui/Icons/ArrowLeft";
 const SORT_BY_OPTIONS = ["Newest to Oldest", "Oldest to Newest"];
 
 const GalleryImage = ({ src, className }) => {
@@ -34,9 +37,14 @@ const GalleryImage = ({ src, className }) => {
     </div>
   );
 };
-export default function Gallery({ images }) {
-  const [selectedOption, setSelectedOption] = useState(SORT_BY_OPTIONS[0]);
-
+export default function Gallery({
+  images,
+  totalPages,
+  selectedOption,
+  setSelectedOption,
+}) {
+  const router = useRouter();
+  const page = parseInt(router.query?.page) || 1;
   const renderImages = () => {
     if (!images) return null;
 
@@ -141,12 +149,30 @@ export default function Gallery({ images }) {
     return rows;
   };
 
+  useEffect(() => {
+    if (!selectedOption) setSelectedOption(SORT_BY_OPTIONS[0]);
+  }, []);
+
+  useEffect(() => {
+    //if (!selectedOption) setSelectedOption(SORT_BY_OPTIONS[0]);
+  }, [selectedOption]);
+
+  const nextPage = () => {
+    const newPage = page + 1;
+    router.push(`/my-account/gallery?page=${newPage}`);
+  };
+
+  const prevPage = () => {
+    const newPage = page - 1;
+    router.push(`/my-account/gallery?page=${newPage}`);
+  };
+
   return (
     <div className='h-full  text-white w-full flex flex-col pt-[180px] md:pt-[120px] px-5 lg:px-12 pb-32 '>
       {/* mobile */}
       <div
         className={
-          "flex flex-col items-start gap-2.5 bg-blur-bottom-menu headline z-20 w-screen left-0 h-[164px] px-5 pb-4 md:hidden fixed top-0 justify-end"
+          "flex flex-col items-start gap-2.5 bg-blur-bottom-menu headline-3 z-20 w-screen left-0 h-[164px] px-5 pb-4 md:hidden fixed top-0 justify-end"
         }
       >
         <span>Gallery</span>
@@ -161,12 +187,38 @@ export default function Gallery({ images }) {
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             options={SORT_BY_OPTIONS}
-            className={"min-w-full md:w-auto"}
+            className={"w-full md:!w-auto"}
           />
         </div>
 
         <div className='w-full my-4 z-[9] '>
           <div className='image-grid space-y-4'>{renderImages()}</div>
+        </div>
+
+        <div className='flex justify-center items-center  flex-col md:flex-row gap-6 z-10'>
+          <span className='text-gray2  md:self-start running-text-mono uppercase'>
+            Page {page} of {totalPages}{" "}
+          </span>
+          <div className='flex items-center gap-6'>
+            <CustomButton
+              onClick={prevPage}
+              disabled={page === 1}
+              variant={"subtle"}
+              withIcon={true}
+            >
+              <ArrowLeft className='h-5 w-5 fill-white opacity-70' />
+              Back
+            </CustomButton>
+            <CustomButton
+              onClick={nextPage}
+              disabled={page === totalPages}
+              withIcon={true}
+              variant='primary'
+            >
+              Next Page
+              <ArrowRight className='h-5 w-5 fill-russianViolet' />
+            </CustomButton>
+          </div>
         </div>
       </div>
     </div>

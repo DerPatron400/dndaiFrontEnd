@@ -221,3 +221,13 @@ export const getPopularCampaigns = async () => {
     throw error;
   }
 };
+
+export const searchCampaigns = async (query) => {
+  try {
+    const response = await api.get(`/campaign/search?query=${query}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

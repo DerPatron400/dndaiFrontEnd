@@ -17,12 +17,13 @@ export default function page() {
       console.log("response", response);
       setCharacters(response.characters);
     } catch (error) {
+      setCharacters([]);
       console.error("Error:", error);
     }
   };
   useEffect(() => {
-    getAllCharacters();
-  }, [user]);
+    if (user?.token) getAllCharacters();
+  }, [user?.token]);
 
   if (!characters) return <Loader text={"Fetching Characters..."} />;
   if (characters.length <= 0) return <CharacterPlaceholder />;

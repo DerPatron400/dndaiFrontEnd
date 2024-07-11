@@ -1,8 +1,8 @@
 import api from "./index";
 
-export const getImages = async (token) => {
+export const getImages = async (token, page) => {
   try {
-    const response = await api.get("/user/images", {
+    const response = await api.get("/user/images?page=" + page, {
       headers: {
         Authorization: token,
       },

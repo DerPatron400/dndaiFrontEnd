@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { generateGameImage } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import useGameStore from "@/utils/gameStore";
+import Loader from "@/components/ui/Loader";
 
 export default function StepDialog({ setOpen, setImageOpen, setChat }) {
   const [step, setStep] = useState(1);
@@ -67,8 +68,18 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
     }
   };
 
+  if (loading)
+    return (
+      <Loader
+        text='Generating image...'
+        className={
+          "absolute top-0 left-0 w-full h-full bg-blur flex items-center justify-center"
+        }
+      />
+    );
+
   return (
-    <DialogContent className='bg-white/[8%] !gap-0 text-white border !p-0 border-white/10'>
+    <DialogContent className='bg-white/[8%] !gap-0 text-white border !p-0 border-white/10 !rounded-[16px]'>
       {step === 1 && (
         <>
           <div className='flex p-6 pb-5 flex-col gap-2'>
@@ -85,8 +96,9 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
                 <img
                   src={type.image}
                   className={cn(
-                    "w-full h-[107px] cursor-pointer md:h-[223px] md:w-[223px] ease-animate object-cover rounded-[10px] ",
-                    type.type === imageType && "border-2 border-irisPurple"
+                    "w-full  cursor-pointer  md:w-[223px] ease-animate object-contain rounded-[10px] ",
+                    type.type === imageType &&
+                      "border border-irisPurpleLight shadow-custom-1"
                   )}
                 />
                 <span className='description uppercase'>{type.name}</span>
@@ -123,7 +135,8 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
                   style={{ aspectRatio: "1/1" }}
                   className={cn(
                     " cursor-pointer ease-animate rounded-[16px]",
-                    style === avatar && "border-2 border-irisPurple"
+                    style === avatar &&
+                      "border border-irisPurpleLight shadow-custom-1"
                   )}
                 />
                 <span className='uppercase running-text-mono'>{avatar}</span>
