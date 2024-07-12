@@ -29,6 +29,7 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
+      document.title = window.location.href; // Set document.title to the URL
       gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: window.location.pathname,
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
     };
 
     const handleRouteChange = (url) => {
+      document.title = url; // Set document.title to the URL
       window.gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: url,
@@ -75,8 +77,8 @@ export default function RootLayout({ children }) {
                 gtag('js', new Date());
                 gtag('config', 'G-BTHMYX7TZ9', {
                   page_path: window.location.pathname,
-                  });
-                  `,
+                });
+              `,
             }}
           />
         </head>
