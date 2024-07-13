@@ -18,11 +18,11 @@ export default function accountDropdown() {
   console.log(open);
 
   return (
-    <DropdownMenu  onOpenChange={(e) => setOpen(e)} open={open}>
+    <DropdownMenu onOpenChange={(e) => setOpen(e)} open={open}>
       <DropdownMenuTrigger suppressHydrationWarning className='outline-0'>
         <CustomIconbutton
           //  onClick={() => setOpen((prev) => !prev)}
-          className={open && "border-white/40 cursor-pointer"}
+          className={open && "border-white/40 bg-white/20 cursor-pointer"}
         >
           <img src='/Icons/User.svg' className='h-5 w-5 invert' />
         </CustomIconbutton>

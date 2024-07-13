@@ -7,13 +7,15 @@ import { useRouter } from "next/navigation";
 import CustomButton from "../ui/custom-button";
 import ArrowRight from "../ui/Icons/ArrowRight";
 import ArrowLeft from "../ui/Icons/ArrowLeft";
-const SORT_BY_OPTIONS = ["Newest to Oldest", "Oldest to Newest"];
+import { useSearchParams } from "next/navigation";
 
 const GalleryImage = ({ src, className }) => {
   const downloadImage = () => {
     // download image
     const a = document.createElement("a");
     a.href = src;
+    //new tab
+    a.target = "_blank";
     a.download = "image.jpg";
     a.click();
   };
@@ -42,9 +44,11 @@ export default function Gallery({
   totalPages,
   selectedOption,
   setSelectedOption,
+  SORT_BY_OPTIONS,
 }) {
   const router = useRouter();
-  const page = parseInt(router.query?.page) || 1;
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page")) || 1;
   const renderImages = () => {
     if (!images) return null;
 
@@ -62,7 +66,7 @@ export default function Gallery({
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={i}
+                key={Math.random() + i}
               />
             ))}
           </div>
@@ -79,7 +83,7 @@ export default function Gallery({
                 src={src}
                 alt=''
                 className='col-span-4 row-span-4'
-                key={i}
+                key={Math.random() + i}
               />
             ))}
           </div>
@@ -96,7 +100,7 @@ export default function Gallery({
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={i}
+                key={Math.random() + i}
               />
             ))}
           </div>
@@ -113,14 +117,14 @@ export default function Gallery({
               src={firstImage}
               alt=''
               className='col-span-4 row-span-4'
-              key={index}
+              key={Math.random() + index}
             />
             {nextFourImages.map((src, i) => (
               <GalleryImage
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={i + 1}
+                key={Math.random() + i}
               />
             ))}
           </div>
@@ -137,7 +141,7 @@ export default function Gallery({
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={i}
+                key={Math.random() + i}
               />
             ))}
           </div>
@@ -149,22 +153,14 @@ export default function Gallery({
     return rows;
   };
 
-  useEffect(() => {
-    if (!selectedOption) setSelectedOption(SORT_BY_OPTIONS[0]);
-  }, []);
-
-  useEffect(() => {
-    //if (!selectedOption) setSelectedOption(SORT_BY_OPTIONS[0]);
-  }, [selectedOption]);
-
   const nextPage = () => {
     const newPage = page + 1;
-    router.push(`/my-account/gallery?page=${newPage}`);
+    router.replace(`/my-account/gallery?page=${newPage}`);
   };
 
   const prevPage = () => {
     const newPage = page - 1;
-    router.push(`/my-account/gallery?page=${newPage}`);
+    router.replace(`/my-account/gallery?page=${newPage}`);
   };
 
   return (
@@ -194,32 +190,33 @@ export default function Gallery({
         <div className='w-full my-4 z-[9] '>
           <div className='image-grid space-y-4'>{renderImages()}</div>
         </div>
-
-        <div className='flex justify-center items-center  flex-col md:flex-row gap-6 z-10'>
-          <span className='text-gray2  md:self-start running-text-mono uppercase'>
-            Page {page} of {totalPages}{" "}
-          </span>
-          <div className='flex items-center gap-6'>
-            <CustomButton
-              onClick={prevPage}
-              disabled={page === 1}
-              variant={"subtle"}
-              withIcon={true}
-            >
-              <ArrowLeft className='h-5 w-5 fill-white opacity-70' />
-              Back
-            </CustomButton>
-            <CustomButton
-              onClick={nextPage}
-              disabled={page === totalPages}
-              withIcon={true}
-              variant='primary'
-            >
-              Next Page
-              <ArrowRight className='h-5 w-5 fill-russianViolet' />
-            </CustomButton>
+        {totalPages > 1 && (
+          <div className='flex justify-center relative  items-center  flex-col md:flex-row gap-6 z-10'>
+            <span className='text-gray2 left md:absolute left-0 running-text-mono uppercase'>
+              Page {page} of {totalPages}{" "}
+            </span>
+            <div className='flex items-center gap-6'>
+              <CustomButton
+                onClick={prevPage}
+                disabled={page === 1}
+                variant={"subtle"}
+                withIcon={true}
+              >
+                <ArrowLeft className='h-5 w-5 fill-white opacity-70' />
+                Back
+              </CustomButton>
+              <CustomButton
+                onClick={nextPage}
+                disabled={page === totalPages}
+                withIcon={true}
+                variant='primary'
+              >
+                Next Page
+                <ArrowRight className='h-5 w-5 fill-russianViolet' />
+              </CustomButton>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ export default function ImageModal() {
   return (
     <div
       className={cn(
-        "bg-blur-bottom-menu ease-animate md:hidden flex items-center justify-center absolute w-screen h-screen !z-[100] left-0 top-0 p-5 opacity-0 pointer-events-none",
+        "bg-blur-bottom-menu ease-animate md:hidden flex items-center justify-center fixed w-screen h-screen !z-[100] left-0 top-0 p-5 opacity-0 pointer-events-none",
         showModal && "opacity-100 pointer-events-auto"
       )}
     >

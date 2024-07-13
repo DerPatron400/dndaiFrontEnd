@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import CharacterSheet from "@/components/character/myCharacter/character-sheet";
 import { getCharacter } from "@/actions/character";
 import Loader from "@/components/ui/Loader";
+import { useRouter } from "next/navigation";
+import useCustomToast from "@/hooks/useCustomToast";
 const _character = {
   personal: {
     name: "Yuela Ashford",
@@ -62,12 +64,19 @@ const _character = {
 };
 export default function page({ params }) {
   const [character, setCharacter] = useState();
+  const router = useRouter();
+  const { invokeToast } = useCustomToast();
 
   const handleGetCharacter = async () => {
     try {
       const response = await getCharacter(params.slug);
       setCharacter(response.character);
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error fetching character",
+        "Error"
+      );
+      router.push("/character/my-characters");
       console.error("Error:", error);
     }
   };

@@ -63,7 +63,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
         <CustomMenuItem
           //onClick={() => handleRedirect("/discover")}
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <Discover className='h-5 w-5 opacity-70 fill-white' />
@@ -72,7 +72,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
         <CustomMenuItem
           onClick={() => handleRedirect("/character/my-characters")}
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <img
@@ -83,7 +83,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
           <span>My characters</span>
         </CustomMenuItem>
         <CustomMenuItem
-          //onClick={() => handleRedirect("/my-account/gallery")}
+          onClick={() => handleRedirect("/my-account/gallery?page=1")}
           className={
             "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
@@ -98,7 +98,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
         <CustomMenuItem
           onClick={() => handleRedirect("/campaign/my-campaigns")}
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <img
@@ -111,7 +111,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
         <CustomMenuItem
           onClick={() => handleRedirect("/campaign/my-campaigns/favorites")}
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <Star isfilled={true} className='h-5 w-5 opacity-70 fill-white' />
@@ -123,7 +123,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
       <div className='flex flex-col gap-6'>
         <CustomMenuItem
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <Settings className='h-5 w-5 opacity-70 fill-white' />
@@ -133,7 +133,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
         <CustomMenuItem
           onClick={handleLogout}
           className={
-            "p-0 hover:bg-transparent active:bg-transparent hover:border-none active:border-none"
+            "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
           <Logout className='h-5 w-5 opacity-70 fill-white' />
@@ -142,13 +142,13 @@ const UserLoggedIn = ({ handleRedirect }) => {
       </div>
       <hr className='border-white/10 ' />
 
-      <div className='flex gap-3  hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div className='flex gap-3  hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'>
         <span>How to play</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'>
         <span>Gallery</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'>
         <span>Store</span>
       </div>
     </div>
@@ -183,7 +183,7 @@ const UserLoggedOut = ({ handleRedirect }) => {
         <span>Discover</span>
       </div>
       <div
-        onClick={() => handleRedirect("/my-account/gallery")}
+        onClick={() => handleRedirect("/my-account/gallery?page=1")}
         className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
       >
         <img
@@ -191,7 +191,7 @@ const UserLoggedOut = ({ handleRedirect }) => {
           alt=''
           className='h-5 w-5  opacity-70'
         />
-        <span>Saved images</span>
+        <span>My images</span>
       </div>
       <div
         onClick={() => handleRedirect("/campaign/my-campaigns")}

@@ -5,9 +5,11 @@ import useUserStore from "@/utils/userStore";
 import { getCampaignsByUser } from "@/actions/campaigns";
 import Loader from "@/components/ui/Loader";
 import CampaignPlaceholder from "@/components/ui/Shared/Placeholder/campaign";
+import useCustomToast from "@/hooks/useCustomToast";
 
 export default function page() {
   const [campaigns, setCampaigns] = useState();
+  const { invokeToast } = useCustomToast();
 
   const { user } = useUserStore();
 
@@ -17,6 +19,11 @@ export default function page() {
 
       setCampaigns(_campaigns.campaigns);
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error fetching campaigns",
+        "Error"
+      );
+      setCampaigns([]);
       console.error("Error:", error);
     }
   };

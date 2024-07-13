@@ -17,7 +17,7 @@ export default function Index() {
   useEffect(() => {
     //height 100 vh and not scrollable when show modal
     if (showModal) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflowY = "hidden ";
     }
 
     return () => {
@@ -25,7 +25,7 @@ export default function Index() {
     };
   }, [showModal]);
   return (
-    <div className='h-full  border border-green-400 w-full flex flex-col bg-gradient pt-[136px] md:pt-[120px] px-6 lg:px-12 '>
+    <div className='h-full md:h-screen md:max-h-screen box-border  w-full flex flex-col bg-gradient pt-[136px] md:pt-[120px] px-6 lg:px-12  '>
       <ImageModal />
       {/* Desktop */}
       <div className='hidden md:flex flex-col gap-2.5 '>
@@ -35,7 +35,7 @@ export default function Index() {
       </div>
       <MobileHeader />
 
-      <div className='w-full flex z-[10] h-full   '>
+      <div className='w-full flex z-[10] h-1/2 flex-1   '>
         <Create setCharacter={setCharacter} character={character} />
       </div>
       <BottomMenu setCharacter={setCharacter} character={character} />

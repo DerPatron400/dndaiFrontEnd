@@ -33,7 +33,7 @@ export default function create({ character, setCharacter }) {
   return (
     <div
       className={cn(
-        `w-full h-full   flex flex-col md:flex-row pt-9 md:pt-8 , 
+        `w-full h-full flex flex-col md:flex-row pt-9 md:pt-8 , 
         ${activeStep >= 7 && "max-h-screen "}`
       )}
     >

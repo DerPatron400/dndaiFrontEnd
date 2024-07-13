@@ -70,7 +70,7 @@ export default function index({ response }) {
       {saveCharacterLoading && (
         <Loader
           text='Saving Character...'
-          className='absolute top-0 z-[40] left-0 h-screen w-screen bg-blur-x flex items-center justify-center'
+          className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-x flex items-center justify-center'
         />
       )}
 
@@ -80,12 +80,12 @@ export default function index({ response }) {
             "absolute pointer-events-none opacity-70 blur top-[10%] left-0 ease-animate  z-20  h-16 flex items-center justify-start  w-screen top-gradient"
           }
         ></div>
-        <div className='w-1/4   h-full flex flex-col gap-3 pt-0 z-30 '>
+        <div className='w-1/4  b h-full flex flex-col gap-3 pt-0 z-30 '>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
           <span className='headline-4 mb-3'>{currentCampaign?.title}</span>
           <Card character={currentCharacter} />
         </div>
-        <div className='w-3/4  z-10 h-full '>
+        <div className='w-3/4   z-10 h-full '>
           <div className=' flex flex-col  h-full gap-3 w-full'>
             <Chatbox
               textSize={textSize}

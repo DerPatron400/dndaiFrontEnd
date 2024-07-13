@@ -84,3 +84,18 @@ export const getCredits = async (token) => {
     throw error;
   }
 };
+
+export const deleteCharacter = async (id, token) => {
+  try {
+    const response = await api.delete(`/user/character/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

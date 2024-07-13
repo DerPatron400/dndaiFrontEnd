@@ -83,7 +83,7 @@ export default function Choose({
   };
 
   return (
-    <div className='md:rounded-[16px] flex flex-col gap-6 w-full md:w-3/5 lg:w-2/5 h-fit mb-auto md:p-5 md:pt-6 md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar'>
+    <div className='md:rounded-[16px] flex flex-col gap-6 w-full md:w-3/5 lg:w-2/5 max-h-fit h-full mb-auto md:p-5 md:pt-6 md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar'>
       <h1 className='headline-4 hidden md:block'>Abilities</h1>
 
       <div className='flex flex-col justify-start gap-5  w-full'>

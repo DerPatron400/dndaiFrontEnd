@@ -186,7 +186,7 @@ export default function Navbar({ variant, characterSheet }) {
                 }
               >
                 <Play className='h-5 w-5 fill-russianViolet opacity-70' />
-                PLAY Now
+                {isCampaignSubpage ? "Play Campaign" : "PLAY Now"}
               </CustomButton>
             ) : (
               <CustomButton variant={"primary"}>PLAY FOR FREE</CustomButton>

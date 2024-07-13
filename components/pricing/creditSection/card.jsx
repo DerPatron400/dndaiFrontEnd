@@ -3,11 +3,13 @@ import CustomButton from "../../ui/custom-button";
 import Tick from "../../ui/Icons/Tick";
 import useUserStore from "@/utils/userStore";
 import { createCheckoutSession } from "@/actions/payment";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export default function card({ _package, stripe }) {
   const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const { invokeToast } = useCustomToast();
 
   const handleCreateCheckoutSession = async () => {
     if (!user?.token) {
@@ -41,6 +43,10 @@ export default function card({ _package, stripe }) {
         sessionId: response.id,
       });
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Something Went Wrong",
+        "Error"
+      );
       console.log(error);
     } finally {
       setLoading(false);

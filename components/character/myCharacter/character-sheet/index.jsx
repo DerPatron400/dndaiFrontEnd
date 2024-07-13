@@ -12,17 +12,30 @@ import { extractSection } from "@/lib/Helpers/shared";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import SoundButton from "@/components/ui/Shared/SoundButton";
 import Generate from "@/components/ui/Icons/Generate";
-
+import Delete from "@/components/ui/Icons/Delete";
+import useUserStore from "@/utils/userStore";
+import { cn } from "@/lib/utils";
+import DeleteCharacter from "@/components/ui/Shared/Dialogue/DeleteCharacter";
+import useCustomToast from "@/hooks/useCustomToast";
+import { deleteCharacter } from "@/actions/character";
+import Loader from "@/components/ui/Loader";
+import useGameStore from "@/utils/gameStore";
 export default function characterSheet({ character, setCharacter }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { user } = useUserStore();
+  const { currentCharacter, setCurrentCharacter } = useGameStore();
+  const { invokeToast } = useCustomToast();
   const containerRef = useRef();
   const [open, setOpen] = useState(false);
   const [appearance, setAppearance] = useState(false);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
+  const [deleteCharacterLoading, setDeleteCharacterLoading] = useState(false);
   const [currentPortrait, setCurrentPortrait] = useState(
     character.personal.portraitUrl
   );
+  const isCreator = user?._id === character?.userId;
+  console.log(isCreator);
 
   useEffect(() => {
     let _appearance = extractSection(character.value, "appearance")?.trim();
@@ -41,6 +54,26 @@ export default function characterSheet({ character, setCharacter }) {
       container.style.overflow = "auto";
     }
   }, [open]);
+
+  const handleDeleteCharacter = async () => {
+    setDeleteCharacterLoading(true);
+    try {
+      await deleteCharacter(character._id, user?.token);
+      if (currentCharacter?._id === character._id) setCurrentCharacter(null);
+      router.push("/character/my-characters");
+      invokeToast("Character Deleted Successfully", "Success");
+    } catch (error) {
+      console.log(error);
+      invokeToast(
+        error?.response?.data?.error || "Something Went Wrong",
+        "Error"
+      );
+    } finally {
+      setDeleteCharacterLoading(false);
+    }
+  };
+
+  if (deleteCharacterLoading) return <Loader text={"Deleting Character ..."} />;
 
   return (
     <div
@@ -70,6 +103,16 @@ export default function characterSheet({ character, setCharacter }) {
           <Download fill='white' className='h-5 w-5 opacity-70 text-white' />
           Download character sheet
         </CustomButton>
+        <DeleteCharacter action={handleDeleteCharacter}>
+          <CustomButton
+            withIcon={true}
+            variant='subtle'
+            className={cn(!isCreator && "hidden")}
+          >
+            <Delete className='h-5 w-5 opacity-70 fill-errorRed' />
+            Delete
+          </CustomButton>
+        </DeleteCharacter>
       </div>
       <div className=' h-full grid grid-cols-8 gap-5 '>
         <div className='col-span-8 md:col-span-2 relative'>
