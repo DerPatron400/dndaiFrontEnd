@@ -32,6 +32,7 @@ export default function character() {
       }
     }
   };
+  //detecting click
   useEffect(() => {
     document.addEventListener("click", detectClickOutside);
 
