@@ -21,13 +21,16 @@ export default function Stepper() {
           {/* Use IconButton to set active step */}
           <div className=' bg-russianViolet rounded-full  h-full w-auto z-10'>
             <CustomIconbutton
+              onClick={() => setActiveStep(index)}
               className={cn(
                 " h-8 w-8 opacity-70 text-gray2 pointer-events-none",
                 activeStep === index &&
                   "opacity-100 bg-white text-russianViolet hover:bg-white active:bg-white",
                 activeStep > index
                   ? "!border-gray1 !border-[1px] "
-                  : "border-none"
+                  : "border-none",
+                (index === activeStep - 1 || index === activeStep + 1) &&
+                  "pointer-events-auto"
               )}
             >
               {activeStep > index ? (

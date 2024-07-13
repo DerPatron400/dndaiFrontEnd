@@ -11,6 +11,7 @@ import { getCredits } from "@/actions/character";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/navigation";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const INITIAL_STATE = {
   title: "",
@@ -25,7 +26,7 @@ export default function Index() {
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
   const [isSoundOn, setIsSoundOn] = useState(true);
   const router = useRouter();
-
+  const { invokeToast } = useCustomToast();
   function toggleSound() {
     setIsSoundOn(!isSoundOn);
   }
@@ -33,7 +34,7 @@ export default function Index() {
   const handleSetCampaign = (key, value) => {
     setCampaign((prev) => ({ ...prev, [key]: value }));
   };
-  console.log(campaign);
+
   const isValid = () => {
     return (
       campaign.title.length > 0 &&
@@ -54,6 +55,7 @@ export default function Index() {
       setBlueCredits(credits.blueCredits);
       router.push(`/campaign/${newCampaign._id}`);
     } catch (error) {
+      invokeToast(error?.response?.data || "Error creating Campaign", "Error");
       console.error("Error:", error);
     } finally {
       setLoading(false);

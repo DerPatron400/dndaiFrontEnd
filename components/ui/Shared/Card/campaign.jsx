@@ -95,17 +95,17 @@ export default function card({
   return (
     <div
       className={cn(
-        "rounded-[16px] cursor-pointer bg-white/[7%] h-full group hover:!shadow-custom-1 min-w-[292px] w-[292px] max-w-[292px] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
+        "rounded-[16px] cursor-pointer bg-white/[8%] hover:bg-white/10   h-full group hover:!shadow-custom-1 min-w-[292px] w-[292px] max-w-[292px] ease-animate  overflow-hidden md:min-w-[345px] md:w-[345px]  border-white/[8%] border hover:border-white/20 running-text-mono   ",
         className
       )}
     >
-      <div className="w-full h-full flex flex-col  bg-white/[7%] hover:bg-white/[8%]   ease-animate ">
-        <div className="relative ">
+      <div className='w-full h-full flex flex-col    '>
+        <div className='relative '>
           <img
             onClick={handleRedirect}
             src={campaign?.worldMapUrl || "/images/Header.webp"}
-            alt=""
-            className="h-[248px] w-full object-cover"
+            alt=''
+            className='h-[248px] w-full object-cover'
           />
           <div
             className={cn(
@@ -122,12 +122,12 @@ export default function card({
               <IconButton className='bg-white  font-roboto-mono hover:bg-white h-6 w-6'></IconButton>
               {campaign?.playerName}
             </div> */}
-            <div className="flex justify-center items-center gap-2  prevent-redirect">
-              <IconButton className="bg-blur group   opacity-0 group-hover:opacity-100   prevent-redirect">
+            <div className='flex justify-center items-center gap-2  prevent-redirect'>
+              <IconButton className='bg-blur group   opacity-0 group-hover:opacity-100   prevent-redirect'>
                 <img
-                  src="/Icons/Share.svg"
-                  alt=""
-                  className="h-5 w-5 group-hover:opacity-100 invert  prevent-redirect"
+                  src='/Icons/Share.svg'
+                  alt=''
+                  className='h-5 w-5 group-hover:opacity-100 invert  prevent-redirect'
                 />
               </IconButton>
               <IconButton
@@ -144,7 +144,7 @@ export default function card({
                       ? "true"
                       : undefined
                   }
-                  className="h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect"
+                  className='h-5 w-5 fill-white  group-hover:opacity-100  prevent-redirect'
                 />
               </IconButton>
             </div>
@@ -152,13 +152,13 @@ export default function card({
         </div>
         <div
           onClick={handleRedirect}
-          className="  flex flex-col h-full justify-between flex-1 p-5 gap-2 "
+          className='  flex flex-col h-full justify-between flex-1 p-5 gap-2 '
         >
-          <div className="  flex flex-col justify-around ">
-            <span className="mb-2 h-9  md:h-12  headline-4 text-white ">
+          <div className='  flex flex-col justify-around '>
+            <span className='mb-2 h-9 overflow-hidden  md:h-12 ellipsis  headline-4 text-white break-words whitespace-pre-line '>
               {campaign?.title}
             </span>
-            <span className="h-16 overflow-hidden text-gray2 capitalize running-text-small break-words whitespace-pre-line ellipsis">
+            <span className='h-16 overflow-hidden text-gray2 capitalize running-text-small break-words whitespace-pre-line ellipsis'>
               {plot}
             </span>
           </div>
@@ -168,7 +168,7 @@ export default function card({
               isLanding && "hidden"
             )}
           >
-            <div className="flex items-center gap-x-3 running-text-mono ">
+            <div className='flex items-center gap-x-3 running-text-mono '>
               <CustomIcontext
                 disabled={isLoading}
                 onClick={handleLike}
@@ -180,9 +180,9 @@ export default function card({
                       ? "true"
                       : undefined
                   }
-                  className="h-5 w-5 opacity-70 fill-white prevent-redirect"
+                  className='h-5 w-5 opacity-70 fill-white prevent-redirect'
                 />
-                <span className="prevent-redirect">
+                <span className='prevent-redirect'>
                   {campaign?.analytics.likes.length}
                 </span>
               </CustomIcontext>
@@ -190,13 +190,13 @@ export default function card({
                 disabled={true}
                 className={"disabled:opacity-100"}
               >
-                <Play className="h-5 w-5 fill-white opacity-70" />
+                <Play className='h-5 w-5 fill-white opacity-70' />
                 <span>{campaign?.analytics.plays.length}</span>
               </CustomIcontext>
             </div>
-            <Button onClick={handlePlay} withIcon className="prevent-redirect">
-              <Play className="h-5 w-5 fill-white opacity-70 prevent-redirect" />
-              <span className="prevent-redirect">Play</span>
+            <Button onClick={handlePlay} withIcon className='prevent-redirect'>
+              <Play className='h-5 w-5 fill-white opacity-70 prevent-redirect' />
+              <span className='prevent-redirect'>Play</span>
             </Button>
           </div>
         </div>

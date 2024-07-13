@@ -11,6 +11,7 @@ import useUserStore from "@/utils/userStore";
 import SearchInput from "@/components/ui/search-input";
 import Check from "@/components/ui/Icons/Check";
 import ArrowRight from "@/components/ui/Icons/ArrowRight";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
   return (
@@ -25,9 +26,9 @@ const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
       withIcon={true}
     >
       <img
-        src="/Icons/ArrowLeft.svg"
-        alt="logo"
-        className="h-5 w-5 invert opacity-70"
+        src='/Icons/ArrowLeft.svg'
+        alt='logo'
+        className='h-5 w-5 invert opacity-70'
       />
       Back
     </CustomButton>
@@ -44,6 +45,7 @@ const NextButton = ({
   isChoosingRandom,
 }) => {
   const { isMobile } = useDeviceDetect();
+
   return (
     <CustomButton
       variant={formComplete ? "success" : "primary"}
@@ -62,9 +64,9 @@ const NextButton = ({
     >
       {formComplete ? "Finish And Start" : "Next step"}
       {formComplete ? (
-        <Check className="h-5 w-5 fill-black" />
+        <Check className='h-5 w-5 fill-black' />
       ) : (
-        <ArrowRight className="h-5 w-5 fill-black" />
+        <ArrowRight className='h-5 w-5 fill-black' />
       )}
     </CustomButton>
   );
@@ -78,6 +80,7 @@ export default function BottomMenu({ character, setCharacter }) {
     backgroundQuery,
     setBackgroundQuery,
   } = useCharacterStore();
+  const { invokeToast } = useCustomToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isSoundOn, setIsSoundOn] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
@@ -120,16 +123,21 @@ export default function BottomMenu({ character, setCharacter }) {
       const { credits } = await getCredits(user?.token);
       console.log(response);
       setYellowCredits(credits.yellowCredits);
-
       setBlueCredits(credits.blueCredits);
+      invokeToast("Character Created Successfully", "Success");
+      router.push("/discover");
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error Creating Character",
+        "Error"
+      );
       console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleRandomCharacterName = async () => {
+  const handleRandomCharacterName = () => {
     const name = getRandomName();
     setCharacter((prev) => ({
       ...prev,
@@ -157,9 +165,9 @@ export default function BottomMenu({ character, setCharacter }) {
   return (
     <>
       {/* For Desktop */}
-      <div className="text-white hidden h-full   md:flex justify-between items-center w-full py-12  left-0 z-[20]   ">
+      <div className='text-white hidden     md:flex justify-between items-center w-full py-12  left-0 z-[20]   '>
         <CustomButton withIcon onClick={handleRandomCharacterName}>
-          <img src="/Icons/Random.svg" alt="logo" className="h-5 w-5 " />
+          <img src='/Icons/Random.svg' alt='logo' className='h-5 w-5 ' />
           RANDOM CHARACTER Name
         </CustomButton>
         <CustomInput
@@ -168,19 +176,19 @@ export default function BottomMenu({ character, setCharacter }) {
           icon={
             character.name && (
               <img
-                src="/Icons/Success.svg"
-                alt="Success"
-                className=" h-4 w-4"
+                src='/Icons/Success.svg'
+                alt='Success'
+                className=' h-5 w-5'
               />
             )
           }
           onChange={(value) =>
             setCharacter((prev) => ({ ...prev, name: value }))
           }
-          placeholder="CHARACTER NAME"
+          placeholder='CHARACTER NAME'
           className={"w-1/4"}
         />
-        <div className="flex items-center gap-x-6">
+        <div className='flex items-center gap-x-6'>
           <BackButton
             activeStep={activeStep}
             isChoosingRandom={isChoosingRandom}
@@ -204,7 +212,7 @@ export default function BottomMenu({ character, setCharacter }) {
           activeStep >= 7 ? "!bg-transparent " : "bg-blur-bottom-menu"
         )}
       >
-        <div className=" flex items-center justify-between p-5  ">
+        <div className=' flex items-center justify-between p-5  '>
           {searchMode ? (
             <SearchInput
               autoFocus={true}
@@ -214,12 +222,12 @@ export default function BottomMenu({ character, setCharacter }) {
             />
           ) : (
             <>
-              <div className="flex items-center gap-5">
+              <div className='flex items-center gap-5'>
                 <CustomIconbutton onClick={toggleSound}>
                   <img
                     src={isSoundOn ? "/Icons/Sound.svg" : "/Icons/SoundOff.svg"}
-                    alt="Sound Toggle"
-                    className="h-5 w-5 invert"
+                    alt='Sound Toggle'
+                    className='h-5 w-5 invert'
                   />
                 </CustomIconbutton>
                 <CustomIconbutton
@@ -231,12 +239,12 @@ export default function BottomMenu({ character, setCharacter }) {
                 >
                   <img
                     src={"/Icons/Search.svg"}
-                    alt="Search Toggle"
-                    className="h-5 w-5  "
+                    alt='Search Toggle'
+                    className='h-5 w-5  '
                   />
                 </CustomIconbutton>
               </div>
-              <div className="flex items-center gap-x-6">
+              <div className='flex items-center gap-x-6'>
                 <BackButton
                   activeStep={activeStep}
                   isChoosingRandom={isChoosingRandom}

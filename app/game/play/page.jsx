@@ -6,12 +6,14 @@ import Loader from "@/components/ui/Loader";
 import { getGame, initiateGame } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-
+import useCustomToast from "@/hooks/useCustomToast";
 function GameHandler() {
   const router = useRouter();
   const pathname = usePathname();
+  const { invokeToast } = useCustomToast();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+
   const {
     currentCampaign,
     currentCharacter,
@@ -27,7 +29,7 @@ function GameHandler() {
     console.log("currentCampaign", currentCampaign);
     console.log("currentCharacter", currentCharacter);
     try {
-      const { responseText, game, credits, character } = await initiateGame(
+      const { game, credits, character } = await initiateGame(
         {
           campaignId: currentCampaign._id,
           characterId: currentCharacter._id,
@@ -43,6 +45,8 @@ function GameHandler() {
       //push to the game page with the game id
       router.push(`${pathname}?id=${game._id}`);
     } catch (error) {
+      invokeToast(error?.response?.data || "Error Initiating Game", "Error");
+      router.push("/discover");
       console.log(error);
     }
   };
@@ -55,6 +59,9 @@ function GameHandler() {
       setCurrentCharacter(character);
       setCurrentCampaign(campaign);
     } catch (error) {
+      invokeToast(error?.response?.data || "Error Fetching Game", "Error");
+      router.push("/discover");
+
       console.log(error);
     }
   };

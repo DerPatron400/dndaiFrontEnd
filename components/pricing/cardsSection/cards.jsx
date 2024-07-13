@@ -4,10 +4,10 @@ import Tick from "@/components/ui/Icons/Tick";
 import { cn } from "@/lib/utils";
 import useUserStore from "@/utils/userStore";
 import { createCheckoutSession } from "@/actions/payment";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export default function cards({ plan, selectedPlan, stripe }) {
-  console.log(selectedPlan);
   const selectedPlay_formatted = selectedPlan.toLowerCase().replace("-", "");
   const chosenPrice = plan.price[selectedPlay_formatted];
   const discountedPrice = plan.discountedPrice[selectedPlay_formatted];
@@ -16,6 +16,7 @@ export default function cards({ plan, selectedPlan, stripe }) {
   const yellowCredits = plan.yellowCredits[selectedPlay_formatted];
   const [loading, setLoading] = useState(false);
   const user = useUserStore((state) => state.user);
+  const { invokeToast } = useCustomToast();
 
   const handleCreateCheckoutSession = async () => {
     if (!user?.token) {
@@ -47,6 +48,11 @@ export default function cards({ plan, selectedPlan, stripe }) {
         sessionId: response.id,
       });
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Something Went Wrong",
+        "Error"
+      );
+      console.log(error);
     } finally {
       setLoading(false);
     }

@@ -16,10 +16,10 @@ const TEXT_SIZES = {
 
 const TypingIndicator = () => {
   return (
-    <div className="flex items-center space-x-1">
-      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce"></div>
-      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-150"></div>
-      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-300"></div>
+    <div className='flex items-center space-x-1'>
+      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce'></div>
+      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-150'></div>
+      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-300'></div>
     </div>
   );
 };
@@ -49,83 +49,87 @@ export default function chatbox({
   return (
     <div
       ref={chatboxRef}
-      className="relative chat-box w-[65%] h-full overflow-auto hide-scrollbar  flex flex-col gap-8 py-8 "
+      className='relative chat-box w-[65%] min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  py-12 '
     >
-      {chat.map((item, index) => {
-        return item.type === "image" ? (
+      <div className='flex flex-col justify-end mt-auto gap-8'>
+        {chat.map((item, index) => {
+          return item.type === "image" ? (
+            <div
+              onClick={() => handleViewImage(item.url)}
+              key={index}
+              className='h-[223px] w-full'
+            >
+              <img
+                src={item.url}
+                className=' h-full object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 cursor-pointe ease-animate '
+              />
+            </div>
+          ) : (
+            <div
+              key={index}
+              className={
+                "flex flex-col gap-4 justify-start items-start  w-full "
+              }
+            >
+              <div className={"flex gap-2 justify-start items-center"}>
+                <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
+                  <img
+                    src={
+                      item.type === "system"
+                        ? "/Icons/logo-profile.svg"
+                        : character?.personal?.portraitUrl ||
+                          "/images/CreateCharacter/CharacterName/CharacterName.png"
+                    }
+                    alt='logo'
+                    className='h-full w-full rounded-full object-cover'
+                  />
+                </CustomIconbutton>
+                <span className={"running-text-mono uppercase text-gray2"}>
+                  {item.type === "system"
+                    ? "DNDAI Dungeon Master"
+                    : currentCharacter?.personal.name}
+                </span>
+              </div>
+              {item.type === "system" ? (
+                <ReactMarkdown
+                  className={cn("markdown-text ", TEXT_SIZES[textSize])}
+                >
+                  {item.text}
+                </ReactMarkdown>
+              ) : (
+                <span
+                  className={cn(
+                    "font-helvetica-now-display",
+                    TEXT_SIZES[textSize]
+                  )}
+                >
+                  {item.text}
+                </span>
+              )}
+            </div>
+          );
+        })}
+
+        {loading && (
           <div
-            onClick={() => handleViewImage(item.url)}
-            key={index}
-            className="h-[223px] w-full"
-          >
-            <img
-              src={item.url}
-              className=" h-full object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 "
-            />
-          </div>
-        ) : (
-          <div
-            key={index}
-            className={"flex flex-col gap-4 justify-start items-start  w-full "}
+            className={"flex flex-col gap-4 justify-start items-start  w-full"}
           >
             <div className={"flex gap-2 justify-start items-center"}>
               <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
                 <img
-                  src={
-                    item.type === "system"
-                      ? "/Icons/logo-profile.svg"
-                      : character?.personal?.portraitUrl ||
-                        "/images/CreateCharacter/CharacterName/CharacterName.png"
-                  }
-                  alt="logo"
-                  className="h-full w-full rounded-full object-cover"
+                  src={"/Icons/logo-profile.svg"}
+                  alt='logo'
+                  className='h-full w-full rounded-full object-cover'
                 />
               </CustomIconbutton>
               <span className={"running-text-mono uppercase text-gray2"}>
-                {item.type === "system"
-                  ? "DNDAI Dungeon Master"
-                  : currentCharacter?.personal.name}
+                DNDAI Dungeon Master
               </span>
             </div>
-            {item.type === "system" ? (
-              <ReactMarkdown
-                className={cn("markdown-text ", TEXT_SIZES[textSize])}
-              >
-                {item.text}
-              </ReactMarkdown>
-            ) : (
-              <span
-                className={cn(
-                  "font-helvetica-now-display",
-                  TEXT_SIZES[textSize]
-                )}
-              >
-                {item.text}
-              </span>
-            )}
+            <TypingIndicator />
           </div>
-        );
-      })}
-
-      {loading && (
-        <div
-          className={"flex flex-col gap-4 justify-start items-start  w-full"}
-        >
-          <div className={"flex gap-2 justify-start items-center"}>
-            <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
-              <img
-                src={"/Icons/logo-profile.svg"}
-                alt="logo"
-                className="h-full w-full rounded-full object-cover"
-              />
-            </CustomIconbutton>
-            <span className={"running-text-mono uppercase text-gray2"}>
-              DNDAI Dungeon Master
-            </span>
-          </div>
-          <TypingIndicator />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

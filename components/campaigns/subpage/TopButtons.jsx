@@ -22,26 +22,31 @@ import Like from "@/components/ui/Icons/Like";
 import CustomDialogBox from "@/components/ui/custom-msgBox";
 
 const TopButtons = ({ campaign, setCampaign, className }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const { user } = useUserStore();
   const isCreator = campaign.userId === user?._id;
+  const { invokeToast } = useCustomToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const { setCurrentCampaign } = useGameStore();
 
   const handleDelete = async () => {
-    setIsLoading(true);
+    setIsDeleting(true);
     try {
       if (user?._id !== campaign.userId) {
         return;
       }
 
       await deleteCampaign(campaign._id, user?.token);
-
       router.push("/campaign/my-campaigns");
+      invokeToast("Campaign deleted successfully", "success");
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error deleting campaign",
+        "Error"
+      );
     } finally {
-      setIsLoading(false);
+      setIsDeleting(false);
     }
   };
 
@@ -54,7 +59,13 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         ...prev,
         isPublished: response.isPublished,
       }));
+
+      invokeToast("Campaign published successfully", "success");
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error publishing campaign",
+        "Error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +80,12 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         ...prev,
         isPublished: response.isPublished,
       }));
+      invokeToast("Campaign unpublished successfully", "success");
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error unpublishing campaign",
+        "Error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -94,6 +110,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
       URL.revokeObjectURL(urlObject);
     } catch (error) {
       console.error("Error downloading the world map:", error);
+      invokeToast("Error downloading the world map", "Error");
     } finally {
       setIsLoading(false);
     }
@@ -111,6 +128,10 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         },
       }));
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error liking campaign",
+        "Error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -128,6 +149,10 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         },
       }));
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error starring campaign",
+        "Error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -138,9 +163,13 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
     router.push("/game/play");
   };
 
-  const handleOpenDelete = () => {
-    setIsOpen(!isOpen);
-  };
+  if (isDeleting)
+    return (
+      <Loader
+        className={"absolute top-0  z-[20] left-0 h-screen w-screen"}
+        text={"Deleting Campaign ..."}
+      />
+    );
   return (
     <div
       className={cn(
@@ -196,8 +225,8 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
           <World className="h-5 w-5 fill-white" />{" "}
           <span>{campaign.isPublished ? "Unpublish" : "Publish"}</span>
         </Button>
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger
+        <DeleteCampaign action={handleDelete}>
+          <Button
             withIcon
             variant={"subtle"}
             className={cn(

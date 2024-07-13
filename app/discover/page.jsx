@@ -7,9 +7,11 @@ import {
   getMostLikedCampaigns,
   getPopularCampaigns,
 } from "@/actions/campaigns";
+import useCustomToast from "@/hooks/useCustomToast";
 
 export default function page() {
   const { user } = useUserStore();
+  const { invokeToast } = useCustomToast();
 
   const [campaigns, setCampaigns] = useState([]);
   const [popularCampaigns, setPopularCampaigns] = useState([]);
@@ -20,6 +22,11 @@ export default function page() {
       const response = await getPopularCampaigns();
       setPopularCampaigns(response.campaigns);
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error fetching Public campaigns",
+        "Error"
+      );
+      setPopularCampaigns([]);
       console.error("Error:", error);
     }
   };
@@ -29,6 +36,11 @@ export default function page() {
       const response = await getMostLikedCampaigns();
       setCampaigns(response.campaigns);
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error fetching Commuity favorties",
+        "Error"
+      );
+      setCampaigns([]);
       console.error("Error:", error);
     }
   };
@@ -39,6 +51,11 @@ export default function page() {
       console.log("response", response);
       setCharacters(response.characters);
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error fetching Characters",
+        "Error"
+      );
+      setCharacters([]);
       console.error("Error:", error);
     }
   };

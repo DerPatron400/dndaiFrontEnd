@@ -20,7 +20,7 @@ const useCustomToast = () => {
       title: title,
       description: "",
       className: cn(
-        "border-0 text-white running-text-mono uppercase h-[48px] rounded-[10px]",
+        "border-0 text-white running-text-mono uppercase h-[48px] rounded-[10px] z-50",
         message.toLowerCase() === "error" ? "bg-[#C92631] " : "bg-[#4767DC] "
       ),
       action: actionText && (
@@ -30,8 +30,8 @@ const useCustomToast = () => {
               router.push(redirectLink);
             }
           }}
-          altText="Try again"
-          className="gap-x-2 running-text-mono"
+          altText='Try again'
+          className='gap-x-2 running-text-mono'
         >
           {/* {actionIcon} */}
           {actionText}

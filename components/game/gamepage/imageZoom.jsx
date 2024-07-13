@@ -11,8 +11,7 @@ export default function imageZoom({ setOpen, setImageDialog }) {
 
   const downloadImage = () => {
     const link = document.createElement("a");
-
-    
+    link.target = "_blank";
     link.href = image;
     link.download = "image.png";
     link.click();
