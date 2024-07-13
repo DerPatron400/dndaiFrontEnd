@@ -91,7 +91,7 @@ export default function cards({ plan, selectedPlan, stripe }) {
               <Tick className='h-3.5 w-3.5 opacity-70' />
               <span className='text-white running-text-small '>
                 {benefit}
-                {i === 0 && <span className='text-gray2 '> / month</span>}
+                {i === 0 }
               </span>
             </li>
           ))}
