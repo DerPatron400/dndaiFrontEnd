@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Gallery from "@/components/gallery/index";
 import { getImages } from "@/actions/user";
 import Loader from "@/components/ui/Loader";
@@ -9,7 +9,7 @@ import useCustomToast from "@/hooks/useCustomToast";
 import { useSearchParams } from "next/navigation";
 const SORT_BY_OPTIONS = ["Newest to Oldest", "Oldest to Newest"];
 
-export default function page() {
+function GalleryContainer() {
   const [images, setImages] = useState();
   const { user } = useUserStore();
   const [totalPages, setTotalPages] = useState(1);
@@ -52,5 +52,13 @@ export default function page() {
       setSelectedOption={setSelectedOption}
       SORT_BY_OPTIONS={SORT_BY_OPTIONS}
     />
+  );
+}
+
+export default function page() {
+  return (
+    <Suspense>
+      <GalleryContainer />
+    </Suspense>
   );
 }
