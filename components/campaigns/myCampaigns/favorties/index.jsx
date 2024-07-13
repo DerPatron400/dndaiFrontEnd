@@ -15,11 +15,11 @@ export default function index({ campaigns }) {
           </span>
         </div>
       </div>
-      <div className="w-full text-white  z-[10] grid grid-cols-12 lg:grid-cols-12 gap-4 pt-9 md:pt-8">
+      <div className="w-full text-white  z-[9] grid grid-cols-12 lg:grid-cols-12 gap-4 pt-9 md:pt-8">
         {campaigns.map((campaign, i) => (
           <div
             key={i}
-            className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full min-w-full max-w-full"
+            className="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-3 2xl:col-span-2 w-full min-w-full max-w-full"
           >
             <Card
               favorite={true}

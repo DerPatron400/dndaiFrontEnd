@@ -88,7 +88,9 @@ export default function character() {
             </CustomButton>
           </div>
         </div>
-        <div className="flex justify-between items-center w-full ">
+      </div>
+      <div className="w-full md:hidden left-0 z-[20] fixed bottom-0 border ">
+        <div className="flex items-center justify-between p-5">
           {searchMode ? (
             <SearchInput
               autoFocus={true}

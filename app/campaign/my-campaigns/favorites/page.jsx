@@ -29,6 +29,6 @@ export default function page() {
     fetchCampaigns();
   }, [user]);
 
-  if (!campaigns) return <Loader text='Loading Favorites ...' />;
+  if (!campaigns) return <Loader text="Loading Favorites ..." />;
   return <Favorties campaigns={campaigns} />;
 }
