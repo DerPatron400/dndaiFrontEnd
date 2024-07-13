@@ -1,8 +1,11 @@
 import React from "react";
 import Card from "@/components/ui/Shared/Card/character";
 import CustomButton from "@/components/ui/custom-button";
+import useGameStore from "@/utils/gameStore";
 
 export default function index({ characters }) {
+  const { currentCampaign } = useGameStore();
+  console.log(currentCampaign);
   return (
     <div className=' border-white gap-8 w-full flex flex-col   md:pt-[0px] px-6 lg:px-12 md:pb-64 '>
       <div className=' flex justify-center items-center relative  '>

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import CustomButton from "../ui/custom-button";
 import ArrowRight from "../ui/Icons/ArrowRight";
 import ArrowLeft from "../ui/Icons/ArrowLeft";
+import { usePathname } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
 const GalleryImage = ({ src, className }) => {
@@ -49,6 +50,7 @@ export default function Gallery({
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page")) || 1;
+  const pathname = usePathname();
   const renderImages = () => {
     if (!images) return null;
 
@@ -155,12 +157,12 @@ export default function Gallery({
 
   const nextPage = () => {
     const newPage = page + 1;
-    router.replace(`/my-account/gallery?page=${newPage}`);
+    router.replace(pathname + `?page=${newPage}`);
   };
 
   const prevPage = () => {
     const newPage = page - 1;
-    router.replace(`/my-account/gallery?page=${newPage}`);
+    router.replace(pathname + `?page=${newPage}`);
   };
 
   return (

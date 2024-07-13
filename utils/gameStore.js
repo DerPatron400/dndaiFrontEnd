@@ -15,6 +15,14 @@ const useGameStore = create(
       setResponseText: (responseText) => set({ responseText }),
       setGameImage: (image) => set({ image }),
       setGame: (game) => set({ game }),
+      reset: () =>
+        set({
+          currentCharacter: null,
+          currentCampaign: null,
+          responseText: "",
+          game: null,
+          image: null,
+        }),
     }),
     {
       name: "user-storage", // name of the item in the storage (must be unique)

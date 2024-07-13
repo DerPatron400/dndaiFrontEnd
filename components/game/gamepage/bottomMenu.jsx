@@ -113,7 +113,7 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
       <div
         className={cn(
           "absolute h-auto w-[245px] border-white/10 rounded-[16px] border gap-5 right-0 bottom-full flex flex-col p-5  -translate-y-3 ",
-          // (!audio || !narrate) && "hidden border-0",
+          (!audio || !narrate) && "hidden border-0",
           loading && "border-0"
         )}
       >

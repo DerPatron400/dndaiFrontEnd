@@ -61,7 +61,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
       <hr className='border-white/10 ' />
       <div className='flex flex-col gap-6'>
         <CustomMenuItem
-          //onClick={() => handleRedirect("/discover")}
+          onClick={() => handleRedirect("/discover")}
           className={
             "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
@@ -145,10 +145,16 @@ const UserLoggedIn = ({ handleRedirect }) => {
       <div className='flex gap-3  hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'>
         <span>How to play</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'>
+      <div
+        onClick={() => handleRedirect("/discover/gallery?page=1")}
+        className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'
+      >
         <span>Gallery</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'>
+      <div
+        onClick={() => handleRedirect("/pricing")}
+        className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'
+      >
         <span>Store</span>
       </div>
     </div>
@@ -174,7 +180,10 @@ const UserLoggedOut = ({ handleRedirect }) => {
         </Button>
       </div>
 
-      <div className='flex gap-3  hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div
+        onClick={() => handleRedirect("/discover")}
+        className='flex gap-3  hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
+      >
         <img
           src='/Icons/UserCircle.svg'
           alt=''
@@ -205,13 +214,23 @@ const UserLoggedOut = ({ handleRedirect }) => {
       <div className='flex gap-3  hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
         <span>How to play</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div
+        onClick={() => handleRedirect("/discover/gallery?page=1")}
+        className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
+      >
         <span>Gallery</span>
       </div>
-      <div className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+      <div
+        onClick={() => handleRedirect("/pricing")}
+        className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
+      >
         <span>Store</span>
       </div>
-      <Button className='mt-3 w-40' variant='primary'>
+      <Button
+        onClick={() => handleRedirect("/game/character-selection")}
+        className='mt-3 w-40'
+        variant='primary'
+      >
         PLAY FOR FREE
       </Button>
     </div>

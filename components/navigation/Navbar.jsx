@@ -24,7 +24,12 @@ export default function Navbar({ variant, characterSheet }) {
   const pathname = usePathname();
   const isSignUp = pathname.includes("/auth/sign-up");
   const { user } = useUserStore();
-  const { setCurrentCharacter, setCurrentCampaign } = useGameStore();
+  const {
+    setCurrentCharacter,
+    setCurrentCampaign,
+    currentCharacter,
+    currentCampaign,
+  } = useGameStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,10 +63,22 @@ export default function Navbar({ variant, characterSheet }) {
       setIsLoading(true);
       const campaignId = pathname.split("/").pop();
 
-      const { campaign } = await getCampaignBySlug(campaignId, user?.token);
+      const { campaign, hasSingleCharacter, characterId } =
+        await getCampaignBySlug(campaignId, user?.token);
 
       setCurrentCampaign(campaign);
-      router.push("/game/character-selection");
+
+      if (hasSingleCharacter) {
+        const { character } = await getCharacter(characterId, user?.token);
+        setCurrentCharacter(character);
+        router.push("/game/play");
+        return;
+      }
+      if (!currentCharacter) {
+        router.push("/game/character-selection");
+      } else {
+        router.push("/game/play");
+      }
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -76,7 +93,11 @@ export default function Navbar({ variant, characterSheet }) {
       const { character } = await getCharacter(characterId, user?.token);
 
       setCurrentCharacter(character);
-      router.push("/game/campaign-selection");
+      if (!currentCampaign) {
+        router.push("/game/campaign-selection");
+      } else {
+        router.push("/game/play");
+      }
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -144,13 +165,13 @@ export default function Navbar({ variant, characterSheet }) {
             </Link>
 
             <Link
-              href='#'
+              href='/discover/gallery'
               className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
             >
               GALLERY
             </Link>
             <Link
-              href='#'
+              href='/pricing'
               className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
             >
               STORE

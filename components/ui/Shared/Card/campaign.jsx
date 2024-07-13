@@ -6,12 +6,17 @@ import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
 import CustomIcontext from "@/components/ui/custom-icontext";
 import { useRouter } from "next/navigation";
-import { likeCampaign, starCampaign } from "@/actions/campaigns";
+import {
+  getCampaignBySlug,
+  likeCampaign,
+  starCampaign,
+} from "@/actions/campaigns";
 import useUserStore from "@/utils/userStore";
 import Star from "@/components/ui/Icons/Star";
 import useGameStore from "@/utils/gameStore";
 import { extractSection } from "@/lib/Helpers/shared";
 import Like from "@/components/ui/Icons/Like";
+import { getCharacter } from "@/actions/character";
 
 export default function card({
   campaign,
@@ -23,7 +28,8 @@ export default function card({
   const router = useRouter();
   const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { setCurrentCampaign, currentCharacter } = useGameStore();
+  const { setCurrentCampaign, currentCharacter, setCurrentCharacter } =
+    useGameStore();
   const [plot, setPlot] = useState();
 
   useEffect(() => {
@@ -82,14 +88,32 @@ export default function card({
     }
   };
 
-  const handlePlay = () => {
-    setCurrentCampaign(campaign);
+  const handlePlay = async () => {
+    try {
+      setIsLoading(true);
+      const campaignId = pathname.split("/").pop();
 
-    if (!currentCharacter) {
-      router.push("/game/character-selection");
-    } else {
-      router.push("/game/play");
+      const { campaign, hasSingleCharacter, characterId } =
+        await getCampaignBySlug(campaignId, user?.token);
+
+      setCurrentCampaign(campaign);
+
+      if (hasSingleCharacter) {
+        const { character } = await getCharacter(characterId, user?.token);
+        setCurrentCharacter(character);
+        router.push("/game/play");
+        return;
+      }
+      if (!currentCharacter) {
+        router.push("/game/character-selection");
+      } else {
+        router.push("/game/play");
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
     }
+    setCurrentCampaign(campaign);
   };
 
   return (
@@ -158,7 +182,7 @@ export default function card({
             <span className='mb-2 h-9 overflow-hidden  md:h-12 ellipsis  headline-4 text-white break-words whitespace-pre-line '>
               {campaign?.title}
             </span>
-            <span className='h-16 overflow-hidden text-gray2 capitalize running-text-small break-words whitespace-pre-line ellipsis'>
+            <span className='h-16 overflow-hidden text-gray2  running-text-small break-words whitespace-pre-line ellipsis'>
               {plot}
             </span>
           </div>

@@ -9,6 +9,7 @@ export default function CustomTextArea({
   isComment,
   className,
   error,
+  maxLength = 2500,
 }) {
   const [inFocus, setInFocus] = useState(false);
 
@@ -20,6 +21,7 @@ export default function CustomTextArea({
       )}
     >
       <textarea
+        maxLength={maxLength}
         type='text'
         id={placeholder}
         value={value}

@@ -24,7 +24,10 @@ export default function index({ character, setCharacter }) {
             <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
           )
         }
-        onChange={(value) => setCharacter((prev) => ({ ...prev, name: value }))}
+        onChange={(value) => {
+          if (value.length <= 32)
+            setCharacter((prev) => ({ ...prev, name: value }));
+        }}
         placeholder='CHARACTER NAME'
         className={"w-full"}
       />

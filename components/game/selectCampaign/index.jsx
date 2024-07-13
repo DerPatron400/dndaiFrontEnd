@@ -7,12 +7,14 @@ import CampaignAdd from "@/components/ui/Icons/CampaignAdd";
 import SearchInput from "@/components/ui/search-input";
 import { useDebounce } from "@/hooks/useDebounce";
 import { searchCampaigns } from "@/actions/campaigns";
+import useGameStore from "@/utils/gameStore";
 
 export default function index({ popular, mostLiked }) {
   const [query, setQuery] = useState("");
   const [searchedCampaign, setSearchedCampaign] = useState(null); // [campaign1, campaign2, ...
   const debouncedQuery = useDebounce(query, 500);
-
+  const { currentCharacter } = useGameStore();
+  console.log("currentCharacter", currentCharacter);
   const handleSearchCampaign = async () => {
     // search campaign
     try {

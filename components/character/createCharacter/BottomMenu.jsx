@@ -182,9 +182,10 @@ export default function BottomMenu({ character, setCharacter }) {
               />
             )
           }
-          onChange={(value) =>
-            setCharacter((prev) => ({ ...prev, name: value }))
-          }
+          onChange={(value) => {
+            if (value.length <= 32)
+              setCharacter((prev) => ({ ...prev, name: value }));
+          }}
           placeholder='CHARACTER NAME'
           className={"w-1/4"}
         />
