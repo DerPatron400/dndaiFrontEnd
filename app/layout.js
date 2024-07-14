@@ -28,14 +28,14 @@ export default function RootLayout({ children }) {
 
   const characterSheet = pathname.includes("/character/sheet");
 
-  useEffect(() => {
-    //reset after every 5 seconds
-    const interval = setInterval(() => {
-      if (currentCampaign || currentCharacter || game) reset();
-    }, 5000);
+  // useEffect(() => {
+  //   //reset after every 5 seconds
+  //   const interval = setInterval(() => {
+  //     if (currentCampaign || currentCharacter || game) reset();
+  //   }, 60 * 1000 * 2);
 
-    return () => clearInterval(interval);
-  }, [currentCampaign, currentCharacter, game]);
+  //   return () => clearInterval(interval);
+  // }, [currentCampaign, currentCharacter, game]);
 
   useEffect(() => {
     const initializeGtag = () => {

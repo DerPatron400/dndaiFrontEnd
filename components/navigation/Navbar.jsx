@@ -68,12 +68,12 @@ export default function Navbar({ variant, characterSheet }) {
 
       setCurrentCampaign(campaign);
 
-      if (hasSingleCharacter) {
-        const { character } = await getCharacter(characterId, user?.token);
-        setCurrentCharacter(character);
-        router.push("/game/play");
-        return;
-      }
+      // if (hasSingleCharacter) {
+      //   const { character } = await getCharacter(characterId, user?.token);
+      //   setCurrentCharacter(character);
+      //   router.push("/game/play");
+      //   return;
+      // }
       if (!currentCharacter) {
         router.push("/game/character-selection");
       } else {
