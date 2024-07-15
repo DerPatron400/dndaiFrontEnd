@@ -14,9 +14,10 @@ import {
 import useUserStore from "@/utils/userStore";
 import Star from "@/components/ui/Icons/Star";
 import useGameStore from "@/utils/gameStore";
-import { extractSection } from "@/lib/Helpers/shared";
+import { extractSection, isSelectionValid } from "@/lib/Helpers/shared";
 import Like from "@/components/ui/Icons/Like";
 import { getCharacter } from "@/actions/character";
+import useCustomToast from "@/hooks/useCustomToast";
 
 export default function card({
   campaign,
@@ -28,8 +29,13 @@ export default function card({
   const router = useRouter();
   const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { setCurrentCampaign, currentCharacter, setCurrentCharacter } =
-    useGameStore();
+  const { invokeToast } = useCustomToast();
+  const {
+    setCurrentCampaign,
+    currentCharacter,
+    setCurrentCharacter,
+    characterSelectTime,
+  } = useGameStore();
   const [plot, setPlot] = useState();
 
   useEffect(() => {
@@ -64,6 +70,10 @@ export default function card({
         },
       });
     } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Something went wrong",
+        "error"
+      );
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -83,6 +93,10 @@ export default function card({
       });
     } catch (error) {
       console.log(error);
+      invokeToast(
+        error?.response?.data?.error || "Something went wrong",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -91,12 +105,15 @@ export default function card({
   const handlePlay = async () => {
     try {
       setIsLoading(true);
-      const campaignId = pathname.split("/").pop();
+      const campaignId = campaign._id;
 
-      const { campaign, hasSingleCharacter, characterId } =
-        await getCampaignBySlug(campaignId, user?.token);
-
-      setCurrentCampaign(campaign);
+      const {
+        campaign: _campaign,
+        hasSingleCharacter,
+        characterId,
+      } = await getCampaignBySlug(campaignId, user?.token);
+      console.log(hasSingleCharacter, characterId);
+      setCurrentCampaign(_campaign);
 
       if (hasSingleCharacter) {
         const { character } = await getCharacter(characterId, user?.token);
@@ -104,12 +121,17 @@ export default function card({
         router.push("/game/play");
         return;
       }
-      if (!currentCharacter) {
+      if (!isSelectionValid(currentCharacter, characterSelectTime)) {
         router.push("/game/character-selection");
       } else {
         router.push("/game/play");
       }
     } catch (error) {
+      console.log(error);
+      invokeToast(
+        error?.response?.data?.error || "Something went wrong",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }

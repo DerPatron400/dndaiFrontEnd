@@ -5,6 +5,7 @@ import { getCharacter } from "@/actions/character";
 import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/navigation";
 import useCustomToast from "@/hooks/useCustomToast";
+import useUserStore from "@/utils/userStore";
 const _character = {
   personal: {
     name: "Yuela Ashford",
@@ -66,10 +67,11 @@ export default function page({ params }) {
   const [character, setCharacter] = useState();
   const router = useRouter();
   const { invokeToast } = useCustomToast();
+  const { user } = useUserStore();
 
   const handleGetCharacter = async () => {
     try {
-      const response = await getCharacter(params.slug);
+      const response = await getCharacter(params.slug, user?.token);
       setCharacter(response.character);
     } catch (error) {
       invokeToast(

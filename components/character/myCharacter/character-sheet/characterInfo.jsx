@@ -18,14 +18,6 @@ export default function characterInfo({
   loadingAvatar,
 }) {
   const { user } = useUserStore();
-  const [level, setLevel] = useState();
-
-  useEffect(() => {
-    if (!character) return;
-    let _level = extractSection(character.value, "level")?.trim();
-
-    setLevel(_level);
-  }, [character]);
 
   return (
     <div className=' w-full h-auto border border-white/10 bg-white/10 rounded-[16px] overflow-hidden flex flex-col justify-start'>
@@ -70,7 +62,7 @@ export default function characterInfo({
             />
           </div>
           <div className='flex flex-col running-text-mono'>
-            <span className='text-white '>LEVEL {level}</span>
+            <span className='text-white '>LEVEL {character.value.level}</span>
             <span className=' text-irisPurpleLight uppercase'>
               {character?.personal?.race}{" "}
               <span className=' text-sandyOrange uppercase'>
@@ -80,7 +72,7 @@ export default function characterInfo({
           </div>
         </div>
       </div>
-      <ProfileButtons details={character.value} />
+      <ProfileButtons character={character} />
     </div>
   );
 }

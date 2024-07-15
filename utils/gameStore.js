@@ -9,9 +9,13 @@ const useGameStore = create(
       responseText: "",
       game: null,
       image: null,
+      characterSelectTime: null,
+      campaignSelectTime: null,
 
-      setCurrentCharacter: (currentCharacter) => set({ currentCharacter }),
-      setCurrentCampaign: (currentCampaign) => set({ currentCampaign }),
+      setCurrentCharacter: (currentCharacter) =>
+        set({ currentCharacter, characterSelectTime: new Date() }),
+      setCurrentCampaign: (currentCampaign) =>
+        set({ currentCampaign, campaignSelectTime: new Date() }),
       setResponseText: (responseText) => set({ responseText }),
       setGameImage: (image) => set({ image }),
       setGame: (game) => set({ game }),

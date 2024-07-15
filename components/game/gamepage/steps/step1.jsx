@@ -9,11 +9,17 @@ import useUserStore from "@/utils/userStore";
 import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
 
-export default function StepDialog({ setOpen, setImageOpen, setChat }) {
+export default function StepDialog({
+  setOpen,
+  setImageOpen,
+  setChat,
+  loading,
+  setLoading,
+}) {
   const [step, setStep] = useState(1);
   const [style, setStyle] = useState(IMAGE_STYLES[0]);
   const [imageType, setImageType] = useState(IMAGE_TYPES[0].type);
-  const [loading, setLoading] = useState(false);
+
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const { game, setGameImage } = useGameStore();
 
@@ -37,6 +43,7 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
 
   const handleGenerateGameImage = async () => {
     setLoading(true);
+    setOpen(false);
     try {
       const payload = {
         type: imageType,
@@ -57,8 +64,7 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
       ]);
       setBlueCredits(credits.blue);
       setYellowCredits(credits.yellow);
-      setOpen(false);
-      setImageOpen(true);
+
       setStep(1);
     } catch (error) {
       console.log(error);
@@ -70,15 +76,6 @@ export default function StepDialog({ setOpen, setImageOpen, setChat }) {
 
   return (
     <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px]'>
-      {loading && (
-        <Loader
-          text='Generating image...'
-          className={
-            "absolute !z-30 top-0 left-0 w-full h-full bg-blur flex items-center justify-center"
-          }
-        />
-      )}
-
       {step === 1 && (
         <>
           <div className='flex p-6 pb-5 flex-col gap-2'>

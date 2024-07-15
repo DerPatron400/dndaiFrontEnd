@@ -10,8 +10,13 @@ import { addChoice } from "@/actions/game";
 import GameplayNavbar from "@/components/navigation/GameplayNavbar";
 import Loader from "@/components/ui/Loader";
 import useCustomToast from "@/hooks/useCustomToast";
-export default function index({ response }) {
-  const { currentCampaign, currentCharacter, game, setGame } = useGameStore();
+export default function index({
+  response,
+  gameCharacter,
+  setGameCharacter,
+  gameCampaign,
+}) {
+  const { currentCampaign, game, setGame } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
   const { invokeToast } = useCustomToast();
   const [input, setInput] = useState("");
@@ -20,12 +25,15 @@ export default function index({ response }) {
   const [imageViewDialog, setImageViewDialog] = useState(false);
   const [narrate, setNarrate] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const [chat, setChat] = useState([
     {
       type: "system",
       text: response,
     },
   ]);
+
+  console.log(game);
 
   const handleChat = async (text) => {
     try {
@@ -34,8 +42,8 @@ export default function index({ response }) {
       const roll = Math.floor(Math.random() * 20) + 1;
       const payload = {
         userInput: text + ", Roll: " + roll,
-        characterId: currentCharacter._id,
-        campaignId: currentCampaign._id,
+        characterId: game.characterId,
+        campaignId: game.campaignId,
         gameId: game._id,
       };
       const {
@@ -67,9 +75,9 @@ export default function index({ response }) {
 
   return (
     <>
-      {saveCharacterLoading && (
+      {(saveCharacterLoading || isImageLoading) && (
         <Loader
-          text='Saving Character...'
+          text={isImageLoading ? "Generating Image..." : "Saving Character..."}
           className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-x flex items-center justify-center'
         />
       )}
@@ -77,21 +85,27 @@ export default function index({ response }) {
       <div className=' border-white h-full   w-full flex gap-10  md:pt-[0px] px-6 lg:px-12  pb-12'>
         <div
           className={
-            "absolute pointer-events-none opacity-70 blur top-[10%] left-0 ease-animate  z-20  h-16 flex items-center justify-start  w-screen top-gradient"
+            "absolute pointer-events-none  top-[10%] left-0 ease-animate  z-20   flex items-center justify-start   w-screen "
           }
-        ></div>
+        >
+          <img
+            src='/images/Game/gradient.png'
+            alt='gradient'
+            className='w-full'
+          />
+        </div>
         <div className='w-1/4  b h-full flex flex-col gap-3 pt-0 z-30 '>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
-          <span className='headline-4 mb-3'>{currentCampaign?.title}</span>
-          <Card character={currentCharacter} />
+          <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
+          <Card character={gameCharacter} />
         </div>
         <div className='w-3/4   z-10 h-full '>
-          <div className=' flex flex-col  h-full gap-3 w-full'>
+          <div className=' flex relative flex-col  h-full gap-3 w-full'>
             <Chatbox
               textSize={textSize}
               loading={loading}
               chat={chat}
-              character={currentCharacter}
+              character={gameCharacter}
               setImageViewDialog={setImageViewDialog}
             />
 
@@ -126,6 +140,9 @@ export default function index({ response }) {
               setLoading={setSaveCharacterLoading}
               narrate={narrate}
               setNarrate={setNarrate}
+              setGameCharacter={setGameCharacter}
+              isImageLoading={isImageLoading}
+              setIsImageLoading={setIsImageLoading}
             />
           </div>
         </div>
