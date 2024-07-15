@@ -37,10 +37,10 @@ export default function characterSheet({ character, setCharacter }) {
   const isCreator = user?._id === character?.userId;
   console.log(isCreator);
 
-  useEffect(() => {
-    let _appearance = extractSection(character.value, "appearance")?.trim();
-    setAppearance(_appearance);
-  }, [character]);
+  // useEffect(() => {
+  //   let _appearance = extractSection(character.value, "appearance:character.personal.appearance")?.trim();
+  //   setAppearance:character.personal.appearance(_appearance:character.personal.appearance);
+  // }, [character]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -125,6 +125,7 @@ export default function characterSheet({ character, setCharacter }) {
         <div className=' col-span-8 md:col-span-4 w-auto gap-[24px] flex flex-col'>
           <GeneralInfo character={character} />
         </div>
+        
         <div className=' col-span-8 md:col-span-2  flex flex-col gap-[24px]'>
           <AbilitiesInfo character={character} />
         </div>
@@ -133,7 +134,7 @@ export default function characterSheet({ character, setCharacter }) {
         open={open}
         setOpen={setOpen}
         payload={{
-          appearance,
+          appearance: character.value.appearance,
           id: character?._id,
         }}
         setCurrentPortrait={setCurrentPortrait}

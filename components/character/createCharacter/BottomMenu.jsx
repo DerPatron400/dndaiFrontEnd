@@ -12,6 +12,7 @@ import SearchInput from "@/components/ui/search-input";
 import Check from "@/components/ui/Icons/Check";
 import ArrowRight from "@/components/ui/Icons/ArrowRight";
 import useCustomToast from "@/hooks/useCustomToast";
+import { useRouter } from "next/navigation";
 
 const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
   return (
@@ -84,10 +85,12 @@ export default function BottomMenu({ character, setCharacter }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSoundOn, setIsSoundOn] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
+  const router = useRouter();
   const { isMobile } = useDeviceDetect();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const [isChoosingRandom, setIsChoosingRandom] = useState(false);
   const MAX_STEPS = isMobile ? 8 : 7;
+
   const formComplete = activeStep === MAX_STEPS;
   function toggleSound() {
     setIsSoundOn(!isSoundOn);

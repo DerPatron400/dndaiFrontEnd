@@ -31,7 +31,7 @@ export default function chatbox({
   textSize,
   setImageViewDialog,
 }) {
-  const { currentCharacter, setGameImage } = useGameStore();
+  const { setGameImage } = useGameStore();
   const chatboxRef = useRef(null);
 
   useEffect(() => {
@@ -54,14 +54,11 @@ export default function chatbox({
       <div className='flex flex-col justify-end mt-auto gap-8'>
         {chat.map((item, index) => {
           return item.type === "image" ? (
-            <div
-              onClick={() => handleViewImage(item.url)}
-              key={index}
-              className='h-[223px] w-full'
-            >
+            <div key={index} className='h-[223px] w-full'>
               <img
+                onClick={() => handleViewImage(item.url)}
                 src={item.url}
-                className=' h-full object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 cursor-pointe ease-animate '
+                className=' h-full cursor-pointer object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 cursor-pointe ease-animate '
               />
             </div>
           ) : (
@@ -87,7 +84,7 @@ export default function chatbox({
                 <span className={"running-text-mono uppercase text-gray2"}>
                   {item.type === "system"
                     ? "DNDAI Dungeon Master"
-                    : currentCharacter?.personal.name}
+                    : character?.personal.name}
                 </span>
               </div>
               {item.type === "system" ? (

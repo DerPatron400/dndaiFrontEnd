@@ -75,62 +75,6 @@ const INITIAL_STATE = {
 export default function general({ character }) {
   const [generalInfo, setGeneralInfo] = useState(INITIAL_STATE);
 
-  useEffect(() => {
-    if (!character) return;
-
-    console.log(character.value, character);
-
-    let _background = extractSection(character.value, "background")?.trim();
-    let _alignment = extractSection(character.value, "alignment");
-    let _xpPoints = extractSection(character.value, "xp") || 1;
-    let _personality = extractSection(character.value, "personality").split(
-      ","
-    )[0];
-    let _ideal = extractSection(character.value, "ideal").split("-");
-    let _bond = extractSection(character.value, "bond").split("-");
-    let _flaw = extractSection(character.value, "flaw").split("-");
-    let _equipment = extractSection(character.value, "startingEquipment")
-      ?.trim()
-      .replaceAll("-", "")
-      .split("\n")
-
-      .filter((item) => item.trim() !== "");
-    let _gold = extractSection(character.value, "startingEquipment")
-      ?.trim()
-      .replaceAll("-", "")
-      .split("\n")
-      .splice(0);
-    let _hitPoints = extractSection(character.value, "hitpoints");
-    let _armorClass = extractSection(character.value, "armorclass");
-
-    setGeneralInfo((prev) => ({
-      ...prev,
-      background: _background,
-      alignment: _alignment || character.general.alignment,
-      xpPoints: _xpPoints,
-      personality: _personality,
-      ideal: {
-        value: _ideal[0],
-        description: _ideal[1],
-      },
-      bond: {
-        value: _bond[0],
-        description: _bond[1],
-      },
-      flaw: {
-        value: _flaw[0],
-        description: _flaw[1],
-      },
-      equipment: _equipment,
-      weapon: _equipment[0]?.split("(")[0].trim(),
-      secondary: _equipment[1]?.split("(")[0].trim(),
-      armor: _equipment[2]?.split("(")[0].trim(),
-      toolAndAmmo: _equipment[3]?.split("(")[0].trim(),
-      hitPoints: _hitPoints,
-      armorClass: _armorClass,
-      gold: _gold[0].replace("Gold", "").trim(),
-    }));
-  }, [character]);
   return (
     <div className='flex flex-col gap-4 md:gap-5 z-[1]'>
       <div className='grid grid-cols-4 md:grid-cols-3 gap-4 md:gap-5 uppercase'>
@@ -139,19 +83,19 @@ export default function general({ character }) {
           data={[
             {
               key: "gender",
-              value: character?.personal?.gender || "male",
+              value: character?.value?.gender || "male",
             },
             {
               key: "background",
-              value: generalInfo.background,
+              value: character.value.background,
             },
             {
               key: "alignment",
-              value: generalInfo.alignment,
+              value: character.value.alignment,
             },
             {
               key: "xp points",
-              value: generalInfo.xpPoints,
+              value: character.value.xp,
             },
           ]}
           className={"col-span-2 md:col-span-1"}
@@ -161,36 +105,37 @@ export default function general({ character }) {
           data={[
             {
               key: "Personality",
-              value: generalInfo.personality,
+              value: character.value.personality_traits.personality_trait,
             },
             {
               key: "Ideal",
-              value: generalInfo.ideal.value,
-              description: generalInfo.ideal.description,
+              value: character.value.personality_traits.ideal,
+              description: "",
             },
             {
               key: "Bond",
-              value: generalInfo.bond.value,
-              description: generalInfo.bond.description,
+              value: character.value.personality_traits.bond,
+              description: "",
             },
             {
               key: "Flaw",
-              value: generalInfo.flaw.value,
-              description: generalInfo.flaw.description,
+              value: character.value.personality_traits.flaw,
+              description: "",
             },
           ]}
           className={"col-span-2 md:col-span-1"}
         />
+
         <RenderData
           title='Defence'
           data={[
             {
               key: "Hit Point",
-              value: generalInfo.hitPoints,
+              value: character.value.hp,
             },
             {
               key: "Armor Class",
-              value: generalInfo.armorClass,
+              value: character.value.armor_class || character.value.ac,
             },
           ]}
           className={"col-span-4 md:col-span-1"}
@@ -203,12 +148,18 @@ export default function general({ character }) {
           <div className='flex w-full flex-col gap-4 items-start justify-between '>
             <span className='headline-4'>Inventory</span>
             <div className='w-full grid-cols-2 grid gap-x-5 '>
-              {generalInfo.equipment?.map((item, index) => (
+              <RenderEquipmentData
+                value={character.value.gold + " Gold"}
+                index={0}
+                length={character.value.length + 1}
+                className={""}
+              />
+              {character.value.equipment?.map((item, index) => (
                 <RenderEquipmentData
                   key={index}
                   value={item}
-                  index={index}
-                  length={generalInfo.equipment.length}
+                  index={index + 1}
+                  length={character.value.equipment.length + 1}
                   className={""}
                 />
               ))}

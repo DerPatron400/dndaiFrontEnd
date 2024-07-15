@@ -28,9 +28,13 @@ export const getCampaignsByUser = async (token) => {
   }
 };
 
-export const getCampaignBySlug = async (slug) => {
+export const getCampaignBySlug = async (slug, token) => {
   try {
-    const response = await api.get(`/campaign/byId/${slug}`);
+    const response = await api.get(`/campaign/byId/${slug}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error:", error);

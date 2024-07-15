@@ -83,7 +83,7 @@ export default function Choose({
   };
 
   return (
-    <div className='md:rounded-[16px] flex flex-col gap-6 w-full md:w-3/5 lg:w-2/5 max-h-fit h-full mb-auto md:p-5 md:pt-6 md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar'>
+    <div className='md:rounded-[16px] flex flex-col gap-6 w-full md:w-3/5 lg:w-2/5 max-h-full h-fit mb-auto md:p-5 md:pt-6 md:border border-white/10 md:bg-white/[8%]  overflow-auto hide-scrollbar'>
       <h1 className='headline-4 hidden md:block'>Abilities</h1>
 
       <div className='flex flex-col justify-start gap-5  w-full'>
@@ -95,28 +95,28 @@ export default function Choose({
               className='flex items-center justify-between w-full'
               key={index}
             >
-              <div
-                key={index}
-                className={`flex cursor-pointer running-text-mono uppercase justify-start items-center gap-3  `}
-              >
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
+              <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div
+                      key={index}
+                      className={`flex cursor-pointer running-text-mono uppercase justify-start items-center gap-3  `}
+                    >
                       <img
                         src={`https://dndai-images.s3.eu-central-1.amazonaws.com/abilities/${abilityName}.webp`}
                         className={`w-12 h-12 ease-animate object-cover rounded-[10px] `}
                       />
-                    </TooltipTrigger>
-                    <TooltipContent side='right'>
-                      <span className='!running-text-small '>
-                        {ability.description}
-                      </span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                      <span>{ability.name}</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent side='right'>
+                    <span className='!running-text-small '>
+                      {ability.description}
+                    </span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
 
-                <span>{ability.name}</span>
-              </div>
               <div className='flex items-center gap-4'>
                 <div className='flex items-center gap-2'>
                   <CustomIconbutton

@@ -17,6 +17,7 @@ import { getCharacter } from "@/actions/character";
 import useGameStore from "@/utils/gameStore";
 import { useRouter } from "next/navigation";
 import { getCampaignBySlug } from "@/actions/campaigns";
+import { isSelectionValid } from "@/lib/Helpers/shared";
 export default function Navbar({ variant, characterSheet }) {
   const { showMenu, setShowMenu } = useControlsStore();
   const { isMobile } = useDeviceDetect();
@@ -29,6 +30,8 @@ export default function Navbar({ variant, characterSheet }) {
     setCurrentCampaign,
     currentCharacter,
     currentCampaign,
+    characterSelectTime,
+    campaignSelectTime,
   } = useGameStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -68,13 +71,15 @@ export default function Navbar({ variant, characterSheet }) {
 
       setCurrentCampaign(campaign);
 
-      // if (hasSingleCharacter) {
-      //   const { character } = await getCharacter(characterId, user?.token);
-      //   setCurrentCharacter(character);
-      //   router.push("/game/play");
-      //   return;
-      // }
-      if (!currentCharacter) {
+      if (hasSingleCharacter) {
+        const { character } = await getCharacter(characterId, user?.token);
+
+        console.log("Has single character", character);
+        setCurrentCharacter(character);
+        router.push("/game/play");
+        return;
+      }
+      if (!isSelectionValid(currentCharacter, characterSelectTime)) {
         router.push("/game/character-selection");
       } else {
         router.push("/game/play");
@@ -93,7 +98,7 @@ export default function Navbar({ variant, characterSheet }) {
       const { character } = await getCharacter(characterId, user?.token);
 
       setCurrentCharacter(character);
-      if (!currentCampaign) {
+      if (!isSelectionValid(currentCampaign, campaignSelectTime)) {
         router.push("/game/campaign-selection");
       } else {
         router.push("/game/play");
@@ -102,6 +107,10 @@ export default function Navbar({ variant, characterSheet }) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleReditect = (path) => {
+    router.push(path);
   };
   return (
     <div
@@ -210,7 +219,12 @@ export default function Navbar({ variant, characterSheet }) {
                 {isCampaignSubpage ? "Play Campaign" : "PLAY Now"}
               </CustomButton>
             ) : (
-              <CustomButton variant={"primary"}>PLAY FOR FREE</CustomButton>
+              <CustomButton
+                onClick={() => handleReditect("/game/campaign-selection")}
+                variant={"primary"}
+              >
+                PLAY FOR FREE
+              </CustomButton>
             )}
           </div>
         </div>

@@ -50,7 +50,7 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
   const reset = () => {
     //reset progress
     setProgress(0);
-    setIsPlaying(false);
+    setIsPlaying(true);
   };
 
   useEffect(() => {
@@ -134,6 +134,7 @@ const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
           ref={audioRef}
           onTimeUpdate={handleTimeUpdate}
           src={audio}
+          autoPlay
           className='w-full '
         />
         <div className={cn("flex items-center space-x-3", loading && "hidden")}>
@@ -184,13 +185,16 @@ export default function bottomMenu({
   setLoading,
   narrate,
   setNarrate,
+  setGameCharacter,
+  isImageLoading,
+  setIsImageLoading,
 }) {
   const [imageDialog, setImageDialog] = useState(false);
   const [narrateDialog, setNarrateDialog] = useState(false);
   const [audio, setAudio] = useState(null);
   const [audioLoading, setAudioLoading] = useState(false);
   const { invokeToast } = useCustomToast();
-  const { setCurrentCharacter, game } = useGameStore();
+  const { game } = useGameStore();
   const { setBlueCredits, setYellowCredits, user } = useUserStore();
 
   const handleSaveCharacter = async () => {
@@ -203,7 +207,7 @@ export default function bottomMenu({
       };
 
       const { character, credits } = await saveCharacter(payload, user?.token);
-      setCurrentCharacter(character);
+      setGameCharacter(character);
 
       setYellowCredits(credits.yellow);
       setBlueCredits(credits.blue);
@@ -256,6 +260,8 @@ export default function bottomMenu({
             </button>
           </DialogTrigger>
           <Step1
+            loading={isImageLoading}
+            setLoading={setIsImageLoading}
             setChat={setChat}
             setOpen={setImageDialog}
             setImageOpen={setImageViewDialog}

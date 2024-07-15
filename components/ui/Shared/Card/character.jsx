@@ -25,18 +25,11 @@ export default function card({
 }) {
   const router = useRouter();
   const { setCurrentCharacter } = useGameStore();
-  const [level, setLevel] = useState();
 
   const handlePlay = () => {
     setCurrentCharacter(character);
     router.push("/game/campaign-selection");
   };
-
-  useEffect(() => {
-    if (!character) return;
-    let _level = extractSection(character.value, "level")?.trim();
-    setLevel(_level);
-  }, [character]);
 
   const handleRedirect = (event, path) => {
     const classNames =
@@ -108,7 +101,7 @@ export default function card({
         <div className='flex flex-col p-5 pb-6 !gap-4'>
           <div className='flex justify-between items-center'>
             <span className='headline-4 text-white'>
-              {character?.personal.name}
+              {character?.value.name}
             </span>
             <img
               src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${character?.personal?.class
@@ -118,7 +111,9 @@ export default function card({
             />
           </div>
           <div className='flex flex-col running-text-mono'>
-            <span className='text-white'>LEVEL {level || 0}</span>
+            <span className='text-white'>
+              LEVEL {character.value.level || 0}
+            </span>
             <span className='uppercase text-irisPurpleLight'>
               {character?.personal.race}
               <span className='uppercase text-sandyOrange'>

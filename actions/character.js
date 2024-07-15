@@ -30,9 +30,13 @@ export const getCharacters = async (token) => {
   }
 };
 
-export const getCharacter = async (slug) => {
+export const getCharacter = async (slug, token) => {
   try {
-    const response = await api.get(`/user/character/${slug}`);
+    const response = await api.get(`/user/character/${slug}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error:", error);
