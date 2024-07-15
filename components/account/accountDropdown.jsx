@@ -15,8 +15,6 @@ export default function accountDropdown() {
   const [open, setOpen] = useState(false);
   const { user } = useUserStore();
 
-  console.log(open);
-
   return (
     <DropdownMenu onOpenChange={(e) => setOpen(e)} open={open}>
       <DropdownMenuTrigger suppressHydrationWarning className='outline-0'>

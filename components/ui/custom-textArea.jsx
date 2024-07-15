@@ -30,7 +30,7 @@ export default function CustomTextArea({
           isComment && "h-16 !py-5",
           className
         )}
-        placeholder=''
+        placeholder=' '
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setInFocus(true)}
         onBlur={() => setInFocus(false)}

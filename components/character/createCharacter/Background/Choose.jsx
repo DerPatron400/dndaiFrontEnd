@@ -25,7 +25,7 @@ export default function Choose({ background, handleSelectBackground }) {
     setShowModal(true);
   };
   return (
-    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%] md:pb-0  '>
+    <div className='md:rounded-[16px] flex flex-col gap-5 w-full md:w-3/5 h-fit max-h-full md:p-5  md:pt-6 md:border md:border-white/10 md:bg-white/[8%] md:pb-0  '>
       <h1 className='headline-4 hidden md:block'>Background</h1>
       <SearchInput
         query={backgroundQuery}

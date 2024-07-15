@@ -6,7 +6,7 @@ export default function Info({ alignment }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll hide-scrollbar pb-6 md:max-w-[467px] ",
+        "hidden md:block w-2/5 h-fit max-h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll hide-scrollbar pb-6 md:max-w-[467px] ",
         !alignment && "opacity-0 pointer-events-none"
       )}
     >

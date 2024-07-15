@@ -13,6 +13,8 @@ function GameHandler() {
   const { invokeToast } = useCustomToast();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const [gameCampaign, setGameCampaign] = useState();
+  const [gameCharacter, setGameCharacter] = useState();
 
   const {
     currentCampaign,
@@ -41,7 +43,10 @@ function GameHandler() {
       setBlueCredits(credits.blue);
       setYellowCredits(credits.yellow);
       setGame(game);
-      setCurrentCharacter(character);
+      setCurrentCharacter(null);
+      setCurrentCampaign(null);
+      setGameCharacter(character);
+
       //push to the game page with the game id
       router.push(`${pathname}?id=${game._id}`);
     } catch (error) {
@@ -56,8 +61,10 @@ function GameHandler() {
       const { game, character, campaign } = await getGame(id, user?.token);
       setGame(game);
       setResponse(game?.state);
-      setCurrentCharacter(character);
-      setCurrentCampaign(campaign);
+      setCurrentCharacter(null);
+      setCurrentCampaign(null);
+      setGameCharacter(character);
+      setGameCampaign(campaign);
     } catch (error) {
       invokeToast(error?.response?.data || "Error Fetching Game", "Error");
       router.push("/discover");
@@ -79,7 +86,12 @@ function GameHandler() {
   }
   return (
     <div className='pt-[128px] h-screen !z-[10] text-white relative'>
-      <Game response={response} />
+      <Game
+        response={response}
+        gameCharacter={gameCharacter}
+        setGameCharacter={setGameCharacter}
+        gameCampaign={gameCampaign}
+      />
     </div>
   );
 }
