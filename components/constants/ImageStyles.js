@@ -28,13 +28,13 @@ export const IMAGE_STYLES = [
 
 export const IMAGE_TYPES = [
   {
-    name: "Character in action",
+    name: "My Character in play",
     type: "characterImage",
     image:
       "https://dndai-images.s3.eu-central-1.amazonaws.com/imagetocreate/character-in-action.webp",
   },
   {
-    name: "Your enemy",
+    name: "Other Npcs in play",
     type: "enemyImage",
     image:
       "https://dndai-images.s3.eu-central-1.amazonaws.com/imagetocreate/dungeon-map.webp",
