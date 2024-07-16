@@ -31,20 +31,22 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
-      document.title = window.location.href; // Set document.title to the URL
+      const formattedPath = pathname === "/" ? "home" : pathname.slice(1).replace("/", " / ");
+      document.title = `DNDAI / ${formattedPath}`; // Set document.title to the URL
       gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: window.location.pathname,
-        screen_name: pathname.split("/")[1] || "home", // Custom screen name
+        screen_name: formattedPath, // Custom screen name
       });
     };
 
     const handleRouteChange = (url) => {
-      document.title = url; // Set document.title to the URL
+      const formattedPath = url === "/" ? "home" : url.slice(1).replace("/", " / ");
+      document.title = `DNDAI / ${formattedPath}`; // Set document.title to the URL
       window.gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: url,
-        screen_name: url.split("/")[1] || "home", // Custom screen name
+        screen_name: formattedPath, // Custom screen name
       });
     };
 

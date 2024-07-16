@@ -4,6 +4,7 @@ import CustomIcontext from "@/components/ui/custom-icontext";
 import CustomInputIcon from "@/components/ui/custom-input-icon";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 
+//comments
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -67,10 +68,10 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
   };
 
   return (
-    <div className='w-full flex flex-col gap-[16px] py-4 '>
-      <div className=' flex justify-between items-center'>
-        <div className='flex  justify-center uppercase items-center !text-sm gap-2 font-roboto-mono'>
-          <CustomIconbutton className='bg-white   font-roboto-mono hover:bg-white h-6 w-6'></CustomIconbutton>
+    <div className="w-full flex flex-col gap-[16px] py-4 ">
+      <div className=" flex justify-between items-center">
+        <div className="flex  justify-center uppercase items-center !text-sm gap-2 font-roboto-mono">
+          <CustomIconbutton className="bg-white   font-roboto-mono hover:bg-white h-6 w-6"></CustomIconbutton>
           {comment.playerName}
         </div>
         {comment.userId === user._id && (
@@ -87,13 +88,13 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
                   open && "border-white/40"
                 )}
               >
-                <img src='/Icons/Dots.png' alt='' />
+                <img src="/Icons/Dots.png" alt="" />
               </CustomIconbutton>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2'>
-              <DropdownMenuItem className='flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'>
+            <DropdownMenuContent className="bg-transparent uppercase flex flex-col mt-4 p-2 !px-[9px]  border border-white/10 z-[10] bg-blur menu-shadow text-white running-text-mono rounded-[16px] !gap-y-2">
+              <DropdownMenuItem className="flex !p-0  !my-0 w-full focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer">
                 <CustomMenuItem onClick={handleDeleteComment}>
-                  <Delete className='h-4 w-4 fill-errorRed' />
+                  <Delete className="h-4 w-4 fill-errorRed" />
                   <span>DELETE COMMENT</span>
                 </CustomMenuItem>
               </DropdownMenuItem>
@@ -101,15 +102,15 @@ const Comment = ({ comment, handleUpdateComments, handleRemoveComment }) => {
           </DropdownMenu>
         )}
       </div>
-      <div className=' flex flex-col gap-[16px]'>
-        <span className='running-text text-white'>{comment.comment}</span>
-        <span className='running-text-mono text-gray2'>
+      <div className=" flex flex-col gap-[16px]">
+        <span className="running-text text-white">{comment.comment}</span>
+        <span className="running-text-mono text-gray2">
           {moment(comment.createdAt).fromNow()}
         </span>
 
         <CustomIcontext onClick={handleLikeComment} disabled={isLoading}>
           <Like
-            className='h-5 w-5 fill-white opacity-70'
+            className="h-5 w-5 fill-white opacity-70"
             isfilled={
               comment.analytics.likes.includes(user?._id) ? "true" : null
             }
@@ -176,16 +177,16 @@ export default function Comments({ campaign }) {
   }, [campaign]);
 
   return (
-    <div className='flex flex-col gap-[20px] w-full  px-5 md:px-0 comment-section'>
-      <div className='w-full'>
+    <div className="flex flex-col gap-[20px] w-full  px-5 md:px-0 comment-section">
+      <div className="w-full">
         <CustomInputIcon
           value={comment}
           disabled={isLoading}
           onClick={addComment}
           onChange={(e) => setComment(e)}
           className={"w-full "}
-          placeholder='Write a comment....'
-          icon={<Send fill={"white"} className='h-4 w-4  opacity-70' />}
+          placeholder="Write a comment...."
+          icon={<Send fill={"white"} className="h-4 w-4  opacity-70" />}
           isComment={true}
           text={"Send"}
           isSubtle={true}

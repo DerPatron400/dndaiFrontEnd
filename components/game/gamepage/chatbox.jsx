@@ -5,6 +5,7 @@ import useGameStore from "@/utils/gameStore";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 
+//text sizes for chatbox
 const TEXT_SIZES = {
   17: "text-xs",
   18: "text-sm",
@@ -16,10 +17,10 @@ const TEXT_SIZES = {
 
 const TypingIndicator = () => {
   return (
-    <div className='flex items-center space-x-1'>
-      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce'></div>
-      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-150'></div>
-      <div className='w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-300'></div>
+    <div className="flex items-center space-x-1">
+      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce"></div>
+      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-150"></div>
+      <div className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce delay-300"></div>
     </div>
   );
 };
@@ -49,16 +50,16 @@ export default function chatbox({
   return (
     <div
       ref={chatboxRef}
-      className='relative chat-box w-[65%] min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  py-12 '
+      className="relative chat-box w-[65%] min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  py-12 "
     >
-      <div className='flex flex-col justify-end mt-auto gap-8'>
+      <div className="flex flex-col justify-end mt-auto gap-8">
         {chat.map((item, index) => {
           return item.type === "image" ? (
-            <div key={index} className='h-[223px] w-full'>
+            <div key={index} className="h-[223px] w-full">
               <img
                 onClick={() => handleViewImage(item.url)}
                 src={item.url}
-                className=' h-full cursor-pointer object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 cursor-pointe ease-animate '
+                className=" h-full cursor-pointer object-contain rounded-[16px] border border-white/10 hover:shadow-custom-1 cursor-pointe ease-animate "
               />
             </div>
           ) : (
@@ -77,8 +78,8 @@ export default function chatbox({
                         : character?.personal?.portraitUrl ||
                           "/images/CreateCharacter/CharacterName/CharacterName.png"
                     }
-                    alt='logo'
-                    className='h-full w-full rounded-full object-cover'
+                    alt="logo"
+                    className="h-full w-full rounded-full object-cover"
                   />
                 </CustomIconbutton>
                 <span className={"running-text-mono uppercase text-gray2"}>
@@ -115,8 +116,8 @@ export default function chatbox({
               <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>
                 <img
                   src={"/Icons/logo-profile.svg"}
-                  alt='logo'
-                  className='h-full w-full rounded-full object-cover'
+                  alt="logo"
+                  className="h-full w-full rounded-full object-cover"
                 />
               </CustomIconbutton>
               <span className={"running-text-mono uppercase text-gray2"}>
