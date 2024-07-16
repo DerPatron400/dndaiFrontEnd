@@ -228,7 +228,7 @@ body {
 .bg-blur-x {
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
-  background: #ffffff1a;
+  background: rgba(255, 255, 255, 0.502);
 }
 
 .blur-shadow {

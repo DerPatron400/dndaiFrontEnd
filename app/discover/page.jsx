@@ -20,6 +20,7 @@ export default function page() {
   const handleGetPopularCampaigns = async () => {
     try {
       const response = await getPopularCampaigns();
+      console.log(response, "Public Campaigns");
       setPopularCampaigns(response.campaigns);
     } catch (error) {
       invokeToast(

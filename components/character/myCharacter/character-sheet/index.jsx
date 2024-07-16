@@ -78,7 +78,7 @@ export default function characterSheet({ character, setCharacter }) {
   return (
     <div
       ref={containerRef}
-      className='h-full min-h-screen w-screen pt-32 px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'
+      className='h-full min-h-screen w-screen pt-[94px] px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'
     >
       <div className='hidden md:flex justify-start gap-[32px]'>
         <CustomButton
@@ -125,7 +125,7 @@ export default function characterSheet({ character, setCharacter }) {
         <div className=' col-span-8 md:col-span-4 w-auto gap-[24px] flex flex-col'>
           <GeneralInfo character={character} />
         </div>
-        
+
         <div className=' col-span-8 md:col-span-2  flex flex-col gap-[24px]'>
           <AbilitiesInfo character={character} />
         </div>

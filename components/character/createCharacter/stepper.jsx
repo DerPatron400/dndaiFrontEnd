@@ -13,7 +13,7 @@ export default function Stepper() {
         <li key={index} className='mb-8  flex items-center gap-x-2.5  relative'>
           <hr
             className={cn(
-              "rotate-90 w-16 absolute top-full -left-[25%] border-[1px] border-white/[16%] translate-x-[25%] !-z-[0]",
+              "rotate-90 w-16 absolute top-full -left-[25%]  border-white/[16%] translate-x-[25%] !-z-[0]",
               index === 7 && "hidden",
               activeStep > index && "border-gray1"
             )}
@@ -23,14 +23,12 @@ export default function Stepper() {
             <CustomIconbutton
               onClick={() => setActiveStep(index)}
               className={cn(
-                " h-8 w-8 opacity-70 text-gray2 pointer-events-none",
+                " h-8 w-8 opacity-70 text-gray2 pointer-events-auto",
                 activeStep === index &&
                   "opacity-100 bg-white text-russianViolet hover:bg-white active:bg-white",
                 activeStep > index
                   ? "!border-gray1 !border-[1px] "
-                  : "border-none",
-                (index === activeStep - 1 || index === activeStep + 1) &&
-                  "pointer-events-auto"
+                  : "border-none"
               )}
             >
               {activeStep > index ? (

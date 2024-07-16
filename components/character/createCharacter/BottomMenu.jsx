@@ -123,15 +123,18 @@ export default function BottomMenu({ character, setCharacter }) {
         ...character.equipment,
       };
 
-      const response = await createCharacter(payload, user?.token || null);
+      const { newCharacter } = await createCharacter(
+        payload,
+        user?.token || null
+      );
       const { credits } = await getCredits(user?.token);
-      console.log(response);
+
+      router.push("/character/sheet/" + newCharacter._id);
       setYellowCredits(credits.yellowCredits);
       setBlueCredits(credits.blueCredits);
       setActiveStep(0);
       setCharacter(INITIAL_CHARACTER);
       invokeToast("Character Created Successfully", "Success");
-      router.push("/discover");
     } catch (error) {
       invokeToast(
         error?.response?.data?.error || "Error Creating Character",

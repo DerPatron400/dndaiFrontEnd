@@ -7,6 +7,11 @@ const useUserStore = create(
       user: {
         email: "",
       },
+      totalCharacters: null,
+      totalCampaigns: null,
+      totalFavCampaigns: null,
+      totalImages: null,
+      totalPublicImages: null,
 
       setUser: (user) => set({ user }),
       setBlueCredits: (blueCredits) =>
@@ -14,6 +19,11 @@ const useUserStore = create(
       setYellowCredits: (yellowCredits) =>
         set({ user: { ...get().user, yellowCredits } }),
       setUserStared: (stared) => set({ user: { ...get().user, stared } }),
+      setTotalCharacters: (totalCharacters) => set({ totalCharacters }),
+      setTotalCampaigns: (totalCampaigns) => set({ totalCampaigns }),
+      setTotalFavCampaigns: (totalFavCampaigns) => set({ totalFavCampaigns }),
+      setTotalImages: (totalImages) => set({ totalImages }),
+      setTotalPublicImages: (totalPublicImages) => set({ totalPublicImages }),
     }),
     {
       name: "user-storage", // name of the item in the storage (must be unique)

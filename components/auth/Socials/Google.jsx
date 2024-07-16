@@ -23,7 +23,7 @@ export default function GoogleAuth({ isLoading, setIsLoading }) {
       cookies.set("token", data.token, { path: "/" });
 
       invokeToast("Login Successful", "Success");
-      router.push("/");
+      router.push("/discover");
     } catch (error) {
       invokeToast(error?.response?.data?.message || "Error", "Error");
       console.log("An error occurred:", error);

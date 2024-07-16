@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Create from "@/components/character/createCharacter/create";
 import useStepperStore from "@/utils/characterStore";
-import { STEP_NAMES } from "./constants";
+
 import { INITIAL_CHARACTER } from "./constants";
 import ImageModal from "./shared/ImageModal";
 import BottomMenu from "./BottomMenu";
-import { cn } from "@/lib/utils";
-import MobileHeader from "./MobileHeader";
 
 export default function Index() {
   const { activeStep, showModal } = useStepperStore();
@@ -33,7 +31,6 @@ export default function Index() {
           Create your character
         </h1>
       </div>
-      <MobileHeader />
 
       <div className='w-full flex z-[10] h-1/2 flex-1   '>
         <Create setCharacter={setCharacter} character={character} />

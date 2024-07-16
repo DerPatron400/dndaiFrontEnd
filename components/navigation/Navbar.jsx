@@ -6,22 +6,24 @@ import { cn } from "@/lib/utils";
 import CustomButton from "../ui/custom-button";
 import DrawerMenu from "./DrawerMenu";
 import Link from "next/link";
-import CustomIconbutton from "../ui/custom-iconbutton";
-import { Volume2 } from "lucide-react";
+
 import { usePathname } from "next/navigation";
 import useControlsStore from "@/utils/controlsStore";
 import useUserStore from "@/utils/userStore";
 import Menu from "@/components/ui/Icons/Menu";
 import Play from "@/components/ui/Icons/Play";
-import { getCharacter } from "@/actions/character";
+import { getCharacter, getCharacters } from "@/actions/character";
 import useGameStore from "@/utils/gameStore";
 import { useRouter } from "next/navigation";
 import { getCampaignBySlug } from "@/actions/campaigns";
 import { isSelectionValid } from "@/lib/Helpers/shared";
 import SoundButton from "../ui/Shared/SoundButton";
+import MobileHeader from "@/components/navigation/MobileHeaders/index";
+import useCustomToast from "@/hooks/useCustomToast";
 export default function Navbar({ variant, characterSheet }) {
   const { showMenu, setShowMenu } = useControlsStore();
   const { isMobile } = useDeviceDetect();
+  const { invokeToast } = useCustomToast();
 
   const pathname = usePathname();
   const isSignUp = pathname.includes("/auth/sign-up");
@@ -37,30 +39,12 @@ export default function Navbar({ variant, characterSheet }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const mobileBlurNotAllowed =
-    pathname === "/" ||
-    pathname.includes("/my-campaigns") ||
-    pathname.includes("/create");
+  const mobileBlurNotAllowed = pathname === "/";
 
   const characterCreatePage = pathname.includes("/character/create");
   const regex = /^\/campaign\/[a-fA-F0-9]{24}$/;
 
   const isCampaignSubpage = regex.test(pathname);
-
-  // const scrollFromTop = useRef(0);
-
-  // useEffect(() => {
-  //   //get scrollFromTop
-  //   const handleScroll = () => {
-  //     scrollFromTop.current = window.scrollY;
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
 
   const handlePlayWithCampaign = async () => {
     try {
@@ -86,6 +70,8 @@ export default function Navbar({ variant, characterSheet }) {
         router.push("/game/play");
       }
     } catch (error) {
+      invokeToast(error?.response?.data || "Error playing campaign", "Error");
+      console.log("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -105,18 +91,44 @@ export default function Navbar({ variant, characterSheet }) {
         router.push("/game/play");
       }
     } catch (error) {
+      invokeToast(error?.response?.data || "Error playing campaign", "Error");
+      console.log("Error:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
+  const handlePlay = async () => {
+    try {
+      setIsLoading(true);
+      const { characters } = await getCharacters(user?.token);
+      if (characters.length === 0) {
+        router.push("/character/create");
+        return;
+      } else if (characters.length === 1) {
+        setCurrentCharacter(characters[0]);
+        if (!isSelectionValid(currentCampaign, campaignSelectTime)) {
+          router.push("/game/campaign-selection");
+        } else {
+          router.push("/game/play");
+        }
+        return;
+      } else {
+        router.push("/game/character-selection");
+      }
+    } catch (error) {
+      invokeToast("Error fetching characters", "Error");
+      console.log("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handleReditect = (path) => {
     router.push(path);
   };
   return (
     <div
       className={cn(
-        "px-5 md:px-8 fixed top-0 pt-5 pb-4 md:py-0 flex flex-col md:top-8 z-20 w-full",
+        "px-5 md:px-8 fixed top-0 pt-5 pb-4 gap-5  md:py-0 flex flex-col md:top-8 z-20 w-full",
         isMobile &&
           !mobileBlurNotAllowed &&
           !showMenu &&
@@ -219,7 +231,8 @@ export default function Navbar({ variant, characterSheet }) {
               </CustomButton>
             ) : (
               <CustomButton
-                onClick={() => handleReditect("/game/campaign-selection")}
+                disabled={isLoading}
+                onClick={handlePlay}
                 variant={"primary"}
               >
                 PLAY FOR FREE
@@ -228,6 +241,7 @@ export default function Navbar({ variant, characterSheet }) {
           </div>
         </div>
       </div>
+      <MobileHeader />
     </div>
   );
 }

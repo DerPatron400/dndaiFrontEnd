@@ -63,12 +63,10 @@ export default function page() {
     handleGetMostLikedCampaigns();
   }, [user]);
   return (
-    <div className='pt-[128px] !z-[10] text-white relative'>
-      <SelectCampaign
-        mostLiked={campaigns}
-        popular={popularCampaigns}
-        characters={characters}
-      />
-    </div>
+    <SelectCampaign
+      mostLiked={campaigns}
+      popular={popularCampaigns}
+      characters={characters}
+    />
   );
 }

@@ -11,19 +11,21 @@ export default function page() {
   const [campaigns, setCampaigns] = useState();
   const { invokeToast } = useCustomToast();
 
-  const { user } = useUserStore();
+  const { user, setTotalCampaigns } = useUserStore();
 
   const handleGetCampaigns = async () => {
     try {
       const _campaigns = await getCampaignsByUser(user?.token);
 
       setCampaigns(_campaigns.campaigns);
+      setTotalCampaigns(_campaigns.campaigns.length);
     } catch (error) {
       invokeToast(
         error?.response?.data?.error || "Error fetching campaigns",
         "Error"
       );
       setCampaigns([]);
+      setTotalCampaigns(0);
       console.error("Error:", error);
     }
   };

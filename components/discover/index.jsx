@@ -7,17 +7,19 @@ import MyCharacters from "@/components/character/myCharacter/characters/index";
 export default function index({ characters, popular, mostLiked }) {
   return (
     <div className='pt-[128px] w-full h-full relative text-white  pb-12'>
-      <span className='headline-3 !z-[20] px-5 md:px-12'>Discover</span>
-      <div className='flex flex-col h-full gap-16 w-full mt-9'>
+      <span className='headline-3 !z-[20] px-5 md:px-12 hidden md:block'>
+        Discover
+      </span>
+      <div className='flex flex-col h-full gap-16 w-full mt-5 md:mt-9'>
         <Row
           text={"Commuity favorties"}
           campaigns={mostLiked}
-          icon={<Star isfilled={"true"} className='h-4 w-4 fill-gray2' />}
+          icon={<Star isfilled={"true"} className='h-5 w-5 fill-gray2' />}
         />
         <Row
           text={"Public games"}
           campaigns={popular}
-          icon={<World className='h-4 w-4 fill-gray2' />}
+          icon={<World className='h-5 w-5 fill-gray2' />}
         />
 
         <MyCharacters

@@ -16,6 +16,8 @@ import useUserStore from "@/utils/userStore";
 import useCustomToast from "@/hooks/useCustomToast";
 import Loader from "@/components/ui/Loader";
 import SaveCharacterDialogue from "@/components/ui/Shared/Dialogue/SaveCharacter";
+import Plus from "@/components/ui/Icons/Plus";
+import Minus from "@/components/ui/Icons/Minus";
 const NarrationControls = ({ audio, narrate, setNarrate, loading }) => {
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
@@ -317,18 +319,18 @@ export default function bottomMenu({
           disabled={textSize <= 17}
           onClick={() => setTextSize((prev) => prev - 1)}
           variant={"primary"}
-          className={"h-6 w-6"}
+          className={"h-[25px] w-[25px]"}
         >
-          <img src='/Icons/Minus.svg' alt='logo' className='h-2 w-2' />
+          <Minus className=' w-[9px] h-[1px] fill-russianViolet' />
         </CustomIconbutton>
 
         <CustomIconbutton
           onClick={() => setTextSize((prev) => prev + 1)}
           disabled={textSize >= 22}
           variant={"primary"}
-          className={"h-6 w-6"}
+          className={"h-[25px] w-[25px]"}
         >
-          <img src='/Icons/Add.svg' alt='logo' className='h-2 w-2' />
+          <Plus className='h-[9px] w-[9px] fill-russianViolet' />
         </CustomIconbutton>
       </div>
     </div>

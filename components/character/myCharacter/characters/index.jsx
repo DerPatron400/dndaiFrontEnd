@@ -18,8 +18,8 @@ export default function characters({ characters = [], className }) {
         className
       )}
     >
-      <div className=' flex flex-col gap-[20px] justify-start '>
-        <div className='flex w-full items-center justify-between'>
+      <div className=' flex flex-col gap-[20px] justify-start pt-8 md:pt-0 '>
+        <div className='md:flex w-full items-center justify-between hidden'>
           <span className='headline-3 z-[10]  '>
             My characters
             <span className='text-gray2 ms-3 md:ms-4 font-roboto-mono transform translate-up text-[17px] md:text-[24px] translate-y-[-15px] md:translate-y-[-20px]'>

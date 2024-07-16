@@ -119,6 +119,7 @@ const subscriptionPlans = [
       semiannually: "25,99€",
       annually: "22,67€",
     },
+    isPopular: true,
     productIds: {
       monthly: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_MYTHIC_PRODUCT_ID,
       semiannually:

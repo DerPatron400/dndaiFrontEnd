@@ -47,15 +47,15 @@ export default function ProfileButtons({ character }) {
             <Sheet className='h-4.5 w-4.5' fill={"#fff"} />
           </CustomIconbutton>
         </PopoverTrigger>
-        <PopoverContent className='!p-6 !pt-4 !pe-5 ' side='bottom'>
+        <PopoverContent className='!p-6 !pt-4 !pe-5 !ms-2 ' side='bottom'>
           <div className='flex flex-col gap-4 '>
             <span className='headline-4'>Abilitiy Scores</span>
             <div className='flex flex-col justify-start gap-5 w-full'>
-              {Object.entries(character.value.ability_scores).map(
+              {Object.entries(character?.value?.ability_scores || {}).map(
                 ([key, value]) => {
                   return (
                     <div
-                      className='flex items-center justify-between w-4/4'
+                      className='flex items-center gap-8 justify-between w-4/4'
                       key={key}
                     >
                       <div
