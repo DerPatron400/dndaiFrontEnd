@@ -34,16 +34,21 @@ export default function index({ popular, mostLiked }) {
     }
   }, [debouncedQuery]);
   return (
-    <div className=' w-full h-full relative text-white  pb-12'>
-      <div className=' flex justify-center items-center relative flex-col mx-12 '>
+    <div className='!z-[10] text-white relative w-full h-full   pb-12 pt-[86px] md:pt-[128px] '>
+      <div className='  flex justify-center items-center relative flex-col mx-12 '>
         <h1 className='headline-3 text-center '>
           Forge your destiny <br />
           and choose{" "}
           <span className='text-irisPurpleLight'>your campaign!</span>
         </h1>
 
-        <CustomButton className={"absolute top-1/2 -translate-y-1/2 right-0"}>
-          <CampaignAdd className='h-4 w-4 fill-white' />
+        <CustomButton
+          withIcon={true}
+          className={
+            "hidden md:flex absolute top-1/2 -translate-y-1/2 right-0 "
+          }
+        >
+          <CampaignAdd className='h-5 w-5 fill-white' />
           Create Campaign
         </CustomButton>
       </div>
@@ -58,19 +63,19 @@ export default function index({ popular, mostLiked }) {
           <Row
             text={"Search results"}
             campaigns={searchedCampaign}
-            icon={<World className='h-4 w-4 fill-gray2' />}
+            icon={<World className='h-5 w-5 fill-gray2' />}
           />
         )}
 
         <Row
           text={"Commuity favorties"}
           campaigns={mostLiked}
-          icon={<Star isfilled={"true"} className='h-4 w-4 fill-gray2' />}
+          icon={<Star isfilled={"true"} className='h-5 w-5 fill-gray2' />}
         />
         {/* <Row
           text={"Public games"}
           campaigns={popular}
-          icon={<World className='h-4 w-4 fill-gray2' />}
+          icon={<World className='h-5 w-5 fill-gray2' />}
         /> */}
       </div>
     </div>

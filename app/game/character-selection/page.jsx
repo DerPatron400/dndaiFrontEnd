@@ -30,11 +30,7 @@ export default function page() {
     if (user?.token) getAllCharacters();
   }, [user?.token]);
 
-  if (!characters) return <Loader text={"Fetching Characters..."} />;
+  if (!characters) return <Loader text={"Loading Characters..."} />;
   if (characters.length <= 0) return <CharacterPlaceholder />;
-  return (
-    <div className='pt-[128px] z-[10] text-white relative'>
-      <SelectCharacter characters={characters} />
-    </div>
-  );
+  return <SelectCharacter characters={characters} />;
 }

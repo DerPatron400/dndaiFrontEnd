@@ -8,16 +8,18 @@ import useCustomToast from "@/hooks/useCustomToast";
 export default function page() {
   const [campaigns, setCampaigns] = useState();
   const { invokeToast } = useCustomToast();
-  const { user } = useUserStore();
+  const { user, setTotalFavCampaigns } = useUserStore();
 
   const fetchCampaigns = async () => {
     try {
       const response = await getFavoriteCampaigns(user?.token);
       setCampaigns(response.campaigns || []);
+      setTotalFavCampaigns(response.campaigns.length);
     } catch (error) {
       console.log(error);
       invokeToast("Error fetching favorites", "error");
       setCampaigns([]);
+      setTotalFavCampaigns(0);
     }
   };
   useEffect(() => {
@@ -29,6 +31,6 @@ export default function page() {
     fetchCampaigns();
   }, [user]);
 
-  if (!campaigns) return <Loader text="Loading Favorites ..." />;
+  if (!campaigns) return <Loader text='Loading Favorites ...' />;
   return <Favorties campaigns={campaigns} />;
 }

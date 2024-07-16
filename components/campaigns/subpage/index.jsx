@@ -37,7 +37,7 @@ export default function index({ campaign, setCampaign }) {
     setTime(_time || campaign.time);
   }, [campaign]);
   return (
-    <div className='min-h-screen h-full w-full flex flex-col border  pt-[112px] md:pt-[128px]  lg:px-12 md:pb-20 '>
+    <div className='min-h-screen h-full w-full flex flex-col border  pt-[86px] md:pt-[128px]  lg:px-12 md:pb-20 '>
       <div className='flex flex-col gap-5 z-[10]  px-5 md:px-0'>
         <span className='headline-3  headline-3 text-white capitalize'>
           {campaign.title}

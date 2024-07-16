@@ -23,7 +23,7 @@ export default function signup() {
       className={`text-white w-[345px] h-full flex flex-col justify-center items-start gap-8  z-[10]
             ${step === 1 ? "h-full gap-4" : "h-full gap-0 py-20"}`}
     >
-      <div className='flex flex-col gap-4'>
+      <div className=' flex-col gap-4 hidden md:flex'>
         <h1 className='headline-3 '>Create account</h1>
         <span className='text-gray2 running-text-small '>
           Already have an account?{" "}

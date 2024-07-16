@@ -33,7 +33,7 @@ export default function SignIn() {
       setUser(response);
       cookies.set("token", response.token, { path: "/" });
       invokeToast("Login Successful", "Success");
-      router.push("/");
+      router.push("/discover");
     } catch (error) {
       invokeToast(
         error?.response?.data?.message || "Something Went Wrong",
@@ -48,7 +48,7 @@ export default function SignIn() {
       className='text-white w-[345px] h-auto mt-10 flex flex-col justify-between items-start gap-6 z-[9]'
       suppressHydrationWarning
     >
-      <div className='flex flex-col gap-4'>
+      <div className='md:flex flex-col gap-4 hidden '>
         <h1 className='headline-3'>Sign in</h1>
         <span className='text-gray2 running-text-small'>
           No account yet?{" "}
@@ -57,7 +57,7 @@ export default function SignIn() {
           </Link>
         </span>
       </div>
-      <div className='flex w-full flex-col gap-6'>
+      <div className='flex w-full flex-col gap-6 pt-[136px] md:pt-0'>
         <CustomInput
           placeholder='E-MAIL OR USERNAME'
           value={email}

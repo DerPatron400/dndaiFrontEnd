@@ -52,7 +52,7 @@ export default function character() {
 
   const handlePlay = () => {
     setCurrentCampaign(campaign);
-    console.log(currentCharacter);
+
     if (!currentCharacter) {
       router.push("/game/character-selection");
     } else {
@@ -120,7 +120,7 @@ export default function character() {
               // onClick={handleCreateCampaign}
             >
               <Play className='h-5 w-5 fill-russianViolet' />
-              Play campaign
+              Play Now
             </CustomButton>
           </div>
         </div>

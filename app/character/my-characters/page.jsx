@@ -61,7 +61,7 @@ const dummy = [
 //merge
 export default function page() {
   const [characters, setCharacters] = useState();
-  const { user } = useUserStore();
+  const { user, setTotalCharacters } = useUserStore();
   const { invokeToast } = useCustomToast();
 
   const getAllCharacters = async () => {
@@ -69,12 +69,14 @@ export default function page() {
       const response = await getCharacters(user?.token);
       console.log("response", response);
       setCharacters(response.characters);
+      setTotalCharacters(response.characters.length);
     } catch (error) {
       invokeToast(
         error?.response?.data?.error || "Error fetching characters",
         "Error"
       );
       setCharacters([]);
+      setTotalCharacters(0);
       console.error("Error:", error);
     }
   };

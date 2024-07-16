@@ -11,7 +11,7 @@ const SORT_BY_OPTIONS = ["Newest to Oldest", "Oldest to Newest"];
 
 function GalleryContainer() {
   const [images, setImages] = useState();
-  const { user } = useUserStore();
+  const { user, setTotalImages } = useUserStore();
   const [totalPages, setTotalPages] = useState(1);
   const [selectedOption, setSelectedOption] = useState(SORT_BY_OPTIONS[0]);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -29,10 +29,12 @@ function GalleryContainer() {
       setImages(response.images);
       setTotalPages(response.totalPages);
       setTotalRecords(response.totalRecords);
+      setTotalImages(response.totalRecords);
     } catch (error) {
       invokeToast(error?.response?.data || "Error fetching images", "Error");
       setImages([]);
       setTotalPages(1);
+      setTotalImages(0);
       console.error("Error:", error);
     }
   };

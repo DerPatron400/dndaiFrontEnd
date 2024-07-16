@@ -52,6 +52,7 @@ export default function Gallery({
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page")) || 1;
   const pathname = usePathname();
+  const isGallery = pathname.includes("/discover/gallery");
   const renderImages = () => {
     if (!images) return null;
 
@@ -167,20 +168,13 @@ export default function Gallery({
   };
 
   return (
-    <div className='h-full  text-white w-full flex flex-col pt-[180px] md:pt-[128px] px-5 lg:px-12 pb-32 '>
-      {/* mobile */}
-      <div
-        className={
-          "flex flex-col items-start gap-2.5 bg-blur-bottom-menu headline-3 z-20 w-screen left-0 h-[164px] px-5 pb-4 md:hidden fixed top-0 justify-end"
-        }
-      >
-        <span>My Images</span>
-      </div>
+    <div className='h-full  text-white w-full flex flex-col pt-[154px] md:pt-[128px] px-5 lg:px-12 pb-32 '>
       <div className='flex flex-col w-full gap-2.5'>
         <div className=' flex justify-between text-white  z-[10]'>
           {/* desktop */}
           <span className='headline-3 z-[10] hidden md:block '>
-            My Images
+            {isGallery ? "Gallery" : " My Images"}
+
             <span className='text-gray2 ms-3 md:ms-4 font-roboto-mono transform translate-up text-[17px] md:text-[24px] translate-y-[-15px] md:translate-y-[-20px]'>
               ({totalRecords})
             </span>

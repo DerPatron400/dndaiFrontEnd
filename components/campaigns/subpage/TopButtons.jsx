@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Button from "@/components/ui/custom-button";
 import CustomIcontext from "@/components/ui/custom-icontext";
 import Play from "@/components/ui/Icons/Play";
-import DeleteBox from "./deleteBox";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Delete from "@/components/ui/Icons/Delete";
 import World from "@/components/ui/Icons/World";
 import useUserStore from "@/utils/userStore";
@@ -20,8 +18,8 @@ import Star from "@/components/ui/Icons/Star";
 import useGameStore from "@/utils/gameStore";
 import Like from "@/components/ui/Icons/Like";
 import useCustomToast from "@/hooks/useCustomToast";
-import CustomDialogBox from "@/components/ui/custom-msgBox";
 import DeleteCampaign from "@/components/ui/Shared/Dialogue/DeleteCampaign";
+import Loader from "@/components/ui/Loader";
 
 const TopButtons = ({ campaign, setCampaign, className }) => {
   const { user } = useUserStore();

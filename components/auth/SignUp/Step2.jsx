@@ -83,7 +83,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
   const passwordValidation = isPasswordValid(user.password);
 
   return (
-    <div className='w-full h-auto flex flex-col gap-6'>
+    <div className='w-full h-auto flex flex-col gap-6 pt-[94px] md:pt-0'>
       <div>
         <CustomInput
           placeholder='USERNAME'

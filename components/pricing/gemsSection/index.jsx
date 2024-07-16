@@ -3,7 +3,8 @@ import Card from "./card";
 
 const GemsInfo = [
   {
-    imgSrc: "/gems/legandaryGems.png",
+    imgSrc:
+      "https://dndai-images.s3.eu-central-1.amazonaws.com/gems/legendary-gem.webp",
     info: (
       <span>
         <span className='text-sandyOrange'>Legendary gems</span> are your magic
@@ -22,7 +23,8 @@ const GemsInfo = [
     ],
   },
   {
-    imgSrc: "/gems/mythicGems.png",
+    imgSrc:
+      "https://dndai-images.s3.eu-central-1.amazonaws.com/gems/mythic-gem.webp",
     info: (
       <span>
         <span className='text-irisPurpleLight'>Mythic gems</span> are your
