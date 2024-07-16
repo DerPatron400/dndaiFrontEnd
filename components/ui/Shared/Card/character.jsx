@@ -22,6 +22,7 @@ export default function card({
   carousel,
   className,
   hideShowDetails,
+  loadGameOnClick = false,
 }) {
   const router = useRouter();
   const { setCurrentCharacter } = useGameStore();
@@ -47,9 +48,13 @@ export default function card({
 
   return (
     <div
-      onClick={(event) =>
-        handleRedirect(event, `/character/sheet/${character._id}`)
-      }
+      onClick={(event) => {
+        if (loadGameOnClick) {
+          handlePlay();
+          return;
+        }
+        handleRedirect(event, `/character/sheet/${character._id}`);
+      }}
       className={cn(
         "rounded-[16px] h-auto group hover:!shadow-custom-1 bg-white/[8%] group-hover:bg-white/10 my-0 cursor-pointer overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 w-full border-white/[8%] border hover:border-white/20 running-text-mono ease-animate z-[10]",
         className

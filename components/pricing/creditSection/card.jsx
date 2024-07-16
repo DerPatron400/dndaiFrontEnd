@@ -59,7 +59,7 @@ export default function card({ _package, stripe }) {
         <h1 className='text-gray2 running-text text-[14px]'>
           {_package.title}
         </h1>
-        <h2 className='text-white headline-4 flex justify-start items-end gap-2'>
+        <h2 className='text-white text-[22px] headline-4 flex justify-start items-end gap-2'>
           {_package.price}
         </h2>
       </div>

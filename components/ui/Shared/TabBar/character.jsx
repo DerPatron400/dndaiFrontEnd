@@ -1,24 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import useSoundControls from "@/utils/controlsStore";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import CustomButton from "@/components/ui/custom-button";
 import { useRouter } from "next/navigation";
-import _ from "lodash";
+
 import Play from "@/components/ui/Icons/Play";
 import Add from "@/components/ui/Icons/Add";
 import CampaignAdd from "@/components/ui/Icons/CampaignAdd";
 import AddUser from "@/components/ui/Icons/AddUser";
 import { cn } from "@/lib/utils";
 import useGameStore from "@/utils/gameStore";
-import Search from "../../Icons/Search";
-import SoundButton from "../SoundButton";
+
+import SoundButton from "@/components/ui/shared/SoundButton";
 import SearchInput from "@/components/ui/search-input";
 
 export default function character() {
   const router = useRouter();
-  const { isSoundOn, set } = useSoundControls();
+
   const { setCurrentCampaign, currentCharacter } = useGameStore();
   const [searchMode, setSearchMode] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
@@ -62,79 +61,70 @@ export default function character() {
   };
 
   return (
-    <div className="z-[20]  text-white fixed bottom-0 left-0 bg-blur-bottom-menu w-full flex  justify-center items-center  md:hidden ">
-      <div className="flex flex-col items-center gap-4 w-full relative p-5">
-        <hr
-          className={cn(
-            "w-9 border-[1px] rounded-sm border-gray1 text-gray1",
-            !showButtons && "hidden"
-          )}
-        />
-        <div
-          className={cn(
-            "border w-full flex flex-col btns-menu border-white/10 bg-white/10 rounded-[16px] gap-2 py-2 px-5",
-            !showButtons && "hidden"
-          )}
-        >
-          <div>
-            <CustomButton variant={"subtle"}>
-              <AddUser className="h-5 w-5 fill-white opacity-70" />
-              Create Character
-            </CustomButton>
-          </div>
-          <div>
-            <CustomButton variant={"subtle"}>
-              <CampaignAdd className="h-5 w-5 fill-white opacity-70" />
-              Create Campaign
-            </CustomButton>
-          </div>
+    <div className='z-[20]  text-white fixed bottom-0 left-0 bg-blur-bottom-menu w-full flex  justify-center items-center  md:hidden '>
+      {searchMode ? (
+        <div className='p-5 w-full'>
+          <SearchInput
+            query={query}
+            setQuery={setQuery}
+            autoFocus={true}
+            className={"w-full search text-white"}
+          />
         </div>
-      </div>
-      <div className="w-full md:hidden left-0 z-[20] fixed bottom-0 border ">
-        <div className="flex items-center justify-between p-5">
-          {searchMode ? (
-            <SearchInput
-              autoFocus={true}
-              className={"w-full search text-white"}
-              query={query}
-              setQuery={setQuery}
-            />
-          ) : (
-            <>
-              <div className="flex items-center gap-5">
-                <SoundButton />
-                <CustomIconbutton
-                  onClick={() => setShowButtons((prev) => !prev)}
-                >
-                  <Add className="h-5 w-5 fill-white" />
-                </CustomIconbutton>
-
-                <CustomIconbutton
-                  onClick={() => {
-                    console.log("search");
-                    setSearchMode(true);
-                  }}
-                >
-                  <img
-                    src={"/Icons/Search.svg"}
-                    alt="Search Toggle"
-                    className="h-5 w-5  "
-                  />
-                </CustomIconbutton>
-              </div>
-              <CustomButton
-                variant={"primary"}
-                onClick={handlePlay}
-                // disabled={!isValid() || loading}
-                // onClick={handleCreateCampaign}
-              >
-                <Play className="h-5 w-5 fill-russianViolet" />
-                Play Now
+      ) : (
+        <div className='flex flex-col items-center gap-4 w-full relative p-5'>
+          <hr
+            className={cn(
+              "w-9 border-[1px] rounded-sm border-gray1 text-gray1",
+              !showButtons && "hidden"
+            )}
+          />
+          <div
+            className={cn(
+              "border w-full flex flex-col btns-menu border-white/10 bg-white/10 rounded-[16px] gap-2 py-2 px-5",
+              !showButtons && "hidden"
+            )}
+          >
+            <div>
+              <CustomButton variant={"subtle"}>
+                <AddUser className='h-5 w-5 fill-white opacity-70' />
+                Create Character
               </CustomButton>
-            </>
-          )}
+            </div>
+            <div>
+              <CustomButton variant={"subtle"}>
+                <CampaignAdd className='h-5 w-5 fill-white opacity-70' />
+                Create Campaign
+              </CustomButton>
+            </div>
+          </div>
+
+          <div className='flex justify-between items-center w-full '>
+            <div className='flex items-center gap-5'>
+              <SoundButton />
+              <CustomIconbutton onClick={() => setShowButtons((prev) => !prev)}>
+                <Add className='h-5 w-5 fill-white' />
+              </CustomIconbutton>
+              <CustomIconbutton onClick={() => setSearchMode((prev) => !prev)}>
+                <img
+                  src={"/Icons/Search.svg"}
+                  alt='Search Toggle'
+                  className='h-5 w-5  '
+                />
+              </CustomIconbutton>
+            </div>
+            <CustomButton
+              variant={"primary"}
+              onClick={handlePlay}
+              // disabled={!isValid() || loading}
+              // onClick={handleCreateCampaign}
+            >
+              <Play className='h-5 w-5 fill-russianViolet' />
+              Play campaign
+            </CustomButton>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

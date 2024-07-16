@@ -14,6 +14,7 @@ function GalleryContainer() {
   const [images, setImages] = useState();
   const { user } = useUserStore();
   const [totalPages, setTotalPages] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
   const [selectedOption, setSelectedOption] = useState(SORT_BY_OPTIONS[0]);
   const router = useRouter();
   const { invokeToast } = useCustomToast();
@@ -29,6 +30,7 @@ function GalleryContainer() {
       const response = await getPublicImages(user.token, page, isReverse);
       setImages(response.images);
       setTotalPages(response.totalPages);
+      setTotalRecords(response.totalRecords);
     } catch (error) {
       invokeToast(error?.response?.data || "Error fetching images", "Error");
       setImages([]);
@@ -53,6 +55,7 @@ function GalleryContainer() {
       selectedOption={selectedOption}
       setSelectedOption={setSelectedOption}
       SORT_BY_OPTIONS={SORT_BY_OPTIONS}
+      totalRecords={totalRecords}
     />
   );
 }

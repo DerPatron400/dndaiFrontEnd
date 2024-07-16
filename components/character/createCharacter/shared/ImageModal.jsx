@@ -5,8 +5,12 @@ import { IconButton } from "@/components/ui/iconButton";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 
 export default function ImageModal() {
-  const { selectedCharacteristic, showModal, setShowModal } =
-    useCharacterStore();
+  const {
+    selectedCharacteristic,
+    showModal,
+    setShowModal,
+    setSelectedCharacteristic,
+  } = useCharacterStore();
   return (
     <div
       className={cn(
@@ -16,7 +20,10 @@ export default function ImageModal() {
     >
       <div className='flex flex-col gap-5 relative'>
         <CustomIconbutton
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setSelectedCharacteristic(null);
+            setShowModal(false);
+          }}
           className={"absolute top-4 right-4 bg-blur-icon-button"}
         >
           <img src='/Icons/Cancel.svg' alt='' className='h-5 w-5 ' />

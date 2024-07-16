@@ -213,8 +213,6 @@ const subscriptionPlans = [
   },
 ];
 
-console.log(subscriptionPlans);
-
 export default function index({ stripe }) {
   const options = ["Monthly", "Semi-Annually", "Annually"];
   const [selectedPlan, setSelectedPlan] = useState(options[0]);
@@ -224,7 +222,9 @@ export default function index({ stripe }) {
       <CustomRadioButton
         options={options}
         selectedOption={selectedPlan}
-        className={"flex flex-col sm:flex-row flex-wrap "}
+        className={
+          "flex flex-col justify-center items-center  sm:flex-row flex-wrap "
+        }
         onChange={setSelectedPlan}
       />
       <div className=' w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3'>

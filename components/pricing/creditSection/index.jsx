@@ -58,14 +58,11 @@ const creditPackages = [
   },
 ];
 
-console.log(creditPackages);
-
 export default function index({ stripe }) {
   return (
     <div className='z-10  w-full h-full flex flex-col md:gap-12 gap-10 md:flex-col text-white justify-center items-center md:mt-16'>
       <span className='text-center w-3/4 block text-white headline-3 z-[10] '>
-        Our
-        <span className='text-irisPurpleLight'>credit packages</span> at a
+        Our <span className='text-irisPurpleLight'>credit packages</span> at a
         glance.{" "}
       </span>
       <div className=' w-full   md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>

@@ -18,6 +18,7 @@ import useGameStore from "@/utils/gameStore";
 import { useRouter } from "next/navigation";
 import { getCampaignBySlug } from "@/actions/campaigns";
 import { isSelectionValid } from "@/lib/Helpers/shared";
+import SoundButton from "../ui/Shared/SoundButton";
 export default function Navbar({ variant, characterSheet }) {
   const { showMenu, setShowMenu } = useControlsStore();
   const { isMobile } = useDeviceDetect();
@@ -115,7 +116,7 @@ export default function Navbar({ variant, characterSheet }) {
   return (
     <div
       className={cn(
-        "px-5 md:px-8 fixed top-0 pt-16 pb-4 md:py-0 flex flex-col md:top-8 z-20 w-full",
+        "px-5 md:px-8 fixed top-0 pt-5 pb-4 md:py-0 flex flex-col md:top-8 z-20 w-full",
         isMobile &&
           !mobileBlurNotAllowed &&
           !showMenu &&
@@ -139,7 +140,7 @@ export default function Navbar({ variant, characterSheet }) {
           }
         >
           <Link
-            href='#'
+            href='/'
             className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
           >
             <img
@@ -183,7 +184,7 @@ export default function Navbar({ variant, characterSheet }) {
               href='/pricing'
               className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
             >
-              STORE
+              PRICING
             </Link>
           </div>
           <div className='flex justify-center items-center gap-5'>
@@ -201,9 +202,7 @@ export default function Navbar({ variant, characterSheet }) {
             </span>
             <AccountDropdown />
             {variant === "transparent" ? (
-              <CustomIconbutton>
-                <Volume2 className='h-5 w-5' />
-              </CustomIconbutton>
+              <SoundButton />
             ) : characterSheet || isCampaignSubpage ? (
               <CustomButton
                 variant={"primary"}

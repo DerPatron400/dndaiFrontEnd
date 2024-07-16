@@ -24,8 +24,8 @@ export default function index() {
       <div className='flex flex-col justify-center items-center gap-2.5 '>
         <span className='text-center w-full md:w-2/4 block text-white headline-3 z-[10] '>
           Start you epic journey! Dive into{" "}
-          <span className='text-irisPurple'>AI-Powered adventures</span> where
-          your imagination rules the realm!
+          <span className='text-irisPurpleLight'>AI-Powered adventures</span>{" "}
+          where your imagination rules the realm!
         </span>
       </div>
 

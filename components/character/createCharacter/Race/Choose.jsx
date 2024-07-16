@@ -4,8 +4,7 @@ import CustomRadioButton from "@/components/ui/custom-radio-button";
 import { cn } from "@/lib/utils";
 import { RACE } from "../constants";
 import useCharacterStore from "@/utils/characterStore";
-import Info from "@/components/ui/Icons/Info";
-import Info2 from "@/components/ui/Icons/Info2";
+import Information from "@/components/ui/Icons/Information";
 
 export default function Choose({ race, handleSelectRace }) {
   const { raceQuery, setRaceQuery, setShowModal, setSelectedCharacteristic } =
@@ -82,15 +81,14 @@ export default function Choose({ race, handleSelectRace }) {
                   race?.name === name && "border-2 border-irisPurpleLight"
                 }`}
               />
-              <div
+              <Information
                 onClick={handleShowModal}
+                src='/Icons/'
                 className={cn(
-                  "h-5 w-5 bg-[#4767DC] flex items-center justify-center rounded-full left-2 bottom-2 md:hidden ease-animate object-cover absolute ",
+                  "h-6 w-6  left-2 bottom-2 md:hidden ease-animate  absolute ",
                   race?.name !== name && "opacity-0 pointer-events-none"
                 )}
-              >
-                <Info2 className='h-[9px] w-[2px] fill-white  ' />
-              </div>
+              />
             </div>
             <span className='description'>{name}</span>
           </div>

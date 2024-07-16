@@ -13,6 +13,7 @@ import Check from "@/components/ui/Icons/Check";
 import ArrowRight from "@/components/ui/Icons/ArrowRight";
 import useCustomToast from "@/hooks/useCustomToast";
 import { useRouter } from "next/navigation";
+import { INITIAL_CHARACTER } from "./constants";
 
 const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
   return (
@@ -127,6 +128,8 @@ export default function BottomMenu({ character, setCharacter }) {
       console.log(response);
       setYellowCredits(credits.yellowCredits);
       setBlueCredits(credits.blueCredits);
+      setActiveStep(0);
+      setCharacter(INITIAL_CHARACTER);
       invokeToast("Character Created Successfully", "Success");
       router.push("/discover");
     } catch (error) {

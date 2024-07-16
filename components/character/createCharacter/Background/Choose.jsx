@@ -3,7 +3,8 @@ import SearchInput from "@/components/ui/search-input";
 import { cn } from "@/lib/utils";
 import { BACKGROUND } from "../constants";
 import useCharacterStore from "@/utils/characterStore";
-import Info2 from "@/components/ui/Icons/Info2";
+
+import Information from "@/components/ui/Icons/Information";
 
 export default function Choose({ background, handleSelectBackground }) {
   const {
@@ -56,15 +57,14 @@ export default function Choose({ background, handleSelectBackground }) {
             className={`flex cursor-pointer col-span-4 md:col-span-4  relative xl:col-span-2 flex-col running-text-mono uppercase justify-start items-start gap-3  `}
           >
             <div className='relative w-full  '>
-              <div
+              <Information
                 onClick={handleShowModal}
                 className={cn(
-                  "h-5 w-5 bg-[#4767DC] flex items-center justify-center rounded-full left-2 bottom-2 md:hidden ease-animate object-cover absolute ",
+                  "h-6 w-6 left-2 bottom-2 md:hidden ease-animate absolute ",
                   background?.name !== name && "opacity-0 pointer-events-none"
                 )}
-              >
-                <Info2 className='h-[9px] w-[2px] fill-white  ' />
-              </div>
+              />
+
               <img
                 src={`https://dndai-images.s3.eu-central-1.amazonaws.com/backgrounds/${name
                   .toLowerCase()

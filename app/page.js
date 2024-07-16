@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useControlsStore from "@/utils/controlsStore";
+import SoundButton from "@/components/ui/Shared/SoundButton";
 const ImagesVisual = dynamic(
   () => import("@/components/landingPage/imagesVisual"),
   {
@@ -25,12 +26,7 @@ const Campaigns = dynamic(
 );
 
 export default function Home() {
-  const [isSoundOn, setIsSoundOn] = useState(true);
   const { showMenu } = useControlsStore();
-
-  function toggleSound() {
-    setIsSoundOn(!isSoundOn);
-  }
 
   useEffect(() => {
     (async () => {
@@ -68,13 +64,7 @@ export default function Home() {
               showMenu && "hidden"
             )}
           >
-            <CustomIconbutton className={"bg-blur-1"} onClick={toggleSound}>
-              <img
-                src={isSoundOn ? "/Icons/Sound.svg" : "/Icons/SoundOff.svg"}
-                alt='Sound Toggle'
-                className='h-5 w-5 invert'
-              />
-            </CustomIconbutton>
+            <SoundButton />
             <Button variant={"primary"}>PLAY FOR FREE</Button>
           </div>
         </div>

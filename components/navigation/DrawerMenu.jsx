@@ -5,14 +5,14 @@ import CustomIcontext from "@/components/ui/custom-icontext";
 import useUserStore from "@/utils/userStore";
 import Link from "next/link";
 import useControlsStore from "@/utils/controlsStore";
-import Cancel from "../ui/Icons/Cancel";
+import Cancel from "@/components/ui/Icons/Cancel";
 import { useRouter } from "next/navigation";
 import Play from "@/components/ui/Icons/Play";
-import Discover from "../ui/Icons/Discover";
-import CustomMenuItem from "../ui/custom-menu-item";
-import Star from "../ui/Icons/Star";
-import Settings from "../ui/Icons/Settings";
-import Logout from "../ui/Icons/Logout";
+import Discover from "@/components/ui/Icons/Discover";
+import CustomMenuItem from "@/components/ui/custom-menu-item";
+import Star from "@/components/ui/Icons/Star";
+import Settings from "@/components/ui/Icons/Settings";
+import Logout from "@/components/ui/Icons/Logout";
 import Cookie from "universal-cookie";
 
 const UserLoggedIn = ({ handleRedirect }) => {
@@ -114,7 +114,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
             "p-0 hover:bg-transparent active:bg-transparent hover:border-transparent active:border-transparent"
           }
         >
-          <Star isfilled={true} className='h-5 w-5 opacity-70 fill-white' />
+          <Star isfilled={"true"} className='h-5 w-5 opacity-70 fill-white' />
           <span>Favorites</span>
         </CustomMenuItem>
       </div>
@@ -155,7 +155,7 @@ const UserLoggedIn = ({ handleRedirect }) => {
         onClick={() => handleRedirect("/pricing")}
         className='flex gap-3 hover:bg-transparent focus:bg-transparent   transition-all duration-300 ease-linear cursor-pointer'
       >
-        <span>Store</span>
+        <span>Pricing</span>
       </div>
     </div>
   );
@@ -224,7 +224,7 @@ const UserLoggedOut = ({ handleRedirect }) => {
         onClick={() => handleRedirect("/pricing")}
         className='flex gap-3 hover:bg-transparent focus:bg-transparent focus:text-white  transition-all duration-300 ease-linear cursor-pointer'
       >
-        <span>Store</span>
+        <span>Pricing</span>
       </div>
       <Button
         onClick={() => handleRedirect("/game/character-selection")}
@@ -255,7 +255,7 @@ export default function DrawerMenu({ characterCreatePage }) {
   return (
     <div
       className={cn(
-        "absolute !z-[400]  -top-16 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden translate-x-[-150%]    h-screen w-screen overflow-y-scroll pb-10 flex flex-col justify-start ",
+        "absolute !z-[400]  -top-5 left-[50%] ease-animate opacity-0 pointer-events-none md:hidden translate-x-[-150%]    h-screen w-screen overflow-y-scroll pb-10 flex flex-col justify-start ",
         showMenu &&
           "translate-x-[-50%] bg-blur-drawer opacity-100 pointer-events-auto  ",
         characterCreatePage && "-top-5"
@@ -263,7 +263,7 @@ export default function DrawerMenu({ characterCreatePage }) {
     >
       <div
         className={cn(
-          "w-full  px-[20px] mt-16 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]",
+          "w-full  px-[20px] mt-5 mx-auto rounded-lg text-white  flex justify-between items-center !z-[200]",
           characterCreatePage && "mt-5"
         )}
       >

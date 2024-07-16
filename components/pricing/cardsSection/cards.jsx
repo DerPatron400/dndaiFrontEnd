@@ -62,7 +62,7 @@ export default function cards({ plan, selectedPlan, stripe }) {
     <div className='border border-white/10 w-full bg-white/[8%] rounded-[16px]'>
       <div className='p-5 pb-4 flex flex-col gap-2'>
         <h1 className='text-gray2 running-text-mono'>{plan.title}</h1>
-        <div className='text-white headline-4 flex justify-start items-end gap-2'>
+        <div className='text-white text-[22px]  headline-4 flex justify-start items-end gap-2'>
           <span className={cn(discountedPrice && "text-errorRed line-through")}>
             {chosenPrice}
           </span>
@@ -91,7 +91,7 @@ export default function cards({ plan, selectedPlan, stripe }) {
               <Tick className='h-3.5 w-3.5 opacity-70' />
               <span className='text-white running-text-small '>
                 {benefit}
-                {i === 0 }
+                {i === 0}
               </span>
             </li>
           ))}
