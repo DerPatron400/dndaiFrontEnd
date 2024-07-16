@@ -12,7 +12,7 @@ import AddUser from "@/components/ui/Icons/AddUser";
 import { cn } from "@/lib/utils";
 import useGameStore from "@/utils/gameStore";
 
-import SoundButton from "@/components/ui/shared/SoundButton";
+import SoundButton from "@/components/ui/Shared/SoundButton";
 import SearchInput from "@/components/ui/search-input";
 
 export default function character() {
