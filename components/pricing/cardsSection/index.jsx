@@ -44,12 +44,12 @@ const subscriptionPlans = [
         "Monthly cancelable",
       ],
       semiannually: [
-        "Over 20 hours of playtime ",
+        "Over 58 hours of playtime ",
         "60 images or custom campaigns",
         "Semi-Annually cancelable",
       ],
       annually: [
-        "Over 40 hours of playtime ",
+        "Over 120 hours of playtime ",
         "120 images or custom campaigns",
         "Annually cancelable",
       ],
