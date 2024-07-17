@@ -15,7 +15,7 @@ const creditPackages = [
     title: "MEDIUM",
     credits: 80,
     creditsType: "yellow",
-    benefit: "50 images or custom campaigns",
+    benefit: "80 images or custom campaigns",
     price: "9,99€",
     productId: process.env.NEXT_PUBLIC_STRIPE_30_YELLOW_PRODUCT_ID,
     priceId: process.env.NEXT_PUBLIC_STRIPE_30_YELLOW_PRICE_ID,
