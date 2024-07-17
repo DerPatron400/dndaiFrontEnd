@@ -179,7 +179,7 @@ export default function Narrate({
       />
 
       <div className='text-gray2 px-6 flex items-center'>
-        Each line of narration costs (
+      Text will be read aloud by voice of choice. Costs (
         <img
           src='/gems/Mythic.webp'
           alt=''
