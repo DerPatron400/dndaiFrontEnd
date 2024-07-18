@@ -7,6 +7,8 @@ import Loader from "@/components/ui/Loader";
 import CampaignPlaceholder from "@/components/ui/Shared/Placeholder/campaign";
 import useCustomToast from "@/hooks/useCustomToast";
 
+//campaign page
+
 export default function page() {
   const [campaigns, setCampaigns] = useState();
   const { invokeToast } = useCustomToast();

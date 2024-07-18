@@ -83,7 +83,7 @@ export default function StepDialog({
               STEP 1/2
             </span>
             <span className='running-text-large'>
-              Select the image type you want to generate
+            Choose what kind of image you want to create
             </span>
           </div>
           <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]'>
