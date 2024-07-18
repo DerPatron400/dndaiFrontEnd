@@ -8,6 +8,7 @@ import SearchInput from "@/components/ui/search-input";
 import { useDebounce } from "@/hooks/useDebounce";
 import { searchCampaigns } from "@/actions/campaigns";
 import useGameStore from "@/utils/gameStore";
+import GeneralGameTabbar from "@/components/ui/Shared/TabBar/generalGame";
 
 export default function index({ popular, mostLiked }) {
   const [query, setQuery] = useState("");
@@ -78,6 +79,7 @@ export default function index({ popular, mostLiked }) {
           icon={<World className='h-5 w-5 fill-gray2' />}
         /> */}
       </div>
+      <GeneralGameTabbar />
     </div>
   );
 }

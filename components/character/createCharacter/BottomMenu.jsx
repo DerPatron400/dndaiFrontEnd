@@ -218,7 +218,7 @@ export default function BottomMenu({ character, setCharacter }) {
       {/* For Mobile */}
       <div
         className={cn(
-          "w-full md:hidden left-0 z-[20] fixed bottom-0",
+          "w-full md:hidden left-0 z-[10] fixed bottom-0",
           activeStep >= 7 ? "!bg-transparent " : "bg-blur-bottom-menu"
         )}
       >

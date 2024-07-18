@@ -131,7 +131,7 @@ export default function Narrate({
     }
   }, [game]);
   return (
-    <DialogContent className='bg-white/[8%] h-fit px-0 pb-0 pt-4 !rounded-[16px] text-white border border-white/10 w-fit '>
+    <DialogContent className='bg-white/[8%] h-fit px-0 pb-0 pt-4 !rounded-[16px] text-white border border-white/10 w-[94%]  md:w-fit '>
       <div className='flex px-6 flex-col gap-2'>
         <span className='running-text-large'>
           Enhance Your Story with Narration?
@@ -178,17 +178,18 @@ export default function Narrate({
         className='w-full '
       />
 
-      <div className='text-gray2 px-6 flex items-center'>
+      <div className='text-gray2 px-6 '>
         Each line of narration costs (
         <img
           src='/gems/Mythic.webp'
           alt=''
           className='h-[18px] mx-1 object-contain '
+          style={{ display: "inline", verticalAlign: "middle" }}
         />
         2) additional
       </div>
 
-      <div className='flex p-6 justify-end gap-4  border-white/10 border-t '>
+      <div className='flex p-6 justify-end gap-4 flex-col-reverse md:flex-row  border-white/10 border-t '>
         <CustomButton
           disabled={loading}
           onClick={() => setOpen(false)}
@@ -208,7 +209,12 @@ export default function Narrate({
             alt=''
             className='h-4 w-4 opacity-70 invert'
           />
-          <span className='running-text-mono text-black'>Narrate</span>
+          <span className='running-text-mono text-black hidden md:block'>
+            Narrate
+          </span>
+          <span className='running-text-mono text-black md:hidden'>
+            Start Narrate
+          </span>
         </CustomButton>
       </div>
     </DialogContent>

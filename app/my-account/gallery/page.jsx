@@ -26,12 +26,16 @@ function GalleryContainer() {
       console.log("here");
       const isReverse = selectedOption === SORT_BY_OPTIONS[1];
       const response = await getImages(user.token, page, isReverse);
+      console.log(response);
       setImages(response.images);
       setTotalPages(response.totalPages);
       setTotalRecords(response.totalRecords);
       setTotalImages(response.totalRecords);
     } catch (error) {
-      invokeToast(error?.response?.data || "Error fetching images", "Error");
+      invokeToast(
+        error?.response?.data?.error || "Error fetching images",
+        "Error"
+      );
       setImages([]);
       setTotalPages(1);
       setTotalImages(0);
@@ -42,7 +46,7 @@ function GalleryContainer() {
   useEffect(() => {
     console.log(user?.token);
     if (user?.token) handleGetImages();
-  }, [user.token, page, selectedOption]);
+  }, [user?.token, page, selectedOption]);
 
   if (!searchParams.get("page")) {
     router.push("/my-account/gallery?page=1");

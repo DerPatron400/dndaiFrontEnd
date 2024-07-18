@@ -269,6 +269,10 @@ body {
       #0a0a21 80.5%);
 }
 
+.game-mobile-menu-shadow {
+  box-shadow: 0px 4px 44px 0px #0A0A211A;
+}
+
 .icon-glow {
   filter: drop-shadow(0px -4px 54px #ffffff40);
   /* box-shadow: 0px -4px 54px 0px #FFFFFF40; */
@@ -378,6 +382,9 @@ audio::-webkit-media-controls-enclosure {
   width: 100% !important;
   -webkit-appearance: none;
 }
+
+
+
 
 /* width */
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 764px) {

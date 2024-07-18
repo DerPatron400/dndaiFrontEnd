@@ -3,6 +3,7 @@ import Card from "@/components/ui/Shared/Card/character";
 import CustomButton from "@/components/ui/custom-button";
 import useGameStore from "@/utils/gameStore";
 import { useRouter } from "next/navigation";
+import GeneralGameTabbar from "@/components/ui/Shared/TabBar/generalGame";
 
 export default function index({ characters }) {
   const { currentCampaign } = useGameStore();
@@ -33,6 +34,7 @@ export default function index({ characters }) {
           <Card loadGameOnClick={true} key={index} character={character} />
         ))}
       </div>
+      <GeneralGameTabbar />
     </div>
   );
 }

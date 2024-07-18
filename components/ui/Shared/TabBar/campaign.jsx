@@ -1,30 +1,75 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
-import useSoundControls from "@/utils/controlsStore";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import CustomButton from "@/components/ui/custom-button";
 import { useRouter } from "next/navigation";
-import _ from "lodash";
 import Play from "@/components/ui/Icons/Play";
 import Add from "@/components/ui/Icons/Add";
 import CampaignAdd from "@/components/ui/Icons/CampaignAdd";
 import AddUser from "@/components/ui/Icons/AddUser";
+import { getCharacter } from "@/actions/character";
+import { getCampaignBySlug } from "@/actions/campaigns";
 import { cn } from "@/lib/utils";
 import useGameStore from "@/utils/gameStore";
 import SoundButton from "@/components/ui/Shared/SoundButton";
-
+import useCustomToast from "@/hooks/useCustomToast";
+import { isSelectionValid } from "@/lib/Helpers/shared";
+import { usePathname } from "next/navigation";
+import useUserStore from "@/utils/userStore";
 export default function CampaignTabBar({ campaign }) {
   const router = useRouter();
-  const { setCurrentCampaign, currentCharacter } = useGameStore();
-
+  const {
+    setCurrentCharacter,
+    setCurrentCampaign,
+    currentCharacter,
+    characterSelectTime,
+  } = useGameStore();
+  const { user } = useUserStore();
+  const pathname = usePathname();
+  const { invokeToast } = useCustomToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+
   const detectClickOutside = (e) => {
     if (showButtons) {
       if (!e.target.closest(".btns-menu")) {
         setShowButtons(false);
       }
     }
+  };
+
+  const handlePlayWithCampaign = async () => {
+    try {
+      setIsLoading(true);
+      const campaignId = pathname.split("/").pop();
+
+      const { campaign, hasSingleCharacter, characterId } =
+        await getCampaignBySlug(campaignId, user?.token);
+
+      setCurrentCampaign(campaign);
+
+      if (hasSingleCharacter) {
+        const { character } = await getCharacter(characterId, user?.token);
+
+        setCurrentCharacter(character);
+        router.push("/game/play");
+        return;
+      }
+      if (!isSelectionValid(currentCharacter, characterSelectTime)) {
+        router.push("/game/character-selection");
+      } else {
+        router.push("/game/play");
+      }
+    } catch (error) {
+      invokeToast(error?.response?.data || "Error playing campaign", "Error");
+      console.log("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRedirect = (path) => {
+    router.push(path);
   };
   useEffect(() => {
     document.addEventListener("click", detectClickOutside);
@@ -34,18 +79,8 @@ export default function CampaignTabBar({ campaign }) {
     };
   }, [showButtons]);
 
-  const handlePlay = () => {
-    setCurrentCampaign(campaign);
-    console.log(currentCharacter);
-    if (!currentCharacter) {
-      router.push("/game/character-selection");
-    } else {
-      router.push("/game/play");
-    }
-  };
-
   return (
-    <div className='z-[20]  text-white fixed bottom-0 left-0 bg-blur-bottom-menu w-full flex  justify-center items-center  md:hidden '>
+    <div className='z-[10]  text-white fixed bottom-0 left-0 bg-blur-bottom-menu w-full flex  justify-center items-center  md:hidden '>
       <div className='flex flex-col items-center gap-4 w-full relative p-5'>
         <hr
           className={cn(
@@ -60,13 +95,19 @@ export default function CampaignTabBar({ campaign }) {
           )}
         >
           <div>
-            <CustomButton variant={"subtle"}>
+            <CustomButton
+              onClick={() => handleRedirect("/character/create")}
+              variant={"subtle"}
+            >
               <AddUser className='h-5 w-5 fill-white opacity-70' />
               Create Character
             </CustomButton>
           </div>
           <div>
-            <CustomButton variant={"subtle"}>
+            <CustomButton
+              onClick={() => handleRedirect("/campaign/create")}
+              variant={"subtle"}
+            >
               <CampaignAdd className='h-5 w-5 fill-white opacity-70' />
               Create Campaign
             </CustomButton>
@@ -81,8 +122,8 @@ export default function CampaignTabBar({ campaign }) {
           </div>
           <CustomButton
             variant={"primary"}
-            onClick={handlePlay}
-            // disabled={!isValid() || loading}
+            onClick={handlePlayWithCampaign}
+            disabled={isLoading}
             // onClick={handleCreateCampaign}
           >
             <Play className='h-5 w-5 fill-russianViolet' />

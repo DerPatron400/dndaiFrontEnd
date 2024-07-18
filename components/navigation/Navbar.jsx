@@ -39,7 +39,8 @@ export default function Navbar({ variant, characterSheet }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const mobileBlurNotAllowed = pathname === "/";
+  const mobileBlurNotAllowed =
+    pathname === "/" || pathname.includes("/game/play");
 
   const characterCreatePage = pathname.includes("/character/create");
   const regex = /^\/campaign\/[a-fA-F0-9]{24}$/;
@@ -122,13 +123,11 @@ export default function Navbar({ variant, characterSheet }) {
       setIsLoading(false);
     }
   };
-  const handleReditect = (path) => {
-    router.push(path);
-  };
+
   return (
     <div
       className={cn(
-        "px-5 md:px-8 fixed top-0 pt-5 pb-4 gap-5  md:py-0 flex flex-col md:top-8 z-20 w-full",
+        "px-5 md:px-8 fixed top-0 pt-5  pb-4 gap-5  md:py-0 flex flex-col md:top-8 z-20 w-full",
         isMobile &&
           !mobileBlurNotAllowed &&
           !showMenu &&

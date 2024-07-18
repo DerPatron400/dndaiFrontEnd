@@ -14,11 +14,22 @@ import useGameStore from "@/utils/gameStore";
 
 import SoundButton from "@/components/ui/Shared/SoundButton";
 import SearchInput from "@/components/ui/search-input";
-
-export default function character() {
+import { getCharacters } from "@/actions/character";
+import useUserStore from "@/utils/userStore";
+import useCustomToast from "@/hooks/useCustomToast";
+import { isSelectionValid } from "@/lib/Helpers/shared";
+export default function General({ showSearch = true }) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const { invokeToast } = useCustomToast();
+  const { user } = useUserStore();
+  const {
+    setCurrentCharacter,
 
-  const { setCurrentCampaign, currentCharacter } = useGameStore();
+    currentCampaign,
+
+    campaignSelectTime,
+  } = useGameStore();
   const [searchMode, setSearchMode] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [query, setQuery] = useState("");
@@ -50,18 +61,38 @@ export default function character() {
     };
   }, [searchMode]); // Depend on searchMode to properly handle changes in its state
 
-  const handlePlay = () => {
-    setCurrentCampaign(campaign);
-
-    if (!currentCharacter) {
-      router.push("/game/character-selection");
-    } else {
-      router.push("/game/play");
+  const handlePlay = async () => {
+    try {
+      setIsLoading(true);
+      const { characters } = await getCharacters(user?.token);
+      if (characters.length === 0) {
+        router.push("/character/create");
+        return;
+      } else if (characters.length === 1) {
+        setCurrentCharacter(characters[0]);
+        if (!isSelectionValid(currentCampaign, campaignSelectTime)) {
+          router.push("/game/campaign-selection");
+        } else {
+          router.push("/game/play");
+        }
+        return;
+      } else {
+        router.push("/game/character-selection");
+      }
+    } catch (error) {
+      invokeToast("Error fetching characters", "Error");
+      console.log("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const handleRedirect = (path) => {
+    router.push(path);
+  };
+
   return (
-    <div className='z-[20]  text-white fixed bottom-0 left-0 bg-blur-bottom-menu w-full flex  justify-center items-center  md:hidden '>
+    <div className='z-[10]  text-white fixed bottom-0 left-0 bg-blur-bottom-menu w-full flex  justify-center items-center  md:hidden '>
       {searchMode ? (
         <div className='p-5 w-full'>
           <SearchInput
@@ -86,13 +117,19 @@ export default function character() {
             )}
           >
             <div>
-              <CustomButton variant={"subtle"}>
+              <CustomButton
+                onClick={() => handleRedirect("/character/create")}
+                variant={"subtle"}
+              >
                 <AddUser className='h-5 w-5 fill-white opacity-70' />
                 Create Character
               </CustomButton>
             </div>
             <div>
-              <CustomButton variant={"subtle"}>
+              <CustomButton
+                onClick={() => handleRedirect("/campaign/create")}
+                variant={"subtle"}
+              >
                 <CampaignAdd className='h-5 w-5 fill-white opacity-70' />
                 Create Campaign
               </CustomButton>
@@ -105,18 +142,22 @@ export default function character() {
               <CustomIconbutton onClick={() => setShowButtons((prev) => !prev)}>
                 <Add className='h-5 w-5 fill-white' />
               </CustomIconbutton>
-              <CustomIconbutton onClick={() => setSearchMode((prev) => !prev)}>
-                <img
-                  src={"/Icons/Search.svg"}
-                  alt='Search Toggle'
-                  className='h-5 w-5  '
-                />
-              </CustomIconbutton>
+              {showSearch && (
+                <CustomIconbutton
+                  onClick={() => setSearchMode((prev) => !prev)}
+                >
+                  <img
+                    src={"/Icons/Search.svg"}
+                    alt='Search Toggle'
+                    className='h-5 w-5  '
+                  />
+                </CustomIconbutton>
+              )}
             </div>
             <CustomButton
               variant={"primary"}
               onClick={handlePlay}
-              // disabled={!isValid() || loading}
+              disabled={isLoading}
               // onClick={handleCreateCampaign}
             >
               <Play className='h-5 w-5 fill-russianViolet' />

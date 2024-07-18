@@ -7,7 +7,7 @@ import BottomMenu from "./bottomMenu";
 import useGameStore from "@/utils/gameStore";
 import useUserStore from "@/utils/userStore";
 import { addChoice } from "@/actions/game";
-import GameplayNavbar from "@/components/navigation/GameplayNavbar";
+
 import Loader from "@/components/ui/Loader";
 import useCustomToast from "@/hooks/useCustomToast";
 export default function index({
@@ -78,29 +78,28 @@ export default function index({
       {(saveCharacterLoading || isImageLoading) && (
         <Loader
           text={isImageLoading ? "Generating Image..." : "Saving Character..."}
-          className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-x flex items-center justify-center'
+          className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center'
         />
       )}
-
-      <div className=' border-white h-full   w-full flex gap-10  md:pt-[0px] px-6 lg:px-12  pb-12'>
-        <div
-          className={
-            "absolute pointer-events-none  top-[10%] left-0 ease-animate  z-20   flex items-center justify-start   w-screen "
-          }
-        >
-          <img
-            src='/images/Game/gradient.png'
-            alt='gradient'
-            className='w-full'
-          />
-        </div>
-        <div className='w-1/4  b h-full flex flex-col gap-3 pt-0 z-30 '>
+      <div
+        className={
+          "absolute pointer-events-none  top-0 left-0 ease-animate  z-[9]   flex items-center justify-start   w-screen "
+        }
+      >
+        <img
+          src='/images/Game/gradient.png'
+          alt='gradient'
+          className='w-full h-52 lg:h-full lg:object-contain'
+        />
+      </div>
+      <div className='     w-full flex gap-10  px-6 lg:px-12  pb-5 lg:pb-12  h-screen z-[8] text-white relative'>
+        <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
           <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
           <Card character={gameCharacter} />
         </div>
-        <div className='w-3/4   z-10 h-full '>
-          <div className=' flex relative flex-col  h-full gap-3 w-full'>
+        <div className='w-full lg:w-3/4  z-10 h-full pt-[40px] lg:pt-[128px]'>
+          <div className=' flex relative  flex-col  h-full gap-3 w-full'>
             <Chatbox
               textSize={textSize}
               loading={loading}
@@ -108,42 +107,52 @@ export default function index({
               character={gameCharacter}
               setImageViewDialog={setImageViewDialog}
             />
+            <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 '>
+              <CustomInputIcon
+                value={input}
+                disabled={loading}
+                onChange={(e) => setInput(e)}
+                onClick={() => {
+                  setChat((prev) => [
+                    ...prev,
+                    {
+                      type: "player",
+                      text: input,
+                    },
+                  ]);
+                  setInput("");
+                  handleChat(input);
+                }}
+                className={"w-full lg:w-[65%] h-[64px] lg:h-[80px] "}
+                textAreaClassName={
+                  " h-[64px] lg:h-[80px] pt-[22px] lg:py-[28px]"
+                }
+                placeholder='What Would You Do?'
+                icon={
+                  <img
+                    src='/Icons/ArrowUp.svg'
+                    alt='chat'
+                    className='h-5 w-5'
+                  />
+                }
+              />
 
-            <CustomInputIcon
-              value={input}
-              disabled={loading}
-              onChange={(e) => setInput(e)}
-              onClick={() => {
-                setChat((prev) => [
-                  ...prev,
-                  {
-                    type: "player",
-                    text: input,
-                  },
-                ]);
-                setInput("");
-                handleChat(input);
-              }}
-              className={"w-[65%] "}
-              placeholder='What Would You Do?'
-              icon={
-                <img src='/Icons/ArrowUp.svg' alt='chat' className='h-5 w-5' />
-              }
-            />
-            <BottomMenu
-              setChat={setChat}
-              textSize={textSize}
-              setTextSize={setTextSize}
-              imageViewDialog={imageViewDialog}
-              setImageViewDialog={setImageViewDialog}
-              loading={saveCharacterLoading}
-              setLoading={setSaveCharacterLoading}
-              narrate={narrate}
-              setNarrate={setNarrate}
-              setGameCharacter={setGameCharacter}
-              isImageLoading={isImageLoading}
-              setIsImageLoading={setIsImageLoading}
-            />
+              <BottomMenu
+                setChat={setChat}
+                textSize={textSize}
+                setTextSize={setTextSize}
+                imageViewDialog={imageViewDialog}
+                setImageViewDialog={setImageViewDialog}
+                loading={saveCharacterLoading}
+                setLoading={setSaveCharacterLoading}
+                narrate={narrate}
+                setNarrate={setNarrate}
+                setGameCharacter={setGameCharacter}
+                isImageLoading={isImageLoading}
+                setIsImageLoading={setIsImageLoading}
+                gameCharacter={gameCharacter}
+              />
+            </div>
           </div>
         </div>
       </div>

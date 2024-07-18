@@ -85,14 +85,12 @@ function GameHandler() {
     return <Loader text='Loading Game ...' />;
   }
   return (
-    <div className='pt-[128px] h-screen !z-[10] text-white relative'>
-      <Game
-        response={response}
-        gameCharacter={gameCharacter}
-        setGameCharacter={setGameCharacter}
-        gameCampaign={gameCampaign}
-      />
-    </div>
+    <Game
+      response={response}
+      gameCharacter={gameCharacter}
+      setGameCharacter={setGameCharacter}
+      gameCampaign={gameCampaign}
+    />
   );
 }
 

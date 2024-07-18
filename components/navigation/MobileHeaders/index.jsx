@@ -107,7 +107,7 @@ export default function index() {
         <div
           className={"flex flex-col gap-2 w-full    md:hidden   justify-end"}
         >
-          <h1 className='text-center flex justify-start text-white headline-3 z-[10] '>
+          <h1 className='text-center flex justify-start text-white headline-3 -z-1 '>
             Create your character
           </h1>
           <div className=' headline-4   w-full '>
@@ -119,7 +119,7 @@ export default function index() {
     } else if (createCampaign) {
       return (
         <div className={"flex flex-col gap-2  justify-end "}>
-          <h1 className='text-center flex justify-start text-white headline-3 z-[10] '>
+          <h1 className='text-center flex justify-start text-white headline-3 -z-1 '>
             Create your own campaign
           </h1>
         </div>

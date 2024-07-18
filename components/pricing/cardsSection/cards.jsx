@@ -62,21 +62,21 @@ export default function cards({ plan, selectedPlan, stripe }) {
   return (
     <div
       className={cn(
-        "border border-white/10 w-full bg-white/[8%] rounded-[16px]",
+        "border border-white/10 w-full relative bg-white/[8%] rounded-[16px]",
         plan.isPopular && "border-irisPurpleLight"
       )}
     >
       <div className='p-5 pb-4 flex flex-col gap-2'>
+        {plan.isPopular && (
+          <div className='flex uppercase absolute top-2.5 right-2.5 items-center gap-1.5 py-1.5 px-3.5 ps-3 rounded-[8px] bg-irisPurpleLight'>
+            <Generate className='h-4 w-4 fill-russianViolet' />
+            <span className='running-text-mono text-[10px] text-russianViolet font-[500]'>
+              most popular
+            </span>
+          </div>
+        )}
         <div className='flex items-center justify-between'>
           <h1 className='text-gray2 running-text-mono'>{plan.title}</h1>
-          {plan.isPopular && (
-            <div className='flex uppercase items-center gap-1.5 py-1.5 px-3.5 ps-3 rounded-[8px] bg-irisPurpleLight'>
-              <Generate className='h-4 w-4 fill-russianViolet' />
-              <span className='running-text-mono text-[10px] text-russianViolet font-[500]'>
-                most popular
-              </span>
-            </div>
-          )}
         </div>
         <div className='text-white text-[22px]  headline-4 flex justify-start items-end gap-2'>
           <span className={cn(discountedPrice && "text-errorRed line-through")}>

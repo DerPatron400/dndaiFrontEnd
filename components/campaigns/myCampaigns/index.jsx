@@ -6,6 +6,7 @@ import CustomButton from "@/components/ui/custom-button";
 import { useRouter } from "next/navigation";
 import _ from "lodash";
 import CampaignTabBar from "@/components/ui/Shared/TabBar/campaign";
+import GeneralTabbar from "@/components/ui/Shared/TabBar/general";
 export default function index({ campaigns, setCampaigns }) {
   const router = useRouter();
 
@@ -63,7 +64,7 @@ export default function index({ campaigns, setCampaigns }) {
           </div>
         ))}
       </div>
-      <CampaignTabBar />
+      <GeneralTabbar showSearch={false} />
     </div>
   );
 }

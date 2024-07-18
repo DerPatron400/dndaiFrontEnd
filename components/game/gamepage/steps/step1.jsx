@@ -75,10 +75,10 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px]'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px] h-screen md:h-auto bg-russianViolet md:bg-white/10'>
       {step === 1 && (
-        <>
-          <div className='flex p-6 pb-5 flex-col gap-2'>
+        <div className='flex flex-col'>
+          <div className='flex p-6 pb-5 flex-col h-fit gap-2 '>
             <span className='running-text-mono text-irisPurpleLight'>
               STEP 1/2
             </span>
@@ -86,7 +86,7 @@ export default function StepDialog({
               Select the image type you want to generate
             </span>
           </div>
-          <div className='grid grid-cols-3 gap-4  p-6 pb-4  pt-0 overflow-auto hide-scrollbar max-h-[50vh]'>
+          <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]'>
             {IMAGE_TYPES.map((type, i) => (
               <div onClick={() => setImageType(type.type)} key={i}>
                 <img
@@ -101,7 +101,7 @@ export default function StepDialog({
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
       {step === 2 && (
         <>
@@ -114,7 +114,7 @@ export default function StepDialog({
             </span>
             {/* Add your step 2 content here */}
           </div>
-          <div className='grid px-6 grid-cols-12 w-full gap-5 min-h-96  max-h-[80vh] md:max-h-[60vh] h-full overflow-y-scroll hide-scrollbar  pb-6'>
+          <div className='grid px-6 grid-cols-12 w-full gap-5 min-h-96  max-h-[80vh] md:max-h-[60vh] h-full overflow-y-scroll hide-scrollbar  pb-28 md:pb-6'>
             {IMAGE_STYLES.map((avatar, index) => (
               <div
                 key={index}
@@ -142,7 +142,7 @@ export default function StepDialog({
         </>
       )}
 
-      <div className='flex justify-end gap-4  p-6 border-t border-white/10'>
+      <div className='flex justify-end gap-4  p-6 md:border-t border-white/10 fixed bottom-0 right-0 w-screen md:w-full md:relative bg-blur-bottom-menu md:bg-transparent'>
         <CustomButton disabled={loading} withIcon onClick={handleCancel}>
           <img src='/Icons/Cancel.svg' alt='' className='w-6 h-6 opacity-70' />
           <span className='running-text-mono text-white'>CANCEL</span>

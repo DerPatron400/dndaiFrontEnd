@@ -3,7 +3,7 @@ import Card from "../../../ui/Shared/Card/character";
 import { cn } from "@/lib/utils";
 import CustomButton from "@/components/ui/custom-button";
 import AddUser from "@/components/ui/Icons/AddUser";
-import CharacterTabBar from "@/components/ui/Shared/TabBar/character";
+import CharacterTabBar from "@/components/ui/Shared/TabBar/general";
 import { useRouter } from "next/navigation";
 export default function characters({ characters = [], className }) {
   const router = useRouter();

@@ -1,4 +1,13 @@
 import React, { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import CustomDropdown from "@/components/ui/custom-dropdown";
 import { cn } from "@/lib/utils";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
@@ -9,8 +18,10 @@ import ArrowRight from "../ui/Icons/ArrowRight";
 import ArrowLeft from "../ui/Icons/ArrowLeft";
 import { usePathname } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import Image from "./image";
 
 const GalleryImage = ({ src, className }) => {
+  const [open, setOpen] = useState(false);
   const downloadImage = () => {
     // download image
     const a = document.createElement("a");
@@ -20,24 +31,30 @@ const GalleryImage = ({ src, className }) => {
     a.download = "image.jpg";
     a.click();
   };
+
   return (
-    <div className={cn("relative group", className)}>
-      <CustomIconbutton
-        onClick={downloadImage}
-        className={
-          "absolute top-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto right-4  bg-blur"
-        }
-      >
-        <Download className='h-5 w-5 fill-white' />
-      </CustomIconbutton>
-      <img
-        src={src}
-        alt=''
-        className={cn(
-          "rounded-[16px] border border-transparent  hover:border-white/10 hover:shadow-custom-1 ease-animate cursor-pointer"
-        )}
-      />
-    </div>
+    <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
+      <DialogTrigger asChild>
+        <div className={cn("relative group", className)}>
+          <CustomIconbutton
+            onClick={downloadImage}
+            className={
+              "absolute top-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto right-4  bg-blur"
+            }
+          >
+            <Download className='h-5 w-5 fill-white' />
+          </CustomIconbutton>
+          <img
+            src={src}
+            alt=''
+            className={cn(
+              "rounded-[16px] border border-transparent  hover:border-white/10 hover:shadow-custom-1 ease-animate cursor-pointer"
+            )}
+          />
+        </div>
+      </DialogTrigger>
+      <Image setOpen={setOpen} image={src} />
+    </Dialog>
   );
 };
 export default function Gallery({
@@ -170,7 +187,7 @@ export default function Gallery({
   return (
     <div className='h-full  text-white w-full flex flex-col pt-[154px] md:pt-[128px] px-5 lg:px-12 pb-32 '>
       <div className='flex flex-col w-full gap-2.5'>
-        <div className=' flex justify-between text-white  z-[10]'>
+        <div className=' flex justify-between text-white  z-[10]  w-full md:w-auto'>
           {/* desktop */}
           <span className='headline-3 z-[10] hidden md:block '>
             {isGallery ? "Gallery" : " My Images"}
@@ -185,7 +202,7 @@ export default function Gallery({
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             options={SORT_BY_OPTIONS}
-            className={"w-full md:!w-auto"}
+            className={"w-full max-w-full md:max-w-[fit-content] md:!w-auto"}
           />
         </div>
 
