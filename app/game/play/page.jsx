@@ -7,6 +7,8 @@ import { getGame, initiateGame } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import useCustomToast from "@/hooks/useCustomToast";
+import useControlsStore from "@/utils/controlsStore";
+import { getCredits } from "@/actions/character";
 function GameHandler() {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,13 +27,21 @@ function GameHandler() {
     setCurrentCampaign,
   } = useGameStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
+  const { setShowCreditsDialogue } = useControlsStore();
   const [response, setResponse] = useState();
 
   const handleInitiateGame = async () => {
+    console.log(user, "user");
+    if (user.blueCredits < 1) {
+      console.log("here");
+      setShowCreditsDialogue(true);
+
+      return;
+    }
     console.log("currentCampaign", currentCampaign);
     console.log("currentCharacter", currentCharacter);
     try {
-      const { game, credits, character } = await initiateGame(
+      const { game, character } = await initiateGame(
         {
           campaignId: currentCampaign._id,
           characterId: currentCharacter._id,
@@ -40,8 +50,7 @@ function GameHandler() {
       );
 
       setResponse(game.state);
-      setBlueCredits(credits.blue);
-      setYellowCredits(credits.yellow);
+
       setGame(game);
       setCurrentCharacter(null);
       setCurrentCampaign(null);
@@ -53,6 +62,10 @@ function GameHandler() {
       invokeToast(error?.response?.data || "Error Initiating Game", "Error");
       router.push("/discover");
       console.log(error);
+    } finally {
+      const { credits } = await getCredits(user?.token);
+      setBlueCredits(credits.blueCredits);
+      setYellowCredits(credits.yellowCredits);
     }
   };
 

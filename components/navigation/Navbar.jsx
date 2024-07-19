@@ -20,6 +20,8 @@ import { isSelectionValid } from "@/lib/Helpers/shared";
 import SoundButton from "../ui/Shared/SoundButton";
 import MobileHeader from "@/components/navigation/MobileHeaders/index";
 import useCustomToast from "@/hooks/useCustomToast";
+import Diamond from "../ui/Icons/Diamond";
+import CustomIcontext from "../ui/custom-icontext";
 export default function Navbar({ variant, characterSheet }) {
   const { showMenu, setShowMenu } = useControlsStore();
   const { isMobile } = useDeviceDetect();
@@ -27,6 +29,7 @@ export default function Navbar({ variant, characterSheet }) {
 
   const pathname = usePathname();
   const isSignUp = pathname.includes("/auth/sign-up");
+  const isGamePage = pathname.includes("/game/play");
   const { user } = useUserStore();
   const {
     setCurrentCharacter,
@@ -39,8 +42,7 @@ export default function Navbar({ variant, characterSheet }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const mobileBlurNotAllowed =
-    pathname === "/" || pathname.includes("/game/play");
+  const mobileBlurNotAllowed = pathname === "/" || isGamePage;
 
   const characterCreatePage = pathname.includes("/character/create");
   const regex = /^\/campaign\/[a-fA-F0-9]{24}$/;
@@ -71,7 +73,10 @@ export default function Navbar({ variant, characterSheet }) {
         router.push("/game/play");
       }
     } catch (error) {
-      invokeToast(error?.response?.data || "Error playing campaign", "Error");
+      invokeToast(
+        error?.response?.data?.error || "Error playing campaign",
+        "Error"
+      );
       console.log("Error:", error);
     } finally {
       setIsLoading(false);
@@ -92,7 +97,10 @@ export default function Navbar({ variant, characterSheet }) {
         router.push("/game/play");
       }
     } catch (error) {
-      invokeToast(error?.response?.data || "Error playing campaign", "Error");
+      invokeToast(
+        error?.response?.data?.error || "Error playing with character",
+        "Error"
+      );
       console.log("Error:", error);
     } finally {
       setIsLoading(false);
@@ -117,7 +125,10 @@ export default function Navbar({ variant, characterSheet }) {
         router.push("/game/character-selection");
       }
     } catch (error) {
-      invokeToast("Error fetching characters", "Error");
+      invokeToast(
+        error?.response?.data?.error || "Error fetching characters",
+        "Error"
+      );
       console.log("Error:", error);
     } finally {
       setIsLoading(false);
@@ -166,7 +177,10 @@ export default function Navbar({ variant, characterSheet }) {
             fill='#9A9AC1'
           />
 
-          <DrawerMenu characterCreatePage={characterCreatePage} />
+          <DrawerMenu
+            handlePlay={handlePlay}
+            characterCreatePage={characterCreatePage}
+          />
         </div>
         {/* Desktop */}
         <div className=' w-full hidden h-full text-white  md:flex justify-between items-center'>
@@ -177,26 +191,44 @@ export default function Navbar({ variant, characterSheet }) {
             >
               <img src='/Icons/Logo.svg' alt='logo' className='h-10' />
             </Link>
+            {!isGamePage && (
+              <>
+                <Link
+                  href='#'
+                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
+                >
+                  HOW TO PLAY
+                </Link>
 
-            <Link
-              href='#'
-              className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
-            >
-              HOW TO PLAY
-            </Link>
-
-            <Link
-              href='/discover/gallery'
-              className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
-            >
-              GALLERY
-            </Link>
-            <Link
-              href='/pricing'
-              className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
-            >
-              PRICING
-            </Link>
+                <Link
+                  href='/discover/gallery'
+                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+                >
+                  GALLERY
+                </Link>
+                <Link
+                  href='/pricing'
+                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+                >
+                  PRICING
+                </Link>
+              </>
+            )}
+            {isGamePage && (
+              <CustomButton
+                onClick={() => {
+                  router.push("/pricing");
+                }}
+                variant={"subtle"}
+                className={
+                  " text-irisPurpleLight hover:!text-irisPurpleLight/80 active:!text-irisPurpleLight/90"
+                }
+                withIcon={true}
+              >
+                <Diamond className='h-5 w-5 fill-irisPurpleLight hover:!fill-irisPurpleLight/80 active:!fill-irisPurpleLight/90' />
+                Upgrade
+              </CustomButton>
+            )}
           </div>
           <div className='flex justify-center items-center gap-5'>
             <span
@@ -211,6 +243,27 @@ export default function Navbar({ variant, characterSheet }) {
                 <Link href={"/auth/sign-up"}>Sign Up</Link>
               )}
             </span>
+            {isGamePage && (
+              <>
+                {" "}
+                <CustomIcontext>
+                  <img
+                    src='/gems/Mythic.webp'
+                    alt=''
+                    className='h-[18px] object-contain '
+                  />
+                  {user.blueCredits}
+                </CustomIcontext>
+                <CustomIcontext>
+                  <img
+                    src='/gems/Legendary.webp'
+                    alt=''
+                    className='h-[18px] object-contain '
+                  />
+                  {user.yellowCredits}
+                </CustomIcontext>
+              </>
+            )}
             <AccountDropdown />
             {variant === "transparent" ? (
               <SoundButton />

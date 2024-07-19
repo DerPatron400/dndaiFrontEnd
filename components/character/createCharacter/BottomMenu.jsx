@@ -14,6 +14,7 @@ import ArrowRight from "@/components/ui/Icons/ArrowRight";
 import useCustomToast from "@/hooks/useCustomToast";
 import { useRouter } from "next/navigation";
 import { INITIAL_CHARACTER } from "./constants";
+import useControlsStore from "@/utils/controlsStore";
 
 const BackButton = ({ activeStep, isChoosingRandom, handleBack }) => {
   return (
@@ -87,6 +88,7 @@ export default function BottomMenu({ character, setCharacter }) {
   const [isSoundOn, setIsSoundOn] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
   const router = useRouter();
+  const { setShowCreditsDialogue } = useControlsStore();
   const { isMobile } = useDeviceDetect();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const [isChoosingRandom, setIsChoosingRandom] = useState(false);
@@ -106,6 +108,11 @@ export default function BottomMenu({ character, setCharacter }) {
   };
 
   const handleSubmit = async () => {
+    if (user.blueCredits < 1) {
+     
+      setShowCreditsDialogue(true);
+      return;
+    }
     try {
       setIsLoading(true);
       const payload = {

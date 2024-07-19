@@ -20,6 +20,7 @@ import AdjustTextSize from "./AdjustTextSize";
 
 import NarrationControls from "./NarrateControls";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
+import useControlsStore from "@/utils/controlsStore";
 export default function bottomMenu({
   textSize,
   setTextSize,
@@ -42,9 +43,14 @@ export default function bottomMenu({
   const { invokeToast } = useCustomToast();
   const { game } = useGameStore();
   const { setBlueCredits, setYellowCredits, user } = useUserStore();
+  const { setShowCreditsDialogue } = useControlsStore();
   const { isMobile } = useDeviceDetect();
 
   const handleSaveCharacter = async () => {
+    if (user.blueCredits < 1) {
+      setShowCreditsDialogue(true);
+      return;
+    }
     try {
       setLoading(true);
       console.log(game);

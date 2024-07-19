@@ -9,6 +9,7 @@ import { getCredits } from "@/actions/character";
 import Cancel from "@/components/ui/Icons/Cancel";
 import Pause from "@/components/ui/Icons/Pause";
 import Play from "@/components/ui/Icons/Play";
+import useControlsStore from "@/utils/controlsStore";
 
 const VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
 
@@ -29,6 +30,7 @@ export default function Narrate({
   const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const { setShowCreditsDialogue } = useControlsStore();
 
   const handleTimeUpdate = () => {
     if (!isDragging) {
@@ -99,6 +101,10 @@ export default function Narrate({
     reset();
   }, [selectedVoice]);
   const handleNarrate = async () => {
+    if (user.blueCredits < 2) {
+      setShowCreditsDialogue(true);
+      return;
+    }
     try {
       audioRef?.current?.pause();
       setLoading(true);

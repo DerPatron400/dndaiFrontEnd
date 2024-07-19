@@ -17,6 +17,7 @@ import Navbar from "@/components/navigation/Navbar";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
 import Generate from "@/components/ui/Icons/Generate";
 import useCustomToast from "@/hooks/useCustomToast";
+import useControlsStore from "@/utils/controlsStore";
 const CurrentAvatarsList = ({
   avatars,
   selectedPortrait,
@@ -86,8 +87,10 @@ export default function Avatar({
   const router = useRouter();
   const path = usePathname();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
+  const { setShowCreditsDialogue } = useControlsStore();
   const generateAvatar = params.get("generateAvatar");
   const [style, setStyle] = useState(IMAGE_STYLES[0]);
+
   const [selectedPortrait, setSelectedPortrait] = useState(
     character?.personal?.portraitUrl
   );
@@ -99,6 +102,10 @@ export default function Avatar({
   }, [character]);
 
   const _handleGenerateAvatar = async () => {
+    if (user.yellowCredits < 1) {
+      setShowCreditsDialogue(true);
+      return;
+    }
     try {
       setIsLoading(true);
       setLoadingAvatar(true);

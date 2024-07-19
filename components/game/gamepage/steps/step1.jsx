@@ -8,6 +8,7 @@ import { generateGameImage } from "@/actions/game";
 import useUserStore from "@/utils/userStore";
 import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
+import useControlsStore from "@/utils/controlsStore";
 
 export default function StepDialog({
   setOpen,
@@ -19,7 +20,7 @@ export default function StepDialog({
   const [step, setStep] = useState(1);
   const [style, setStyle] = useState(IMAGE_STYLES[0]);
   const [imageType, setImageType] = useState(IMAGE_TYPES[0].type);
-
+  const { setShowCreditsDialogue } = useControlsStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const { game, setGameImage } = useGameStore();
 
@@ -42,6 +43,9 @@ export default function StepDialog({
   };
 
   const handleGenerateGameImage = async () => {
+    if (user.yellowCredits < 1) {
+      setShowCreditsDialogue(true);
+    }
     setLoading(true);
     setOpen(false);
     try {
@@ -83,7 +87,7 @@ export default function StepDialog({
               STEP 1/2
             </span>
             <span className='running-text-large'>
-            Choose what kind of image you want to create
+              Choose what kind of image you want to create
             </span>
           </div>
           <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]'>

@@ -10,6 +10,8 @@ import { addChoice } from "@/actions/game";
 
 import Loader from "@/components/ui/Loader";
 import useCustomToast from "@/hooks/useCustomToast";
+import useControlsStore from "@/utils/controlsStore";
+import { getCredits } from "@/actions/character";
 export default function index({
   response,
   gameCharacter,
@@ -18,6 +20,7 @@ export default function index({
 }) {
   const { currentCampaign, game, setGame } = useGameStore();
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
+  const { setShowCreditsDialogue } = useControlsStore();
   const { invokeToast } = useCustomToast();
   const [input, setInput] = useState("");
   const [textSize, setTextSize] = useState(19);
@@ -33,9 +36,11 @@ export default function index({
     },
   ]);
 
-  console.log(game);
-
   const handleChat = async (text) => {
+    if (user.blueCredits < 1) {
+      setShowCreditsDialogue(true);
+      return;
+    }
     try {
       setLoading(true);
       //choose random number between 1-20
@@ -53,8 +58,7 @@ export default function index({
       } = await addChoice(payload, user?.token);
 
       setGame(_game);
-      setYellowCredits(credits.yellow);
-      setBlueCredits(credits.blue);
+
       setChat((prev) => [
         ...prev,
         {
@@ -69,6 +73,9 @@ export default function index({
         "error"
       );
     } finally {
+      const { credits } = await getCredits(user?.token);
+      setYellowCredits(credits.yellowCredits);
+      setBlueCredits(credits.blueCredits);
       setLoading(false);
     }
   };
@@ -113,6 +120,12 @@ export default function index({
                 disabled={loading}
                 onChange={(e) => setInput(e)}
                 onClick={() => {
+                  if (user.blueCredits < 1) {
+                    setTimeout(() => {
+                      setShowCreditsDialogue(true);
+                    }, 300);
+                    return;
+                  }
                   setChat((prev) => [
                     ...prev,
                     {

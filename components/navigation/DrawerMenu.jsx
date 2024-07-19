@@ -15,7 +15,7 @@ import Settings from "@/components/ui/Icons/Settings";
 import Logout from "@/components/ui/Icons/Logout";
 import Cookie from "universal-cookie";
 
-const UserLoggedIn = ({ handleRedirect }) => {
+const UserLoggedIn = ({ handleRedirect, handlePlay }) => {
   const { showMenu, setShowMenu } = useControlsStore();
   const { user, setUser } = useUserStore();
   const cookies = new Cookie();
@@ -52,7 +52,12 @@ const UserLoggedIn = ({ handleRedirect }) => {
             {user.yellowCredits}
           </CustomIcontext>
         </div>
-        <Button variant='primary' withIcon={true} className={"w-fit"}>
+        <Button
+          onClick={handlePlay}
+          variant='primary'
+          withIcon={true}
+          className={"w-fit"}
+        >
           <Play className='h-5 w-5 fill-russianViolet' />
           Play Now
         </Button>
@@ -236,7 +241,7 @@ const UserLoggedOut = ({ handleRedirect }) => {
     </div>
   );
 };
-export default function DrawerMenu({ characterCreatePage }) {
+export default function DrawerMenu({ characterCreatePage, handlePlay }) {
   const { user } = useUserStore();
   const { showMenu, setShowMenu } = useControlsStore();
 
@@ -284,9 +289,21 @@ export default function DrawerMenu({ characterCreatePage }) {
         />
       </div>
       {user?.token ? (
-        <UserLoggedIn handleRedirect={handleRedirect} />
+        <UserLoggedIn
+          handlePlay={() => {
+            setShowMenu(false);
+            handlePlay();
+          }}
+          handleRedirect={handleRedirect}
+        />
       ) : (
-        <UserLoggedOut handleRedirect={handleRedirect} />
+        <UserLoggedOut
+          handlePlay={() => {
+            setShowMenu(false);
+            handlePlay();
+          }}
+          handleRedirect={handleRedirect}
+        />
       )}
     </div>
   );
