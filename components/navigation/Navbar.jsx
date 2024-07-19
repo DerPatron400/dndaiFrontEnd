@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import CustomButton from "../ui/custom-button";
 import DrawerMenu from "./DrawerMenu";
 import Link from "next/link";
-
 import { usePathname } from "next/navigation";
 import useControlsStore from "@/utils/controlsStore";
 import useUserStore from "@/utils/userStore";
@@ -17,19 +16,103 @@ import useGameStore from "@/utils/gameStore";
 import { useRouter } from "next/navigation";
 import { getCampaignBySlug } from "@/actions/campaigns";
 import { isSelectionValid } from "@/lib/Helpers/shared";
-import SoundButton from "../ui/Shared/SoundButton";
+import SoundButton from "@/components/ui/Shared/SoundButton";
 import MobileHeader from "@/components/navigation/MobileHeaders/index";
 import useCustomToast from "@/hooks/useCustomToast";
-import Diamond from "../ui/Icons/Diamond";
-import CustomIcontext from "../ui/custom-icontext";
+import Diamond from "@/components/ui/Icons/Diamond";
+import CustomIcontext from "@/components/ui/custom-icontext";
+import CreateMenu from "@/components/ui/Shared/CreateMenu";
+import Discover from "@/components/ui/Icons/Discover";
+
+const NavLinks = () => {
+  return (
+    <>
+      {/* <Link
+                  href='#'
+                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
+                >
+                  HOW TO PLAY
+                </Link> */}
+
+      <Link
+        href='/discover/gallery'
+        className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+      >
+        GALLERY
+      </Link>
+      <Link
+        href='/pricing'
+        className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+      >
+        PRICING
+      </Link>
+    </>
+  );
+};
+
+const DiscoverButton = () => {
+  const router = useRouter();
+  return (
+    <CustomButton
+      onClick={() => {
+        router.push("/discover");
+      }}
+      variant={"subtle"}
+      withIcon={true}
+    >
+      <Discover className='h-5 w-5 fill-white opacity-70 ' />
+      Discover
+    </CustomButton>
+  );
+};
+const UpgradeButton = () => {
+  const router = useRouter();
+  return (
+    <CustomButton
+      onClick={() => {
+        router.push("/pricing");
+      }}
+      variant={"subtle"}
+      className={
+        " text-irisPurpleLight hover:!text-irisPurpleLight/80 active:!text-irisPurpleLight/90"
+      }
+      withIcon={true}
+    >
+      <Diamond className='h-5 w-5 fill-irisPurpleLight hover:!fill-irisPurpleLight/80 active:!fill-irisPurpleLight/90' />
+      Upgrade
+    </CustomButton>
+  );
+};
+
+const CreditsDisplay = () => {
+  const { user } = useUserStore();
+
+  return (
+    <>
+      {" "}
+      <CustomIcontext>
+        <img
+          src='/gems/Mythic.webp'
+          alt=''
+          className='h-[18px] object-contain '
+        />
+        {user.blueCredits}
+      </CustomIcontext>
+      <CustomIcontext>
+        <img
+          src='/gems/Legendary.webp'
+          alt=''
+          className='h-[18px] object-contain '
+        />
+        {user.yellowCredits}
+      </CustomIcontext>
+    </>
+  );
+};
 export default function Navbar({ variant, characterSheet }) {
-  const { showMenu, setShowMenu } = useControlsStore();
   const { isMobile } = useDeviceDetect();
   const { invokeToast } = useCustomToast();
-
-  const pathname = usePathname();
-  const isSignUp = pathname.includes("/auth/sign-up");
-  const isGamePage = pathname.includes("/game/play");
+  const { showMenu, setShowMenu } = useControlsStore();
   const { user } = useUserStore();
   const {
     setCurrentCharacter,
@@ -41,8 +124,20 @@ export default function Navbar({ variant, characterSheet }) {
   } = useGameStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
+  const pathname = usePathname();
+  const isSignUp = pathname.includes("/auth/sign-up");
+  const isGamePage = pathname.includes("/game/play");
   const mobileBlurNotAllowed = pathname === "/" || isGamePage;
+
+  const showNavLinks =
+    pathname === "/" ||
+    pathname.includes("auth") ||
+    pathname.includes("discover/gallery") ||
+    pathname.includes("pricing");
+  const showDiscoverButton =
+    !isGamePage && !pathname.includes("character/create") && !showNavLinks;
+  const showUpgradeButton =
+    !showNavLinks && !pathname.includes("character/create");
 
   const characterCreatePage = pathname.includes("/character/create");
   const regex = /^\/campaign\/[a-fA-F0-9]{24}$/;
@@ -191,44 +286,9 @@ export default function Navbar({ variant, characterSheet }) {
             >
               <img src='/Icons/Logo.svg' alt='logo' className='h-10' />
             </Link>
-            {!isGamePage && (
-              <>
-                <Link
-                  href='#'
-                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
-                >
-                  HOW TO PLAY
-                </Link>
-
-                <Link
-                  href='/discover/gallery'
-                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
-                >
-                  GALLERY
-                </Link>
-                <Link
-                  href='/pricing'
-                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
-                >
-                  PRICING
-                </Link>
-              </>
-            )}
-            {isGamePage && (
-              <CustomButton
-                onClick={() => {
-                  router.push("/pricing");
-                }}
-                variant={"subtle"}
-                className={
-                  " text-irisPurpleLight hover:!text-irisPurpleLight/80 active:!text-irisPurpleLight/90"
-                }
-                withIcon={true}
-              >
-                <Diamond className='h-5 w-5 fill-irisPurpleLight hover:!fill-irisPurpleLight/80 active:!fill-irisPurpleLight/90' />
-                Upgrade
-              </CustomButton>
-            )}
+            {showNavLinks && <NavLinks />}
+            {showDiscoverButton && <DiscoverButton />}
+            {showUpgradeButton && <UpgradeButton />}
           </div>
           <div className='flex justify-center items-center gap-5'>
             <span
@@ -243,27 +303,8 @@ export default function Navbar({ variant, characterSheet }) {
                 <Link href={"/auth/sign-up"}>Sign Up</Link>
               )}
             </span>
-            {isGamePage && (
-              <>
-                {" "}
-                <CustomIcontext>
-                  <img
-                    src='/gems/Mythic.webp'
-                    alt=''
-                    className='h-[18px] object-contain '
-                  />
-                  {user.blueCredits}
-                </CustomIcontext>
-                <CustomIcontext>
-                  <img
-                    src='/gems/Legendary.webp'
-                    alt=''
-                    className='h-[18px] object-contain '
-                  />
-                  {user.yellowCredits}
-                </CustomIcontext>
-              </>
-            )}
+            {isGamePage && <CreditsDisplay />}
+            <CreateMenu />
             <AccountDropdown />
             {variant === "transparent" ? (
               <SoundButton />

@@ -81,13 +81,16 @@ export default function Gallery({
       if (rows.length % 5 === 0) {
         const rowImages = images.slice(index, index + 4);
         rows.push(
-          <div className='grid grid-cols-4 md:grid-cols-8 gap-4' key={index}>
+          <div
+            className='grid grid-cols-4 md:grid-cols-8 gap-4'
+            key={index + Math.random()}
+          >
             {rowImages.map((src, i) => (
               <GalleryImage
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={Math.random() + i}
+                key={src}
               />
             ))}
           </div>
@@ -98,13 +101,16 @@ export default function Gallery({
       else if (rows.length % 5 === 1) {
         const rowImages = images.slice(index, index + 2);
         rows.push(
-          <div className='grid grid-cols-4 md:grid-cols-8 gap-4' key={index}>
+          <div
+            className='grid grid-cols-4 md:grid-cols-8 gap-4'
+            key={index + Math.random()}
+          >
             {rowImages.map((src, i) => (
               <GalleryImage
                 src={src}
                 alt=''
                 className='col-span-4 row-span-4'
-                key={Math.random() + i}
+                key={src}
               />
             ))}
           </div>
@@ -115,13 +121,16 @@ export default function Gallery({
       else if (rows.length % 5 === 2) {
         const rowImages = images.slice(index, index + 4);
         rows.push(
-          <div className='grid grid-cols-4 md:grid-cols-8 gap-4' key={index}>
+          <div
+            className='grid grid-cols-4 md:grid-cols-8 gap-4'
+            key={index + Math.random()}
+          >
             {rowImages.map((src, i) => (
               <GalleryImage
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={Math.random() + i}
+                key={src}
               />
             ))}
           </div>
@@ -133,19 +142,22 @@ export default function Gallery({
         const firstImage = images[index];
         const nextFourImages = images.slice(index + 1, index + 5);
         rows.push(
-          <div className='grid grid-cols-4 md:grid-cols-8 gap-4' key={index}>
+          <div
+            className='grid grid-cols-4 md:grid-cols-8 gap-4'
+            key={index + Math.random()}
+          >
             <GalleryImage
               src={firstImage}
               alt=''
               className='col-span-4 row-span-4'
-              key={Math.random() + index}
+              key={firstImage}
             />
             {nextFourImages.map((src, i) => (
               <GalleryImage
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={Math.random() + i}
+                key={src}
               />
             ))}
           </div>
@@ -156,13 +168,16 @@ export default function Gallery({
       else if (rows.length % 5 === 4) {
         const rowImages = images.slice(index, index + 4);
         rows.push(
-          <div className='grid grid-cols-4 md:grid-cols-8 gap-4' key={index}>
+          <div
+            className='grid grid-cols-4 md:grid-cols-8 gap-4'
+            key={index + Math.random()}
+          >
             {rowImages.map((src, i) => (
               <GalleryImage
                 src={src}
                 alt=''
                 className='col-span-2 row-span-2'
-                key={Math.random() + i}
+                key={src}
               />
             ))}
           </div>
