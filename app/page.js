@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-import LocomotiveScroll from "locomotive-scroll";
+// import LocomotiveScroll from "locomotive-scroll";
 import Step from "@/components/landingPage/step";
 
 import ImageParallax from "@/components/landingPage/ImageParallax";
@@ -33,13 +33,26 @@ export default function Home() {
   const locoScrollRef = useRef(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      locoScrollRef.current = new LocomotiveScroll({
-        el: scrollRef.current,
-        smooth: true,
-        // Add other Locomotive Scroll options here
-      });
+    var winNav = window.navigator;
+
+    var isGoogleChrome =
+      typeof winNav.userAgentData !== "undefined"
+        ? winNav.userAgentData.brands[2].brand === "Google Chrome"
+        : vendorName === "Google Inc." || winNav.userAgent.match("CriOS");
+
+    if (isGoogleChrome) {
+      return;
     }
+    (async () => {
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      if (scrollRef.current) {
+        locoScrollRef.current = new LocomotiveScroll({
+          el: scrollRef.current,
+          smooth: true,
+          // Add other Locomotive Scroll options here
+        });
+      }
+    })();
 
     return () => {
       if (locoScrollRef.current) {

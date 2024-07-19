@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navigation/Navbar";
 import GameplayNavbar from "@/components/navigation/GameplayNavbar";
@@ -110,7 +110,9 @@ export default function RootLayout({ children }) {
           <div className='z-[1]'>{children}</div>
 
           {showFooter && <Footer />}
-          <CreditsDialogue />
+          <Suspense fallback={null}>
+            <CreditsDialogue />
+          </Suspense>
           <div className='!z-[50]'>
             <Toaster />
           </div>
