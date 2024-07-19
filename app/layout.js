@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Script from "next/script";
 import "./globals.css";
 import useGameStore from "@/utils/gameStore";
+import CreditsDialogue from "@/components/ui/Shared/Dialogue/GetCredits";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,8 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
-      const formattedPath = pathname === "/" ? "home" : pathname.slice(1).replace("/", " / ");
+      const formattedPath =
+        pathname === "/" ? "home" : pathname.slice(1).replace("/", " / ");
       document.title = `DNDAI / ${formattedPath}`; // Set document.title to the URL
       gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
@@ -41,7 +43,8 @@ export default function RootLayout({ children }) {
     };
 
     const handleRouteChange = (url) => {
-      const formattedPath = url === "/" ? "home" : url.slice(1).replace("/", " / ");
+      const formattedPath =
+        url === "/" ? "home" : url.slice(1).replace("/", " / ");
       document.title = `DNDAI / ${formattedPath}`; // Set document.title to the URL
       window.gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
@@ -107,6 +110,7 @@ export default function RootLayout({ children }) {
           <div className='z-[1]'>{children}</div>
 
           {showFooter && <Footer />}
+          <CreditsDialogue />
           <div className='!z-[50]'>
             <Toaster />
           </div>

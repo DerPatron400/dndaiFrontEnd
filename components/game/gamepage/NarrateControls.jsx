@@ -19,8 +19,6 @@ export default function NarrationControls({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  console.log("here");
-
   const handleTimeUpdate = () => {
     if (!isDragging) {
       const current = audioRef.current.currentTime;
@@ -128,14 +126,14 @@ export default function NarrationControls({
         >
           <span className='headline-4'>Narration</span>
           <span className='text-gray2 running-text-small'>
-            Each created text-block of narration costs
+            Text will be read aloud. Costs
             <img
               src='/gems/Mythic.webp'
               alt=''
               className='h-5  mx-1 object-contain'
               style={{ display: "inline", verticalAlign: "middle" }}
             />
-            2 additional
+            2 additional per turn
           </span>
         </div>
         <audio

@@ -13,6 +13,7 @@ import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/navigation";
 import useCustomToast from "@/hooks/useCustomToast";
 import SoundButton from "@/components/ui/Shared/SoundButton";
+import useControlsStore from "@/utils/controlsStore";
 
 const INITIAL_STATE = {
   title: "",
@@ -25,7 +26,7 @@ export default function Index() {
   const [campaign, setCampaign] = useState(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
   const { user, setYellowCredits, setBlueCredits } = useUserStore();
-
+  const { setShowCreditsDialogue } = useControlsStore();
   const router = useRouter();
   const { invokeToast } = useCustomToast();
 
@@ -43,6 +44,10 @@ export default function Index() {
   };
 
   const handleCreateCampaign = async () => {
+    if (user.yellowCredits < 1) {
+      setShowCreditsDialogue(true);
+      return;
+    }
     try {
       setLoading(true);
       const { newCampaign } = await createCampaign(campaign, user?.token);

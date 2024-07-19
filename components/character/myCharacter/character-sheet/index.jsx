@@ -8,7 +8,7 @@ import Edit from "@/components/ui/Icons/Edit";
 import Download from "@/components/ui/Icons/Download";
 import Avatar from "./create-avatar/avatar";
 import { usePathname, useRouter } from "next/navigation";
-import { extractSection } from "@/lib/Helpers/shared";
+import { extractSection, isSelectionValid } from "@/lib/Helpers/shared";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import SoundButton from "@/components/ui/Shared/SoundButton";
 import Generate from "@/components/ui/Icons/Generate";
@@ -17,18 +17,24 @@ import useUserStore from "@/utils/userStore";
 import { cn } from "@/lib/utils";
 import DeleteCharacter from "@/components/ui/Shared/Dialogue/DeleteCharacter";
 import useCustomToast from "@/hooks/useCustomToast";
-import { deleteCharacter } from "@/actions/character";
+import { deleteCharacter, getCharacter } from "@/actions/character";
 import Loader from "@/components/ui/Loader";
 import useGameStore from "@/utils/gameStore";
 export default function characterSheet({ character, setCharacter }) {
   const router = useRouter();
   const pathname = usePathname();
   const { user } = useUserStore();
-  const { currentCharacter, setCurrentCharacter } = useGameStore();
+  const {
+    currentCharacter,
+    setCurrentCharacter,
+    currentCampaign,
+    campaignSelectTime,
+  } = useGameStore();
   const { invokeToast } = useCustomToast();
   const containerRef = useRef();
   const [open, setOpen] = useState(false);
   const [appearance, setAppearance] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
   const [deleteCharacterLoading, setDeleteCharacterLoading] = useState(false);
   const [currentPortrait, setCurrentPortrait] = useState(
@@ -70,6 +76,33 @@ export default function characterSheet({ character, setCharacter }) {
       );
     } finally {
       setDeleteCharacterLoading(false);
+    }
+  };
+
+  const handlePlayWithCharacter = async () => {
+    try {
+      setIsLoading(true);
+      const characterId = character._id;
+
+      const { character: _character } = await getCharacter(
+        characterId,
+        user?.token
+      );
+
+      setCurrentCharacter(_character);
+      if (!isSelectionValid(currentCampaign, campaignSelectTime)) {
+        router.push("/game/campaign-selection");
+      } else {
+        router.push("/game/play");
+      }
+    } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error playing character",
+        "Error"
+      );
+      console.log("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -155,7 +188,11 @@ export default function characterSheet({ character, setCharacter }) {
             <Edit fill='white' className='h-5 w-5  ' />
           </CustomIconbutton>
         </div>
-        <CustomButton variant={"primary"}>
+        <CustomButton
+          disabled={isLoading}
+          onClick={handlePlayWithCharacter}
+          variant={"primary"}
+        >
           <Play className='h-5 w-5 opacity-70' />
           Play Now
         </CustomButton>

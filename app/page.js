@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-
+import LocomotiveScroll from "locomotive-scroll";
 import Step from "@/components/landingPage/step";
 
 import ImageParallax from "@/components/landingPage/ImageParallax";
@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useControlsStore from "@/utils/controlsStore";
 import SoundButton from "@/components/ui/Shared/SoundButton";
+import PlayForFreeMobile from "@/components/ui/Shared/PlayForFreeMobile";
+import { useRouter } from "next/navigation";
 const ImagesVisual = dynamic(
   () => import("@/components/landingPage/imagesVisual"),
   {
@@ -27,19 +29,30 @@ const Campaigns = dynamic(
 
 export default function Home() {
   const { showMenu } = useControlsStore();
+  const scrollRef = useRef(null);
+  const locoScrollRef = useRef(null);
 
   useEffect(() => {
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
-    })();
-  }, []);
+    if (scrollRef.current) {
+      locoScrollRef.current = new LocomotiveScroll({
+        el: scrollRef.current,
+        smooth: true,
+        // Add other Locomotive Scroll options here
+      });
+    }
 
+    return () => {
+      if (locoScrollRef.current) {
+        locoScrollRef.current.destroy();
+        locoScrollRef.current = null;
+      }
+    };
+  }, []);
   const { isMobile } = useDeviceDetect();
   return (
-    // from-russianViolet via-russianViolet to-[#262658]
     <div
       data-scroll-container
+      ref={scrollRef}
       className='w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  '
     >
       <div
@@ -65,7 +78,7 @@ export default function Home() {
             )}
           >
             <SoundButton />
-            <Button variant={"primary"}>PLAY FOR FREE</Button>
+            <PlayForFreeMobile />
           </div>
         </div>
       </div>
