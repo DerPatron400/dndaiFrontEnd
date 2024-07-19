@@ -38,7 +38,7 @@ export default function Step1({ setStep, user, setUser }) {
               <img
                 src='/Icons/Success.svg'
                 alt='Success'
-                className=' h-4 w-4'
+                className=' h-5 w-5'
               />
             )
           }

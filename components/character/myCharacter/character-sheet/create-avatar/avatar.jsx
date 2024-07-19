@@ -160,16 +160,16 @@ export default function Avatar({
     <Dialog
       open={open}
       onOpenChange={(_open) => setOpen(_open)}
-      className='bg-russianViolet !gap-0'
+      className=' !gap-0'
     >
       {isMobile ? (
         // Mobile
-        <DialogContent className='bg-russianViolet !p-0 flex-col !gap-0 border-none h-full  max-w-screen md:!hidden  !pt-[120px] '>
+        <DialogContent className='bg-russianViolet !p-0 flex-col !gap-0 border-none h-full  max-w-screen md:!hidden  !pt-[46px] '>
           <Navbar />
 
-          <div className='flex gap-5 flex-col items-start p-6 pt-4 !pb-0'>
+          <div className='flex gap-5 flex-col bg-blur-bottom-menu items-start p-6 pt-4 !pb-0'>
             {generateAvatar ? (
-              <div className='flex flex-col gap-3'>
+              <div className='flex flex-col gap-2'>
                 <span className='text-white running-text-large '>
                   Generate new portrait
                 </span>

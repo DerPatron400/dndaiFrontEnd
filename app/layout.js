@@ -11,6 +11,7 @@ import Script from "next/script";
 import "./globals.css";
 import useGameStore from "@/utils/gameStore";
 import CreditsDialogue from "@/components/ui/Shared/Dialogue/GetCredits";
+import { capitalizeFirstLetterOfEachWord } from "@/lib/Helpers/shared";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,24 +33,40 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const initializeGtag = () => {
       if (!window.gtag) return;
+
+      let title = pathname.split("/").pop().replaceAll("-", " ");
+
+      if (pathname.includes("character/sheet")) {
+        title = "Character Overview";
+      } else if (pathname === "/") {
+        title = "Home";
+      }
       const formattedPath =
         pathname === "/" ? "home" : pathname.slice(1).replace("/", " / ");
-      document.title = `DNDAI / ${formattedPath}`; // Set document.title to the URL
+      document.title = title; // Set document.title to the URL
       gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: window.location.pathname,
-        screen_name: formattedPath, // Custom screen name
+        screen_name: title, // Custom screen name
       });
     };
 
     const handleRouteChange = (url) => {
+      let title = url.split("/").pop().replaceAll("-", " ");
+
+      if (url.includes("character/sheet")) {
+        title = "Character Overview";
+      } else if (url === "/") {
+        title = "Home";
+      }
+
       const formattedPath =
         url === "/" ? "home" : url.slice(1).replace("/", " / ");
-      document.title = `DNDAI / ${formattedPath}`; // Set document.title to the URL
+      document.title = capitalizeFirstLetterOfEachWord(title); // Set document.title to the URL
       window.gtag("config", "G-BTHMYX7TZ9", {
         page_title: document.title,
         page_path: url,
-        screen_name: formattedPath, // Custom screen name
+        screen_name: title, // Custom screen name
       });
     };
 

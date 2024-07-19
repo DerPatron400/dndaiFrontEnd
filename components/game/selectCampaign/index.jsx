@@ -57,7 +57,7 @@ export default function index({ popular, mostLiked }) {
         query={query}
         setQuery={setQuery}
         placeholder='Search campaign'
-        className={"mt-8 w-4/5 max-w-[465px] mx-auto"}
+        className={"mt-8 w-[92%] md:w-4/5 md:max-w-[465px] mx-auto"}
       />
       <div className='flex flex-col gap-16 w-full mt-9'>
         {searchedCampaign && (
@@ -73,11 +73,11 @@ export default function index({ popular, mostLiked }) {
           campaigns={mostLiked}
           icon={<Star isfilled={"true"} className='h-5 w-5 fill-gray2' />}
         />
-        {/* <Row
+        <Row
           text={"Public games"}
           campaigns={popular}
           icon={<World className='h-5 w-5 fill-gray2' />}
-        /> */}
+        />
       </div>
       <GeneralGameTabbar />
     </div>
