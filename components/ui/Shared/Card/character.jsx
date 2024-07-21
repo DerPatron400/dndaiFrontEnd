@@ -14,9 +14,11 @@ import CustomMenuItem from "@/components/ui/custom-menu-item";
 import Download from "@/components/ui/Icons/Download";
 import { useRouter } from "next/navigation";
 import Eye from "@/components/ui/Icons/Eye";
-import { extractSection } from "@/lib/Helpers/shared";
+import { extractSection, isSelectionValid } from "@/lib/Helpers/shared";
 import useGameStore from "@/utils/gameStore";
-
+import useUserStore from "@/utils/userStore";
+import { getCharacter } from "@/actions/character";
+import useCustomToast from "@/hooks/useCustomToast";
 export default function card({
   character,
   carousel,
@@ -25,11 +27,37 @@ export default function card({
   loadGameOnClick = false,
 }) {
   const router = useRouter();
-  const { setCurrentCharacter } = useGameStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const { setCurrentCharacter, currentCampaign, campaignSelectTime } =
+    useGameStore();
+  const { user } = useUserStore();
+  const { invokeToast } = useCustomToast();
 
-  const handlePlay = () => {
-    setCurrentCharacter(character);
-    router.push("/game/campaign-selection");
+  const handlePlay = async () => {
+    try {
+      setIsLoading(true);
+      const characterId = character._id;
+      console.log(characterId);
+      const { character: _character } = await getCharacter(
+        characterId,
+        user?.token
+      );
+
+      setCurrentCharacter(_character);
+      if (!isSelectionValid(currentCampaign, campaignSelectTime)) {
+        router.push("/game/campaign-selection");
+      } else {
+        router.push("/game/play");
+      }
+    } catch (error) {
+      invokeToast(
+        error?.response?.data?.error || "Error playing with character",
+        "Error"
+      );
+      console.log("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRedirect = (event, path) => {
