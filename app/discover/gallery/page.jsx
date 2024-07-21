@@ -27,7 +27,7 @@ function GalleryContainer() {
     try {
       console.log("here");
       const isReverse = selectedOption === SORT_BY_OPTIONS[1];
-      const response = await getPublicImages(user.token, page, isReverse);
+      const response = await getPublicImages(page, isReverse);
       setImages(response.images);
       setTotalPages(response.totalPages);
       setTotalRecords(response.totalRecords);
