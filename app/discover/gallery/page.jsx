@@ -42,9 +42,8 @@ function GalleryContainer() {
   };
 
   useEffect(() => {
-    console.log(user?.token);
-    if (user?.token) handleGetImages();
-  }, [user.token, page, selectedOption]);
+    handleGetImages();
+  }, [page, selectedOption]);
 
   if (!searchParams.get("page")) {
     router.push(pathname + "?page=1");

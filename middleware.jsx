@@ -6,19 +6,13 @@ export default async function middleware(req) {
   let token = req.cookies.get("token")?.value;
 
   //if not logged in and not on the login page
-  // if (
-  //   !token &&
-  //   !url.includes("/auth") &&
-  //   !url.endsWith("/") &&
-  //   url !== baseURL &&
-  //   !url.includes("/components")
-  // ) {
-  //   return NextResponse.redirect(`${baseURL}/`);
-  // }
+  if (!token && (url.includes("my-account") || url.includes("favorites"))) {
+    return NextResponse.redirect(`${baseURL}/`);
+  }
 
-  // if (token && url.includes("/auth")) {
-  //   return NextResponse.redirect(`${baseURL}/`);
-  // }
+  if (token && url.includes("/auth")) {
+    return NextResponse.redirect(`${baseURL}/`);
+  }
 }
 export const config = {
   matcher: [

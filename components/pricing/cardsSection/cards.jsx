@@ -21,6 +21,7 @@ export default function cards({ plan, selectedPlan, stripe }) {
 
   const handleCreateCheckoutSession = async () => {
     if (!user?.token) {
+      invokeToast("Please login to continue", "Error");
       return;
     }
     try {

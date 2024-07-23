@@ -29,16 +29,16 @@ export default function ImageModal() {
           <img src='/Icons/Cancel.svg' alt='' className='h-5 w-5 ' />
         </CustomIconbutton>
         <img
-          src={selectedCharacteristic.image}
+          src={selectedCharacteristic?.image}
           alt=''
           className='rounded-[16px]'
         />
         <div className='flex flex-col gap-4'>
           <span className='headline-2 text-white'>
-            {selectedCharacteristic.name}
+            {selectedCharacteristic?.name}
           </span>
           <span className='running-text text-gray2'>
-            {selectedCharacteristic.description ||
+            {selectedCharacteristic?.description ||
               "Astral Elves, born of the Astral Plane and rooted in the Feywild, radiated with divine energy, embodying a celestial essence distinct from their terrestrial kin."}
           </span>
         </div>

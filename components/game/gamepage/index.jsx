@@ -29,6 +29,7 @@ export default function index({
   const [narrate, setNarrate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [moveChatUp, setMoveChatUp] = useState(false);
   const [chat, setChat] = useState([
     {
       type: "system",
@@ -113,6 +114,7 @@ export default function index({
               chat={chat}
               character={gameCharacter}
               setImageViewDialog={setImageViewDialog}
+              moveChatUp={moveChatUp}
             />
             <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 '>
               <CustomInputIcon
@@ -133,6 +135,7 @@ export default function index({
                       text: input,
                     },
                   ]);
+                  setMoveChatUp((prev) => !prev);
                   setInput("");
                   handleChat(input);
                 }}

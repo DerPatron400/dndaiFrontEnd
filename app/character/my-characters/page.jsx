@@ -82,7 +82,7 @@ export default function page() {
   };
   useEffect(() => {
     getAllCharacters();
-  }, [user]);
+  }, [user?.token]);
 
   if (!characters) return <Loader text={"Loading Characters ..."} />;
   if (characters.length <= 0) return <CharacterPlaceholder />;

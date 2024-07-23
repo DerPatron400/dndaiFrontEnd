@@ -23,22 +23,17 @@ export default function General({ showSearch = true }) {
   const [isLoading, setIsLoading] = useState(false);
   const { invokeToast } = useCustomToast();
   const { user } = useUserStore();
-  const {
-    setCurrentCharacter,
-
-    currentCampaign,
-
-    campaignSelectTime,
-  } = useGameStore();
+  const { setCurrentCharacter, currentCampaign, campaignSelectTime } =
+    useGameStore();
   const [searchMode, setSearchMode] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [query, setQuery] = useState("");
+  
   const detectClickOutside = (e) => {
     if (showButtons || (searchMode && !e.target.closest(".search"))) {
       if (!e.target.closest(".btns-menu")) {
         setShowButtons(false);
         setSearchMode(false);
-        console.log("clicked outside");
       }
     }
   };

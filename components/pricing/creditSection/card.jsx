@@ -13,9 +13,11 @@ export default function card({ _package, stripe }) {
 
   const handleCreateCheckoutSession = async () => {
     if (!user?.token) {
+      invokeToast("Please login to continue", "Error");
+
       return;
     }
-    console.log("here");
+
     try {
       setLoading(true);
       const successUrl = BASE_URL + "/payment/status/success";

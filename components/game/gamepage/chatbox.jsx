@@ -31,6 +31,7 @@ export default function chatbox({
   loading,
   textSize,
   setImageViewDialog,
+  moveChatUp,
 }) {
   const { setGameImage } = useGameStore();
   const chatboxRef = useRef(null);
@@ -41,7 +42,7 @@ export default function chatbox({
       top: chatboxRef.current.scrollHeight,
       behavior: "smooth",
     });
-  }, [chat]);
+  }, [moveChatUp]);
 
   const handleViewImage = (url) => {
     setGameImage(url);

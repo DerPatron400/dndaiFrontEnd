@@ -40,7 +40,7 @@ export default function characterInfo({
           <div
             className={cn(
               "absolute bottom-0 left-0 w-full bg-sandyOrange gap-2 py-4 pe-6 ps-5 flex items-center justify-center text-black",
-              user && "opacity-0 pointer-events-none"
+              user?.token && "opacity-0 pointer-events-none"
             )}
           >
             <Info className='w-4 h-4' fill='#000' />{" "}

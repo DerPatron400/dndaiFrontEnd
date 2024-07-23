@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import Button from "@/components/ui/custom-button";
-import { cn } from "@/lib/utils";
 import Cancel from "@/components/ui/Icons/Cancel";
 import Diamond from "@/components/ui/Icons/Diamond";
 import useControlsStore from "@/utils/controlsStore";
@@ -19,7 +13,7 @@ export default function CreditsDialogue() {
   const id = useSearchParams().get("id");
 
   const { showCreditsDialogue, setShowCreditsDialogue } = useControlsStore();
-  console.log(showCreditsDialogue);
+
   return (
     <Dialog
       open={showCreditsDialogue}

@@ -109,7 +109,6 @@ export default function BottomMenu({ character, setCharacter }) {
 
   const handleSubmit = async () => {
     if (user.blueCredits < 1) {
-     
       setShowCreditsDialogue(true);
       return;
     }
@@ -134,11 +133,15 @@ export default function BottomMenu({ character, setCharacter }) {
         payload,
         user?.token || null
       );
-      const { credits } = await getCredits(user?.token);
 
-      router.push("/character/sheet/" + newCharacter._id);
-      setYellowCredits(credits.yellowCredits);
-      setBlueCredits(credits.blueCredits);
+      if (user?.token) {
+        router.push("/character/sheet/" + newCharacter._id);
+      } else {
+        router.push(
+          "/character/sheet/" + newCharacter._id + "?showGuestDialogue=true"
+        );
+      }
+
       setActiveStep(0);
       setCharacter(INITIAL_CHARACTER);
       invokeToast("Character Created Successfully", "Success");
@@ -150,6 +153,9 @@ export default function BottomMenu({ character, setCharacter }) {
       console.log(error);
     } finally {
       setIsLoading(false);
+      const { credits } = await getCredits(user?.token);
+      setYellowCredits(credits.yellowCredits);
+      setBlueCredits(credits.blueCredits);
     }
   };
 

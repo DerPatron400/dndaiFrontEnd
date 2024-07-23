@@ -126,7 +126,7 @@ export default function RootLayout({ children }) {
           />
           <div className='z-[1]'>{children}</div>
 
-          {showFooter && <Footer />}
+          {/* {showFooter && <Footer />} */}
           <Suspense fallback={null}>
             <CreditsDialogue />
           </Suspense>

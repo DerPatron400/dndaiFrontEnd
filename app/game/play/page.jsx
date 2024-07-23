@@ -89,7 +89,7 @@ function GameHandler() {
     if (id) {
       handleGetGame();
     }
-    if (!user?.token || id) return;
+    if (id) return;
 
     handleInitiateGame();
   }, [user?.token]);

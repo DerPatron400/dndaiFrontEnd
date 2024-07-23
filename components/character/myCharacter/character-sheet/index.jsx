@@ -20,6 +20,7 @@ import useCustomToast from "@/hooks/useCustomToast";
 import { deleteCharacter, getCharacter } from "@/actions/character";
 import Loader from "@/components/ui/Loader";
 import useGameStore from "@/utils/gameStore";
+import GuestUser from "@/components/ui/Shared/Dialogue/GuestUser";
 export default function characterSheet({ character, setCharacter }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -41,7 +42,6 @@ export default function characterSheet({ character, setCharacter }) {
     character.personal.portraitUrl
   );
   const isCreator = user?._id === character?.userId;
-  console.log(isCreator);
 
   // useEffect(() => {
   //   let _appearance = extractSection(character.value, "appearance:character.personal.appearance")?.trim();
@@ -113,6 +113,7 @@ export default function characterSheet({ character, setCharacter }) {
       ref={containerRef}
       className='h-full min-h-screen w-screen pt-[94px] px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'
     >
+      <GuestUser />
       <div className='hidden md:flex justify-start gap-[32px]'>
         <CustomButton
           onClick={() => {

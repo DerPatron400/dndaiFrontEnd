@@ -30,7 +30,7 @@ const RenderData = ({ title, data, className, containerClassName }) => {
 
 const RenderEquipmentData = ({ value, className, length, index }) => {
   if (value === "") return null;
-  console.log(length === index - 1);
+
   return (
     <span
       className={cn(

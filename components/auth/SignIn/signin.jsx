@@ -68,9 +68,9 @@ export default function SignIn() {
           icon={
             isEmailValid && (
               <img
-                src='/Icons/Success.png'
+                src='/Icons/Success.svg'
                 alt='Success'
-                className=' h-4 w-4'
+                className=' h-5 w-5'
               />
             )
           }

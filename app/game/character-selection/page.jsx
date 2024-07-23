@@ -27,7 +27,7 @@ export default function page() {
     }
   };
   useEffect(() => {
-    if (user?.token) getAllCharacters();
+    getAllCharacters();
   }, [user?.token]);
 
   if (!characters) return <Loader text={"Loading Characters..."} />;
