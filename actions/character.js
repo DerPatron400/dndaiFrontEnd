@@ -17,6 +17,7 @@ export const createCharacter = async (characer, token) => {
 
 export const getCharacters = async (token) => {
   try {
+    console.log("sending");
     const response = await api.get("/user/characters", {
       headers: {
         Authorization: token,

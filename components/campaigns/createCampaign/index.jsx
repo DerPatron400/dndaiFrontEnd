@@ -53,9 +53,9 @@ export default function Index() {
       const { newCampaign } = await createCampaign(campaign, user?.token);
       const { credits } = await getCredits(user?.token);
       console.log(newCampaign);
-      setYellowCredits(credits.yellowCredits);
+      setYellowCredits((prev) => credits?.yellowCredits || prev);
 
-      setBlueCredits(credits.blueCredits);
+      setBlueCredits((prev) => credits?.blueCredits || prev);
       router.push(`/campaign/${newCampaign._id}`);
     } catch (error) {
       invokeToast(error?.response?.data || "Error creating Campaign", "Error");

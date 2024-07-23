@@ -36,6 +36,7 @@ export default function index({
       text: response,
     },
   ]);
+  console.log(game);
 
   const handleChat = async (text) => {
     if (user.blueCredits < 1) {
@@ -100,7 +101,7 @@ export default function index({
           className='w-full h-52 lg:h-full lg:object-contain'
         />
       </div>
-      <div className='     w-full flex gap-10  px-6 lg:px-12  pb-5 lg:pb-12  h-screen z-[8] text-white relative'>
+      <div className='     w-full flex gap-10  px-6 lg:px-12  pb-5 lg:pb-12  h-full md:h-screen z-[8] text-white fixed top-0 left-0'>
         <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
           <span className='headline-4 mb-3'>{gameCampaign?.title}</span>

@@ -10,22 +10,22 @@ export default function Info({ race, handleSelectRace }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll pb-5 hide-scrollbar md:max-w-[467px] h-fit max-h-full",
+        "hidden md:block w-2/5 border bg-white/10 overflow-hidden  border-white/10 rounded-[16px]  pb-5  md:max-w-[467px] h-full ",
         !race.name && "opacity-0 pointer-events-none"
       )}
     >
-      <div className='flex h-fit  flex-col w-full'>
-        <div className='w-full h-[440px]'>
+      <div className='flex h-full  flex-col w-full'>
+        <div className='w-full h-1/2'>
           <img
             src={` https://dndai-images.s3.eu-central-1.amazonaws.com/race/${race?.name
               .toLowerCase()
               .replace(" ", "-")}.webp`}
             alt={race?.name}
-            className='h-full object-cover w-full '
+            className=' object-cover w-full h-full '
           />
         </div>
 
-        <div className='p-5 pb-0 flex flex-col h-auto justify-around gap-4 '>
+        <div className='p-5 pb-0 flex flex-col h-full justify-around gap-4 '>
           <CustomRadioButton
             options={RACE_GENDER}
             selectedOption={race?.gender}
