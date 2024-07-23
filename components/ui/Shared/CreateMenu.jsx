@@ -12,6 +12,7 @@ import AddUser from "@/components/ui/Icons/AddUser";
 import CampaignAdd from "@/components/ui/Icons/CampaignAdd";
 import { useRouter } from "next/navigation";
 
+//menu
 export default function CreateMenu() {
   const router = useRouter();
 
@@ -22,25 +23,25 @@ export default function CreateMenu() {
     <Popover>
       <PopoverTrigger>
         <CustomIconbutton>
-          <Add className='h-5 w-5 fill-white' />
+          <Add className="h-5 w-5 fill-white" />
         </CustomIconbutton>
       </PopoverTrigger>
-      <PopoverContent className='mt-5 !bg-russianViolet !p-0  !blur-none !backdrop-blur-none !border-none '>
-        <div className='bg-white/10 p-5 py-2 border border-white/10 rounded-[16px]'>
+      <PopoverContent className="mt-5 !bg-russianViolet !p-0  !blur-none !backdrop-blur-none !border-none ">
+        <div className="bg-white/10 p-5 py-2 border border-white/10 rounded-[16px]">
           <CustomButton
             onClick={() => handleNavigation("/character/create")}
             withIcon={true}
-            variant='subtle'
+            variant="subtle"
           >
-            <AddUser className='h-5 w-5 fill-white' />
+            <AddUser className="h-5 w-5 fill-white" />
             Create Character
           </CustomButton>
           <CustomButton
             onClick={() => handleNavigation("/campaign/create")}
             withIcon={true}
-            variant='subtle'
+            variant="subtle"
           >
-            <CampaignAdd className='h-5 w-5 fill-white' />
+            <CampaignAdd className="h-5 w-5 fill-white" />
             Create Campaign
           </CustomButton>
         </div>
