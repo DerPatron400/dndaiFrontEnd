@@ -108,7 +108,8 @@ export default function BottomMenu({ character, setCharacter }) {
   };
 
   const handleSubmit = async () => {
-    if (user.blueCredits < 1) {
+    console.log(user);
+    if (user && user?.blueCredits < 1) {
       setShowCreditsDialogue(true);
       return;
     }

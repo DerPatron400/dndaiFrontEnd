@@ -79,7 +79,7 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px] h-screen md:h-auto bg-russianViolet md:bg-white/10'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
       {step === 1 && (
         <div className='flex flex-col'>
           <div className='flex p-6 pb-5 flex-col h-fit gap-2 '>
