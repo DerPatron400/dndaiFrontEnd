@@ -16,7 +16,7 @@ import PlayForFreeMobile from "@/components/ui/Shared/PlayForFreeMobile";
 import { useRouter } from "next/navigation";
 import ImagesVisual from "@/components/landingPage/imagesVisual";
 import Campaigns from "@/components/landingPage/campaignSection";
-// import LocomotiveScroll from "./LocomotiveScroll";
+// import LocomotiveScroll from "./LocomotiveScroll"
 
 const LocomotiveScroll = dynamic(
   () => import("@/components/landingPage/LocomotiveScroll"),
