@@ -37,12 +37,10 @@ export default function chatbox({
   const chatboxRef = useRef(null);
 
   useEffect(() => {
-    //scroll to bottom of chatbox smoothly
-    chatboxRef.current.scrollTo({
-      top: chatboxRef.current.scrollHeight,
-      behavior: "smooth",
-    });
-  }, [moveChatUp]);
+    //focus on last obj
+    const lastObj = chatboxRef.current.querySelector(".last-obj");
+    lastObj?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]);
 
   const handleViewImage = (url) => {
     setGameImage(url);
@@ -51,12 +49,18 @@ export default function chatbox({
   return (
     <div
       ref={chatboxRef}
-      className='relative chat-box w-full lg:w-[65%] min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  pb-9 pt-12 lg:py-12 '
+      className='relative chat-box w-full lg:w-[65%] min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  pb-40 pt-12 lg:py-12 '
     >
       <div className='flex flex-col justify-end mt-auto gap-8'>
         {chat.map((item, index) => {
           return item.type === "image" ? (
-            <div key={index} className='h-[223px] w-full'>
+            <div
+              key={index}
+              className={cn(
+                "h-[223px] w-full",
+                index === chat.length - 1 && "last-obj"
+              )}
+            >
               <img
                 onClick={() => handleViewImage(item.url)}
                 src={item.url}
@@ -66,9 +70,10 @@ export default function chatbox({
           ) : (
             <div
               key={index}
-              className={
-                "flex flex-col gap-4 justify-start items-start  w-full "
-              }
+              className={cn(
+                "flex flex-col gap-4 justify-start items-start  w-full ",
+                index === chat.length - 1 && "last-obj"
+              )}
             >
               <div className={"flex gap-2 justify-start items-center"}>
                 <CustomIconbutton variant={"primary"} className={"h-6 w-6"}>

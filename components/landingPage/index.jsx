@@ -30,35 +30,6 @@ export default function Home() {
   const scrollRef = useRef(null);
   const locoScrollRef = useRef(null);
 
-  //   useEffect(() => {
-  //     var winNav = window.navigator;
-
-  //     var isGoogleChrome =
-  //       typeof winNav.userAgentData !== "undefined"
-  //         ? winNav.userAgentData.brands[2].brand === "Google Chrome"
-  //         : vendorName === "Google Inc." || winNav.userAgent.match("CriOS");
-
-  //     if (isGoogleChrome) {
-  //       return;
-  //     }
-  //     (async () => {
-  //       const LocomotiveScroll = (await import("locomotive-scroll")).default;
-  //       if (scrollRef.current) {
-  //         locoScrollRef.current = new LocomotiveScroll({
-  //           el: scrollRef.current,
-  //           smooth: true,
-  //           // Add other Locomotive Scroll options here
-  //         });
-  //       }
-  //     })();
-
-  //     return () => {
-  //       if (locoScrollRef.current) {
-  //         locoScrollRef.current.destroy();
-  //         locoScrollRef.current = null;
-  //       }
-  //     };
-  //   }, []);
   const { isMobile } = useDeviceDetect();
   return (
     <>
@@ -75,7 +46,7 @@ export default function Home() {
               ? "url(/images/Landing/Header-mobile.png)"
               : "url(/images/Landing/Header.webp)",
             backgroundSize: "cover",
-            //
+
             backgroundPosition: "center",
           }}
         >

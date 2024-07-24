@@ -35,7 +35,7 @@ const GalleryImage = ({ src, className }) => {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <DialogTrigger asChild>
-        <div className={cn("relative group", className)}>
+        <div className={cn("relative  group", className)}>
           <CustomIconbutton
             onClick={downloadImage}
             className={
@@ -48,7 +48,7 @@ const GalleryImage = ({ src, className }) => {
             src={src}
             alt=''
             className={cn(
-              "rounded-[16px] border border-transparent  hover:border-white/10 hover:shadow-custom-1 ease-animate cursor-pointer"
+              "rounded-[16px] border h-full w-full border-transparent   hover:border-white/10 hover:shadow-custom-1 ease-animate cursor-pointer"
             )}
           />
         </div>

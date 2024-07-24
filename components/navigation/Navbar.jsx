@@ -90,7 +90,7 @@ const CreditsDisplay = () => {
   return (
     <>
       {" "}
-      <CustomIcontext>
+      <CustomIcontext className={"pointer-events-none"}>
         <img
           src='/gems/Mythic.webp'
           alt=''
@@ -98,7 +98,7 @@ const CreditsDisplay = () => {
         />
         {user.blueCredits}
       </CustomIcontext>
-      <CustomIcontext>
+      <CustomIcontext className={"pointer-events-none"}>
         <img
           src='/gems/Legendary.webp'
           alt=''

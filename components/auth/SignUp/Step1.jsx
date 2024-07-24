@@ -6,9 +6,11 @@ import GoogleAuth from "../Socials/Google";
 import { validateEmail } from "@/lib/Helpers/auth";
 import { verifyEmailExists } from "@/actions/auth";
 import CustomValidationtext from "@/components/ui/custom-validationtext";
+import authStore from "@/utils/authStore";
 export default function Step1({ setStep, user, setUser }) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { setEmail } = authStore();
 
   const next = async () => {
     try {
@@ -17,6 +19,7 @@ export default function Step1({ setStep, user, setUser }) {
       if (response.exists) {
         setError("Email already exists");
       } else {
+        setEmail(user.email);
         setStep(2);
       }
     } catch (error) {}
@@ -24,7 +27,7 @@ export default function Step1({ setStep, user, setUser }) {
 
   //pass input, setInput state to CustomInput component
   return (
-    <div className='w-full flex flex-col gap-6 pt-14 md:pt-0'>
+    <div className='w-full flex flex-col gap-6 pt-[172px] md:pt-0'>
       <div className='flex flex-col gap-3'>
         <CustomInput
           placeholder='E-MAIL'

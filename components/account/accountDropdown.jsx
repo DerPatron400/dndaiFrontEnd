@@ -17,7 +17,10 @@ export default function accountDropdown() {
 
   return (
     <DropdownMenu onOpenChange={(e) => setOpen(e)} open={open}>
-      <DropdownMenuTrigger suppressHydrationWarning className='outline-0'>
+      <DropdownMenuTrigger
+        suppressHydrationWarning
+        className='outline-0 hidden md:block'
+      >
         <CustomIconbutton
           //  onClick={() => setOpen((prev) => !prev)}
           className={open && "border-white/40 bg-white/20 cursor-pointer"}

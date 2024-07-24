@@ -16,6 +16,7 @@ export default function index() {
     totalFavCampaigns,
     totalImages,
     totalPublicImages,
+    totalPublicCampaigns,
   } = useUserStore();
   const { activeStep } = useStepperStore();
 
@@ -36,6 +37,7 @@ export default function index() {
   const createCampaign = pathname.includes("/campaign/create");
   const myImages = pathname.includes("/my-account/gallery");
   const publicGallery = pathname.includes("/discover/gallery");
+  const publicCampaigns = pathname.includes("/campaign/public");
 
   if (noHeading) return null;
 
@@ -43,7 +45,7 @@ export default function index() {
     if (signUp) {
       return (
         <div className=' flex-col gap-2 flex'>
-          <h1 className='headline-3 '>Create account</h1>
+          <h1 className='headline-3 '>Sign up</h1>
           <span className='text-gray2 running-text-small '>
             Already have an account?{" "}
             <Link className='text-white' href={"/auth/sign-in"}>
@@ -160,6 +162,17 @@ export default function index() {
           {totalPublicImages && !showMenu && (
             <span className='text-gray2 ms-3  font-roboto-mono transform translate-up text-[17px]  translate-y-[-15px]'>
               ({totalPublicImages})
+            </span>
+          )}
+        </span>
+      );
+    } else if (publicCampaigns) {
+      return (
+        <span className='headline-3  '>
+          Public Games
+          {totalPublicCampaigns && !showMenu && (
+            <span className='text-gray2 ms-3  font-roboto-mono transform translate-up text-[17px]  translate-y-[-15px]'>
+              ({totalPublicCampaigns})
             </span>
           )}
         </span>

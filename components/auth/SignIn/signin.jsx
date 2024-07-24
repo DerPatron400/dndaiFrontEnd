@@ -45,7 +45,7 @@ export default function SignIn() {
   };
   return (
     <div
-      className='text-white w-[345px] h-auto mt-10 flex flex-col justify-between items-start gap-6 z-[9]'
+      className='text-white w-[345px] md:h-auto mt-10 flex flex-col justify-between items-start gap-6 z-[9]'
       suppressHydrationWarning
     >
       <div className='md:flex flex-col gap-4 hidden '>

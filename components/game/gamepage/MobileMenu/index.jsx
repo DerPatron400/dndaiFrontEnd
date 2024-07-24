@@ -70,7 +70,7 @@ export default function index({
           </CustomIconbutton>
         </div>
         <div className='flex items-center gap-5'>
-          <div className='flex items-center gap-1'>
+          <div className='flex running-text-mono items-center gap-1'>
             {" "}
             <img
               src='/gems/Mythic.webp'

@@ -22,6 +22,19 @@ export const register = async (user) => {
   }
 };
 
+export const resendVerificationLink = async (email) => {
+  try {
+    const response = await api.post("/auth/resend-verification-link", {
+      email,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error.response.data.message);
+    throw error;
+  }
+};
+
 export const requestPasswordReset = async (email, redirectURL) => {
   try {
     const response = await api.post("/auth/request-password-reset", {

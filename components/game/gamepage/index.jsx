@@ -101,14 +101,14 @@ export default function index({
           className='w-full h-52 lg:h-full lg:object-contain'
         />
       </div>
-      <div className='     w-full flex gap-10  px-6 lg:px-12  pb-5 lg:pb-12  h-full md:h-screen z-[8] text-white fixed top-0 left-0'>
+      <div className='     w-full flex gap-10  px-6 lg:px-12  pb-8 lg:pb-12  h-full md:h-screen z-[8] text-white fixed top-0 left-0'>
         <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
           <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
           <Card character={gameCharacter} />
         </div>
         <div className='w-full lg:w-3/4  z-10 h-full pt-[40px] lg:pt-[128px]'>
-          <div className=' flex relative  flex-col  h-full gap-3 w-full'>
+          <div className=' flex relative  flex-col  h-full gap-3 w-full '>
             <Chatbox
               textSize={textSize}
               loading={loading}
@@ -117,7 +117,8 @@ export default function index({
               setImageViewDialog={setImageViewDialog}
               moveChatUp={moveChatUp}
             />
-            <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 '>
+
+            <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 py-5 lg:relative lg:w-full '>
               <CustomInputIcon
                 value={input}
                 disabled={loading}

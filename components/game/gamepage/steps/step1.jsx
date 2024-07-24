@@ -92,11 +92,15 @@ export default function StepDialog({
           </div>
           <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]'>
             {IMAGE_TYPES.map((type, i) => (
-              <div onClick={() => setImageType(type.type)} key={i}>
+              <div
+                onClick={() => setImageType(type.type)}
+                key={i}
+                className='flex flex-col gap-3'
+              >
                 <img
                   src={type.image}
                   className={cn(
-                    "w-full  cursor-pointer  md:w-[223px] ease-animate object-contain rounded-[10px] ",
+                    " cursor-pointer w-[224px] h-[224px] ease-animate object-cover rounded-[16px] ",
                     type.type === imageType &&
                       "border border-irisPurpleLight shadow-custom-1"
                   )}
@@ -134,7 +138,7 @@ export default function StepDialog({
                   alt='avatar'
                   style={{ aspectRatio: "1/1" }}
                   className={cn(
-                    " cursor-pointer ease-animate rounded-[16px]",
+                    " cursor-pointer ease-animate rounded-[16px] w-[224px] h-[224px] ease-animate object-cover",
                     style === avatar &&
                       "border border-irisPurpleLight shadow-custom-1"
                   )}

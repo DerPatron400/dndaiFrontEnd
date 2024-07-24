@@ -235,3 +235,13 @@ export const searchCampaigns = async (query) => {
     throw error;
   }
 };
+
+export const getPublicCampaigns = async (page) => {
+  try {
+    const response = await api.get(`/campaign/public?page=${page}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};

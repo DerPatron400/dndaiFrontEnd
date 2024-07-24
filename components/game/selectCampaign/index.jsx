@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Row from "./row";
+import Row from "@/components/ui/Shared/DiscoverRow";
 import Star from "@/components/ui/Icons/Star";
 import World from "@/components/ui/Icons/World";
 import CustomButton from "@/components/ui/custom-button";
@@ -77,6 +77,7 @@ export default function index({ popular, mostLiked }) {
           text={"Public games"}
           campaigns={popular}
           icon={<World className='h-5 w-5 fill-gray2' />}
+          showMore={true}
         />
       </div>
       <GeneralGameTabbar />

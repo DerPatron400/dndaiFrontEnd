@@ -79,7 +79,7 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   return (
-    <html lang='en' suppressHydrationWarning className={inter.className}>
+    <html lang='en' suppressHydrationWarning className={""}>
       <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
         <head>
           {/* Google Analytics Script */}
@@ -108,7 +108,7 @@ export default function RootLayout({ children }) {
           />
         </head>
         <body
-          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden ${inter.className}`}
+          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet `}
         >
           {!pathname.includes("components") && (
             <div>

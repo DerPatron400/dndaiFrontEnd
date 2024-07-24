@@ -26,7 +26,7 @@ export default function SoundButton() {
           <SoundOff className='h-5 w-5 fill-white' />
         )}
       </CustomIconbutton>
-      <audio loop autplay ref={audioRef} src='/audio/ambient.mp3' />
+      <audio loop autoplay ref={audioRef} src='/audio/ambient.mp3' />
     </>
   );
 }

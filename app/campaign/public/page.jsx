@@ -1,21 +1,21 @@
 "use client";
 import React, { useEffect, useState, Suspense } from "react";
-import Gallery from "@/components/gallery/index";
-import { getImages, getPublicImages } from "@/actions/user";
+import { getPublicImages } from "@/actions/user";
 import Loader from "@/components/ui/Loader";
 import useUserStore from "@/utils/userStore";
 import { useRouter } from "next/navigation";
 import useCustomToast from "@/hooks/useCustomToast";
 import { usePathname } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-const SORT_BY_OPTIONS = ["Newest to Oldest", "Oldest to Newest"];
+import PublicCampaigns from "@/components/campaigns/public";
+import { getPublicCampaigns } from "@/actions/campaigns";
 
-function GalleryContainer() {
-  const [images, setImages] = useState();
-  const { user, setTotalPublicImages } = useUserStore();
+function PublicCampaignsContainer() {
+  const [campaigns, setCampaigns] = useState();
+  const { user, setTotalPublicCampaigns } = useUserStore();
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(SORT_BY_OPTIONS[0]);
+
   const router = useRouter();
   const { invokeToast } = useCustomToast();
   const searchParams = useSearchParams();
@@ -23,38 +23,35 @@ function GalleryContainer() {
 
   const page = parseInt(searchParams.get("page")) || 1;
 
-  const handleGetImages = async () => {
+  const handleGetCampaigns = async () => {
     try {
-      const isReverse = selectedOption === SORT_BY_OPTIONS[1];
-      const response = await getPublicImages(page, isReverse);
-      setImages(response.images);
+      const response = await getPublicCampaigns(page);
+      setCampaigns(response.campaigns);
       setTotalPages(response.totalPages);
       setTotalRecords(response.totalRecords);
-      setTotalPublicImages(response.totalRecords);
+      setTotalPublicCampaigns(response.totalRecords);
     } catch (error) {
-      invokeToast(error?.response?.data || "Error fetching images", "Error");
-      setImages([]);
+      invokeToast(error?.response?.data || "Error fetching Campaigns", "Error");
+      setCampaigns([]);
       setTotalPages(1);
-      setTotalPublicImages(0);
+      setTotalPublicCampaigns(0);
       console.error("Error:", error);
     }
   };
 
   useEffect(() => {
-    handleGetImages();
-  }, [page, selectedOption]);
+    handleGetCampaigns();
+  }, [page]);
 
   if (!searchParams.get("page")) {
     router.push(pathname + "?page=1");
   }
-  if (!images) return <Loader text='Loading Images...' />;
+  if (!campaigns) return <Loader text='Loading Campaigns...' />;
+
   return (
-    <Gallery
-      images={images}
+    <PublicCampaigns
+      campaigns={campaigns}
       totalPages={totalPages}
-      selectedOption={selectedOption}
-      setSelectedOption={setSelectedOption}
-      SORT_BY_OPTIONS={SORT_BY_OPTIONS}
       totalRecords={totalRecords}
     />
   );
@@ -63,7 +60,7 @@ function GalleryContainer() {
 export default function page() {
   return (
     <Suspense>
-      <GalleryContainer />
+      <PublicCampaignsContainer />
     </Suspense>
   );
 }

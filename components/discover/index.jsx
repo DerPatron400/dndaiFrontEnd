@@ -1,5 +1,5 @@
 import React from "react";
-import Row from "./row";
+import Row from "@/components/ui/Shared/DiscoverRow";
 import Star from "@/components/ui/Icons/Star";
 import World from "@/components/ui/Icons/World";
 import MyCharacters from "@/components/character/myCharacter/characters/index";
@@ -20,6 +20,7 @@ export default function index({ characters, popular, mostLiked }) {
           text={"Public games"}
           campaigns={popular}
           icon={<World className='h-5 w-5 fill-gray2' />}
+          showMore={true}
         />
 
         <MyCharacters

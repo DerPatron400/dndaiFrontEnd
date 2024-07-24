@@ -63,11 +63,8 @@ export default function Step2({ setStep, user, setUser, reset }) {
         password: user.password,
       });
 
-      invokeToast(
-        "A verification email has been sent to your email",
-        "Success"
-      );
-      router.push("/auth/sign-in");
+    
+      router.push("/auth/sign-up/email-confirmation");
       reset();
     } catch (error) {
       invokeToast(
@@ -83,7 +80,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
   const passwordValidation = isPasswordValid(user.password);
 
   return (
-    <div className='w-full h-auto flex flex-col gap-6 pt-[94px] md:pt-0'>
+    <div className='w-full  h-full md:h-auto flex flex-col gap-6 pt-[94px] md:pt-0'>
       <div>
         <CustomInput
           placeholder='USERNAME'
@@ -96,9 +93,9 @@ export default function Step2({ setStep, user, setUser, reset }) {
             !usernameExists &&
             user.username.length > 2 && (
               <img
-                src='/Icons/Success.png'
+                src='/Icons/Success.svg'
                 alt='Success'
-                className=' h-4 w-4'
+                className=' h-5 w-5'
               />
             )
           }
@@ -117,7 +114,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
         onChange={(value) => {}}
         icon={
           user.email && (
-            <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
+            <img src='/Icons/Success.svg' alt='Success' className=' h-5 w-5' />
           )
         }
       />
@@ -127,7 +124,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
         onChange={(value) => onChange("name", value)}
         icon={
           user.name.length > 2 && (
-            <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
+            <img src='/Icons/Success.svg' alt='Success' className=' h-5 w-5' />
           )
         }
       />
@@ -137,7 +134,7 @@ export default function Step2({ setStep, user, setUser, reset }) {
         onChange={(value) => onChange("surname", value)}
         icon={
           user.surname.length > 2 && (
-            <img src='/Icons/Success.svg' alt='Success' className=' h-4 w-4' />
+            <img src='/Icons/Success.svg' alt='Success' className=' h-5 w-5' />
           )
         }
       />
