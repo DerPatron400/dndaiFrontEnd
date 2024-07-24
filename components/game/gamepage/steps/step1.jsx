@@ -9,7 +9,8 @@ import useUserStore from "@/utils/userStore";
 import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
 import useControlsStore from "@/utils/controlsStore";
-
+import Navbar from "@/components/navigation/Navbar";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
 export default function StepDialog({
   setOpen,
   setImageOpen,
@@ -23,6 +24,8 @@ export default function StepDialog({
   const { setShowCreditsDialogue } = useControlsStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const { game, setGameImage } = useGameStore();
+  const { isMobile } = useDeviceDetect();
+  console.log("isMobile", isMobile);
 
   const handleNextStep = () => {
     if (step === 1) {
@@ -79,99 +82,107 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
-      {step === 1 && (
-        <div className='flex flex-col'>
-          <div className='flex p-6 pb-5 flex-col h-fit gap-2 '>
-            <span className='running-text-mono text-irisPurpleLight'>
-              STEP 1/2
-            </span>
-            <span className='running-text-large'>
-              Choose what kind of image you want to create
-            </span>
-          </div>
-          <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]'>
-            {IMAGE_TYPES.map((type, i) => (
-              <div onClick={() => setImageType(type.type)} key={i}>
-                <img
-                  src={type.image}
-                  className={cn(
-                    "w-full  cursor-pointer  md:w-[223px] ease-animate object-contain rounded-[10px] ",
-                    type.type === imageType &&
-                      "border border-irisPurpleLight shadow-custom-1"
-                  )}
-                />
-                <span className='description uppercase'>{type.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      {step === 2 && (
-        <>
-          <div className='flex p-6 pb-5  flex-col gap-2'>
-            <span className='running-text-mono text-irisPurpleLight'>
-              STEP 2/2
-            </span>
-            <span className='running-text-large'>
-              Select an art style you want to use
-            </span>
-            {/* Add your step 2 content here */}
-          </div>
-          <div className='grid px-6 grid-cols-12 w-full gap-5 min-h-96  max-h-[80vh] md:max-h-[60vh] h-full overflow-y-scroll hide-scrollbar  pb-28 md:pb-6'>
-            {IMAGE_STYLES.map((avatar, index) => (
-              <div
-                key={index}
-                className='col-span-6 md:col-span-4 gap-3 text-white flex flex-col'
-                onClick={() => {
-                  setStyle(avatar);
-                }}
-              >
-                <img
-                  src={`https://dndai-images.s3.eu-central-1.amazonaws.com/art-styles/${avatar
-                    .toLowerCase()
-                    .replaceAll(" ", "-")}.webp`}
-                  alt='avatar'
-                  style={{ aspectRatio: "1/1" }}
-                  className={cn(
-                    " cursor-pointer ease-animate rounded-[16px]",
-                    style === avatar &&
-                      "border border-irisPurpleLight shadow-custom-1"
-                  )}
-                />
-                <span className='uppercase running-text-mono'>{avatar}</span>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+    <DialogContent className="border-none flex flex-col gap-10 h-full md:h-auto bg-transparent">
+      {isMobile && <Navbar />}
 
-      <div className='flex justify-end gap-4  p-6 md:border-t border-white/10 fixed bottom-0 right-0 w-screen md:w-full md:relative bg-blur-bottom-menu md:bg-transparent'>
-        <CustomButton disabled={loading} withIcon onClick={handleCancel}>
-          <img src='/Icons/Cancel.svg' alt='' className='w-6 h-6 opacity-70' />
-          <span className='running-text-mono text-white'>CANCEL</span>
-        </CustomButton>
-        <CustomButton
-          disabled={loading}
-          withIcon
-          variant={"primary"}
-          onClick={handleNextStep}
-        >
-          <span className='running-text-mono text-black'>
-            {step === 1 ? "NEXT STEP" : "GENERATE"}
-          </span>
-          {step === 1 ? (
+      <div className=" md:mt-0 mt-[68px] overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10">
+        {step === 1 && (
+          <div className="flex flex-col ">
+            <div className="flex p-6 pb-5 flex-col h-fit gap-2 ">
+              <span className="running-text-mono text-irisPurpleLight">
+                STEP 1/2
+              </span>
+              <span className="running-text-large">
+                Choose what kind of image you want to create
+              </span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]">
+              {IMAGE_TYPES.map((type, i) => (
+                <div onClick={() => setImageType(type.type)} key={i}>
+                  <img
+                    src={type.image}
+                    className={cn(
+                      "w-full  cursor-pointer  md:w-[223px] ease-animate object-contain rounded-[10px] ",
+                      type.type === imageType &&
+                        "border border-irisPurpleLight shadow-custom-1"
+                    )}
+                  />
+                  <span className="description uppercase">{type.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {step === 2 && (
+          <>
+            <div className="flex p-6 pb-5  flex-col gap-2">
+              <span className="running-text-mono text-irisPurpleLight">
+                STEP 2/2
+              </span>
+              <span className="running-text-large">
+                Select an art style you want to use
+              </span>
+              {/* Add your step 2 content here */}
+            </div>
+            <div className="grid px-6 grid-cols-12 w-full gap-5 min-h-96  max-h-[80vh] md:max-h-[60vh] h-full overflow-y-scroll hide-scrollbar  pb-28 md:pb-6">
+              {IMAGE_STYLES.map((avatar, index) => (
+                <div
+                  key={index}
+                  className="col-span-6 md:col-span-4 gap-3 text-white flex flex-col"
+                  onClick={() => {
+                    setStyle(avatar);
+                  }}
+                >
+                  <img
+                    src={`https://dndai-images.s3.eu-central-1.amazonaws.com/art-styles/${avatar
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}.webp`}
+                    alt="avatar"
+                    style={{ aspectRatio: "1/1" }}
+                    className={cn(
+                      " cursor-pointer ease-animate rounded-[16px]",
+                      style === avatar &&
+                        "border border-irisPurpleLight shadow-custom-1"
+                    )}
+                  />
+                  <span className="uppercase running-text-mono">{avatar}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        <div className="flex justify-end gap-4  p-6 md:border-t border-white/10 fixed bottom-0 right-0 w-screen md:w-full md:relative bg-blur-bottom-menu md:bg-transparent">
+          <CustomButton disabled={loading} withIcon onClick={handleCancel}>
             <img
-              src='/Icons/ArrowRight.svg'
-              alt=''
-              className='w-6 h-6 opacity-70'
+              src="/Icons/Cancel.svg"
+              alt=""
+              className="w-6 h-6 opacity-70"
             />
-          ) : (
-            <>
-              (<img src='/gems/Legendary.png' alt='' /> 1)
-            </>
-          )}
-        </CustomButton>
+            <span className="running-text-mono text-white">CANCEL</span>
+          </CustomButton>
+          <CustomButton
+            disabled={loading}
+            withIcon
+            variant={"primary"}
+            onClick={handleNextStep}
+          >
+            <span className="running-text-mono text-black">
+              {step === 1 ? "NEXT STEP" : "GENERATE"}
+            </span>
+            {step === 1 ? (
+              <img
+                src="/Icons/ArrowRight.svg"
+                alt=""
+                className="w-6 h-6 opacity-70"
+              />
+            ) : (
+              <>
+                (<img src="/gems/Legendary.png" alt="" /> 1)
+              </>
+            )}
+          </CustomButton>
+        </div>
       </div>
     </DialogContent>
   );
