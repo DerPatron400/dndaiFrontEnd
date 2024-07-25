@@ -67,6 +67,18 @@ export default function GuestUser({ children, action }) {
                 </span>
               }
             />
+             <Benefit
+              text={
+                <span className='flex items-center gap-1.5'>
+                  500{" "}
+                  <img
+                    src='/gems/Mythic.webp'
+                    alt=''
+                    className='h-[18px] object-contain '
+                  />
+                </span>
+              }
+            />
             <Benefit text={"Custom Character Portrait"} />
             <Benefit text={"Save your character progression"} />
           </div>
