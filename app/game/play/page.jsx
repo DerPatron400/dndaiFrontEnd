@@ -148,9 +148,5 @@ function GameHandler() {
 }
 
 export default function page() {
-  return (
-    <Suspense fallback={null}>
-      <GameHandler />
-    </Suspense>
-  );
+  return <GameHandler />;
 }

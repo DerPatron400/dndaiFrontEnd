@@ -137,7 +137,7 @@ export default function Narrate({
     }
   }, [game]);
   return (
-    <DialogContent className='bg-white/[8%] h-fit px-0 pb-0 pt-4 !rounded-[16px] text-white border border-white/10 w-[94%]  md:w-fit '>
+    <DialogContent className='bg-white/[8%] !h-auto px-0 pb-0 pt-4 !rounded-[16px] text-white border border-white/10 w-[94%]  md:w-fit '>
       <div className='flex px-6 flex-col gap-2'>
         <span className='running-text-large'>
           Enhance Your Story with Narration?

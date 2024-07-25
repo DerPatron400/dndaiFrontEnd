@@ -10,18 +10,18 @@ export default function Info({ race, handleSelectRace }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 border bg-white/10 overflow-hidden  border-white/10 rounded-[16px]  pb-5  md:max-w-[467px] h-full ",
+        "hidden md:block w-2/5 border bg-white/10 overflow-y-scroll hide-scrollbar  border-white/10 rounded-[16px]  pb-5  md:max-w-[350px] h-fit max-h-full 2xl:max-w-[467px] ",
         !race.name && "opacity-0 pointer-events-none"
       )}
     >
-      <div className='flex h-full  flex-col w-full'>
-        <div className='w-full h-1/2'>
+      <div className='flex h-fit  flex-col w-full'>
+        <div className='w-full h-auto'>
           <img
             src={` https://dndai-images.s3.eu-central-1.amazonaws.com/race/${race?.name
               .toLowerCase()
               .replace(" ", "-")}.webp`}
             alt={race?.name}
-            className=' object-cover w-full h-full '
+            className=' object-contain w-full '
           />
         </div>
 

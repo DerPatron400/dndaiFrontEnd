@@ -28,6 +28,8 @@ export default function index({ campaign, setCampaign }) {
   const [plot, setPlot] = useState("");
   const [time, setTime] = useState("");
 
+  console.log(campaign);
+
   useEffect(() => {
     const _hook = extractSection(campaign.adventure, "hook");
     const _plot = extractSection(campaign.adventure, "plot");

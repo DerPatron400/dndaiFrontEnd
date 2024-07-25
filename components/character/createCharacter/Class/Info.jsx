@@ -5,18 +5,18 @@ export default function Info({ _class }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 h-fit max-h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll pb-5 hide-scrollbar   md:max-w-[467px]",
+        "hidden md:block w-2/5 h-fit max-h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll pb-5 hide-scrollbar   md:max-w-[350px] 2xl:max-w-[467px]",
         !_class && "opacity-0 pointer-events-none"
       )}
     >
       <div className='flex h-full flex-col w-full'>
-        <div className='w-full h-[440px]'>
+        <div className='w-full h-1/2'>
           <img
             src={`https://dndai-images.s3.eu-central-1.amazonaws.com/class/${_class?.name
               ?.toLowerCase()
               .replaceAll(" ", "-")}.webp`}
             alt={_class?.name}
-            className='h-full w-full object-cover '
+            className=' w-full object-contain '
           />
         </div>
 

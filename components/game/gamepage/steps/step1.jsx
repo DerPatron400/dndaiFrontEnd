@@ -81,7 +81,7 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border  !p-0 !pt-[52px] md:pt-0 border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white lg:border  !p-0 !pt-[52px] md:pt-0 border-none lg:border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
       {isMobile && <Navbar />}
       {step === 1 && (
         <div className='flex flex-col'>
@@ -103,7 +103,7 @@ export default function StepDialog({
                 <img
                   src={type.image}
                   className={cn(
-                    " cursor-pointer w-[224px] h-[224px] ease-animate object-cover rounded-[16px] ",
+                    " cursor-pointer max-w-[224px] max-h-[224px] ease-animate object-contain rounded-[16px] ",
                     type.type === imageType &&
                       "border border-irisPurpleLight shadow-custom-1"
                   )}

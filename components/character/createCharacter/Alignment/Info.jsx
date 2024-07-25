@@ -6,12 +6,12 @@ export default function Info({ alignment }) {
   return (
     <div
       className={cn(
-        "hidden md:block w-2/5 h-fit max-h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll hide-scrollbar pb-6 md:max-w-[467px] ",
+        "hidden md:block w-2/5 h-fit max-h-full border bg-white/10 border-white/10 rounded-[16px] overflow-y-scroll hide-scrollbar pb-6 md:max-w-[350px] 2xl:max-w-[467px] ",
         !alignment && "opacity-0 pointer-events-none"
       )}
     >
       <div className='flex h-full flex-col'>
-        <div className='w-full h-[440px]'>
+        <div className='w-full h-auto'>
           <img
             src={`https://dndai-images.s3.eu-central-1.amazonaws.com/alignments/${alignment?.name
               ?.toLowerCase()
@@ -19,7 +19,7 @@ export default function Info({ alignment }) {
 
 `}
             alt={alignment}
-            className='h-full w-full object-cover '
+            className='w-full object-contain '
           />
         </div>
 

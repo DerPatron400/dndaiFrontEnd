@@ -56,10 +56,10 @@ export default function chatbox({
       }
     };
 
-    chatboxRef.current.addEventListener("scroll", handleScroll);
+    chatboxRef.current?.addEventListener("scroll", handleScroll);
 
     return () => {
-      chatboxRef.current.removeEventListener("scroll", handleScroll);
+      chatboxRef.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
