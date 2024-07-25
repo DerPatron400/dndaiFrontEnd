@@ -69,8 +69,8 @@ export default function index({
             <Settings className='h-5 w-5 fill-white' />
           </CustomIconbutton>
         </div>
-        <div className='flex items-center gap-5'>
-          <div className='flex running-text-mono items-center gap-1'>
+        <div className='flex !running-text-mono items-center gap-5'>
+          <div className='flex items-center gap-1'>
             {" "}
             <img
               src='/gems/Mythic.webp'
@@ -79,7 +79,7 @@ export default function index({
             />
             {user.blueCredits}
           </div>
-          <div className='flex items-center gap-1'>
+          <div className='flex  items-center gap-1'>
             <img
               src='/gems/Legendary.webp'
               alt=''

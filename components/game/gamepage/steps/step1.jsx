@@ -9,7 +9,8 @@ import useUserStore from "@/utils/userStore";
 import useGameStore from "@/utils/gameStore";
 import Loader from "@/components/ui/Loader";
 import useControlsStore from "@/utils/controlsStore";
-
+import Navbar from "@/components/navigation/Navbar";
+import useDeviceDetect from "@/hooks/useDeviceDetect";
 export default function StepDialog({
   setOpen,
   setImageOpen,
@@ -23,6 +24,7 @@ export default function StepDialog({
   const { setShowCreditsDialogue } = useControlsStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
   const { game, setGameImage } = useGameStore();
+  const { isMobile } = useDeviceDetect();
 
   const handleNextStep = () => {
     if (step === 1) {
@@ -79,7 +81,8 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border !p-0 border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white border  !p-0 !pt-[52px] md:pt-0 border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
+      {isMobile && <Navbar />}
       {step === 1 && (
         <div className='flex flex-col'>
           <div className='flex p-6 pb-5 flex-col h-fit gap-2 '>
@@ -90,7 +93,7 @@ export default function StepDialog({
               Choose what kind of image you want to create
             </span>
           </div>
-          <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-4  pt-0 overflow-auto hide-scrollbar h-full md:max-h-[50vh]'>
+          <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 !pb-28 md:pb-4  pt-0 overflow-y-scroll hide-scrollbar h-full max-h-[76vh] md:max-h-[50vh]'>
             {IMAGE_TYPES.map((type, i) => (
               <div
                 onClick={() => setImageType(type.type)}

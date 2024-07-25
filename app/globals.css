@@ -94,9 +94,7 @@ body {
 @layer components {
   .bg-blur {
     backdrop-filter: blur(128px);
-
     -webkit-backdrop-filter: blur(128px);
-    z-index: 1;
     background-color: rgba(209, 207, 207, 0.082);
 
   }
