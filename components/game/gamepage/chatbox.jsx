@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useGameStore from "@/utils/gameStore";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
+import ArrowRight from "@/components/ui/Icons/ArrowRight";
 
 //text sizes for chatbox
 const TEXT_SIZES = {
@@ -35,23 +36,61 @@ export default function chatbox({
 }) {
   const { setGameImage } = useGameStore();
   const chatboxRef = useRef(null);
+  const [isScrollLeft, setIsScrollLeft] = useState(false);
 
   useEffect(() => {
     //focus on last obj
     const lastObj = chatboxRef.current.querySelector(".last-obj");
-    lastObj?.scrollIntoView({ behavior: "smooth" });
+    lastObj?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [chat]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        chatboxRef.current.scrollHeight - chatboxRef.current.scrollTop ===
+        chatboxRef.current.clientHeight
+      ) {
+        setIsScrollLeft(false);
+      } else {
+        setIsScrollLeft(true);
+      }
+    };
+
+    chatboxRef.current.addEventListener("scroll", handleScroll);
+
+    return () => {
+      chatboxRef.current.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleViewImage = (url) => {
     setGameImage(url);
     setImageViewDialog(true);
   };
+
+  const scrollToBottom = () => {
+    chatboxRef.current.scrollTo({
+      top: chatboxRef.current.scrollHeight,
+      behavior: "smooth", // You can also use 'auto' for an immediate scroll
+    });
+  };
+
   return (
     <div
       ref={chatboxRef}
-      className='relative chat-box w-full lg:w-[65%] min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  pb-40 pt-12 lg:py-12 '
+      className='relative  chat-box w-full lg:w-[65%]  min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  pb-40 pt-12 lg:py-12 lg:pt-32  '
     >
-      <div className='flex flex-col justify-end mt-auto gap-8'>
+      <div className='flex relative w-full flex-col justify-end mt-auto gap-8'>
+        <CustomIconbutton
+          className={cn(
+            "fixed  left-1/2  -translate-x-1/2 lg:translate-x-[0%] bottom-44 lg:bottom-52",
+            !isScrollLeft && "opacity-0 pointer-events-none"
+          )}
+          variant={"primary"}
+          onClick={scrollToBottom}
+        >
+          <ArrowRight className='h-5 w-5 rotate-90 fill-russianViolet' />
+        </CustomIconbutton>
         {chat.map((item, index) => {
           return item.type === "image" ? (
             <div

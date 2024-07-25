@@ -107,8 +107,8 @@ export default function index({
           <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
           <Card character={gameCharacter} />
         </div>
-        <div className='w-full lg:w-3/4  z-10 h-full pt-[40px] lg:pt-[128px]'>
-          <div className=' flex relative  flex-col  h-full gap-3 w-full '>
+        <div className='w-full lg:w-3/4  z-10  h-full '>
+          <div className=' flex relative   flex-col  h-full gap-3 w-full pt-[40px] lg:pt-128px] '>
             <Chatbox
               textSize={textSize}
               loading={loading}
