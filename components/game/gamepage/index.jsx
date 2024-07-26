@@ -123,7 +123,7 @@ export default function index({
 
             <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 py-5 lg:relative lg:w-full '>
               <CustomInputIcon
-                blurOnOutsideClick={true}
+                //blurOnOutsideClick={true}
                 value={input}
                 disabled={loading}
                 onChange={(e) => setInput(e)}
