@@ -81,7 +81,7 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white lg:border  !p-0 !pt-[52px] md:pt-0 border-none lg:border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white lg:border  !p-0 !pt-[52px] md:!pt-0 border-none lg:border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
       {isMobile && <Navbar />}
       {step === 1 && (
         <div className='flex flex-col'>
@@ -93,7 +93,7 @@ export default function StepDialog({
               Choose what kind of image you want to create
             </span>
           </div>
-          <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 !pb-28 md:pb-4  pt-0 overflow-y-scroll hide-scrollbar h-full max-h-[76vh] md:max-h-[50vh]'>
+          <div className='grid grid-cols-2 md:grid-cols-3 gap-4  content-start items-start justify-start  p-6 pb-28 md:pb-4  pt-0 overflow-y-scroll hide-scrollbar h-full max-h-[76vh] md:max-h-[50vh]'>
             {IMAGE_TYPES.map((type, i) => (
               <div
                 onClick={() => setImageType(type.type)}
@@ -102,8 +102,9 @@ export default function StepDialog({
               >
                 <img
                   src={type.image}
+                  style={{ aspectRatio: "1/1" }}
                   className={cn(
-                    " cursor-pointer max-w-[224px] max-h-[224px] ease-animate object-contain rounded-[16px] ",
+                    " cursor-pointer  w-[224px] h-[224px]  ease-animate object-cover rounded-[16px] ",
                     type.type === imageType &&
                       "border border-irisPurpleLight shadow-custom-1"
                   )}

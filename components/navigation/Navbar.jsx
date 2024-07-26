@@ -305,11 +305,10 @@ export default function Navbar({ variant, characterSheet }) {
               )}
             </span>
             {isGamePage && <CreditsDisplay />}
-            <CreateMenu />
+            {user?.token && <CreateMenu />}
             <AccountDropdown />
-            {variant === "transparent" ? (
-              <SoundButton />
-            ) : characterSheet || isCampaignSubpage ? (
+            {(variant === "transparent" || !user?.token) && <SoundButton />}
+            {characterSheet || isCampaignSubpage ? (
               <CustomButton
                 variant={"primary"}
                 disabled={isLoading}

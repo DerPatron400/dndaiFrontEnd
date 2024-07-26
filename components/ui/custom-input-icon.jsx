@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
 import CustomButton from "./custom-button";
@@ -16,9 +16,42 @@ export default function CustomInputIcon({
   onClick,
   disabled,
   textAreaClassName,
+  blurOnOutsideClick,
 }) {
   const [inFocus, setInFocus] = useState(false);
 
+  const textAreaRef = useRef(null);
+
+  const handleOutsideClick = (e) => {
+    if (
+      blurOnOutsideClick &&
+      textAreaRef.current &&
+      !textAreaRef.current.contains(e.target)
+    ) {
+      setInFocus(false);
+      textAreaRef.current.blur();
+    }
+  };
+
+  const hideKeyboard = () => {
+    if (blurOnOutsideClick && inFocus) {
+      setInFocus(false);
+      textAreaRef.current.blur();
+    }
+  };
+
+  useEffect(() => {
+    if (blurOnOutsideClick) {
+      window.addEventListener("click", handleOutsideClick);
+      window.addEventListener("touchstart", handleOutsideClick);
+    }
+    return () => {
+      if (blurOnOutsideClick) {
+        window.removeEventListener("click", handleOutsideClick);
+        window.removeEventListener("touchstart", handleOutsideClick);
+      }
+    };
+  }, [blurOnOutsideClick, textAreaRef.current]);
   return (
     <div
       className={cn(
@@ -51,6 +84,8 @@ export default function CustomInputIcon({
       <textarea
         type='text'
         id={placeholder}
+        onClick={hideKeyboard}
+        onTouchStart={hideKeyboard}
         // on enter
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -60,13 +95,18 @@ export default function CustomInputIcon({
         disabled={disabled}
         value={value}
         className={cn(
-          "block w-full h-[80px]  overflow-y-hidden py-[28px]  resize-none  peer/input ps-5 pe-[70px] box-border    running-text  placeholder:opacity-100 text-white border border-gray2 rounded-[10px] bg-transparent hover:border-white cursor-pointer duration-300 transition-all focus:outline-0 focus:ring-offset-0 focus:ring-inset-irisPurpleLight focus:!ring-irisPurpleLight focus:!border-irisPurpleLight bod  placeholder:text-gray2  focus:shadow-text-area focus:outline-none  ",
+          "block w-full h-[80px] input-field overflow-y-hidden py-[28px]  resize-none  peer/input ps-5 pe-[70px] box-border    running-text  placeholder:opacity-100 text-white border border-gray2 rounded-[10px] bg-transparent hover:border-white cursor-pointer duration-300 transition-all focus:outline-0 focus:ring-offset-0 focus:ring-inset-irisPurpleLight focus:!ring-irisPurpleLight focus:!border-irisPurpleLight bod  placeholder:text-gray2  focus:shadow-text-area focus:outline-none  ",
           isComment && "h-16 !py-5",
           textAreaClassName
         )}
+        ref={textAreaRef}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        onFocus={() => setInFocus(true)}
+        onFocus={() => {
+          setTimeout(() => {
+            setInFocus(true);
+          }, 300);
+        }}
         onBlur={() => setInFocus(false)}
       />
     </div>

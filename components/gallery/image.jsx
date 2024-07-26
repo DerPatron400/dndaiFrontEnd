@@ -15,20 +15,20 @@ export default function Image({ setOpen, image }) {
   };
 
   return (
-    <DialogContent className=' text-white bg-transparent border-none p-5 md:p-0'>
+    <DialogContent className=' text-white bg-transparent border-none p-5 md:p-0 !shadow-none !gap-6'>
       <>
         <div className='grid relative grid-cols-1 gap-4  '>
           <CustomIconbutton
             onClick={() => {
               setOpen(false);
             }}
-            className={"absolute top-4 right-4 bg-blur-icon-button"}
+            className={"absolute top-4 right-4 bg-blur-icon-button md:hidden"}
           >
             <img src='/Icons/Cancel.svg' alt='' className='h-5 w-5 ' />
           </CustomIconbutton>
           <img
             src={image}
-            className='w-full md:h-[500px] md:w-full ease-animate object-cover rounded-[10px] '
+            className=' ease-animate object-contain rounded-[16px] '
           />
         </div>
       </>

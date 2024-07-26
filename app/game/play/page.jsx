@@ -72,7 +72,7 @@ function GameHandler() {
     console.log("currentCampaign", currentCampaign);
     console.log("currentCharacter", currentCharacter);
     try {
-      const { game, character } = await initiateGame(
+      const { game, character, campaign } = await initiateGame(
         {
           campaignId: currentCampaign._id,
           characterId: currentCharacter._id,
@@ -84,7 +84,7 @@ function GameHandler() {
 
       setGame(game);
       setCurrentCharacter(null);
-      setCurrentCampaign(null);
+      setCurrentCampaign(campaign);
       setGameCharacter(character);
 
       //push to the game page with the game id
