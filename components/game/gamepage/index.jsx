@@ -103,7 +103,7 @@ export default function index({
       </div>
       <div
         suppressHydrationWarning
-        className='     w-full flex gap-10  px-6 lg:px-12  pb-8 lg:pb-12 h-screen relative z-[8] text-white '
+        className='     w-full flex gap-10  px-6 lg:px-12  pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white '
       >
         <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
@@ -123,6 +123,7 @@ export default function index({
 
             <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 py-5 lg:relative lg:w-full '>
               <CustomInputIcon
+                blurOnOutsideClick={true}
                 value={input}
                 disabled={loading}
                 onChange={(e) => setInput(e)}

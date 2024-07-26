@@ -31,12 +31,12 @@ export default function index({ campaign, setCampaign }) {
   console.log(campaign);
 
   useEffect(() => {
-    const _hook = extractSection(campaign.adventure, "hook");
-    const _plot = extractSection(campaign.adventure, "plot");
-    const _time = extractSection(campaign.adventure, "time");
-    setHook(_hook || campaign.hook);
-    setPlot(_plot || campaign.plot);
-    setTime(_time || campaign.time);
+    // const _hook = extractSection(campaign.adventure, "hook");
+    // const _plot = extractSection(campaign.adventure, "plot");
+    // const _time = extractSection(campaign.adventure, "time");
+    // setHook(_hook || campaign.hook);
+    // setPlot(_plot || campaign.plot);
+    // setTime(_time || campaign.time);
   }, [campaign]);
   return (
     <div className='min-h-screen h-full w-full flex flex-col border  pt-[86px] md:pt-[128px]  lg:px-12 md:pb-20 '>
@@ -88,9 +88,9 @@ export default function index({ campaign, setCampaign }) {
               {activeTab === "details" && (
                 <Details
                   details={{
-                    time,
-                    plot,
-                    hook,
+                    time: campaign?.adventure?.time,
+                    plot: campaign?.adventure?.plot,
+                    hook: campaign?.adventure?.hook,
                   }}
                   setting={campaign?.setting}
                 />

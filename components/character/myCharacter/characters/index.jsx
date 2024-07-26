@@ -5,6 +5,7 @@ import CustomButton from "@/components/ui/custom-button";
 import AddUser from "@/components/ui/Icons/AddUser";
 import CharacterTabBar from "@/components/ui/Shared/TabBar/general";
 import { useRouter } from "next/navigation";
+import Character from "@/components/ui/Shared/Placeholder/character";
 export default function characters({ characters = [], className }) {
   const router = useRouter();
 
@@ -14,7 +15,7 @@ export default function characters({ characters = [], className }) {
   return (
     <div
       className={cn(
-        "h-full min-h-screen w-screen px-5 md:px-[48px] py-[120px] md:py-[128px] ",
+        "h-full min-h-screen w-screen px-5 md:px-[48px] pt-[120px] md:pt-[128px] pb-5 ",
         className
       )}
     >
@@ -42,9 +43,7 @@ export default function characters({ characters = [], className }) {
           ))}
 
           {characters.length <= 0 && (
-            <span className='text-gray2 headline-4 h-96 flex items-center justify-center col-span-12 text-center'>
-              You have no characters yet
-            </span>
+            <Character className={" h-[50vh] col-span-12  w-full relative"} />
           )}
         </div>
         <CharacterTabBar />

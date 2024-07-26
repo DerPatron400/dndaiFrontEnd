@@ -36,13 +36,6 @@ export default function card({
     setCurrentCharacter,
     characterSelectTime,
   } = useGameStore();
-  const [plot, setPlot] = useState();
-
-  useEffect(() => {
-    const _plot = extractSection(campaign.adventure, "plot");
-
-    setPlot(_plot || campaign.plot);
-  }, []);
 
   const handleRedirect = (event) => {
     const classNames =
@@ -205,7 +198,7 @@ export default function card({
               {campaign?.title}
             </span>
             <span className='h-16 overflow-hidden text-gray2  running-text-small break-words whitespace-pre-line ellipsis'>
-              {plot}
+              {campaign?.adventure?.plot}
             </span>
           </div>
           <div
