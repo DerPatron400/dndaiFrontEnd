@@ -4,6 +4,15 @@ import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
 import CustomButton from "./custom-button";
 
+const isSafariMobile = () => {
+  const ua = navigator.userAgent;
+  return (
+    /Safari/.test(ua) &&
+    /Apple Computer/.test(navigator.vendor) &&
+    (/iPhone/.test(ua) || /iPad/.test(ua) || /iPod/.test(ua))
+  );
+};
+
 export default function CustomInputIcon({
   placeholder,
   icon,
@@ -41,6 +50,7 @@ export default function CustomInputIcon({
   };
 
   useEffect(() => {
+    if (!isSafariMobile) return;
     if (blurOnOutsideClick) {
       window.addEventListener("click", handleOutsideClick);
       window.addEventListener("touchstart", handleOutsideClick);
