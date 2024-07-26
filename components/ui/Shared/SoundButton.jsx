@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Sound from "../Icons/Sound";
 import SoundOff from "../Icons/SoundOff";
+
+// SoundButton component
 export default function SoundButton() {
   const [isSoundOn, setIsSoundOn] = useState(false);
   const audioRef = useRef(null);
@@ -21,12 +23,12 @@ export default function SoundButton() {
     <>
       <CustomIconbutton onClick={toggleSound}>
         {isSoundOn ? (
-          <Sound className='h-5 w-5 fill-white' />
+          <Sound className="h-5 w-5 fill-white" />
         ) : (
-          <SoundOff className='h-5 w-5 fill-white' />
+          <SoundOff className="h-5 w-5 fill-white" />
         )}
       </CustomIconbutton>
-      <audio loop autoplay ref={audioRef} src='/audio/ambient.mp3' />
+      <audio loop autoplay ref={audioRef} src="/audio/ambient.mp3" />
     </>
   );
 }
