@@ -12,7 +12,7 @@ export default function index({ characters, popular, mostLiked }) {
       </span>
       <div className='flex flex-col h-full gap-16 w-full mt-5 md:mt-9'>
         <Row
-          text={"Commuity favorties"}
+          text={"Community Favorites"}
           campaigns={mostLiked}
           icon={<Star isfilled={"true"} className='h-5 w-5 fill-gray2' />}
         />
