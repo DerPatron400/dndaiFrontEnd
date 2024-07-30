@@ -87,7 +87,7 @@ export default function index({
       {(saveCharacterLoading || isImageLoading) && (
         <Loader
           text={isImageLoading ? "Generating Image..." : "Saving Character..."}
-          className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center'
+          className="absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center"
         />
       )}
       <div
@@ -96,22 +96,22 @@ export default function index({
         }
       >
         <img
-          src='/images/Game/gradient.png'
-          alt='gradient'
-          className='w-full h-52 lg:h-full lg:object-contain'
+          src="/images/Game/gradient.png"
+          alt="gradient"
+          className="w-full h-52 lg:h-full lg:object-contain"
         />
       </div>
       <div
         suppressHydrationWarning
-        className='     w-full flex gap-10  px-6 lg:px-12  pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white '
+        className="     w-full flex gap-10  px-6 lg:px-12  pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white "
       >
-        <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
-          <span className='running-text-mono text-gray2'>CAMPAIGN</span>
-          <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
+        <div className="w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]">
+          <span className="running-text-mono text-gray2">CAMPAIGN</span>
+          <span className="headline-4 mb-3">{gameCampaign?.title}</span>
           <Card character={gameCharacter} />
         </div>
-        <div className='w-full lg:w-3/4  z-10  h-full '>
-          <div className=' flex relative   flex-col  h-full gap-3 w-full pt-[40px] '>
+        <div className="w-full lg:w-3/4  z-10  h-full ">
+          <div className=" flex relative   flex-col  h-full gap-3 w-full pt-[40px] ">
             <Chatbox
               textSize={textSize}
               loading={loading}
@@ -121,9 +121,9 @@ export default function index({
               moveChatUp={moveChatUp}
             />
 
-            <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 py-5 lg:relative lg:w-full '>
+            <div className="flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 py-5 lg:relative lg:w-full ">
               <CustomInputIcon
-                //blurOnOutsideClick={true}
+                // blurOnOutsideClick={true}
                 value={input}
                 disabled={loading}
                 onChange={(e) => setInput(e)}
@@ -149,12 +149,12 @@ export default function index({
                 textAreaClassName={
                   " h-[64px] lg:h-[80px] pt-[22px] lg:py-[28px]"
                 }
-                placeholder='What Would You Do?'
+                placeholder="What Would You Do?"
                 icon={
                   <img
-                    src='/Icons/ArrowUp.svg'
-                    alt='chat'
-                    className='h-5 w-5'
+                    src="/Icons/ArrowUp.svg"
+                    alt="chat"
+                    className="h-5 w-5"
                   />
                 }
               />
