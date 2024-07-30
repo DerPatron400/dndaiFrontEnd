@@ -43,7 +43,7 @@ export default function Home() {
           className=" w-full h-screen  relative "
           style={{
             backgroundImage: isMobile
-              ? "url(/images/Landing/Header-mobile.png)"
+              ? "url(/images/Landing/Header-mobile.webp)"
               : "url(/images/Landing/Header.webp)",
             backgroundSize: "cover",
 
