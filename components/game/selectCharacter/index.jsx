@@ -4,6 +4,7 @@ import CustomButton from "@/components/ui/custom-button";
 import useGameStore from "@/utils/gameStore";
 import { useRouter } from "next/navigation";
 import GeneralGameTabbar from "@/components/ui/Shared/TabBar/generalGame";
+import { cn } from "@/lib/utils";
 
 export default function index({ characters }) {
   const { currentCampaign } = useGameStore();
@@ -29,9 +30,19 @@ export default function index({ characters }) {
           Create character
         </CustomButton>
       </div>
-      <div className=' w-full grid  place-items-center grid-cols-12   gap-[20px]'>
+      <div
+        className={cn(
+          " w-full flex items-center  justify-center place-items-center grid-cols-12   gap-[20px]",
+          characters.length > 3 && "grid"
+        )}
+      >
         {characters.map((character, index) => (
-          <Card loadGameOnClick={true} key={index} character={character} />
+          <Card
+            loadGameOnClick={true}
+            key={index}
+            character={character}
+            className={cn(characters.length <= 3 && "md:w-1/3 lg:w-1/4")}
+          />
         ))}
       </div>
       <GeneralGameTabbar />

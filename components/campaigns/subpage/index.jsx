@@ -62,7 +62,12 @@ export default function index({ campaign, setCampaign }) {
           setCampaign={setCampaign}
           className={"hidden md:flex"}
         />
-        <div className='w-full  h-full flex flex-col-reverse md:flex-row justify-between gap-[20px]'>
+        <div className='w-full  h-full flex flex-col-reverse md:flex-row justify-between gap-8 md:gap-[20px]'>
+          <TopButtons
+            campaign={campaign}
+            setCampaign={setCampaign}
+            className={" md:hidden"}
+          />
           <div className='px-5 md:px-0 w-full md:w-1/3'>
             <TimeStamps campaign={campaign} />
           </div>

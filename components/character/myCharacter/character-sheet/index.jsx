@@ -111,7 +111,7 @@ export default function characterSheet({ character, setCharacter }) {
   return (
     <div
       ref={containerRef}
-      className='h-full min-h-screen w-screen pt-[94px] px-5 pb-64 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'
+      className='h-full min-h-screen w-screen pt-[94px] px-5 pb-32 md:pt-[120px] md:pb-[104px] md:px-12 flex flex-col gap-[24px]'
     >
       <GuestUser />
       <div className='hidden md:flex justify-start gap-[32px]'>
@@ -164,6 +164,16 @@ export default function characterSheet({ character, setCharacter }) {
           <AbilitiesInfo character={character} />
         </div>
       </div>
+      <DeleteCharacter action={handleDeleteCharacter}>
+        <CustomButton
+          withIcon={true}
+          variant='subtle'
+          className={cn("w-fit self-start md:hidden", !isCreator && "hidden")}
+        >
+          <Delete className='h-5 w-5 opacity-70 fill-errorRed' />
+          Delete
+        </CustomButton>
+      </DeleteCharacter>
       <Avatar
         open={open}
         setOpen={setOpen}

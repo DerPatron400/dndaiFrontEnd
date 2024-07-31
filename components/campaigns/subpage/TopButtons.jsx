@@ -23,7 +23,7 @@ import Loader from "@/components/ui/Loader";
 
 const TopButtons = ({ campaign, setCampaign, className }) => {
   const { user } = useUserStore();
-  const isCreator = campaign.userId === user?._id;
+  const isCreator = true; //campaign.userId === user?._id;
   const { invokeToast } = useCustomToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -177,7 +177,7 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
         className
       )}
     >
-      <div className='flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
+      <div className='hidden md:flex justify-start items-start md:items-center gap-8 w-full md:w-3/4 flex-col md:flex-row'>
         <div className='flex gap-6 md:gap-8 w-full  justify-start items-start'>
           <CustomIcontext disabled={isLoading} onClick={handleLike}>
             <Like
@@ -214,29 +214,32 @@ const TopButtons = ({ campaign, setCampaign, className }) => {
           </CustomIcontext>
         </div>
       </div>
-      <div className=' gap-2 md:gap-6 items-start md:justify-end md:items-end flex-col md:flex-row hidden md:flex'>
-        <Button
-          disabled={isLoading}
-          onClick={campaign.isPublished ? handleUnpublish : handlePublish}
-          withIcon
-          variant={"subtle"}
-          className={cn(!isCreator && "hidden")}
-        >
-          <World className='h-5 w-5 fill-white' />{" "}
-          <span>{campaign.isPublished ? "Unpublish" : "Publish"}</span>
-        </Button>
-        <DeleteCampaign action={handleDelete}>
+      <div className=' gap-6 items-start md:justify-end md:items-end flex-col-reverse md:flex-row flex px-5 md:px-0'>
+        <div className='flex items-center gap-6'>
+          {" "}
           <Button
+            disabled={isLoading}
+            onClick={campaign.isPublished ? handleUnpublish : handlePublish}
             withIcon
             variant={"subtle"}
-            className={cn(
-              "flex items-center pe-5 ps-[20px] running-text-mono gap-2 h-[48px] px-6 uppercase ",
-              !isCreator && "hidden"
-            )}
+            className={cn(!isCreator && "hidden")}
           >
-            <Delete className='h-5 w-5 fill-errorRed' /> <span>Delete</span>
+            <World className='h-5 w-5 fill-white' />{" "}
+            <span>{campaign.isPublished ? "Unpublish" : "Publish"}</span>
           </Button>
-        </DeleteCampaign>
+          <DeleteCampaign action={handleDelete}>
+            <Button
+              withIcon
+              variant={"subtle"}
+              className={cn(
+                "flex items-center pe-5 ps-[20px] running-text-mono gap-2 h-[48px] px-6 uppercase ",
+                !isCreator && "hidden"
+              )}
+            >
+              <Delete className='h-5 w-5 fill-errorRed' /> <span>Delete</span>
+            </Button>
+          </DeleteCampaign>
+        </div>
 
         <Button disabled={isLoading} onClick={downloadWorldMap} withIcon>
           <img

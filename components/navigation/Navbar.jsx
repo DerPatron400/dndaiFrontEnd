@@ -96,7 +96,7 @@ const CreditsDisplay = () => {
           alt=''
           className='h-[18px] object-contain '
         />
-        {user.blueCredits}
+        {user?.blueCredits}
       </CustomIcontext>
       <CustomIcontext className={"pointer-events-none"}>
         <img
@@ -104,7 +104,7 @@ const CreditsDisplay = () => {
           alt=''
           className='h-[18px] object-contain '
         />
-        {user.yellowCredits}
+        {user?.yellowCredits}
       </CustomIcontext>
     </>
   );
@@ -327,6 +327,7 @@ export default function Navbar({ variant, characterSheet }) {
                 disabled={isLoading}
                 onClick={handlePlay}
                 variant={"primary"}
+                className={cn(isGamePage && "hidden")}
               >
                 PLAY FOR FREE
               </CustomButton>

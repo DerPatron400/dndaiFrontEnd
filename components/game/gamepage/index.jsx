@@ -30,6 +30,7 @@ export default function index({
   const [loading, setLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [moveChatUp, setMoveChatUp] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [chat, setChat] = useState([
     {
       type: "system",
@@ -90,6 +91,7 @@ export default function index({
           className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center'
         />
       )}
+
       <div
         className={
           "absolute pointer-events-none  top-0 left-0 ease-animate  z-[9]   flex items-center justify-start   w-screen "
@@ -108,10 +110,13 @@ export default function index({
         <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
           <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
-          <Card character={gameCharacter} />
+          <Card hideMenu={true} isGamePage={true} character={gameCharacter} />
         </div>
         <div className='w-full lg:w-3/4  z-10  h-full '>
           <div className=' flex relative   flex-col  h-full gap-3 w-full pt-[40px] '>
+            {showMobileMenu && (
+              <div className='fixed z-[10] top-0 left-0 w-screen h-screen bg-russianViolet/20 '></div>
+            )}{" "}
             <Chatbox
               textSize={textSize}
               loading={loading}
@@ -120,10 +125,9 @@ export default function index({
               setImageViewDialog={setImageViewDialog}
               moveChatUp={moveChatUp}
             />
-
-            <div className='flex flex-col-reverse lg:flex-col gap-5 lg:gap-3 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 py-5 lg:relative lg:w-full '>
+            <div className='z-[20] flex flex-col-reverse lg:flex-col gap-4 lg:gap-5 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 lg:pt-2 py-5 pt-4 lg:relative lg:w-full '>
               <CustomInputIcon
-                // blurOnOutsideClick={true}
+                blurOnOutsideClick={true}
                 value={input}
                 disabled={loading}
                 onChange={(e) => setInput(e)}
@@ -168,6 +172,8 @@ export default function index({
                 loading={saveCharacterLoading}
                 setLoading={setSaveCharacterLoading}
                 narrate={narrate}
+                showMenu={showMobileMenu}
+                setShowMenu={setShowMobileMenu}
                 setNarrate={setNarrate}
                 setGameCharacter={setGameCharacter}
                 isImageLoading={isImageLoading}

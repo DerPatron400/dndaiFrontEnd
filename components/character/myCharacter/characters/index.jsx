@@ -15,7 +15,7 @@ export default function characters({ characters = [], className }) {
   return (
     <div
       className={cn(
-        "h-full min-h-screen w-screen px-5 md:px-[48px] pt-[120px] md:pt-[128px] pb-5 ",
+        "h-full min-h-screen w-screen px-5 md:px-[48px] pt-[120px] md:pt-[128px] pb-28 md:pb-5 ",
         className
       )}
     >
@@ -38,9 +38,11 @@ export default function characters({ characters = [], className }) {
           </CustomButton>
         </div>
         <div className=' w-full grid grid-cols-12 gap-[20px]'>
-          {characters.map((_, index) => (
-            <Card hideShowDetails={true} character={_} key={index} />
-          ))}
+          {characters
+            .sort((a, b) => (b?.value?.level || 1) - (a?.value?.level || 1))
+            .map((_, index) => (
+              <Card hideShowDetails={true} character={_} key={index} />
+            ))}
 
           {characters.length <= 0 && (
             <Character className={" h-[50vh] col-span-12  w-full relative"} />

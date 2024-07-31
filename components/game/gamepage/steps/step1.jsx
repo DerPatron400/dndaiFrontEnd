@@ -81,7 +81,7 @@ export default function StepDialog({
   };
 
   return (
-    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white lg:border  !p-0 !pt-[52px] md:!pt-0 border-none lg:border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
+    <DialogContent className='bg-white/[8%]  overflow-hidden !gap-0 text-white lg:border  !p-0 !pt-[52px] md:!pt-0 border-0 md:border-1 lg:border-white/10 !rounded-[16px] h-full md:h-auto bg-russianViolet md:bg-white/10'>
       {isMobile && <Navbar />}
       {step === 1 && (
         <div className='flex flex-col'>
@@ -104,7 +104,7 @@ export default function StepDialog({
                   src={type.image}
                   style={{ aspectRatio: "1/1" }}
                   className={cn(
-                    " cursor-pointer  w-[224px] h-[224px]  ease-animate object-cover rounded-[16px] ",
+                    " cursor-pointer  w-[224px] ease-animate object-cover rounded-[16px] ",
                     type.type === imageType &&
                       "border border-irisPurpleLight shadow-custom-1"
                   )}
@@ -142,7 +142,7 @@ export default function StepDialog({
                   alt='avatar'
                   style={{ aspectRatio: "1/1" }}
                   className={cn(
-                    " cursor-pointer ease-animate rounded-[16px] w-[224px] h-[224px] ease-animate object-cover",
+                    " cursor-pointer ease-animate rounded-[16px] w-[224px] ease-animate object-cover",
                     style === avatar &&
                       "border border-irisPurpleLight shadow-custom-1"
                   )}

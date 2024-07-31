@@ -38,7 +38,7 @@ export default function CreateMenu() {
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "mt-5 !bg-russianViolet !p-0  !blur-none !backdrop-blur-none !border-none ",
+          "mt-5  !p-0  !blur-none !backdrop-blur-none !border-none ",
           isGamePage && "mt-3.5"
         )}
       >

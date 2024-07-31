@@ -32,6 +32,7 @@ export default function CustomInputIcon({
   const textAreaRef = useRef(null);
 
   const handleOutsideClick = (e) => {
+    if (!isSafariMobile || window.innerWidth > 450) return;
     if (
       blurOnOutsideClick &&
       textAreaRef.current &&
@@ -43,6 +44,7 @@ export default function CustomInputIcon({
   };
 
   const hideKeyboard = () => {
+    if (!isSafariMobile || window.innerWidth > 450) return;
     if (blurOnOutsideClick && inFocus) {
       setInFocus(false);
       textAreaRef.current.blur();
@@ -50,7 +52,7 @@ export default function CustomInputIcon({
   };
 
   useEffect(() => {
-    if (!isSafariMobile) return;
+    if (!isSafariMobile || window.innerWidth > 450) return;
     if (blurOnOutsideClick) {
       window.addEventListener("click", handleOutsideClick);
       window.addEventListener("touchstart", handleOutsideClick);

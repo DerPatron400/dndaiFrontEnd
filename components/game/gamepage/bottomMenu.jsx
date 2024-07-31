@@ -35,6 +35,8 @@ export default function bottomMenu({
   isImageLoading,
   setIsImageLoading,
   gameCharacter,
+  showMenu,
+  setShowMenu,
 }) {
   const [imageDialog, setImageDialog] = useState(false);
   const [narrateDialog, setNarrateDialog] = useState(false);
@@ -103,6 +105,8 @@ export default function bottomMenu({
           narrate={narrate}
           loading={audioLoading}
           handleSaveCharacter={handleSaveCharacter}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
         />
       )}
       <div className='hidden lg:flex  justify-between items-center relative '>

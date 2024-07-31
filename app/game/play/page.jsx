@@ -84,8 +84,9 @@ function GameHandler() {
 
       setGame(game);
       setCurrentCharacter(null);
-      setCurrentCampaign(campaign);
+      setCurrentCampaign(null);
       setGameCharacter(character);
+      setGameCampaign(campaign);
 
       //push to the game page with the game id
       router.push(`${pathname}?id=${game._id}`);

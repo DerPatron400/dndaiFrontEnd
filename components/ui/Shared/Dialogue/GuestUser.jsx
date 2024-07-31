@@ -31,7 +31,7 @@ export default function GuestUser({ children, action }) {
   console.log(showGuestDialogue);
   return (
     <Dialog open={open} onOpenChange={closeModal}>
-      <DialogContent className='bg-white/[8%] gap-6 p-6 pt-4 !rounded-[16px]  text-white border border-white/10 !w-auto sm:min-w-[320px]'>
+      <DialogContent className='bg-white/[8%] gap-6 p-6 pt-4 !rounded-[16px]  text-white border border-white/10 !w-[94%] sm:min-w-[320px]'>
         <div className='flex flex-col gap-4 '>
           <span className='running-text-large'>Lets Get Started!</span>
           <CustomIconbutton
@@ -67,7 +67,7 @@ export default function GuestUser({ children, action }) {
                 </span>
               }
             />
-             <Benefit
+            <Benefit
               text={
                 <span className='flex items-center gap-1.5'>
                   500{" "}

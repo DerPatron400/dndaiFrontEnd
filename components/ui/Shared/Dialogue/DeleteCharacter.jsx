@@ -14,7 +14,7 @@ export default function DeleteCharacter({ children, action }) {
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className='bg-white/[8%] !rounded-[16px] !px-0 gap-0 text-white border border-white/10 !w-auto sm:min-w-[472px]'>
+      <DialogContent className='bg-white/[8%] !rounded-[16px] !px-0 gap-0 text-white border border-white/10 !w-[94%] sm:min-w-[472px]'>
         <div className='flex flex-col gap-[11px] p-6 pt-4'>
           <span className='running-text-large'>Delete this character?</span>
           <span className='running-text text-gray2'>
