@@ -69,7 +69,7 @@ export default function index({ popular, mostLiked }) {
         )}
 
         <Row
-          text={"Commuity favorties"}
+          text={"Community Favorites"}
           campaigns={mostLiked}
           icon={<Star isfilled={"true"} className='h-5 w-5 fill-gray2' />}
         />

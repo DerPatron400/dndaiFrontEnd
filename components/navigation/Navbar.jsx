@@ -35,14 +35,14 @@ const NavLinks = () => {
                 </Link> */}
 
       <Link
-        href='/discover/gallery'
-        className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+        href="/discover/gallery"
+        className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
       >
         GALLERY
       </Link>
       <Link
-        href='/pricing'
-        className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+        href="/pricing"
+        className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
       >
         PRICING
       </Link>
@@ -60,7 +60,7 @@ const DiscoverButton = () => {
       variant={"subtle"}
       withIcon={true}
     >
-      <Discover className='h-5 w-5 fill-white opacity-70 ' />
+      <Discover className="h-5 w-5 fill-white opacity-70 " />
       Discover
     </CustomButton>
   );
@@ -78,7 +78,7 @@ const UpgradeButton = () => {
       }
       withIcon={true}
     >
-      <Diamond className='h-5 w-5 fill-irisPurpleLight hover:!fill-irisPurpleLight/80 active:!fill-irisPurpleLight/90' />
+      <Diamond className="h-5 w-5 fill-irisPurpleLight hover:!fill-irisPurpleLight/80 active:!fill-irisPurpleLight/90" />
       Upgrade
     </CustomButton>
   );
@@ -92,23 +92,25 @@ const CreditsDisplay = () => {
       {" "}
       <CustomIcontext className={"pointer-events-none"}>
         <img
-          src='/gems/Mythic.webp'
-          alt=''
-          className='h-[18px] object-contain '
+          src="/gems/Mythic.webp"
+          alt=""
+          className="h-[18px] object-contain "
         />
         {user?.blueCredits}
       </CustomIcontext>
       <CustomIcontext className={"pointer-events-none"}>
         <img
-          src='/gems/Legendary.webp'
-          alt=''
-          className='h-[18px] object-contain '
+          src="/gems/Legendary.webp"
+          alt=""
+          className="h-[18px] object-contain "
         />
         {user?.yellowCredits}
       </CustomIcontext>
     </>
   );
 };
+
+//navbar
 export default function Navbar({ variant, characterSheet }) {
   const { isMobile } = useDeviceDetect();
   const { invokeToast } = useCustomToast();
@@ -258,19 +260,19 @@ export default function Navbar({ variant, characterSheet }) {
           }
         >
           <Link
-            href='/'
-            className='text-white hover:text-gray1 transition-all duration-300 ease-in-out'
+            href="/"
+            className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
           >
             <img
-              src='/Icons/Logo.svg'
-              alt='logo'
-              className='h-8 object-contain'
+              src="/Icons/Logo.svg"
+              alt="logo"
+              className="h-8 object-contain"
             />
           </Link>
           <Menu
             onClick={() => setShowMenu(true)}
-            className='w-10 '
-            fill='#9A9AC1'
+            className="w-10 "
+            fill="#9A9AC1"
           />
 
           <DrawerMenu
@@ -279,19 +281,19 @@ export default function Navbar({ variant, characterSheet }) {
           />
         </div>
         {/* Desktop */}
-        <div className=' w-full hidden h-full text-white  md:flex justify-between items-center'>
-          <div className='flex justify-center items-center gap-6'>
+        <div className=" w-full hidden h-full text-white  md:flex justify-between items-center">
+          <div className="flex justify-center items-center gap-6">
             <Link
-              href='/'
-              className='text-white me-2 hover:text-gray1 transition-all duration-300 ease-in-out'
+              href="/"
+              className="text-white me-2 hover:text-gray1 transition-all duration-300 ease-in-out"
             >
-              <img src='/Icons/Logo.svg' alt='logo' className='h-10' />
+              <img src="/Icons/Logo.svg" alt="logo" className="h-10" />
             </Link>
             {showNavLinks && <NavLinks />}
             {showDiscoverButton && <DiscoverButton />}
             {showUpgradeButton && <UpgradeButton />}
           </div>
-          <div className='flex justify-center items-center gap-5'>
+          <div className="flex justify-center items-center gap-5">
             <span
               className={cn(
                 "running-text-mono uppercase cursor-pointer",
@@ -319,7 +321,7 @@ export default function Navbar({ variant, characterSheet }) {
                     : handlePlayWithCharacter
                 }
               >
-                <Play className='h-5 w-5 fill-russianViolet opacity-70' />
+                <Play className="h-5 w-5 fill-russianViolet opacity-70" />
                 {isCampaignSubpage ? "Play Campaign" : "PLAY Now"}
               </CustomButton>
             ) : (

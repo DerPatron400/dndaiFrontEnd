@@ -38,7 +38,7 @@ export default function page() {
       setCampaigns(response.campaigns);
     } catch (error) {
       invokeToast(
-        error?.response?.data?.error || "Error fetching Commuity favorties",
+        error?.response?.data?.error || "Error fetching Community Favorites",
         "Error"
       );
       setCampaigns([]);

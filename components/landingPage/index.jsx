@@ -43,7 +43,7 @@ export default function Home() {
           className=" w-full h-screen  relative "
           style={{
             backgroundImage: isMobile
-              ? "url(/images/Landing/Header-mobile.png)"
+              ? "url(/images/Landing/Header-mobile.webp)"
               : "url(/images/Landing/Header.webp)",
             backgroundSize: "cover",
 
@@ -52,7 +52,7 @@ export default function Home() {
         >
           <div className="absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4  w-full">
             <span className=" headline-1 md:headline-2 text-white    w-full">
-              EXPIRIENCE GAMEPLAY WTHOUT CREATIVE BOUNDARIES, WHERE YOUR
+            EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
               IMAGINATION IS THE ONLY LIMIT.
             </span>
             <div

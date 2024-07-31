@@ -88,7 +88,7 @@ export default function index({
       {(saveCharacterLoading || isImageLoading) && (
         <Loader
           text={isImageLoading ? "Generating Image..." : "Saving Character..."}
-          className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center'
+          className="absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center"
         />
       )}
 
@@ -98,14 +98,14 @@ export default function index({
         }
       >
         <img
-          src='/images/Game/gradient.png'
-          alt='gradient'
-          className='w-full h-52 lg:h-full lg:object-contain'
+          src="/images/Game/gradient.png"
+          alt="gradient"
+          className="w-full h-52 lg:h-full lg:object-contain"
         />
       </div>
       <div
         suppressHydrationWarning
-        className='     w-full flex gap-10  px-6 lg:px-12  pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white '
+        className="     w-full flex gap-10  px-6 lg:px-12  pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white "
       >
         <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
           <span className='running-text-mono text-gray2'>CAMPAIGN</span>
@@ -153,12 +153,12 @@ export default function index({
                 textAreaClassName={
                   " h-[64px] lg:h-[80px] pt-[22px] lg:py-[28px]"
                 }
-                placeholder='What Would You Do?'
+                placeholder="What Would You Do?"
                 icon={
                   <img
-                    src='/Icons/ArrowUp.svg'
-                    alt='chat'
-                    className='h-5 w-5'
+                    src="/Icons/ArrowUp.svg"
+                    alt="chat"
+                    className="h-5 w-5"
                   />
                 }
               />
