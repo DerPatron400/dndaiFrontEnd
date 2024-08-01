@@ -176,7 +176,7 @@ export default function StepDialog({
             />
           ) : (
             <>
-              (<img src='/gems/Legendary.png' alt='' /> 1)
+              (<img src='/gems/Legendary.webp' alt='' /> 1)
             </>
           )}
         </CustomButton>

@@ -33,7 +33,7 @@ export default function saveProgress() {
             >
               SAVE
               <div className="flex  items-center gap-1">
-                (<img src="/gems/Legendary.png" className="p-0" />
+                (<img src="/gems/Legendary.webp" className="p-0" />
                 1)
               </div>
             </CustomButton>

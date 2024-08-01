@@ -71,8 +71,8 @@ export default function card({ _package, stripe }) {
             <img
               src={
                 _package.creditsType === "yellow"
-                  ? "/gems/Legendary.png"
-                  : "/gems/Mythic.png"
+                  ? "/gems/Legendary.webp"
+                  : "/gems/Mythic.webp"
               }
               alt=''
               className='w-4 h-4'
