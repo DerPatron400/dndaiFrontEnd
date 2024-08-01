@@ -1,20 +1,24 @@
-module.exports = {
-    siteUrl: 'https://www.dndai.app', // Replace with your website URL
+   /** @type {import('next-sitemap').IConfig} */
+   module.exports = {
+    siteUrl: process.env.SITE_URL || 'https://dndai.app',
     generateRobotsTxt: true, // Generate robots.txt file
-    sitemapSize: 5000, // Limit the number of URLs per sitemap file
-    changefreq: 'weekly', // Change frequency of the URLs
-    priority: 0.7, // Priority of the URLs
-    exclude: ['/api/*', '/auth/*'], // Exclude specific paths
-    robotsTxtOptions: {
-      policies: [
-        {
-          userAgent: '*',
-          allow: '/',
-          disallow: ['/api/', '/auth/'],
-        },
-      ],
-      additionalSitemaps: [
-        'https://www.dndai.app/sitemap.xml', // Additional sitemaps
-      ],
+    changefreq: 'daily',
+    priority: 0.7,
+    sitemapSize: 5000,
+    generateIndexSitemap: false,
+    exclude: [
+      '/auth/*',
+      '/payment/*'
+    ],
+    additionalPaths: async (config) => [
+      await config.transform(config, '/additional-page'),
+    ],
+    transform: async (config, path) => {
+      return {
+        loc: path, // The URL of the page
+        changefreq: config.changefreq,
+        priority: config.priority,
+        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      }
     },
-  };
+  }
