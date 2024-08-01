@@ -32,7 +32,7 @@ export default function Home() {
       <div
         data-scroll-container
         ref={scrollRef}
-        className="w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  "
+        className="w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0 !bg-russianViolet"
       >
         <div className="w-full h-screen relative">
           <Image
@@ -42,8 +42,8 @@ export default function Home() {
                 : "/images/Landing/Header.webp"
             }
             alt="Header Background"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             priority
           />
           <div className="absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4 w-full">
