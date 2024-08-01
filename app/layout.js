@@ -114,16 +114,6 @@ export default function RootLayout({ children }) {
         <body
           className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet `}
         >
-          {!pathname.includes("components") && (
-            <div>
-              <img
-                src="/images/bg.png"
-                alt="Background"
-                className="h-screen w-screen object-fill fixed top-0 left-0 z-0"
-              />
-            </div>
-          )}
-
           <Navbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}

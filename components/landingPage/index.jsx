@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-// import LocomotiveScroll from "locomotive-scroll"
 import Step from "@/components/landingPage/step";
-
 import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
 import Button from "@/components/ui/custom-button";
@@ -16,7 +14,6 @@ import PlayForFreeMobile from "@/components/ui/Shared/PlayForFreeMobile";
 import { useRouter } from "next/navigation";
 import ImagesVisual from "@/components/landingPage/imagesVisual";
 import Campaigns from "@/components/landingPage/campaignSection";
-// import LocomotiveScroll from "./LocomotiveScroll"
 
 const LocomotiveScroll = dynamic(
   () => import("@/components/landingPage/LocomotiveScroll"),
@@ -46,13 +43,12 @@ export default function Home() {
               ? "url(/images/Landing/Header-mobile.webp)"
               : "url(/images/Landing/Header.webp)",
             backgroundSize: "cover",
-
             backgroundPosition: "center",
           }}
         >
           <div className="absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4  w-full">
             <span className=" headline-1 md:headline-2 text-white    w-full">
-            EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
+              EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
               IMAGINATION IS THE ONLY LIMIT.
             </span>
             <div
