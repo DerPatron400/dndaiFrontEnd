@@ -11,6 +11,8 @@ import Loader from "@/components/ui/Loader";
 import useControlsStore from "@/utils/controlsStore";
 import Navbar from "@/components/navigation/Navbar";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
+import Image from 'next/image';
+
 export default function StepDialog({
   setOpen,
   setImageOpen,
@@ -102,9 +104,11 @@ export default function StepDialog({
                 key={i}
                 className='flex flex-col gap-3'
               >
-                <img
+                <Image
                   src={type.image}
-                  style={{ aspectRatio: "1/1" }}
+                  alt={type.name}
+                  width={224}
+                  height={224}
                   className={cn(
                     " cursor-pointer  w-[224px] ease-animate object-cover rounded-[16px] ",
                     type.type === imageType &&
@@ -137,12 +141,13 @@ export default function StepDialog({
                   setStyle(avatar);
                 }}
               >
-                <img
+                <Image
                   src={`https://dndai-images.s3.eu-central-1.amazonaws.com/art-styles/${avatar
                     .toLowerCase()
                     .replaceAll(" ", "-")}.webp`}
                   alt='avatar'
-                  style={{ aspectRatio: "1/1" }}
+                  width={224}
+                  height={224}
                   className={cn(
                     " cursor-pointer ease-animate rounded-[16px] w-[224px] ease-animate object-cover",
                     style === avatar &&
@@ -158,7 +163,7 @@ export default function StepDialog({
 
       <div className='flex justify-end gap-4  p-6 md:border-t border-white/10 fixed bottom-0 right-0 w-screen md:w-full md:relative bg-blur-bottom-menu md:bg-transparent'>
         <CustomButton disabled={loading} withIcon onClick={handleCancel}>
-          <img src='/Icons/Cancel.svg' alt='' className='w-6 h-6 opacity-70' />
+          <Image src='/Icons/Cancel.svg' alt='' width={24} height={24} className='opacity-70' />
           <span className='running-text-mono text-white'>CANCEL</span>
         </CustomButton>
         <CustomButton
@@ -171,14 +176,16 @@ export default function StepDialog({
             {step === 1 ? "NEXT STEP" : "GENERATE"}
           </span>
           {step === 1 ? (
-            <img
+            <Image
               src='/Icons/ArrowRight.svg'
               alt=''
-              className='w-6 h-6 opacity-70'
+              width={24}
+              height={24}
+              className='opacity-70'
             />
           ) : (
             <>
-              (<img src='/gems/Legendary.webp' alt='' /> 1)
+              (<Image src='/gems/Legendary.webp' alt='' width={24} height={24} /> 1)
             </>
           )}
         </CustomButton>
