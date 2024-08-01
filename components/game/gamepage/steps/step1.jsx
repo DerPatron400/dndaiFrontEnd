@@ -23,7 +23,7 @@ export default function StepDialog({
   const [imageType, setImageType] = useState(IMAGE_TYPES[0].type);
   const { setShowCreditsDialogue } = useControlsStore();
   const { user, setBlueCredits, setYellowCredits } = useUserStore();
-  const { game, setGameImage } = useGameStore();
+  const { character, game, setGameImage } = useGameStore();
   const { isMobile } = useDeviceDetect();
 
   const handleNextStep = () => {
@@ -45,6 +45,7 @@ export default function StepDialog({
   };
 
   const handleGenerateGameImage = async () => {
+
     if (user.yellowCredits < 1) {
       setShowCreditsDialogue(true);
     }
@@ -55,6 +56,7 @@ export default function StepDialog({
         type: imageType,
         artStyle: style,
         prompt: game.state,
+        character: game.characterId
       };
       const { imageUrl, credits } = await generateGameImage(
         payload,
