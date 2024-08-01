@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+
+# Host
+Host: https://www.dndai.app
+
+# Sitemaps
+Sitemap: https://www.dndai.app/sitemap.xml
