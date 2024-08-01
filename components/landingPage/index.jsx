@@ -4,16 +4,14 @@ import { ParallaxProvider } from "react-scroll-parallax";
 import Step from "@/components/landingPage/step";
 import ImageParallax from "@/components/landingPage/ImageParallax";
 import useDeviceDetect from "@/hooks/useDeviceDetect";
-import Button from "@/components/ui/custom-button";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
-import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import useControlsStore from "@/utils/controlsStore";
 import SoundButton from "@/components/ui/Shared/SoundButton";
 import PlayForFreeMobile from "@/components/ui/Shared/PlayForFreeMobile";
-import { useRouter } from "next/navigation";
 import ImagesVisual from "@/components/landingPage/imagesVisual";
 import Campaigns from "@/components/landingPage/campaignSection";
+import Image from "next/image";
 
 const LocomotiveScroll = dynamic(
   () => import("@/components/landingPage/LocomotiveScroll"),
@@ -36,18 +34,20 @@ export default function Home() {
         ref={scrollRef}
         className="w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0  !bg-russianViolet  "
       >
-        <div
-          className=" w-full h-screen  relative "
-          style={{
-            backgroundImage: isMobile
-              ? "url(/images/Landing/Header-mobile.webp)"
-              : "url(/images/Landing/Header.webp)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4  w-full">
-            <span className=" headline-1 md:headline-2 text-white    w-full">
+        <div className="w-full h-screen relative">
+          <Image
+            src={
+              isMobile
+                ? "/images/Landing/Header-mobile.webp"
+                : "/images/Landing/Header.webp"
+            }
+            alt="Header Background"
+            layout="fill"
+            objectFit="cover"
+            priority
+          />
+          <div className="absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4 w-full">
+            <span className="headline-1 md:headline-2 text-white w-full">
               EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
               IMAGINATION IS THE ONLY LIMIT.
             </span>
@@ -68,7 +68,7 @@ export default function Home() {
           </div>
         </ParallaxProvider>
 
-        <div className="h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-5 md:px-12  ">
+        <div className="h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-5 md:px-12">
           <Step
             number={1}
             title={"CRAFT YOUR OWN CHARACTER"}
