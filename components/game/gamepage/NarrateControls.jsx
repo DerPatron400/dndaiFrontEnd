@@ -18,7 +18,6 @@ export default function NarrationControls({
   const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-
   const handleTimeUpdate = () => {
     if (!isDragging) {
       const current = audioRef.current.currentTime;
@@ -39,14 +38,29 @@ export default function NarrationControls({
     setProgress(percent);
   };
 
+  const handleTouchProgressBarClick = (e) => {
+    const rect = progressBarRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const offsetX = touch.clientX - rect.left;
+    const totalWidth = rect.width;
+    let percent = (offsetX / totalWidth) * 100;
+    percent = Math.min(100, Math.max(0, percent)); // Clamp between 0 and 100
+    const newTime = (audioRef.current.duration / 100) * percent;
+    audioRef.current.currentTime = newTime;
+    setProgress(percent);
+  };
+
   const handleMouseDown = () => {
     setIsDragging(true);
   };
 
-  const reset = () => {
-    //reset progress
-    setProgress(0);
+  const handleTouchStart = () => {
+    setIsDragging(true);
+  };
 
+  const reset = () => {
+    // Reset progress
+    setProgress(0);
     setIsPlaying(true);
   };
 
@@ -67,7 +81,25 @@ export default function NarrationControls({
     }
   };
 
+  const handleTouchMove = (e) => {
+    if (isDragging) {
+      const rect = progressBarRef.current.getBoundingClientRect();
+      const touch = e.touches[0];
+      const offsetX = touch.clientX - rect.left;
+      const totalWidth = rect.width;
+      let percent = (offsetX / totalWidth) * 100;
+      percent = Math.min(100, Math.max(0, percent)); // Clamp between 0 and 100
+      const newTime = (audioRef.current.duration / 100) * percent;
+      audioRef.current.currentTime = newTime;
+      setProgress(percent);
+    }
+  };
+
   const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchEnd = () => {
     setIsDragging(false);
   };
 
@@ -92,9 +124,13 @@ export default function NarrationControls({
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("touchmove", handleTouchMove);
+    document.addEventListener("touchend", handleTouchEnd);
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
   }, [isDragging]);
   return (
@@ -160,6 +196,8 @@ export default function NarrationControls({
             className='custom-progress-bar flex-grow flex-1 h-[1px] bg-gray-300 rounded relative cursor-pointer'
             ref={progressBarRef}
             onClick={handleProgressBarClick}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             <div
               className='bg-gray2 h-full rounded'
@@ -169,6 +207,7 @@ export default function NarrationControls({
               className='custom-progress-handle w-4 h-4 border  bg-[#2C2C3F] rounded-full absolute top-1/2 transform -translate-y-1/2 cursor-pointer'
               style={{ left: `${progress}%` }}
               onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
             ></div>
           </div>
         </div>

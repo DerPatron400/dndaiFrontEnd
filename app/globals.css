@@ -112,6 +112,10 @@ body {
     background-color: rgba(10, 10, 33, 0.6);
   }
 
+  .text-area-shadow {
+    box-shadow: 0px 0px 30px -7px #8F91FF1A;
+  }
+
   /* Headline 1 */
   .headline-1 {
     @apply font-helvetica-now-display font-medium uppercase text-[34px] leading-[32px] md:text-[100px] md:leading-[88px] !tracking-[0.03em] 2xl:text-[120px] 2xl:leading-[100px];
@@ -288,11 +292,21 @@ body {
 }
 
 /* hide scroll */
+.hide-scrollbar {
+  -webkit-overflow-scrolling: touch;
+}
 
 /* width */
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;
+  -webkit-appearance: none;
+  display: none;
+
+  height: 0;
+
 }
+
+
 
 /* Track */
 .hide-scrollbar::-webkit-scrollbar-track {

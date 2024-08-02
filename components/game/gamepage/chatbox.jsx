@@ -32,7 +32,7 @@ export default function chatbox({
   loading,
   textSize,
   setImageViewDialog,
-  moveChatUp,
+  narrate,
 }) {
   const { setGameImage } = useGameStore();
   const chatboxRef = useRef(null);
@@ -78,13 +78,17 @@ export default function chatbox({
   return (
     <div
       ref={chatboxRef}
-      className='relative  chat-box w-full lg:w-[65%]  min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  pb-40 pt-12 lg:py-12 lg:pt-32  '
+      className={cn(
+        "relative  chat-box w-full lg:w-[65%]  min-h-1/2 flex-1  overflow-y-scroll hide-scrollbar  flex flex-col  pb-40 pt-12 lg:py-12 lg:pt-32  ",
+        narrate && "pb-48"
+      )}
     >
       <div className='flex relative w-full flex-col justify-end mt-auto gap-8'>
         <CustomIconbutton
           className={cn(
             "fixed  left-1/2  -translate-x-1/2 lg:translate-x-[0%] bottom-44 lg:bottom-52",
-            !isScrollLeft && "opacity-0 pointer-events-none"
+            !isScrollLeft && "opacity-0 pointer-events-none",
+            narrate && "bottom-60"
           )}
           variant={"primary"}
           onClick={scrollToBottom}

@@ -43,7 +43,7 @@ export default function CustomDropdown({
         }}
         disabled={true}
         type='text'
-        className='outline-none cursor-pointer pointer-events-none h-full text-[14px] px-3 pt-0.5 peer bg-transparent text-white uppercase  '
+        className='outline-none cursor-pointer pointer-events-none h-full text-[14px] px-3 pt-0.5 peer bg-transparent disabled:opacity-100 !text-white uppercase placeholder:!text-white  '
         placeholder=' '
         value={selectedOption}
         autoFocus={false}

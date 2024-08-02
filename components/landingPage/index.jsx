@@ -32,22 +32,23 @@ export default function Home() {
       <div
         data-scroll-container
         ref={scrollRef}
-        className="w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0 !bg-russianViolet"
+        className='w-full  h-full  overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0 !bg-russianViolet'
       >
-        <div className="w-full h-screen relative">
+        <div className='w-full h-screen relative'>
           <Image
             src={
               isMobile
                 ? "/images/Landing/Header-mobile.webp"
                 : "/images/Landing/Header.webp"
             }
-            alt="Header Background"
+            alt='Header Background'
+            className='absolute top-0 left-0'
             fill
             style={{ objectFit: "cover" }}
             priority
           />
-          <div className="absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4 w-full">
-            <span className="headline-1 md:headline-2 text-white w-full">
+          <div className='absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4 w-full'>
+            <span className='headline-1 md:headline-2 text-white w-full'>
               EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
               IMAGINATION IS THE ONLY LIMIT.
             </span>
@@ -63,12 +64,12 @@ export default function Home() {
           </div>
         </div>
         <ParallaxProvider>
-          <div className="w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet">
+          <div className='w-screen md:h-[200vh] py-10 h-full flex flex-col justify-center items-center bg-russianViolet'>
             <ImageParallax />
           </div>
         </ParallaxProvider>
 
-        <div className="h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-5 md:px-12">
+        <div className='h-full flex flex-col justify-center items-center bg-transparent md:py-32 px-5 md:px-12'>
           <Step
             number={1}
             title={"CRAFT YOUR OWN CHARACTER"}
@@ -102,7 +103,7 @@ export default function Home() {
         </div>
 
         <ImagesVisual />
-        <div className="w-s h-full flex flex-col justify-center items-center bg-transparent">
+        <div className='w-s h-full flex flex-col justify-center items-center bg-transparent'>
           <Campaigns />
         </div>
       </div>

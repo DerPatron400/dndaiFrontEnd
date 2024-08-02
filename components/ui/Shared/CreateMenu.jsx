@@ -37,10 +37,7 @@ export default function CreateMenu() {
         </CustomIconbutton>
       </PopoverTrigger>
       <PopoverContent
-        className={cn(
-          "mt-5  !p-0  !blur-none !backdrop-blur-none !border-none ",
-          isGamePage && "mt-3.5"
-        )}
+        className={cn("mt-5  !p-0   !border-none ", isGamePage && "mt-3.5")}
       >
         <div className='bg-white/10 p-5 py-2 running-text-mono uppercase flex flex-col gap-2  px-2 border border-white/10 rounded-[16px]'>
           <CustomMenuItem
