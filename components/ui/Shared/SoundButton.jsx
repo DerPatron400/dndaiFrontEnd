@@ -4,7 +4,6 @@ import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import Sound from "../Icons/Sound";
 import SoundOff from "../Icons/SoundOff";
 
-// This component is a button that toggles the background music on and off
 export default function SoundButton() {
   const [isSoundOn, setIsSoundOn] = useState(false);
   const audioRef = useRef(null);
