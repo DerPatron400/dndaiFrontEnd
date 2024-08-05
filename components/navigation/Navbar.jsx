@@ -314,6 +314,7 @@ export default function Navbar({ variant, characterSheet }) {
             {(variant === "transparent" || !user?.token) && <SoundButton aria-label="Sound Button" />}
             {characterSheet || isCampaignSubpage ? (
               <CustomButton
+              
                 variant={"primary"}
                 disabled={isLoading}
                 withIcon={true}
