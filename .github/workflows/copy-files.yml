@@ -26,11 +26,7 @@ jobs:
       - name: Copy files to EC2
         run: |
           ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
-            if [ -d ~/dndaiFrontEnd-Backup ]; then
-              rm -rf ~/dndaiFrontEnd-Backup/*
-            fi
             if [ -d ~/dndaiFrontEnd ]; then
-              cp -r ~/dndaiFrontEnd/* ~/dndaiFrontEnd-Backup
               rm -rf ~/dndaiFrontEnd/*
             fi
           EOF
