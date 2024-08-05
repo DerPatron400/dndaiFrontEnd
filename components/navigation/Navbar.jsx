@@ -26,22 +26,26 @@ import Discover from "@/components/ui/Icons/Discover";
 
 const NavLinks = () => {
   return (
-    <>
-      <Link
-        href="/discover/gallery"
-        className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
-        aria-label="Gallery"
-      >
-        GALLERY
-      </Link>
-      <Link
-        href="/pricing"
-        className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
-        aria-label="Pricing"
-      >
-        PRICING
-      </Link>
-    </>
+    <ul className="flex gap-4">
+      <li>
+        <Link
+          href="/discover/gallery"
+          className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
+          aria-label="Gallery"
+        >
+          GALLERY
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/pricing"
+          className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
+          aria-label="Pricing"
+        >
+          PRICING
+        </Link>
+      </li>
+    </ul>
   );
 };
 
@@ -231,7 +235,7 @@ export default function Navbar({ variant, characterSheet }) {
   };
 
   return (
-    <div
+    <nav
       suppressHydrationWarning
       className={cn(
         "px-5 md:px-8 fixed top-0 pt-5  pb-4 gap-5  md:py-0 flex flex-col md:top-8 z-20 w-full",
@@ -268,12 +272,13 @@ export default function Navbar({ variant, characterSheet }) {
               className="h-8 object-contain"
             />
           </Link>
-          <Menu
+          <button
             onClick={() => setShowMenu(true)}
-            className="w-10 "
-            fill="#9A9AC1"
+            className="w-10"
             aria-label="Menu"
-          />
+          >
+            <Menu fill="#9A9AC1" />
+          </button>
 
           <DrawerMenu
             handlePlay={handlePlay}
@@ -314,7 +319,6 @@ export default function Navbar({ variant, characterSheet }) {
             {(variant === "transparent" || !user?.token) && <SoundButton aria-label="Sound Button" />}
             {characterSheet || isCampaignSubpage ? (
               <CustomButton
-              
                 variant={"primary"}
                 disabled={isLoading}
                 withIcon={true}
@@ -343,6 +347,6 @@ export default function Navbar({ variant, characterSheet }) {
         </div>
       </div>
       <MobileHeader aria-label="Mobile Header" />
-    </div>
+    </nav>
   );
 }
