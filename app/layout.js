@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   return (
-    <html lang='en' suppressHydrationWarning className={""}>
+    <html lang='en' suppressHydrationWarning className={inter.className}>
       <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
         <head>
           {/* Google Analytics Script */}
@@ -112,18 +112,13 @@ export default function RootLayout({ children }) {
           <meta property='og:type' content='website' />
         </head>
         <body
-          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet `}
+          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet`}
         >
-          <img
-            src='/images/bg.png'
-            alt='Background'
-            className='h-screen w-screen object-fill fixed top-0 left-0 z-0'
-          />
           <Navbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}
           />
-          <div className='z-[1] '>{children}</div>
+          <main className='z-[1]'>{children}</main>
 
           {showFooter && <Footer />}
           <Suspense fallback={null}>

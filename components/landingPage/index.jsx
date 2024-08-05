@@ -12,6 +12,7 @@ import PlayForFreeMobile from "@/components/ui/Shared/PlayForFreeMobile";
 import ImagesVisual from "@/components/landingPage/imagesVisual";
 import Campaigns from "@/components/landingPage/campaignSection";
 import Image from "next/image";
+import Head from "next/head";
 
 const LocomotiveScroll = dynamic(
   () => import("@/components/landingPage/LocomotiveScroll"),
@@ -26,13 +27,22 @@ export default function Home() {
   const locoScrollRef = useRef(null);
 
   const { isMobile } = useDeviceDetect();
+
   return (
     <>
-      <LocomotiveScroll scrollRef={scrollRef} locoScrollRef={locoScrollRef} />{" "}
+      <Head>
+        <title>Home - Your Game</title>
+        <meta name="description" content="Experience gameplay without creative boundaries, where your imagination is the only limit." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="UTF-8" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://yourwebsite.com" />
+      </Head>
+      <LocomotiveScroll scrollRef={scrollRef} locoScrollRef={locoScrollRef} />
       <div
         data-scroll-container
         ref={scrollRef}
-        className='w-full  h-full  overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0 !bg-russianViolet'
+        className='w-full h-full overflow-x-hidden bg-gradient-to-b px-0 py-0 m-0 !bg-russianViolet'
       >
         <div className='w-full h-screen relative'>
           <Image
@@ -48,10 +58,10 @@ export default function Home() {
             priority
           />
           <div className='absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4 w-full'>
-            <span className='headline-1 md:headline-2 text-white w-full'>
+            <h1 className='headline-1 md:headline-2 text-white w-full'>
               EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
               IMAGINATION IS THE ONLY LIMIT.
-            </span>
+            </h1>
             <div
               className={cn(
                 `flex w-full z-50 fixed bottom-[20px] left-0 px-[20px] justify-between items-center md:hidden`,
