@@ -58,7 +58,7 @@ export default function Home() {
             priority
           />
           <div className='absolute md:bottom-10 px-5 md:px-12 bottom-20 md:left-0 left-0 md:w-2/4 w-full'>
-            <h1 className='headline-1 md:headline-2 text-white w-full'>
+            <h1 className='text-white w-full text-3xl md:text-5xl lg:text-6xl leading-tight md:leading-snug'>
               EXPERIENCE GAMEPLAY WITHOUT CREATIVE BOUNDARIES, WHERE YOUR
               IMAGINATION IS THE ONLY LIMIT.
             </h1>
