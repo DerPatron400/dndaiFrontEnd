@@ -300,6 +300,7 @@ export default function Navbar({ variant, characterSheet }) {
                 "running-text-mono uppercase cursor-pointer",
                 user && "hidden"
               )}
+              aria-label={isSignUp ? "Sign In" : "Sign Up"}
             >
               {isSignUp ? (
                 <Link href={"/auth/sign-in"} aria-label="Sign In">Sign In</Link>
@@ -308,9 +309,9 @@ export default function Navbar({ variant, characterSheet }) {
               )}
             </span>
             {isGamePage && <CreditsDisplay />}
-            {user?.token && <CreateMenu />}
-            <AccountDropdown />
-            {(variant === "transparent" || !user?.token) && <SoundButton />}
+            {user?.token && <CreateMenu aria-label="Create Menu" />}
+            <AccountDropdown aria-label="Account Dropdown" />
+            {(variant === "transparent" || !user?.token) && <SoundButton aria-label="Sound Button" />}
             {characterSheet || isCampaignSubpage ? (
               <CustomButton
                 variant={"primary"}
@@ -340,7 +341,7 @@ export default function Navbar({ variant, characterSheet }) {
           </div>
         </div>
       </div>
-      <MobileHeader />
+      <MobileHeader aria-label="Mobile Header" />
     </div>
   );
 }
