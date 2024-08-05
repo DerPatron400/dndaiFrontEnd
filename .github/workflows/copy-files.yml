@@ -3,15 +3,15 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2 # Check out the repository code
+        uses: actions/checkout@v2
 
       - name: Set up SSH key
         run: |
@@ -26,7 +26,6 @@ jobs:
       - name: Copy files to EC2
         run: |
           ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
-            # Clean up old files if directories exist
             if [ -d ~/dndaiFrontEnd-Backup ]; then
               rm -rf ~/dndaiFrontEnd-Backup/*
             fi
@@ -54,6 +53,17 @@ jobs:
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
 
+      - name: Clean up disk space
+        run: |
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
+            sudo yum clean all
+            sudo rm -rf /var/cache/yum
+            sudo find /var/log -type f -name '*.log' -delete
+            docker system prune -af || true
+          EOF
+        env:
+          EC2_HOSTNAME: ${{ secrets.HOST }}
+
       - name: Install Node.js dependencies
         run: |
           ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "export NODE_OPTIONS='--max-old-space-size=1536' && cd ~/dndaiFrontEnd && npm install"
@@ -68,7 +78,18 @@ jobs:
 
       - name: Restart the server
         run: |
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "pm2 delete frontend || true"  # Stop the existing process if it exists
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "pm2 delete frontend || true"
           ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && pm2 start npm --name frontend -- start"
+        env:
+          EC2_HOSTNAME: ${{ secrets.HOST }}
+
+      - name: Clean up disk space
+        run: |
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
+          sudo yum clean all
+          sudo rm -rf /var/cache/yum
+          sudo find /var/log -type f -name '*.log' -delete
+          docker system prune -af || true
+          EOF
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
