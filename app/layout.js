@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, Suspense, memo } from "react";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navigation/Navbar";
 import GameplayNavbar from "@/components/navigation/GameplayNavbar";
@@ -14,6 +14,9 @@ import CreditsDialogue from "@/components/ui/Shared/Dialogue/GetCredits";
 import { capitalizeFirstLetterOfEachWord } from "@/lib/Helpers/shared";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const MemoizedNavbar = memo(Navbar);
+const MemoizedFooter = memo(Footer);
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -76,6 +79,7 @@ export default function RootLayout({ children }) {
           <Script
             strategy='afterInteractive'
             src={`https://www.googletagmanager.com/gtag/js?id=G-BTHMYX7TZ9`}
+            async
           />
           <Script
             id='google-analytics'
@@ -90,6 +94,7 @@ export default function RootLayout({ children }) {
                 });
               `,
             }}
+            async
           />
           {/* Dynamic Meta Tags */}
           <meta
@@ -114,13 +119,13 @@ export default function RootLayout({ children }) {
         <body
           className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet`}
         >
-          <Navbar
+          <MemoizedNavbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}
           />
           <main className='z-[1]'>{children}</main>
 
-          {showFooter && <Footer />}
+          {showFooter && <MemoizedFooter />}
           <Suspense fallback={null}>
             <CreditsDialogue />
           </Suspense>

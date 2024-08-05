@@ -89,6 +89,7 @@ export default function Home() {
             image={
               "https://dndai-images.s3.eu-central-1.amazonaws.com/tutorial/tutorial-1.webp"
             }
+            loading="lazy"
           />
           <Step
             number={2}
@@ -99,6 +100,7 @@ export default function Home() {
             image={
               "https://dndai-images.s3.eu-central-1.amazonaws.com/tutorial/tutorial-2.webp"
             }
+            loading="lazy"
           />
           <Step
             number={3}
@@ -109,6 +111,7 @@ export default function Home() {
             image={
               "https://dndai-images.s3.eu-central-1.amazonaws.com/tutorial/tutorial-3.webp"
             }
+            loading="lazy"
           />
         </div>
 
