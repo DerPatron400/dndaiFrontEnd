@@ -25,9 +25,16 @@ jobs:
 
       - name: Copy files to EC2
         run: |
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd-Backup/* || true"
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cp -r ~/dndaiFrontEnd/* ~/dndaiFrontEnd-Backup || true"
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd/* || true"
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
+            # Clean up old files if directories exist
+            if [ -d ~/dndaiFrontEnd-Backup ]; then
+              rm -rf ~/dndaiFrontEnd-Backup/*
+            fi
+            if [ -d ~/dndaiFrontEnd ]; then
+              cp -r ~/dndaiFrontEnd/* ~/dndaiFrontEnd-Backup
+              rm -rf ~/dndaiFrontEnd/*
+            fi
+          EOF
           scp -i ssh_key.pem -r ${GITHUB_WORKSPACE}/* ec2-user@$EC2_HOSTNAME:~/dndaiFrontEnd/
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
@@ -42,6 +49,7 @@ jobs:
               sudo swapon /swapfile
               echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
             fi
+            df -h
           EOF
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
