@@ -90,13 +90,21 @@ export default function cards({ plan, selectedPlan, stripe }) {
       <div className='p-4  px-5 border-y border-white/10'>
         <ul className='text-white flex flex-col gap-3'>
           <li className='flex gap-2 justify-start items-center'>
-            <img src='/gems/Legendary.webp' alt='' className='w-4 h-4' />
+            <img
+              src='/gems/Legendary.webp'
+              alt=''
+              className='h-[18px] object-contain'
+            />
             <span className='text-white running-text-mono'>
               {yellowCredits}
             </span>
           </li>
           <li className='flex gap-2 justify-start items-center'>
-            <img src='/gems/Mythic.webp' alt='' className='w-4 h-4' />
+            <img
+              src='/gems/Mythic.webp'
+              alt=''
+              className='h-[18px] object-contain'
+            />
             <span className='text-white running-text-mono'> {blueCredits}</span>
           </li>
         </ul>

@@ -3,15 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import IconButton from "@/components/ui/custom-iconbutton";
 import { cn } from "@/lib/utils";
 import CustomButton from "./custom-button";
-
-const isSafariMobile = () => {
-  const ua = navigator.userAgent;
-  return (
-    /Safari/.test(ua) &&
-    /Apple Computer/.test(navigator.vendor) &&
-    (/iPhone/.test(ua) || /iPad/.test(ua) || /iPod/.test(ua))
-  );
-};
+import { isSafariMobile } from "@/lib/Helpers/shared";
 
 export default function CustomInputIcon({
   placeholder,

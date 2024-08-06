@@ -25,7 +25,6 @@ export default function Step2({ setStep, user, setUser, reset }) {
 
   useEffect(() => {
     const checkUsername = async () => {
-      console.log("request");
       try {
         const exists = await verifyUserNameExists(debounceUsername);
         console.log(exists);
@@ -63,7 +62,6 @@ export default function Step2({ setStep, user, setUser, reset }) {
         password: user.password,
       });
 
-    
       router.push("/auth/sign-up/email-confirmation");
       reset();
     } catch (error) {

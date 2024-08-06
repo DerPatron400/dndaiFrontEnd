@@ -4,9 +4,8 @@ import Pause from "@/components/ui/Icons/Pause";
 import Play from "@/components/ui/Icons/Play";
 import { cn } from "@/lib/utils";
 import Loader from "@/components/ui/Loader";
-import CustomIconbutton from "@/components/ui/custom-iconbutton";
 import CustomButton from "@/components/ui/custom-button";
-
+import { isSafariMobile } from "@/lib/Helpers/shared";
 export default function NarrationControls({
   audio,
   narrate,
@@ -61,7 +60,7 @@ export default function NarrationControls({
   const reset = () => {
     // Reset progress
     setProgress(0);
-    setIsPlaying(true);
+    setIsPlaying(!isSafariMobile());
   };
 
   useEffect(() => {
@@ -139,7 +138,7 @@ export default function NarrationControls({
       {loading && (
         <Loader
           className={
-            "absolute h-[212px] w-[245px] border-white/10 bg-transparent rounded-[16px] items-center justify-center border right-0 bottom-full hidden lg:flex  -translate-y-3 "
+            "absolute h-[212px] w-[245px] border-white/10 bg-blur bg-transparent rounded-[16px] items-center justify-center border right-0 bottom-full hidden lg:flex  -translate-y-3 "
           }
           text='Loading narrative ...'
         />

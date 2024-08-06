@@ -81,6 +81,8 @@ export default function BottomMenu({ character, setCharacter }) {
     raceQuery,
     setRaceQuery,
     backgroundQuery,
+    characterNameError,
+    setCharacterNameError,
     setBackgroundQuery,
   } = useCharacterStore();
   const { invokeToast } = useCustomToast();
@@ -108,7 +110,10 @@ export default function BottomMenu({ character, setCharacter }) {
   };
 
   const handleSubmit = async () => {
-    console.log(user);
+    if (!character.name) {
+      setCharacterNameError(true);
+      return;
+    }
     if (user && user?.blueCredits < 1) {
       setShowCreditsDialogue(true);
       return;
@@ -166,6 +171,7 @@ export default function BottomMenu({ character, setCharacter }) {
       ...prev,
       name,
     }));
+    setCharacterNameError(false);
   };
 
   useEffect(() => {
@@ -193,25 +199,36 @@ export default function BottomMenu({ character, setCharacter }) {
           <img src='/Icons/Random.svg' alt='logo' className='h-5 w-5 ' />
           RANDOM CHARACTER Name
         </CustomButton>
-        <CustomInput
-          value={character.name}
-          disabled={isChoosingRandom}
-          icon={
-            character.name && (
-              <img
-                src='/Icons/Success.svg'
-                alt='Success'
-                className=' h-5 w-5'
-              />
-            )
-          }
-          onChange={(value) => {
-            if (value.length <= 32)
-              setCharacter((prev) => ({ ...prev, name: value }));
-          }}
-          placeholder='CHARACTER NAME'
-          className={"w-1/4"}
-        />
+        <div className='flex w-1/4 relative flex-col gap-1'>
+          <CustomInput
+            value={character.name}
+            disabled={isChoosingRandom}
+            icon={
+              character.name && (
+                <img
+                  src='/Icons/Success.svg'
+                  alt='Success'
+                  className=' h-5 w-5'
+                />
+              )
+            }
+            error={characterNameError}
+            onChange={(value) => {
+              if (value) setCharacterNameError(false);
+              else setCharacterNameError(true);
+              if (value.length <= 32)
+                setCharacter((prev) => ({ ...prev, name: value }));
+            }}
+            placeholder='CHARACTER NAME'
+            className={"w-full"}
+          />
+          {characterNameError && (
+            <span className='text-errorRed uppercase font-roboto-mono -bottom-6 left-1 text-[10px] absolute'>
+              Please enter a character name
+            </span>
+          )}
+        </div>
+
         <div className='flex items-center gap-x-6'>
           <BackButton
             activeStep={activeStep}

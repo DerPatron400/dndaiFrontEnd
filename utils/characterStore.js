@@ -3,20 +3,23 @@ import { create } from "zustand";
 
 const useStepperStore = create((set) => ({
   activeStep: 0,
-  setActiveStep: (activeStep) => set({ activeStep }),
-  backgroundQuery: "",
-  setBackgroundQuery: (backgroundQuery) => set({ backgroundQuery }),
-  raceQuery: "",
-  setRaceQuery: (raceQuery) => set({ raceQuery }),
   selectedCharacteristic: {
     name: null,
     image: null,
     description: null,
   },
+  backgroundQuery: "",
+  characterNameError: false,
+  showModal: false,
+  raceQuery: "",
+
+  setBackgroundQuery: (backgroundQuery) => set({ backgroundQuery }),
+  setRaceQuery: (raceQuery) => set({ raceQuery }),
+  setActiveStep: (activeStep) => set({ activeStep }),
   setSelectedCharacteristic: (selectedCharacteristic) =>
     set({ selectedCharacteristic }),
-  showModal: false,
   setShowModal: (showModal) => set({ showModal }),
+  setCharacterNameError: (characterNameError) => set({ characterNameError }),
 }));
 
 export default useStepperStore;

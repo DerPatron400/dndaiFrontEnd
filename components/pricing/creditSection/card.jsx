@@ -75,7 +75,7 @@ export default function card({ _package, stripe }) {
                   : "/gems/Mythic.webp"
               }
               alt=''
-              className='w-4 h-4'
+              className='h-[18px] object-contain'
             />
             <span className='text-white running-text-mono'>
               {_package.credits}

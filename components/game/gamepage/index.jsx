@@ -124,7 +124,7 @@ export default function index({
               setImageViewDialog={setImageViewDialog}
               narrate={narrate}
             />
-            <div className='z-[20] flex flex-col-reverse lg:flex-col gap-4 lg:gap-5 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 lg:pt-2 pb-5 pt-4 lg:relative lg:w-full '>
+            <div className='z-[20] flex flex-col-reverse lg:flex-col gap-4 lg:gap-5 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-5 lg:px-6 lg:p-0 lg:pt-2 pb-5 pt-4 lg:relative lg:w-full '>
               <CustomInputIcon
                 blurOnOutsideClick={true}
                 value={input}

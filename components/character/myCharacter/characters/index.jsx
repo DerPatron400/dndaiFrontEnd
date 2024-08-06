@@ -15,7 +15,7 @@ export default function characters({ characters = [], className }) {
   return (
     <div
       className={cn(
-        "h-full min-h-screen w-screen px-5 md:px-[48px] pt-[120px] md:pt-[128px] pb-28 md:pb-5 ",
+        "h-full min-h-screen w-screen px-5 md:px-[48px] pt-[120px] md:pt-[128px] pb-28 md:pb-12 ",
         className
       )}
     >
