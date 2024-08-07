@@ -12,12 +12,14 @@ import "./globals.css";
 import useGameStore from "@/utils/gameStore";
 import CreditsDialogue from "@/components/ui/Shared/Dialogue/GetCredits";
 import { capitalizeFirstLetterOfEachWord } from "@/lib/Helpers/shared";
+import useStepperStore from "@/utils/characterStore";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const { reset, currentCharacter, currentCampaign, game } = useGameStore();
+
+  const { activeStep } = useStepperStore();
   const isTransparentNavbar =
     pathname.includes("/auth") || pathname.includes("/game/play");
   const showFooter =
@@ -27,6 +29,10 @@ export default function RootLayout({ children }) {
     !pathname.includes("/discover") &&
     !pathname.includes("game") &&
     !pathname.includes("payment");
+
+  const showDice =
+    pathname.includes("/game/play") ||
+    (pathname.includes("/character/create") && activeStep === 7);
 
   const characterSheet = pathname.includes("/character/sheet");
 
@@ -114,6 +120,7 @@ export default function RootLayout({ children }) {
         <body
           className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet `}
         >
+          {showDice && <div id='dice-box'></div>}
           <img
             src='/images/bg.png'
             alt='Background'

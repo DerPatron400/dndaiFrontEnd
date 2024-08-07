@@ -8,6 +8,7 @@ const useStepperStore = create((set) => ({
     image: null,
     description: null,
   },
+  selectedFace: null,
   backgroundQuery: "",
   characterNameError: false,
   showModal: false,
@@ -20,6 +21,7 @@ const useStepperStore = create((set) => ({
     set({ selectedCharacteristic }),
   setShowModal: (showModal) => set({ showModal }),
   setCharacterNameError: (characterNameError) => set({ characterNameError }),
+  setSelectedFace: (selectedFace) => set({ selectedFace }),
 }));
 
 export default useStepperStore;

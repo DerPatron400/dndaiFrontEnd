@@ -15,5 +15,6 @@
     "diffuseLevel": 1,
     "bumpLevel": 0.5
   },
-  "d4FaceDown": false
+  "d4FaceDown": false,
+  "diceAvailable": ["d4", "d6", "d8", "d10", "d12", "d20", "d100"]
 }
