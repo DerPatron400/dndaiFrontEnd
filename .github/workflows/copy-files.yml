@@ -49,36 +49,6 @@ jobs:
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
 
-      - name: Clean up disk space
-        run: |
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
-            # Clean up yum cache
-            sudo yum clean all
-            sudo rm -rf /var/cache/yum
-
-            # Remove old kernels
-            sudo package-cleanup --oldkernels --count=1 -y
-
-            # Remove orphaned packages
-            sudo package-cleanup --leaves -y
-            sudo package-cleanup --orphans -y
-
-            # Remove old log files
-            sudo find /var/log -type f -name '*.log' -delete
-
-            # Remove temporary files
-            sudo rm -rf /tmp/*
-            sudo rm -rf /var/tmp/*
-
-            # Remove unused packages
-            sudo yum autoremove -y
-
-            # Check disk usage
-            df -h
-          EOF
-        env:
-          EC2_HOSTNAME: ${{ secrets.HOST }}
-
       - name: Install Node.js dependencies
         run: |
           ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "export NODE_OPTIONS='--max-old-space-size=1536' && cd ~/dndaiFrontEnd && npm install"
