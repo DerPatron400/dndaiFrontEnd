@@ -14,7 +14,7 @@ export default function Index({ character, setCharacter }) {
   useEffect(() => {
     const _diceBox = new DiceBox("#dice-box", {
       assetPath: "/assets/dice-box", // required
-      theme: "default",
+      theme: "default", //optional
       enableShadows: true, // optional
       themeColor: "#242e9e", // optional
       scale: 8,

@@ -7,12 +7,12 @@ import BottomMenu from "./bottomMenu";
 import useGameStore from "@/utils/gameStore";
 import useUserStore from "@/utils/userStore";
 import { addChoice } from "@/actions/game";
-
 import Loader from "@/components/ui/Loader";
 import useCustomToast from "@/hooks/useCustomToast";
 import useControlsStore from "@/utils/controlsStore";
 import { getCredits } from "@/actions/character";
-export default function index({
+
+export default function Index({
   response,
   gameCharacter,
   setGameCharacter,
@@ -48,7 +48,7 @@ export default function index({
       //choose random number between 1-20
       const roll = Math.floor(Math.random() * 20) + 1;
       const payload = {
-        userInput: text + ", Roll: " + roll,
+        userInput: `${text}, Roll: ${roll}`,
         characterId: game.characterId,
         campaignId: game.campaignId,
         gameId: game._id,
@@ -87,35 +87,35 @@ export default function index({
       {(saveCharacterLoading || isImageLoading) && (
         <Loader
           text={isImageLoading ? "Generating Image..." : "Saving Character..."}
-          className='absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center'
+          className="absolute top-0 z-[40] left-0 max-h-screen h-screen w-screen bg-blur-bottom-menu flex items-center justify-center"
         />
       )}
 
       <div
         className={
-          "absolute pointer-events-none  top-0 left-0 ease-animate  z-[9]   flex items-center justify-start   w-screen "
+          "absolute pointer-events-none top-0 left-0 ease-animate z-[9] flex items-center justify-start w-screen"
         }
       >
         <img
-          src='/images/Game/gradient.png'
-          alt='gradient'
-          className='w-full h-52 lg:h-full lg:object-contain'
+          src="/images/Game/gradient.png"
+          alt="gradient"
+          className="w-full h-52 lg:h-full lg:object-contain"
         />
       </div>
       <div
         suppressHydrationWarning
-        className='     w-full flex gap-10  px-6 lg:px-12  pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white '
+        className="w-full flex gap-10 px-6 lg:px-12 pb-32 lg:pb-12 h-screen fixed z-[8] overflow-y-scroll hide-scrollbar text-white"
       >
-        <div className='w-1/4  b h-full hidden lg:flex flex-col gap-3  z-30 pt-[40px] lg:pt-[128px]'>
-          <span className='running-text-mono text-gray2'>CAMPAIGN</span>
-          <span className='headline-4 mb-3'>{gameCampaign?.title}</span>
+        <div className="w-1/4 b h-full hidden lg:flex flex-col gap-3 z-30 pt-[40px] lg:pt-[128px]">
+          <span className="running-text-mono text-gray2">CAMPAIGN</span>
+          <span className="headline-4 mb-3">{gameCampaign?.title}</span>
           <Card hideMenu={true} isGamePage={true} character={gameCharacter} />
         </div>
-        <div className='w-full lg:w-3/4  z-10  h-full '>
-          <div className=' flex relative   flex-col  h-full gap-3 w-full pt-[40px] '>
+        <div className="w-full lg:w-3/4 z-10 h-full">
+          <div className="flex relative flex-col h-full gap-3 w-full pt-[40px]">
             {showMobileMenu && (
-              <div className='fixed z-[10] top-0 left-0 w-screen h-screen bg-russianViolet/20 '></div>
-            )}{" "}
+              <div className="fixed z-[10] top-0 left-0 w-screen h-screen bg-russianViolet/20"></div>
+            )}
             <Chatbox
               textSize={textSize}
               loading={loading}
@@ -124,7 +124,7 @@ export default function index({
               setImageViewDialog={setImageViewDialog}
               narrate={narrate}
             />
-            <div className='z-[20] flex flex-col-reverse lg:flex-col gap-4 lg:gap-5 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-5 lg:px-6 lg:p-0 lg:pt-2 pb-5 pt-4 lg:relative lg:w-full '>
+            <div className="z-[20] flex flex-col-reverse lg:flex-col gap-4 lg:gap-5 fixed bottom-0 left-0 w-screen bg-blur-bottom-menu lg:bg-transparent lg:backdrop-filter-none px-6 lg:p-0 lg:pt-2 pb-5 pt-4 lg:relative lg:w-full">
               <CustomInputIcon
                 blurOnOutsideClick={true}
                 value={input}
@@ -148,16 +148,16 @@ export default function index({
                   setInput("");
                   handleChat(input);
                 }}
-                className={"w-full lg:w-[65%] h-[64px] lg:h-[80px] "}
+                className={"w-full lg:w-[65%] h-[64px] lg:h-[80px]"}
                 textAreaClassName={
-                  " h-[64px] lg:h-[80px] pt-[22px] lg:py-[28px]"
+                  "h-[64px] lg:h-[80px] pt-[22px] lg:py-[28px]"
                 }
-                placeholder='What Would You Do?'
+                placeholder="What Would You Do?"
                 icon={
                   <img
-                    src='/Icons/ArrowUp.svg'
-                    alt='chat'
-                    className='h-5 w-5'
+                    src="/Icons/ArrowUp.svg"
+                    alt="chat"
+                    className="h-5 w-5"
                   />
                 }
               />

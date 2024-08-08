@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, Suspense, memo } from "react";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navigation/Navbar";
 import GameplayNavbar from "@/components/navigation/GameplayNavbar";
@@ -15,6 +15,9 @@ import { capitalizeFirstLetterOfEachWord } from "@/lib/Helpers/shared";
 import useStepperStore from "@/utils/characterStore";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const MemoizedNavbar = memo(Navbar);
+const MemoizedFooter = memo(Footer);
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -70,22 +73,23 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   return (
-    <html lang='en' suppressHydrationWarning className={""}>
-      <GoogleOAuthProvider clientId='1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com'>
+    <html lang="en" suppressHydrationWarning className={inter.className}>
+      <GoogleOAuthProvider clientId="1036030324483-ltg0nqpg0ectr5q3n7cfa66l7eq1ban8.apps.googleusercontent.com">
         <head>
           {/* Google Analytics Script */}
           <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1, maximum-scale=1'
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
           />
-          <link rel='icon' href='/favicon.ico' />
+          <link rel="icon" href="/favicon.ico" />
           <Script
-            strategy='afterInteractive'
+            strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=G-BTHMYX7TZ9`}
+            async
           />
           <Script
-            id='google-analytics'
-            strategy='afterInteractive'
+            id="google-analytics"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];
@@ -96,47 +100,42 @@ export default function RootLayout({ children }) {
                 });
               `,
             }}
+            async
           />
           {/* Dynamic Meta Tags */}
           <meta
-            name='description'
-            content='Join DnDAI to play AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free.'
+            name="description"
+            content="Join DnDAI to play AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free."
           />
           <meta
-            name='keywords'
-            content='AI adventure games, text-based games, interactive fiction, role-playing games, free online adventure games'
+            name="keywords"
+            content="AI adventure games, text-based games, interactive fiction, role-playing games, free online adventure games"
           />
           <meta
-            property='og:title'
-            content='Play AI-Guided Pen and Paper Games | DnDAI'
+            property="og:title"
+            content="Play AI-Guided Pen and Paper Games | DnDAI"
           />
           <meta
-            property='og:description'
-            content='Join DnDAI to play AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free.'
+            property="og:description"
+            content="Join DnDAI to play AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free."
           />
-          <meta property='og:url' content='https://www.dndai.app' />
-          <meta property='og:type' content='website' />
+          <meta property="og:url" content="https://www.dndai.app" />
+          <meta property="og:type" content="website" />
         </head>
         <body
-          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet `}
+          className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet`}
         >
-          {showDice && <div id='dice-box'></div>}
-          <img
-            src='/images/bg.png'
-            alt='Background'
-            className='h-screen w-screen object-fill fixed top-0 left-0 z-0'
-          />
-          <Navbar
+          <MemoizedNavbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}
           />
-          <div className='z-[1] '>{children}</div>
+          <main className="z-[1]">{children}</main>
 
-          {showFooter && <Footer />}
+          {showFooter && <MemoizedFooter />}
           <Suspense fallback={null}>
             <CreditsDialogue />
           </Suspense>
-          <div className='!z-[50]'>
+          <div className="!z-[50]">
             <Toaster />
           </div>
         </body>

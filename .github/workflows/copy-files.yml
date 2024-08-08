@@ -1,17 +1,17 @@
-name: Copy Files to EC2
+name: Deploy to EC2
 
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2 # Check out the repository code
+        uses: actions/checkout@v2
 
       - name: Set up SSH key
         run: |
@@ -23,18 +23,65 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           EC2_HOSTNAME: ${{ secrets.HOST }}
 
-      - name: Copy files via SSH
+      - name: Copy files to EC2
         run: |
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd-Backup/* || true"
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cp -r ~/dndaiFrontEnd/* ~/dndaiFrontEnd-Backup || true"
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "rm -r ~/dndaiFrontEnd/* || true"
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
+            if [ -d ~/dndaiFrontEnd ]; then
+              rm -rf ~/dndaiFrontEnd/*
+            fi
+          EOF
           scp -i ssh_key.pem -r ${GITHUB_WORKSPACE}/* ec2-user@$EC2_HOSTNAME:~/dndaiFrontEnd/
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
 
-      - name: Npm install
+      - name: Set up swap space on EC2
         run: |
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && npm install"
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
+            if ! grep -q '/swapfile' /etc/fstab; then
+              sudo fallocate -l 1G /swapfile
+              sudo chmod 600 /swapfile
+              sudo mkswap /swapfile
+              sudo swapon /swapfile
+              echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+            fi
+            df -h
+          EOF
+        env:
+          EC2_HOSTNAME: ${{ secrets.HOST }}
+
+      - name: Clean up disk space
+        run: |
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME << 'EOF'
+            # Clean up yum cache
+            sudo yum clean all
+            sudo rm -rf /var/cache/yum
+
+            # Remove old kernels
+            sudo package-cleanup --oldkernels --count=1 -y
+
+            # Remove orphaned packages
+            sudo package-cleanup --leaves -y
+            sudo package-cleanup --orphans -y
+
+            # Remove old log files
+            sudo find /var/log -type f -name '*.log' -delete
+
+            # Remove temporary files
+            sudo rm -rf /tmp/*
+            sudo rm -rf /var/tmp/*
+
+            # Remove unused packages
+            sudo yum autoremove -y
+
+            # Check disk usage
+            df -h
+          EOF
+        env:
+          EC2_HOSTNAME: ${{ secrets.HOST }}
+
+      - name: Install Node.js dependencies
+        run: |
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "export NODE_OPTIONS='--max-old-space-size=1536' && cd ~/dndaiFrontEnd && npm install"
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
 
@@ -44,9 +91,9 @@ jobs:
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}
 
-      - name: Restarting server
+      - name: Restart the server
         run: |
-          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "pm2 delete frontend || true"  # Stop the existing process if it exists
+          ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "pm2 delete frontend || true"
           ssh -i ssh_key.pem ec2-user@$EC2_HOSTNAME "cd ~/dndaiFrontEnd && pm2 start npm --name frontend -- start"
         env:
           EC2_HOSTNAME: ${{ secrets.HOST }}

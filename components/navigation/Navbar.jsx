@@ -26,27 +26,26 @@ import Discover from "@/components/ui/Icons/Discover";
 
 const NavLinks = () => {
   return (
-    <>
-      {/* <Link
-                  href='#'
-                  className='text-white hover:text-gray1 transition-all duration-300 ease-in-out '
-                >
-                  HOW TO PLAY
-                </Link> */}
-
-      <Link
-        href="/discover/gallery"
-        className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
-      >
-        GALLERY
-      </Link>
-      <Link
-        href="/pricing"
-        className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
-      >
-        PRICING
-      </Link>
-    </>
+    <ul className="flex gap-4">
+      <li>
+        <Link
+          href="/discover/gallery"
+          className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
+          aria-label="Gallery"
+        >
+          GALLERY
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/pricing"
+          className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
+          aria-label="Pricing"
+        >
+          PRICING
+        </Link>
+      </li>
+    </ul>
   );
 };
 
@@ -59,12 +58,14 @@ const DiscoverButton = () => {
       }}
       variant={"subtle"}
       withIcon={true}
+      aria-label="Discover"
     >
       <Discover className="h-5 w-5 fill-white opacity-70 " />
       Discover
     </CustomButton>
   );
 };
+
 const UpgradeButton = () => {
   const router = useRouter();
   return (
@@ -77,6 +78,7 @@ const UpgradeButton = () => {
         " text-irisPurpleLight hover:!text-irisPurpleLight/80 active:!text-irisPurpleLight/90"
       }
       withIcon={true}
+      aria-label="Upgrade"
     >
       <Diamond className="h-5 w-5 fill-irisPurpleLight hover:!fill-irisPurpleLight/80 active:!fill-irisPurpleLight/90" />
       Upgrade
@@ -90,18 +92,18 @@ const CreditsDisplay = () => {
   return (
     <>
       {" "}
-      <CustomIcontext className={"pointer-events-none"}>
+      <CustomIcontext className={"pointer-events-none"} aria-label="Blue Credits">
         <img
           src="/gems/Mythic.webp"
-          alt=""
+          alt="Blue Credits"
           className="h-[18px] object-contain "
         />
         {user?.blueCredits}
       </CustomIcontext>
-      <CustomIcontext className={"pointer-events-none"}>
+      <CustomIcontext className={"pointer-events-none"} aria-label="Yellow Credits">
         <img
           src="/gems/Legendary.webp"
-          alt=""
+          alt="Yellow Credits"
           className="h-[18px] object-contain "
         />
         {user?.yellowCredits}
@@ -233,7 +235,7 @@ export default function Navbar({ variant, characterSheet }) {
   };
 
   return (
-    <div
+    <nav
       suppressHydrationWarning
       className={cn(
         "px-5 md:px-8 fixed top-0 pt-5  pb-4 gap-5  md:py-0 flex flex-col md:top-8 z-20 w-full",
@@ -262,6 +264,7 @@ export default function Navbar({ variant, characterSheet }) {
           <Link
             href="/"
             className="text-white hover:text-gray1 transition-all duration-300 ease-in-out"
+            aria-label="Home"
           >
             <img
               src="/Icons/Logo.svg"
@@ -269,11 +272,13 @@ export default function Navbar({ variant, characterSheet }) {
               className="h-8 object-contain"
             />
           </Link>
-          <Menu
+          <button
             onClick={() => setShowMenu(true)}
-            className="w-10 "
-            fill="#9A9AC1"
-          />
+            className="w-10"
+            aria-label="Menu"
+          >
+            <Menu fill="#9A9AC1" />
+          </button>
 
           <DrawerMenu
             handlePlay={handlePlay}
@@ -286,6 +291,7 @@ export default function Navbar({ variant, characterSheet }) {
             <Link
               href="/"
               className="text-white me-2 hover:text-gray1 transition-all duration-300 ease-in-out"
+              aria-label="Home"
             >
               <img src="/Icons/Logo.svg" alt="logo" className="h-10" />
             </Link>
@@ -299,17 +305,18 @@ export default function Navbar({ variant, characterSheet }) {
                 "running-text-mono uppercase cursor-pointer",
                 user && "hidden"
               )}
+              aria-label={isSignUp ? "Sign In" : "Sign Up"}
             >
               {isSignUp ? (
-                <Link href={"/auth/sign-in"}>Sign In</Link>
+                <Link href={"/auth/sign-in"} aria-label="Sign In">Sign In</Link>
               ) : (
-                <Link href={"/auth/sign-up"}>Sign Up</Link>
+                <Link href={"/auth/sign-up"} aria-label="Sign Up">Sign Up</Link>
               )}
             </span>
             {isGamePage && <CreditsDisplay />}
-            {user?.token && <CreateMenu />}
-            <AccountDropdown />
-            {(variant === "transparent" || !user?.token) && <SoundButton />}
+            {user?.token && <CreateMenu aria-label="Create Menu" />}
+            <AccountDropdown aria-label="Account Dropdown" />
+            {(variant === "transparent" || !user?.token) && <SoundButton aria-label="Sound Button" />}
             {characterSheet || isCampaignSubpage ? (
               <CustomButton
                 variant={"primary"}
@@ -320,6 +327,7 @@ export default function Navbar({ variant, characterSheet }) {
                     ? handlePlayWithCampaign
                     : handlePlayWithCharacter
                 }
+                aria-label={isCampaignSubpage ? "Play Campaign" : "Play Now"}
               >
                 <Play className="h-5 w-5 fill-russianViolet opacity-70" />
                 {isCampaignSubpage ? "Play Campaign" : "PLAY Now"}
@@ -330,6 +338,7 @@ export default function Navbar({ variant, characterSheet }) {
                 onClick={handlePlay}
                 variant={"primary"}
                 className={cn(isGamePage && "hidden")}
+                aria-label="Play for Free"
               >
                 PLAY FOR FREE
               </CustomButton>
@@ -337,7 +346,7 @@ export default function Navbar({ variant, characterSheet }) {
           </div>
         </div>
       </div>
-      <MobileHeader />
-    </div>
+      <MobileHeader aria-label="Mobile Header" />
+    </nav>
   );
 }
