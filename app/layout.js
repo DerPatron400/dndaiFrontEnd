@@ -41,15 +41,15 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     const setDocumentTitle = (url) => {
-      let title = "DnDAI - Play AI-Guided Pen and Paper Games"; // Default title
+      let title = "DnD AI - Play AI-Guided Pen and Paper Games and create breathtaking images in the process"; // Default title
 
       if (url.includes("character/sheet")) {
-        title = "Character Overview - DnDAI";
+        title = "DnD AI / Character Overview";
       } else if (url === "/") {
-        title = "Home - DnDAI";
+        title = "DnD AI / Home";
       } else {
         const pageTitle = url.split("/").pop().replaceAll("-", " ");
-        title = `${capitalizeFirstLetterOfEachWord(pageTitle)} - DnDAI`;
+        title = `${capitalizeFirstLetterOfEachWord(pageTitle)} - DnD AI`;
       }
 
       document.title = title;
@@ -105,19 +105,19 @@ export default function RootLayout({ children }) {
           {/* Dynamic Meta Tags */}
           <meta
             name="description"
-            content="Join DnDAI to play AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free."
+            content="Join DnDAI to play DnD with AI. AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free."
           />
           <meta
             name="keywords"
-            content="AI adventure games, text-based games, interactive fiction, role-playing games, free online adventure games"
+            content="AI adventure games, text-based games, interactive fiction, role-playing games, free online adventure games, AI Game, Free online game 2024, Story writing game, Dungeons and Dragons with AI game, Images created with AI for free"
           />
           <meta
             property="og:title"
-            content="Play AI-Guided Pen and Paper Games | DnDAI"
+            content="DnD AI - Play an AI driven Story game and create breathtaking images in the process"
           />
           <meta
             property="og:description"
-            content="Join DnDAI to play AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free."
+            content="Join DnDAI to play DnD with AI. AI-supported pen and paper games. Explore adventure games, text-based games, and interactive fiction online for free."
           />
           <meta property="og:url" content="https://www.dndai.app" />
           <meta property="og:type" content="website" />
@@ -126,11 +126,6 @@ export default function RootLayout({ children }) {
           className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet`}
         >
           {showDice && <div id="dice-box"></div>}
-          <img
-            src="/images/bg.png"
-            alt="Background"
-            className="h-screen w-screen object-fill fixed top-0 left-0 z-0"
-          />
           <MemoizedNavbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}
