@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
     };
 
     if (window.gtag) {
-      handleRouteChange(pathname); // Capture the initial page load
+      handleRouteChange(pathname); // Capture the initial page
     }
   }, [pathname]);
 
