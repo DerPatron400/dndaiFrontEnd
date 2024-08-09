@@ -33,9 +33,10 @@ export default function RootLayout({ children }) {
     !pathname.includes("game") &&
     !pathname.includes("payment");
 
-  const showDice =
-    pathname.includes("/game/play") ||
-    (pathname.includes("/character/create") && activeStep === 7);
+  const showDiceGold =
+    pathname.includes("/character/create") && activeStep === 7;
+
+  const showDiceGame = pathname.includes("/game/play");
 
   const characterSheet = pathname.includes("/character/sheet");
 
@@ -125,7 +126,8 @@ export default function RootLayout({ children }) {
         <body
           className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet`}
         >
-          {showDice && <div id='dice-box'></div>}
+          {showDiceGold && <div id='dice-box-gold' className='dice-box'></div>}
+          {showDiceGame && <div id='dice-box-game' className='dice-box'></div>}
           <img
             src='/images/bg.png'
             alt='Background'

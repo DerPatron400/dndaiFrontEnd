@@ -7,6 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Dice from "@/components/ui/Icons/Dice";
 const _ABILITIES = [
   {
     name: "Strength",
@@ -117,7 +118,7 @@ export default function Choose({
                 </Tooltip>
               </TooltipProvider>
 
-              <div className='flex items-center gap-4'>
+              <div className='flex items-center gap-[28px]'>
                 <div className='flex items-center gap-2'>
                   <CustomIconbutton
                     onClick={() =>
@@ -157,6 +158,7 @@ export default function Choose({
                     <img src='/Icons/Add.svg' alt='logo' className='h-2 w-2' />
                   </CustomIconbutton>
                 </div>
+                <Dice className='h-5 w-5 opacity-70 cursor-pointer' />
               </div>
             </div>
           );
