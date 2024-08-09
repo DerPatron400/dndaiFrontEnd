@@ -126,6 +126,11 @@ export default function RootLayout({ children }) {
           className={`w-screen hide-scrollbar relative max-w-screen overflow-x-hidden bg-russianViolet`}
         >
           {showDice && <div id="dice-box"></div>}
+          <img
+            src="/images/bg.png"
+            alt="Background"
+            className="h-screen w-screen object-fill fixed top-0 left-0 z-0"
+          />
           <MemoizedNavbar
             characterSheet={characterSheet}
             variant={isTransparentNavbar ? "transparent" : "glass"}
