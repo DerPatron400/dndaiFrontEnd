@@ -405,7 +405,7 @@ audio::-webkit-media-controls-enclosure {
   }
 }
 
-#dice-box {
+.dice-box {
   position: absolute;
   top: 0;
   left: 0;
@@ -418,7 +418,7 @@ audio::-webkit-media-controls-enclosure {
   pointer-events: none;
 }
 
-#dice-box canvas {
+.dice-box canvas {
   pointer-events: none;
   position: fixed;
   z-index: 100;
